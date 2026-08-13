@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-neondatabase-agent-skills",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from neondatabase/agent-skills.",
+  "author": {
+    "name": "neondatabase/agent-skills"
+  }
+}

@@ -1,0 +1,73 @@
+package api
+
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"net/url"
+)
+
+// GetAgentPools returns all agent pools, automatically following pagination.
+func (c *Client) GetAgentPools(requestedFields []string) (*PoolList, error) {
+	fields := requestedFields
+	if len(fields) == 0 {
+		fields = PoolFields.Default
+	}
+	fieldsParam := fmt.Sprintf("count,nextHref,agentPool(%s)", ToAPIFields(fields))
+	locator := NewLocator().AddInt("count", pageCount(0))
+	path := fmt.Sprintf("/app/rest/agentPools?locator=%s&fields=%s", locator.Encode(), url.QueryEscape(fieldsParam))
+
+	pools, _, err := collectPages(c, path, 0, func(p string) ([]Pool, string, error) {
+		var page PoolList
+		if err := c.get(c.ctx(), p, &page); err != nil {
+			return nil, "", err
+		}
+		return page.Pools, page.NextHref, nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return &PoolList{Count: len(pools), Pools: pools}, nil
+}
+
+// GetAgentPool returns details for a single pool
+func (c *Client) GetAgentPool(id int) (*Pool, error) {
+	fields := "id,name,maxAgents,projects(count,project(id,name)),agents(count,agent(id,name,connected,enabled,authorized))"
+	path := fmt.Sprintf("/app/rest/agentPools/id:%d?fields=%s", id, url.QueryEscape(fields))
+
+	var result Pool
+	if err := c.get(c.ctx(), path, &result); err != nil {
+		return nil, err
+	}
+
+	return &result, nil
+}
+
+// AddProjectToPool assigns a project to an agent pool
+func (c *Client) AddProjectToPool(poolID int, projectID string) error {
+	path := fmt.Sprintf("/app/rest/agentPools/id:%d/projects", poolID)
+	body, err := json.Marshal(Project{ID: projectID})
+	if err != nil {
+		return fmt.Errorf("failed to marshal request: %w", err)
+	}
+	return c.doNoContent(c.ctx(), "POST", path, bytes.NewReader(body), "")
+}
+
+// RemoveProjectFromPool removes a project from an agent pool
+func (c *Client) RemoveProjectFromPool(poolID int, projectID string) error {
+	path := fmt.Sprintf("/app/rest/agentPools/id:%d/projects/id:%s", poolID, projectID)
+	return c.doNoContent(c.ctx(), "DELETE", path, nil, "")
+}
+
+// SetAgentPool moves an agent to a different pool; the payload is not Pool, whose id is omitempty, because pool 0 is the Default pool and must stay on the wire.
+func (c *Client) SetAgentPool(agentID int, poolID int) error {
+	path := fmt.Sprintf("/app/rest/agents/id:%d/pool", agentID)
+	body, err := json.Marshal(struct {
+		ID int `json:"id"`
+	}{ID: poolID})
+	if err != nil {
+		return fmt.Errorf("failed to marshal request: %w", err)
+	}
+	return c.doNoContent(c.ctx(), "PUT", path, bytes.NewReader(body), "")
+}

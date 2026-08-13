@@ -1,0 +1,40 @@
+{
+  "endor-labs-agent-kit": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "bash ./hooks/check-manifest-edit.sh PostToolUse",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "write_to_file|replace_file_content|multi_replace_file_content"
+      }
+    ],
+    "PreInvocation": [
+      {
+        "command": "bash ./hooks/suggest-endor-tools.sh PreInvocation",
+        "timeout": 10,
+        "type": "command"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "bash ./hooks/enforce-agent-api.sh PreToolUse",
+            "timeout": 10,
+            "type": "command"
+          },
+          {
+            "command": "bash ./hooks/check-dep-install.sh PreToolUse",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "run_command"
+      }
+    ]
+  }
+}

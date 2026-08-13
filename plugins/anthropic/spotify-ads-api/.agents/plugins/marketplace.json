@@ -1,0 +1,20 @@
+{
+  "name": "spotify-ads-api",
+  "interface": {
+    "displayName": "Spotify Ads API"
+  },
+  "plugins": [
+    {
+      "name": "spotify-ads-api",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/spotify/ads-agentic-tools.git"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

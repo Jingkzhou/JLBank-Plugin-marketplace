@@ -1,0 +1,14 @@
+temp-docs
+/tests/
+.DS_Store
+__pycache__/
+test-skills.py
+test-assistant-state.py
+test-setup.py
+test.sh
+*-test-results.md
+instructions-for-workflow.md
+# Local secrets — never commit
+.env
+.env.*
+!.env.example

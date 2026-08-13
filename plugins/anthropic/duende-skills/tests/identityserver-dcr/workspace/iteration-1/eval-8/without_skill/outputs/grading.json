@@ -1,0 +1,34 @@
+{
+  "eval_id": 8,
+  "variant": "without_skill",
+  "assertions": [
+    {
+      "assertion": "Warns against exposing the DCR endpoint without authentication or authorization",
+      "pass": true,
+      "rationale": "Point 1 covers this"
+    },
+    {
+      "assertion": "Warns against allowing dynamically registered clients to use any grant type - should restrict and enforce PKCE",
+      "pass": true,
+      "rationale": "Point 2 covers this"
+    },
+    {
+      "assertion": "Warns against using in-memory stores for DCR clients in production",
+      "pass": true,
+      "rationale": "Point 3 covers this"
+    },
+    {
+      "assertion": "Mentions that client secrets must be stored securely (hashed, not plaintext)",
+      "pass": false,
+      "rationale": "No mention of secret hashing or storage security"
+    },
+    {
+      "assertion": "Mentions that software statements must be validated against trusted signing keys - never accept unknown issuers",
+      "pass": true,
+      "rationale": "Point 4 covers this"
+    }
+  ],
+  "pass_count": 4,
+  "total_count": 5,
+  "score": 0.8
+}

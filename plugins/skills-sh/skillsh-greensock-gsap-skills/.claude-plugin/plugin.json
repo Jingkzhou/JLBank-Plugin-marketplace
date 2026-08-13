@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-greensock-gsap-skills",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from greensock/gsap-skills.",
+  "author": {
+    "name": "greensock/gsap-skills"
+  }
+}

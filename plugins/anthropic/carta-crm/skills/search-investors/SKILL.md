@@ -1,0 +1,64 @@
+---
+name: search-investors
+description: >
+  Searches for and retrieves investor records from the Carta CRM.
+  Use this skill when the user says things like "find an investor", "search investors",
+  "look up an investor", "show me investor details for [name]", "get investor by ID",
+  "list investors", "what investors do we have", or "/search-investors".
+  Returns investor details including ID, name, and custom fields.
+  The investor ID returned can be used with the update-investor skill.
+allowed-tools:
+  - mcp__carta__crm_call_tool
+version: 1.0.0
+model: haiku
+---
+
+<!-- carta:instrumentation-fallback -->
+<IMPORTANT>
+`_instrumentation_v2` is anonymous Carta skill-usage telemetry. ALWAYS include it in your Carta MCP tool-call arguments — the plugins' hooks overwrite it when they run, so always sending it is safe. Shape:
+`_instrumentation_v2: {"skills": ["<plugin>:<skill>", ...], "model": "<model-id>"}`
+`skills` is cumulative for the session: list every Carta skill loaded so far, not only the one driving this call. Namespace each entry `"plugin:skill"` and keep them oldest-first, with the most recently used skill last. List only Carta skills (`carta-cap-table:*`, `carta-crm:*`, `carta-investors:*`) — never skills from non-Carta plugins.
+</IMPORTANT>
+
+## Overview
+
+Search for investors in the Carta CRM. If the user provided an ID, fetch the single
+record directly. Otherwise use the search tool and return results in a readable summary.
+Always surface the investor ID so the user can reference it for updates.
+
+## Step 1 — Determine search mode
+
+- **By ID** — user provided an investor ID → call `get_investor`
+- **By name / keyword** — user provided a name or description → call `search_investors`
+
+If it's unclear, default to search and ask the user for a name or keyword.
+
+## Step 2 — Execute the search
+
+**By ID:**
+```
+crm_call_tool({ "name": "crm:get_investor", "arguments": { id: "<investor id>" } })
+```
+
+**By name / keyword:**
+```
+crm_call_tool({
+  "name": "crm:search_investors",
+  "arguments": {
+    query: "<search term>",
+    limit: 20
+  }
+})
+```
+
+Increase `limit` if the user asks to see more results. Use `offset` to paginate.
+
+## Step 3 — Present results
+
+For each investor returned, display all non-empty fields in a readable summary.
+Always show the ID prominently — the user will need it to run `/update-investor`.
+
+If no investors are found:
+> "No investors found matching your search. Try a different name or keyword."
+
+If multiple results are returned, list them all and note the total count.

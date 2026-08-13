@@ -1,0 +1,20 @@
+{
+  "name": "spanner-marketplace",
+  "interface": {
+    "displayName": "Spanner Agent Skills"
+  },
+  "metadata": {
+    "description": "Agent skills to connect and interact with Spanner data using natural language."
+  },
+  "plugins": [
+    {
+      "name": "spanner",
+      "source": "./",
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Database"
+    }
+  ]
+}

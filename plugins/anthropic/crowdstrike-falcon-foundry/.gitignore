@@ -1,0 +1,12 @@
+.DS_Store
+.idea/
+__pycache__/
+.playwright-mcp/
+.pytest_cache/
+.coverage
+.venv/
+
+# Browser verification drops screenshots wherever it is run from.
+# Repo images live in images/ and stay tracked.
+*.png
+!images/*.png

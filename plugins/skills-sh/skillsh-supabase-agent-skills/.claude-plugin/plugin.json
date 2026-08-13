@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-supabase-agent-skills",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from supabase/agent-skills.",
+  "author": {
+    "name": "supabase/agent-skills"
+  }
+}

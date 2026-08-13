@@ -1,0 +1,34 @@
+{
+  "eval_id": 3,
+  "variant": "without_skill",
+  "assertions": [
+    {
+      "assertion": "The factory disables automatic key management via options.KeyManagement.Enabled = false",
+      "pass": false,
+      "rationale": "Key management is not disabled \u2014 AddIdentityServer() called without options, automatic key management will attempt disk writes"
+    },
+    {
+      "assertion": "Uses AddDeveloperSigningCredential(persistKey: false) or equivalent static signing key",
+      "pass": false,
+      "rationale": "Uses AddDeveloperSigningCredential() without persistKey: false \u2014 will write tempkey.jwk to disk"
+    },
+    {
+      "assertion": "Registers test clients via AddInMemoryClients with at least one client credentials client",
+      "pass": true,
+      "rationale": "AddInMemoryClients with test.client using GrantTypes.ClientCredentials"
+    },
+    {
+      "assertion": "The test calls RequestClientCredentialsTokenAsync (from IdentityModel) against the in-process server",
+      "pass": true,
+      "rationale": "RequestClientCredentialsTokenAsync is called"
+    },
+    {
+      "assertion": "Asserts that the token response is not an error and contains a non-empty AccessToken",
+      "pass": true,
+      "rationale": "Assert.False(response.IsError) and Assert.NotEmpty(response.AccessToken)"
+    }
+  ],
+  "pass_count": 3,
+  "total_count": 5,
+  "score": 0.6
+}

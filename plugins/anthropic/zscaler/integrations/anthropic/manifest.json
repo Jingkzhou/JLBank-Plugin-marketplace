@@ -1,0 +1,1764 @@
+{
+  "manifest_version": "0.4",
+  "name": "Zscaler MCP Server",
+  "version": "0.15.0",
+  "description": "Zscaler MCP Server — AI-powered management of the Zscaler Zero Trust Exchange across ZIA, ZPA, ZDX, ZCC, ZTW, ZIdentity, EASM, Z-Insights, ZMS, and ZCell via the Model Context Protocol.",
+  "long_description": "Zscaler MCP Server is a Model Context Protocol (MCP) server for managing Zscaler products with LLMs (Claude, ChatGPT, Gemini, etc.). It exposes hundreds of tools across the Zscaler services. Read-only operations are available by default; create / update / delete tools require explicit allowlisting via the 'Enable Write Tools' and 'Write Tools Allowlist' settings below, and destructive operations additionally require an in-session HMAC confirmation token.",
+  "author": {
+    "name": "Zscaler, Inc.",
+    "email": "devrel@zscaler.com",
+    "url": "https://github.com/zscaler"
+  },
+  "homepage": "https://www.zscaler.com",
+  "documentation": "https://zscaler.github.io/zscaler-mcp-server/",
+  "support": "https://help.zscaler.com/contact-support",
+  "icon": "assets/icon.png",
+  "privacy_policies": [
+    "https://www.zscaler.com/privacy-policy"
+  ],
+  "server": {
+    "type": "uv",
+    "entry_point": "src/zscaler_mcp/server.py",
+    "mcp_config": {
+      "command": "uv",
+      "args": [
+        "run",
+        "python",
+        "-m",
+        "zscaler_mcp.server"
+      ],
+      "env": {
+        "PYTHONPATH": "${__dirname}/src",
+        "ZSCALER_CLIENT_ID": "${user_config.client_id}",
+        "ZSCALER_CLIENT_SECRET": "${user_config.client_secret}",
+        "ZSCALER_CUSTOMER_ID": "${user_config.customer_id}",
+        "ZCELL_CUSTOMER_ID": "${user_config.zcell_customer_id}",
+        "ZSCALER_VANITY_DOMAIN": "${user_config.vanity_domain}",
+        "ZSCALER_CLOUD": "${user_config.cloud}",
+        "ZSCALER_MCP_SERVICES": "${user_config.enabled_services}",
+        "ZSCALER_MCP_TOOLSETS": "${user_config.toolsets}",
+        "ZSCALER_MCP_DEBUG": "${user_config.debug_mode}",
+        "ZSCALER_MCP_WRITE_ENABLED": "${user_config.enable_write_tools}",
+        "ZSCALER_MCP_WRITE_TOOLS": "${user_config.write_tools}",
+        "ZSCALER_MCP_USER_AGENT_COMMENT": "${user_config.user_agent_comment}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "get_zia_dlp_dictionaries",
+      "description": "Read ZIA DLP dictionaries: list all/lite, or fetch one by ID (read-only)."
+    },
+    {
+      "name": "get_zia_dlp_engines",
+      "description": "Read ZIA DLP engines: list all/lite, or fetch one by ID (read-only)."
+    },
+    {
+      "name": "get_zia_user_departments",
+      "description": "Read ZIA user departments: list with filters, or fetch one by ID (read-only)."
+    },
+    {
+      "name": "get_zia_user_groups",
+      "description": "Read ZIA user groups: fetch by ID, find by name, or list (read-only)."
+    },
+    {
+      "name": "get_zia_users",
+      "description": "Read ZIA users: list with optional filters, or fetch one by ID (read-only)."
+    },
+    {
+      "name": "zia_activate_configuration",
+      "description": "Activate staged ZIA configuration changes (write)."
+    },
+    {
+      "name": "zia_add_atp_malicious_urls",
+      "description": "Add URLs to the ZIA ATP malicious-URL denylist (additive write)."
+    },
+    {
+      "name": "zia_add_auth_exempt_urls",
+      "description": "Add URLs to the ZIA cookie-auth exempt list (additive write)."
+    },
+    {
+      "name": "zia_add_urls_to_category",
+      "description": "Incrementally add URLs to an existing ZIA URL category."
+    },
+    {
+      "name": "zia_bulk_update_shadow_it_apps",
+      "description": "Bulk-apply sanction state and/or custom tags to Shadow IT apps (write)."
+    },
+    {
+      "name": "zia_create_cloud_app_control_rule",
+      "description": "Create a ZIA Cloud App Control rule (write)."
+    },
+    {
+      "name": "zia_create_cloud_firewall_dns_rule",
+      "description": "Create a ZIA Cloud Firewall DNS rule (write)."
+    },
+    {
+      "name": "zia_create_cloud_firewall_ips_rule",
+      "description": "Create a ZIA Cloud Firewall IPS rule (write)."
+    },
+    {
+      "name": "zia_create_cloud_firewall_rule",
+      "description": "Create a ZIA Cloud Firewall rule (write)."
+    },
+    {
+      "name": "zia_create_file_type_control_rule",
+      "description": "Create a ZIA File Type Control rule (write)."
+    },
+    {
+      "name": "zia_create_gre_tunnel",
+      "description": "Create a ZIA GRE tunnel (write)."
+    },
+    {
+      "name": "zia_create_ip_destination_group",
+      "description": "Create a ZIA IP destination group (write)."
+    },
+    {
+      "name": "zia_create_ip_source_group",
+      "description": "Create a ZIA IP source group (write)."
+    },
+    {
+      "name": "zia_create_ips_signature_rule",
+      "description": "Create a ZIA custom IPS signature rule (write)."
+    },
+    {
+      "name": "zia_create_location",
+      "description": "Create a ZIA location (write)."
+    },
+    {
+      "name": "zia_create_network_app_group",
+      "description": "Create a ZIA network application group (write)."
+    },
+    {
+      "name": "zia_create_network_service",
+      "description": "Create a custom ZIA network service (write)."
+    },
+    {
+      "name": "zia_create_network_svc_group",
+      "description": "Create a ZIA network service group (write)."
+    },
+    {
+      "name": "zia_create_rule_label",
+      "description": "Create a ZIA rule label (write)."
+    },
+    {
+      "name": "zia_create_sandbox_rule",
+      "description": "Create a ZIA Sandbox rule (write)."
+    },
+    {
+      "name": "zia_create_ssl_inspection_rule",
+      "description": "Create a ZIA SSL Inspection rule (write)."
+    },
+    {
+      "name": "zia_create_static_ip",
+      "description": "Create a ZIA static IP (write)."
+    },
+    {
+      "name": "zia_create_time_interval",
+      "description": "Create a ZIA time interval (write)."
+    },
+    {
+      "name": "zia_create_url_category",
+      "description": "Create a new **custom** ZIA URL category (write)."
+    },
+    {
+      "name": "zia_create_url_filtering_rule",
+      "description": "Create a ZIA URL Filtering rule (write)."
+    },
+    {
+      "name": "zia_create_vpn_credential",
+      "description": "Create a ZIA VPN credential (write)."
+    },
+    {
+      "name": "zia_create_web_dlp_rule",
+      "description": "Create a ZIA Web DLP rule (write)."
+    },
+    {
+      "name": "zia_delete_atp_malicious_urls",
+      "description": "Remove URLs from the ZIA ATP malicious-URL denylist (destructive)."
+    },
+    {
+      "name": "zia_delete_auth_exempt_urls",
+      "description": "Remove URLs from the ZIA cookie-auth exempt list (destructive)."
+    },
+    {
+      "name": "zia_delete_cloud_app_control_rule",
+      "description": "Delete a ZIA Cloud App Control rule (destructive)."
+    },
+    {
+      "name": "zia_delete_cloud_firewall_dns_rule",
+      "description": "Delete a ZIA Cloud Firewall DNS rule (destructive)."
+    },
+    {
+      "name": "zia_delete_cloud_firewall_ips_rule",
+      "description": "Delete a ZIA Cloud Firewall IPS rule (destructive)."
+    },
+    {
+      "name": "zia_delete_cloud_firewall_rule",
+      "description": "Delete a ZIA Cloud Firewall rule (destructive)."
+    },
+    {
+      "name": "zia_delete_file_type_control_rule",
+      "description": "Delete a ZIA File Type Control rule (destructive)."
+    },
+    {
+      "name": "zia_delete_gre_tunnel",
+      "description": "Delete a ZIA GRE tunnel and its backing static IP (destructive)."
+    },
+    {
+      "name": "zia_delete_ip_destination_group",
+      "description": "Delete a ZIA IP destination group (destructive)."
+    },
+    {
+      "name": "zia_delete_ip_source_group",
+      "description": "Delete a ZIA IP source group (destructive)."
+    },
+    {
+      "name": "zia_delete_ips_signature_rule",
+      "description": "Delete a ZIA custom IPS signature rule (destructive)."
+    },
+    {
+      "name": "zia_delete_location",
+      "description": "Delete a ZIA location (destructive)."
+    },
+    {
+      "name": "zia_delete_network_app_group",
+      "description": "Delete a ZIA network application group (destructive)."
+    },
+    {
+      "name": "zia_delete_network_service",
+      "description": "Delete a ZIA network service (destructive)."
+    },
+    {
+      "name": "zia_delete_network_svc_group",
+      "description": "Delete a ZIA network service group (destructive)."
+    },
+    {
+      "name": "zia_delete_rule_label",
+      "description": "Delete a ZIA rule label (destructive)."
+    },
+    {
+      "name": "zia_delete_sandbox_rule",
+      "description": "Delete a ZIA Sandbox rule (destructive)."
+    },
+    {
+      "name": "zia_delete_ssl_inspection_rule",
+      "description": "Delete a ZIA SSL Inspection rule (destructive)."
+    },
+    {
+      "name": "zia_delete_static_ip",
+      "description": "Delete a ZIA static IP (destructive)."
+    },
+    {
+      "name": "zia_delete_time_interval",
+      "description": "Delete a ZIA time interval (destructive)."
+    },
+    {
+      "name": "zia_delete_url_category",
+      "description": "Delete a **custom** ZIA URL category (destructive)."
+    },
+    {
+      "name": "zia_delete_url_filtering_rule",
+      "description": "Delete a ZIA URL Filtering rule (destructive)."
+    },
+    {
+      "name": "zia_delete_vpn_credential",
+      "description": "Delete a ZIA VPN credential (destructive)."
+    },
+    {
+      "name": "zia_delete_web_dlp_rule",
+      "description": "Delete a ZIA Web DLP rule (destructive)."
+    },
+    {
+      "name": "zia_geo_search",
+      "description": "Resolve ZIA geo data by coordinates, by IP, or by city prefix (read-only)."
+    },
+    {
+      "name": "zia_get_activation_status",
+      "description": "Get the current ZIA configuration activation status."
+    },
+    {
+      "name": "zia_get_advanced_settings",
+      "description": "Get the ZIA tenant-wide Advanced Settings object."
+    },
+    {
+      "name": "zia_get_atp_malware_inspection",
+      "description": "Get the ZIA malware inspection (traffic-direction toggles)."
+    },
+    {
+      "name": "zia_get_atp_malware_policy",
+      "description": "Get the ZIA malware policy (file-handling toggles)."
+    },
+    {
+      "name": "zia_get_atp_malware_protocols",
+      "description": "Get the ZIA malware protocol toggles (HTTP/FTP)."
+    },
+    {
+      "name": "zia_get_atp_security_exceptions",
+      "description": "Get the ZIA ATP security-exception bypass URL allowlist."
+    },
+    {
+      "name": "zia_get_atp_settings",
+      "description": "Get the ZIA tenant-wide ATP policy block."
+    },
+    {
+      "name": "zia_get_cloud_app_control_rule",
+      "description": "Get a single ZIA Cloud App Control rule by category + ID."
+    },
+    {
+      "name": "zia_get_cloud_firewall_dns_rule",
+      "description": "Get a single ZIA Cloud Firewall DNS rule by ID with member references."
+    },
+    {
+      "name": "zia_get_cloud_firewall_ips_rule",
+      "description": "Get a single ZIA Cloud Firewall IPS rule by ID with member references."
+    },
+    {
+      "name": "zia_get_cloud_firewall_rule",
+      "description": "Get a single ZIA Cloud Firewall rule by ID with member references."
+    },
+    {
+      "name": "zia_get_file_type_control_rule",
+      "description": "Get a single ZIA File Type Control rule by ID with member references."
+    },
+    {
+      "name": "zia_get_gre_tunnel",
+      "description": "Get a single ZIA GRE tunnel by ID."
+    },
+    {
+      "name": "zia_get_ip_destination_group",
+      "description": "Get a single ZIA IP destination group by ID with full members."
+    },
+    {
+      "name": "zia_get_ip_source_group",
+      "description": "Get a single ZIA IP source group by ID with its full member list."
+    },
+    {
+      "name": "zia_get_ips_signature_rule",
+      "description": "Get a single ZIA custom IPS signature rule by ID with its body."
+    },
+    {
+      "name": "zia_get_location",
+      "description": "Get a single ZIA location by ID with its full configuration."
+    },
+    {
+      "name": "zia_get_location_group",
+      "description": "Get a single ZIA location group by ID."
+    },
+    {
+      "name": "zia_get_malware_settings",
+      "description": "Get the ZIA 16-field malware threat-class settings block."
+    },
+    {
+      "name": "zia_get_mobile_advanced_settings",
+      "description": "Get the ZIA Mobile Advanced Threat Settings object."
+    },
+    {
+      "name": "zia_get_network_app",
+      "description": "Get a single ZIA network application by ID."
+    },
+    {
+      "name": "zia_get_network_app_group",
+      "description": "Get a single ZIA network application group by ID with members."
+    },
+    {
+      "name": "zia_get_network_service",
+      "description": "Get a single ZIA network service by ID with its port definitions."
+    },
+    {
+      "name": "zia_get_network_svc_group",
+      "description": "Get a single ZIA network service group by ID with members."
+    },
+    {
+      "name": "zia_get_rule_label",
+      "description": "Get a single ZIA rule label by ID."
+    },
+    {
+      "name": "zia_get_sandbox_behavioral_analysis",
+      "description": "Get the ZIA Sandbox behavioral-analysis configuration."
+    },
+    {
+      "name": "zia_get_sandbox_file_hash_count",
+      "description": "Get the ZIA Sandbox custom file-hash blocklist usage/quota."
+    },
+    {
+      "name": "zia_get_sandbox_quota",
+      "description": "Get the ZIA Sandbox API submission quota."
+    },
+    {
+      "name": "zia_get_sandbox_report",
+      "description": "Get the ZIA Sandbox detonation report for a file MD5 hash."
+    },
+    {
+      "name": "zia_get_sandbox_rule",
+      "description": "Get a single ZIA Sandbox rule by ID with member references."
+    },
+    {
+      "name": "zia_get_ssl_inspection_rule",
+      "description": "Get a single ZIA SSL Inspection rule by ID with member references."
+    },
+    {
+      "name": "zia_get_static_ip",
+      "description": "Get a single ZIA static IP by ID."
+    },
+    {
+      "name": "zia_get_time_interval",
+      "description": "Get a single ZIA time interval by ID."
+    },
+    {
+      "name": "zia_get_url_category",
+      "description": "Get a single ZIA URL category by ID (full detail)."
+    },
+    {
+      "name": "zia_get_url_category_predefined",
+      "description": "Get a Zscaler-curated **predefined** URL category by ID or display name."
+    },
+    {
+      "name": "zia_get_url_filtering_rule",
+      "description": "Get a single ZIA URL Filtering rule by ID with member references."
+    },
+    {
+      "name": "zia_get_vpn_credential",
+      "description": "Get a single ZIA VPN credential by ID."
+    },
+    {
+      "name": "zia_get_web_dlp_rule",
+      "description": "Get a single ZIA Web DLP rule by ID with member references."
+    },
+    {
+      "name": "zia_get_workload_group",
+      "description": "Get a single ZIA workload group by ID."
+    },
+    {
+      "name": "zia_list_atp_malicious_urls",
+      "description": "List the ZIA ATP malicious-URL denylist."
+    },
+    {
+      "name": "zia_list_auth_exempt_urls",
+      "description": "List the ZIA cookie-auth exempt URL list."
+    },
+    {
+      "name": "zia_list_cloud_app_control_actions",
+      "description": "List the available CAC actions for a category (and optional cloud apps)."
+    },
+    {
+      "name": "zia_list_cloud_app_control_rules",
+      "description": "List ZIA Cloud App Control rules for a category."
+    },
+    {
+      "name": "zia_list_cloud_app_policy",
+      "description": "List the ZIA policy-engine cloud-application catalog (Cloud App Control)."
+    },
+    {
+      "name": "zia_list_cloud_app_ssl_policy",
+      "description": "List the ZIA policy-engine cloud-application catalog (SSL Inspection)."
+    },
+    {
+      "name": "zia_list_cloud_firewall_dns_rules",
+      "description": "List ZIA Cloud Firewall DNS rules."
+    },
+    {
+      "name": "zia_list_cloud_firewall_ips_rules",
+      "description": "List ZIA Cloud Firewall IPS rules."
+    },
+    {
+      "name": "zia_list_cloud_firewall_rules",
+      "description": "List ZIA Cloud Firewall rules."
+    },
+    {
+      "name": "zia_list_device_groups",
+      "description": "List ZIA device groups."
+    },
+    {
+      "name": "zia_list_devices",
+      "description": "List ZIA devices."
+    },
+    {
+      "name": "zia_list_devices_lite",
+      "description": "List ZIA devices via the lighter endpoint (id/name only)."
+    },
+    {
+      "name": "zia_list_file_type_categories",
+      "description": "List ZIA file-type categories usable in File Type Control rules."
+    },
+    {
+      "name": "zia_list_file_type_control_rules",
+      "description": "List ZIA File Type Control rules."
+    },
+    {
+      "name": "zia_list_gre_ranges",
+      "description": "List available ZIA GRE internal-IP ranges."
+    },
+    {
+      "name": "zia_list_gre_tunnels",
+      "description": "List ZIA GRE tunnels."
+    },
+    {
+      "name": "zia_list_ip_destination_groups",
+      "description": "List ZIA IP destination groups."
+    },
+    {
+      "name": "zia_list_ip_source_groups",
+      "description": "List ZIA IP source groups."
+    },
+    {
+      "name": "zia_list_ips_signature_rules",
+      "description": "List ZIA custom IPS signature rules."
+    },
+    {
+      "name": "zia_list_location_groups",
+      "description": "List ZIA location groups."
+    },
+    {
+      "name": "zia_list_locations",
+      "description": "List ZIA locations."
+    },
+    {
+      "name": "zia_list_network_app_groups",
+      "description": "List ZIA network application groups."
+    },
+    {
+      "name": "zia_list_network_apps",
+      "description": "List ZIA network applications (predefined + custom)."
+    },
+    {
+      "name": "zia_list_network_services",
+      "description": "List ZIA network services."
+    },
+    {
+      "name": "zia_list_network_svc_groups",
+      "description": "List ZIA network service groups."
+    },
+    {
+      "name": "zia_list_rule_labels",
+      "description": "List ZIA rule labels."
+    },
+    {
+      "name": "zia_list_sandbox_rules",
+      "description": "List ZIA Sandbox rules."
+    },
+    {
+      "name": "zia_list_shadow_it_apps",
+      "description": "List ZIA Shadow IT applications (analytics catalog)."
+    },
+    {
+      "name": "zia_list_shadow_it_custom_tags",
+      "description": "List ZIA Shadow IT custom tags."
+    },
+    {
+      "name": "zia_list_ssl_inspection_rules",
+      "description": "List ZIA SSL Inspection rules."
+    },
+    {
+      "name": "zia_list_static_ips",
+      "description": "List ZIA static IPs."
+    },
+    {
+      "name": "zia_list_time_intervals",
+      "description": "List ZIA time intervals."
+    },
+    {
+      "name": "zia_list_url_categories",
+      "description": "List ZIA URL categories."
+    },
+    {
+      "name": "zia_list_url_filtering_rules",
+      "description": "List ZIA URL Filtering rules."
+    },
+    {
+      "name": "zia_list_vpn_credentials",
+      "description": "List ZIA VPN credentials (PSK never returned)."
+    },
+    {
+      "name": "zia_list_web_dlp_rules",
+      "description": "List ZIA Web DLP rules."
+    },
+    {
+      "name": "zia_list_web_dlp_rules_lite",
+      "description": "List ZIA Web DLP rules via the lighter SDK endpoint."
+    },
+    {
+      "name": "zia_list_workload_groups",
+      "description": "List ZIA workload groups."
+    },
+    {
+      "name": "zia_remove_urls_from_category",
+      "description": "Incrementally remove URLs from an existing ZIA URL category."
+    },
+    {
+      "name": "zia_update_advanced_settings",
+      "description": "Update ZIA Advanced Settings (strict PUT-replace write)."
+    },
+    {
+      "name": "zia_update_atp_malware_inspection",
+      "description": "Update the ZIA malware inspection (PUT-replace write)."
+    },
+    {
+      "name": "zia_update_atp_malware_policy",
+      "description": "Update the ZIA malware policy (PUT-replace write)."
+    },
+    {
+      "name": "zia_update_atp_malware_protocols",
+      "description": "Update the ZIA malware protocol toggles (PUT-replace write)."
+    },
+    {
+      "name": "zia_update_atp_security_exceptions",
+      "description": "Replace the ZIA ATP security-exception allowlist (full-list write)."
+    },
+    {
+      "name": "zia_update_atp_settings",
+      "description": "Update ZIA ATP settings (strict PUT-replace write)."
+    },
+    {
+      "name": "zia_update_cloud_app_control_rule",
+      "description": "Update a ZIA Cloud App Control rule (write, PUT-replace)."
+    },
+    {
+      "name": "zia_update_cloud_firewall_dns_rule",
+      "description": "Update a ZIA Cloud Firewall DNS rule (write, PUT-replace)."
+    },
+    {
+      "name": "zia_update_cloud_firewall_ips_rule",
+      "description": "Update a ZIA Cloud Firewall IPS rule (write, PUT-replace)."
+    },
+    {
+      "name": "zia_update_cloud_firewall_rule",
+      "description": "Update a ZIA Cloud Firewall rule (write, PUT-replace)."
+    },
+    {
+      "name": "zia_update_file_type_control_rule",
+      "description": "Update a ZIA File Type Control rule (write, PUT-replace)."
+    },
+    {
+      "name": "zia_update_ip_destination_group",
+      "description": "Update a ZIA IP destination group (full-replace write)."
+    },
+    {
+      "name": "zia_update_ip_source_group",
+      "description": "Update a ZIA IP source group (full-replace write)."
+    },
+    {
+      "name": "zia_update_ips_signature_rule",
+      "description": "Update a ZIA custom IPS signature rule (PUT-replace; backfills name/rule_text)."
+    },
+    {
+      "name": "zia_update_location",
+      "description": "Update a ZIA location (write)."
+    },
+    {
+      "name": "zia_update_malware_settings",
+      "description": "Update the ZIA malware threat-class settings (strict PUT-replace write)."
+    },
+    {
+      "name": "zia_update_mobile_advanced_settings",
+      "description": "Update ZIA Mobile Advanced Threat Settings (PUT-replace write)."
+    },
+    {
+      "name": "zia_update_network_app_group",
+      "description": "Update a ZIA network application group (full-replace write)."
+    },
+    {
+      "name": "zia_update_network_service",
+      "description": "Update a ZIA network service (write)."
+    },
+    {
+      "name": "zia_update_network_svc_group",
+      "description": "Update a ZIA network service group (full-replace write)."
+    },
+    {
+      "name": "zia_update_rule_label",
+      "description": "Update a ZIA rule label (write)."
+    },
+    {
+      "name": "zia_update_sandbox_rule",
+      "description": "Update a ZIA Sandbox rule (write, PUT-replace)."
+    },
+    {
+      "name": "zia_update_ssl_inspection_rule",
+      "description": "Update a ZIA SSL Inspection rule (write, PUT-replace)."
+    },
+    {
+      "name": "zia_update_static_ip",
+      "description": "Update a ZIA static IP (write)."
+    },
+    {
+      "name": "zia_update_time_interval",
+      "description": "Update a ZIA time interval (PUT-replace; backfills omitted fields)."
+    },
+    {
+      "name": "zia_update_url_category",
+      "description": "Update a **custom** ZIA URL category (full PUT-replace)."
+    },
+    {
+      "name": "zia_update_url_category_predefined",
+      "description": "Update a Zscaler-curated **predefined** URL category (full PUT)."
+    },
+    {
+      "name": "zia_update_url_filtering_rule",
+      "description": "Update a ZIA URL Filtering rule (write, PUT-replace)."
+    },
+    {
+      "name": "zia_update_vpn_credential",
+      "description": "Update a ZIA VPN credential (write)."
+    },
+    {
+      "name": "zia_update_web_dlp_rule",
+      "description": "Update a ZIA Web DLP rule (write, PUT-replace)."
+    },
+    {
+      "name": "zia_url_lookup",
+      "description": "Which category does a URL belong to? Use THIS for that question.\n\nAnswers \"what category is twilio.com?\" directly: pass the URLs and get back\nZscaler's classification for each, e.g.\n`{\"url\": \"notpurple.com\", \"urlClassifications\": [\"SPECIALIZED_SHOPPING\"]}`.\nThe response is sma..."
+    },
+    {
+      "name": "get_zpa_app_protection_profile",
+      "description": "List ZPA App Protection (inspection) profiles, or filter by name (read-only)."
+    },
+    {
+      "name": "get_zpa_app_segments_by_type",
+      "description": "Retrieve ZPA application segments filtered by application type (read-only).\n\n`application_type` must be BROWSER_ACCESS, INSPECT, or SECURE_REMOTE_ACCESS."
+    },
+    {
+      "name": "get_zpa_enrollment_certificate",
+      "description": "Read ZPA enrollment certificates: list all, or look one up by name or ID (read-only)."
+    },
+    {
+      "name": "get_zpa_isolation_profile",
+      "description": "List ZPA Cloud Browser Isolation (CBI) profiles, or filter by exact name (read-only)."
+    },
+    {
+      "name": "get_zpa_posture_profile",
+      "description": "List ZPA posture profiles, or look one up by ID or name (read-only)."
+    },
+    {
+      "name": "get_zpa_saml_attribute",
+      "description": "List ZPA SAML attributes, optionally scoped to a named IdP (read-only)."
+    },
+    {
+      "name": "get_zpa_scim_attribute",
+      "description": "List ZPA SCIM attributes for a named IdP, or fetch one by ID (read-only)."
+    },
+    {
+      "name": "get_zpa_scim_group",
+      "description": "Fetch one ZPA SCIM group by ID, or list all groups under a named IdP (read-only)."
+    },
+    {
+      "name": "get_zpa_trusted_network",
+      "description": "List ZPA trusted networks, or look one up by ID or name (read-only)."
+    },
+    {
+      "name": "zpa_bulk_delete_app_connectors",
+      "description": "Bulk-delete ZPA app connectors (destructive write)."
+    },
+    {
+      "name": "zpa_bulk_delete_service_edges",
+      "description": "Bulk-delete ZPA Service Edges (destructive write)."
+    },
+    {
+      "name": "zpa_create_access_policy_rule",
+      "description": "Create a ZPA access policy rule (write)."
+    },
+    {
+      "name": "zpa_create_app_connector_group",
+      "description": "Create a ZPA app connector group (write).\n\nRequires `--write-tools`."
+    },
+    {
+      "name": "zpa_create_app_protection_rule",
+      "description": "Create a ZPA app-protection (inspection) policy rule (write).\n\nRequires `--write-tools`."
+    },
+    {
+      "name": "zpa_create_application_segment",
+      "description": "Create a ZPA application segment (write).\n\nRequires `name` + `segment_group_id` and at least one port range (TCP or UDP,\nvia `tcp_port_ranges`/`udp_port_ranges` or `advanced`)."
+    },
+    {
+      "name": "zpa_create_application_segment_ba",
+      "description": "Create a ZPA browser-access application segment (write)."
+    },
+    {
+      "name": "zpa_create_application_segment_pra",
+      "description": "Create a ZPA privileged-remote-access application segment (write)."
+    },
+    {
+      "name": "zpa_create_application_server",
+      "description": "Create a ZPA application server (write).\n\nRequires `--write-tools`."
+    },
+    {
+      "name": "zpa_create_ba_certificate",
+      "description": "Create a ZPA Browser Access certificate from a PEM blob (write).\n\nRequires `--write-tools`."
+    },
+    {
+      "name": "zpa_create_forwarding_policy_rule",
+      "description": "Create a ZPA client forwarding policy rule (write)."
+    },
+    {
+      "name": "zpa_create_isolation_policy_rule",
+      "description": "Create a ZPA isolation policy rule (write)."
+    },
+    {
+      "name": "zpa_create_pra_credential",
+      "description": "Create a ZPA PRA credential (write)."
+    },
+    {
+      "name": "zpa_create_pra_portal",
+      "description": "Create a ZPA PRA portal (write)."
+    },
+    {
+      "name": "zpa_create_provisioning_key",
+      "description": "Create a ZPA provisioning key (write)."
+    },
+    {
+      "name": "zpa_create_segment_group",
+      "description": "Create a ZPA segment group and return the full record.\n\nWrite tool: disabled unless the operator enables it via --write-tools."
+    },
+    {
+      "name": "zpa_create_server_group",
+      "description": "Create a ZPA server group (write).\n\nRequires `--write-tools`, plus at least one\nApp Connector Group; dynamic_discovery=False requires server_ids."
+    },
+    {
+      "name": "zpa_create_service_edge_group",
+      "description": "Create a ZPA service edge group (write).\n\nRequires `--write-tools`, plus name,\nlatitude, longitude, and location."
+    },
+    {
+      "name": "zpa_create_timeout_policy_rule",
+      "description": "Create a ZPA timeout policy rule (write)."
+    },
+    {
+      "name": "zpa_delete_access_policy_rule",
+      "description": "Delete a ZPA access policy rule (destructive write).\n\nConfirmation required — the first call returns a prompt, not a deletion.\nGated by `--write-tools`."
+    },
+    {
+      "name": "zpa_delete_app_connector",
+      "description": "Delete a ZPA app connector (destructive write)."
+    },
+    {
+      "name": "zpa_delete_app_connector_group",
+      "description": "Delete a ZPA app connector group (destructive write).\n\nCannot be undone.\n\nConfirmation required — the first call returns a prompt, not a deletion.\nGated by `--write-tools`."
+    },
+    {
+      "name": "zpa_delete_app_protection_rule",
+      "description": "Delete a ZPA app-protection (inspection) policy rule (destructive write).\n\nConfirmation required — the first call returns a prompt, not a deletion.\nGated by `--write-tools`."
+    },
+    {
+      "name": "zpa_delete_application_segment",
+      "description": "Delete a ZPA application segment (destructive write)."
+    },
+    {
+      "name": "zpa_delete_application_segment_ba",
+      "description": "Delete a ZPA browser-access application segment (destructive write)."
+    },
+    {
+      "name": "zpa_delete_application_segment_pra",
+      "description": "Delete a ZPA privileged-remote-access application segment (destructive write).\n\nConfirmation required — the first call returns a prompt, not a deletion.\nGated by `--write-tools`."
+    },
+    {
+      "name": "zpa_delete_application_server",
+      "description": "Delete a ZPA application server (destructive write).\n\nCannot be undone.\n\nConfirmation required — the first call returns a prompt, not a deletion.\nGated by `--write-tools`."
+    },
+    {
+      "name": "zpa_delete_ba_certificate",
+      "description": "Delete a ZPA Browser Access certificate (destructive write).\n\nConfirmation required — the first call returns a prompt, not a deletion.\nGated by `--write-tools`."
+    },
+    {
+      "name": "zpa_delete_forwarding_policy_rule",
+      "description": "Delete a ZPA client forwarding policy rule (destructive write).\n\nConfirmation required — the first call returns a prompt, not a deletion.\nGated by `--write-tools`."
+    },
+    {
+      "name": "zpa_delete_isolation_policy_rule",
+      "description": "Delete a ZPA isolation policy rule (destructive write).\n\nConfirmation required — the first call returns a prompt, not a deletion.\nGated by `--write-tools`."
+    },
+    {
+      "name": "zpa_delete_pra_credential",
+      "description": "Delete a ZPA PRA credential (destructive write).\n\nConfirmation required — the first call returns a prompt, not a deletion.\nGated by `--write-tools`."
+    },
+    {
+      "name": "zpa_delete_pra_portal",
+      "description": "Delete a ZPA PRA portal (destructive write).\n\nConfirmation required — the first call returns a prompt, not a deletion.\nGated by `--write-tools`."
+    },
+    {
+      "name": "zpa_delete_provisioning_key",
+      "description": "Delete a ZPA provisioning key (destructive write).\n\nIf the key was already removed (e.g."
+    },
+    {
+      "name": "zpa_delete_segment_group",
+      "description": "Delete a ZPA segment group (destructive write).\n\nCannot be undone.\n\nConfirmation required — the first call returns a prompt, not a deletion.\nGated by `--write-tools`."
+    },
+    {
+      "name": "zpa_delete_server_group",
+      "description": "Delete a ZPA server group (destructive write).\n\nCannot be undone.\n\nConfirmation required — the first call returns a prompt, not a deletion.\nGated by `--write-tools`."
+    },
+    {
+      "name": "zpa_delete_service_edge",
+      "description": "Delete a single ZPA Service Edge (destructive write)."
+    },
+    {
+      "name": "zpa_delete_service_edge_group",
+      "description": "Delete a ZPA service edge group (destructive write).\n\nCannot be undone.\n\nConfirmation required — the first call returns a prompt, not a deletion.\nGated by `--write-tools`."
+    },
+    {
+      "name": "zpa_delete_timeout_policy_rule",
+      "description": "Delete a ZPA timeout policy rule (destructive write).\n\nConfirmation required — the first call returns a prompt, not a deletion.\nGated by `--write-tools`."
+    },
+    {
+      "name": "zpa_get_access_policy_rule",
+      "description": "Get one ZPA access policy rule (read-only)."
+    },
+    {
+      "name": "zpa_get_app_connector",
+      "description": "Get one ZPA app connector by ID (read-only)."
+    },
+    {
+      "name": "zpa_get_app_connector_group",
+      "description": "Get one ZPA app connector group (read-only)."
+    },
+    {
+      "name": "zpa_get_app_protection_rule",
+      "description": "Get one ZPA app-protection (inspection) policy rule (read-only)."
+    },
+    {
+      "name": "zpa_get_application_segment",
+      "description": "Get one ZPA application segment."
+    },
+    {
+      "name": "zpa_get_application_segment_ba",
+      "description": "Get one ZPA browser-access application segment."
+    },
+    {
+      "name": "zpa_get_application_segment_pra",
+      "description": "Get one ZPA privileged-remote-access application segment."
+    },
+    {
+      "name": "zpa_get_application_server",
+      "description": "Get one ZPA application server (read-only)."
+    },
+    {
+      "name": "zpa_get_ba_certificate",
+      "description": "Get one ZPA Browser Access certificate by ID (read-only)."
+    },
+    {
+      "name": "zpa_get_forwarding_policy_rule",
+      "description": "Get one ZPA client forwarding policy rule (read-only)."
+    },
+    {
+      "name": "zpa_get_isolation_policy_rule",
+      "description": "Get one ZPA isolation policy rule (read-only)."
+    },
+    {
+      "name": "zpa_get_lss_config",
+      "description": "Get one ZPA LSS configuration by ID (read-only)."
+    },
+    {
+      "name": "zpa_get_lss_log_format",
+      "description": "Get the pre-built LSS log-format templates (csv/json/tsv) for a log type (read-only)."
+    },
+    {
+      "name": "zpa_get_pra_credential",
+      "description": "Get one ZPA PRA credential by ID (read-only)."
+    },
+    {
+      "name": "zpa_get_pra_portal",
+      "description": "Get one ZPA PRA portal by ID (read-only)."
+    },
+    {
+      "name": "zpa_get_provisioning_key",
+      "description": "Get one ZPA provisioning key by ID and type (read-only)."
+    },
+    {
+      "name": "zpa_get_segment_group",
+      "description": "Get one ZPA segment group."
+    },
+    {
+      "name": "zpa_get_server_group",
+      "description": "Get one ZPA server group (read-only)."
+    },
+    {
+      "name": "zpa_get_service_edge",
+      "description": "Get one ZPA Service Edge by ID (read-only)."
+    },
+    {
+      "name": "zpa_get_service_edge_group",
+      "description": "Get one ZPA service edge group (read-only)."
+    },
+    {
+      "name": "zpa_get_timeout_policy_rule",
+      "description": "Get one ZPA timeout policy rule (read-only)."
+    },
+    {
+      "name": "zpa_list_access_policy_rules",
+      "description": "List ZPA access policy rules (read-only)."
+    },
+    {
+      "name": "zpa_list_app_connector_groups",
+      "description": "List ZPA app connector groups (read-only)."
+    },
+    {
+      "name": "zpa_list_app_connectors",
+      "description": "List ZPA app connectors with health/status (read-only)."
+    },
+    {
+      "name": "zpa_list_app_protection_rules",
+      "description": "List ZPA app-protection (inspection) policy rules (read-only)."
+    },
+    {
+      "name": "zpa_list_application_segments",
+      "description": "List ZPA application segments.\n\nEach row is the full segment record with normalized highlights on top\n(ids, member domains/server groups, ports, and behavior toggles)."
+    },
+    {
+      "name": "zpa_list_application_segments_ba",
+      "description": "List ZPA browser-access (clientless) application segments."
+    },
+    {
+      "name": "zpa_list_application_segments_pra",
+      "description": "List ZPA privileged-remote-access application segments."
+    },
+    {
+      "name": "zpa_list_application_servers",
+      "description": "List ZPA application servers (read-only)."
+    },
+    {
+      "name": "zpa_list_ba_certificates",
+      "description": "List ZPA Browser Access certificates (read-only)."
+    },
+    {
+      "name": "zpa_list_forwarding_policy_rules",
+      "description": "List ZPA client forwarding policy rules (read-only)."
+    },
+    {
+      "name": "zpa_list_isolation_policy_rules",
+      "description": "List ZPA isolation policy rules (read-only)."
+    },
+    {
+      "name": "zpa_list_lss_client_types",
+      "description": "List ZPA LSS client types for the current customer (read-only catalog)."
+    },
+    {
+      "name": "zpa_list_lss_configs",
+      "description": "List ZPA LSS configurations — what log feed streams where (read-only)."
+    },
+    {
+      "name": "zpa_list_lss_log_types",
+      "description": "List the human-readable LSS source log types ZPA supports (read-only catalog)."
+    },
+    {
+      "name": "zpa_list_lss_status_codes",
+      "description": "List ZPA LSS session status codes used in config filters (read-only catalog)."
+    },
+    {
+      "name": "zpa_list_pra_credentials",
+      "description": "List ZPA PRA credentials (read-only)."
+    },
+    {
+      "name": "zpa_list_pra_portals",
+      "description": "List ZPA PRA portals (read-only)."
+    },
+    {
+      "name": "zpa_list_provisioning_keys",
+      "description": "List ZPA provisioning keys of a given type (read-only)."
+    },
+    {
+      "name": "zpa_list_segment_groups",
+      "description": "List ZPA segment groups.\n\nEach row is the full segment-group record with normalized highlights\n(ids, enabled state, application-segment counts/ids, timestamps) on top."
+    },
+    {
+      "name": "zpa_list_server_groups",
+      "description": "List ZPA server groups (read-only)."
+    },
+    {
+      "name": "zpa_list_service_edge_groups",
+      "description": "List ZPA service edge groups (read-only)."
+    },
+    {
+      "name": "zpa_list_service_edges",
+      "description": "List individual ZPA Service Edges with health/status (read-only).\n\nDistinct from `zpa_list_service_edge_groups` (the parent group resource)."
+    },
+    {
+      "name": "zpa_list_timeout_policy_rules",
+      "description": "List ZPA timeout policy rules (read-only)."
+    },
+    {
+      "name": "zpa_update_access_policy_rule",
+      "description": "Update a ZPA access policy rule (write)."
+    },
+    {
+      "name": "zpa_update_app_connector",
+      "description": "Update a ZPA app connector (enable/disable, rename)."
+    },
+    {
+      "name": "zpa_update_app_connector_group",
+      "description": "Update a ZPA app connector group (write).\n\nRequires `--write-tools`."
+    },
+    {
+      "name": "zpa_update_app_protection_rule",
+      "description": "Update a ZPA app-protection (inspection) policy rule (write)."
+    },
+    {
+      "name": "zpa_update_application_segment",
+      "description": "Update a ZPA application segment (write)."
+    },
+    {
+      "name": "zpa_update_application_segment_ba",
+      "description": "Update a ZPA browser-access application segment (write)."
+    },
+    {
+      "name": "zpa_update_application_segment_pra",
+      "description": "Update a ZPA privileged-remote-access application segment (write)."
+    },
+    {
+      "name": "zpa_update_application_server",
+      "description": "Update a ZPA application server (write).\n\nRequires `--write-tools`."
+    },
+    {
+      "name": "zpa_update_forwarding_policy_rule",
+      "description": "Update a ZPA client forwarding policy rule (write)."
+    },
+    {
+      "name": "zpa_update_isolation_policy_rule",
+      "description": "Update a ZPA isolation policy rule (write)."
+    },
+    {
+      "name": "zpa_update_pra_credential",
+      "description": "Update a ZPA PRA credential (write)."
+    },
+    {
+      "name": "zpa_update_pra_portal",
+      "description": "Update a ZPA PRA portal (write)."
+    },
+    {
+      "name": "zpa_update_provisioning_key",
+      "description": "Update a ZPA provisioning key (write)."
+    },
+    {
+      "name": "zpa_update_segment_group",
+      "description": "Update a ZPA segment group and return the full record (write).\n\nRequires `--write-tools`."
+    },
+    {
+      "name": "zpa_update_server_group",
+      "description": "Update a ZPA server group (write).\n\nPartial update."
+    },
+    {
+      "name": "zpa_update_service_edge",
+      "description": "Update a ZPA Service Edge (enable/disable, rename)."
+    },
+    {
+      "name": "zpa_update_service_edge_group",
+      "description": "Update a ZPA service edge group (write).\n\nRequires `--write-tools`."
+    },
+    {
+      "name": "zpa_update_timeout_policy_rule",
+      "description": "Update a ZPA timeout policy rule (write)."
+    },
+    {
+      "name": "zdx_delete_analysis",
+      "description": "Stop/delete a running ZDX score analysis (destructive write).\n\nCannot be undone.\n\nConfirmation required — the first call returns a prompt, not a deletion.\nGated by `--write-tools`."
+    },
+    {
+      "name": "zdx_delete_deeptrace",
+      "description": "Delete a ZDX deep-trace session (destructive write).\n\nCannot be undone.\n\nConfirmation required — the first call returns a prompt, not a deletion.\nGated by `--write-tools`."
+    },
+    {
+      "name": "zdx_get_alert",
+      "description": "Get one ZDX alert as a curated, agent-facing detail view.\n\nRead-only."
+    },
+    {
+      "name": "zdx_get_analysis",
+      "description": "Get the status/result of a ZDX score analysis (full record).\n\nRead-only."
+    },
+    {
+      "name": "zdx_get_application",
+      "description": "Get the ZDX score for one application, with its most-impacted regions.\n\nRead-only."
+    },
+    {
+      "name": "zdx_get_application_metric",
+      "description": "Get ZDX performance metrics for one application (time-series).\n\nRead-only."
+    },
+    {
+      "name": "zdx_get_application_score_trend",
+      "description": "Get the ZDX score trend (over time) for one application.\n\nRead-only."
+    },
+    {
+      "name": "zdx_get_application_user",
+      "description": "Get one user's ZDX detail for an application (per-device breakdown).\n\nRead-only."
+    },
+    {
+      "name": "zdx_get_deeptrace_cloudpath",
+      "description": "Get the cloud-path (hop-by-hop network path) captured during a ZDX deep trace (curated, nested JSON)."
+    },
+    {
+      "name": "zdx_get_deeptrace_cloudpath_metrics",
+      "description": "Get cloud-path metrics captured during a ZDX deep trace (curated, nested time-series JSON)."
+    },
+    {
+      "name": "zdx_get_deeptrace_events",
+      "description": "Get the events captured during a ZDX deep trace (curated, nested JSON with ISO timestamps)."
+    },
+    {
+      "name": "zdx_get_deeptrace_health_metrics",
+      "description": "Get device health metrics captured during a ZDX deep trace (curated, nested time-series JSON)."
+    },
+    {
+      "name": "zdx_get_deeptrace_webprobe_metrics",
+      "description": "Get web-probe metrics captured during a ZDX deep trace (curated, nested time-series JSON)."
+    },
+    {
+      "name": "zdx_get_device",
+      "description": "Get one active ZDX device.\n\nRead-only."
+    },
+    {
+      "name": "zdx_get_device_deep_trace",
+      "description": "Get one ZDX deep-trace session.\n\nRead-only."
+    },
+    {
+      "name": "zdx_get_software_details",
+      "description": "Expand one ZDX software key into its per-user/device install rows.\n\nRead-only."
+    },
+    {
+      "name": "zdx_get_web_probes",
+      "description": "List web probes for an app on a ZDX device (full records).\n\nRead-only."
+    },
+    {
+      "name": "zdx_list_alert_affected_devices",
+      "description": "List devices affected by a ZDX alert.\n\nRead-only."
+    },
+    {
+      "name": "zdx_list_alerts",
+      "description": "List ongoing ZDX alerts.\n\nRead-only."
+    },
+    {
+      "name": "zdx_list_application_users",
+      "description": "List users/devices that accessed a ZDX application, as curated rows.\n\nRead-only."
+    },
+    {
+      "name": "zdx_list_applications",
+      "description": "List active ZDX applications.\n\nRead-only."
+    },
+    {
+      "name": "zdx_list_cloudpath_probes",
+      "description": "List cloud-path probes for an app on a ZDX device (full records).\n\nRead-only."
+    },
+    {
+      "name": "zdx_list_deeptrace_top_processes",
+      "description": "List the top processes captured during a ZDX deep trace (full records).\n\nRead-only."
+    },
+    {
+      "name": "zdx_list_departments",
+      "description": "List ZDX departments as curated id/name rows.\n\nRead-only."
+    },
+    {
+      "name": "zdx_list_device_deep_traces",
+      "description": "List deep-trace sessions for a ZDX device (full records).\n\nRead-only."
+    },
+    {
+      "name": "zdx_list_devices",
+      "description": "List active ZDX devices.\n\nRead-only."
+    },
+    {
+      "name": "zdx_list_historical_alerts",
+      "description": "List historical (ended) ZDX alerts.\n\nRead-only."
+    },
+    {
+      "name": "zdx_list_locations",
+      "description": "List ZDX locations as curated id/name rows.\n\nRead-only."
+    },
+    {
+      "name": "zdx_list_software",
+      "description": "List the ZDX software inventory.\n\nRead-only."
+    },
+    {
+      "name": "zdx_start_analysis",
+      "description": "Start a ZDX score analysis on a device/app (write).\n\nEvaluates connectivity and performance metrics over the optional\n`t0`/`t1` epoch range."
+    },
+    {
+      "name": "zdx_start_deeptrace",
+      "description": "Start a ZDX deep-trace session (write).\n\nCaptures network path, web-probe, health, and event data for\ntroubleshooting."
+    },
+    {
+      "name": "zcc_get_device_otp",
+      "description": "Get the OTP bundle for a ZCC device (logout / exit / uninstall / disable OTPs).\n\nRead-only (GET, no tenant mutation) but the returned values ARE sensitive\nshort-lived credentials — treat them like passwords."
+    },
+    {
+      "name": "zcc_list_devices",
+      "description": "List ZCC enrolled devices (read-only).\n\nEach row is the full device record — identity, OS, agent version,\nregistration state, assigned `policy_name`, ownership, hardware,\nVPN/tunnel state, and the enrollment / keep-alive timestamps."
+    },
+    {
+      "name": "zcc_list_forwarding_profiles",
+      "description": "List ZCC forwarding profiles (by company)."
+    },
+    {
+      "name": "zcc_list_trusted_networks",
+      "description": "List ZCC trusted networks (by company)."
+    },
+    {
+      "name": "ztw_create_ip_destination_group",
+      "description": "Create a ZTW IP destination group (write).\n\nCountry names/codes are converted to COUNTRY_XX and are only valid for\nDSTN_OTHER groups."
+    },
+    {
+      "name": "ztw_create_ip_group",
+      "description": "Create a ZTW IP group (write)."
+    },
+    {
+      "name": "ztw_create_ip_source_group",
+      "description": "Create a ZTW IP source group (write)."
+    },
+    {
+      "name": "ztw_delete_ip_destination_group",
+      "description": "Delete a ZTW IP destination group (destructive write).\n\nCannot be undone.\n\nConfirmation required — the first call returns a prompt, not a deletion.\nGated by `--write-tools`."
+    },
+    {
+      "name": "ztw_delete_ip_group",
+      "description": "Delete a ZTW IP group (destructive write)."
+    },
+    {
+      "name": "ztw_delete_ip_source_group",
+      "description": "Delete a ZTW IP source group (destructive write)."
+    },
+    {
+      "name": "ztw_get_discovery_settings",
+      "description": "Get ZTW workload-discovery settings (read-only singleton).\n\nReturns the decision-bearing knobs plus the full payload in `settings`."
+    },
+    {
+      "name": "ztw_list_admins",
+      "description": "List ZTW admin users (read-only)."
+    },
+    {
+      "name": "ztw_list_ip_destination_groups",
+      "description": "List ZTW IP destination groups.\n\nUse `exclude_type` to omit a group type (e.g."
+    },
+    {
+      "name": "ztw_list_ip_destination_groups_lite",
+      "description": "List ZTW IP destination groups via the lighter SDK endpoint (read-only).\n\nSame records as `ztw_list_ip_destination_groups`; uses the lite endpoint."
+    },
+    {
+      "name": "ztw_list_ip_groups",
+      "description": "List ZTW IP groups.\n\n`search` is a server-side substring match on the group name."
+    },
+    {
+      "name": "ztw_list_ip_groups_lite",
+      "description": "List ZTW IP groups via the lighter SDK endpoint (read-only).\n\nSame records as `ztw_list_ip_groups`; uses the lite endpoint."
+    },
+    {
+      "name": "ztw_list_ip_source_groups",
+      "description": "List ZTW IP source groups.\n\n`search` is a server-side substring match on the group name."
+    },
+    {
+      "name": "ztw_list_ip_source_groups_lite",
+      "description": "List ZTW IP source groups via the lighter SDK endpoint (read-only).\n\nSame records as `ztw_list_ip_source_groups`; uses the lite endpoint."
+    },
+    {
+      "name": "ztw_list_network_service_groups",
+      "description": "List ZTW network service groups (read-only)."
+    },
+    {
+      "name": "ztw_list_network_services",
+      "description": "List ZTW network services.\n\nOptionally filter by `protocol` or `search`."
+    },
+    {
+      "name": "ztw_list_public_account_details",
+      "description": "List ZTW public-cloud account details (read-only)."
+    },
+    {
+      "name": "ztw_list_public_cloud_info",
+      "description": "List ZTW public-cloud account info (read-only)."
+    },
+    {
+      "name": "ztw_list_roles",
+      "description": "List ZTW admin roles (read-only)."
+    },
+    {
+      "name": "zid_get_group",
+      "description": "Get one ZIdentity group by ID."
+    },
+    {
+      "name": "zid_get_group_users",
+      "description": "List the users that belong to a ZIdentity group, by group ID."
+    },
+    {
+      "name": "zid_get_group_users_by_name",
+      "description": "List the users in a ZIdentity group resolved by group name."
+    },
+    {
+      "name": "zid_get_user",
+      "description": "Get one ZIdentity user by ID."
+    },
+    {
+      "name": "zid_get_user_groups",
+      "description": "List the groups a ZIdentity user belongs to, by user ID."
+    },
+    {
+      "name": "zid_get_user_groups_by_name",
+      "description": "List a ZIdentity user's group memberships, resolving the user by name.\n\nRead-only."
+    },
+    {
+      "name": "zid_list_groups",
+      "description": "List ZIdentity groups.\n\nRead-only."
+    },
+    {
+      "name": "zid_list_users",
+      "description": "List ZIdentity users."
+    },
+    {
+      "name": "zid_search_groups",
+      "description": "Search ZIdentity groups by name (case-insensitive partial match)."
+    },
+    {
+      "name": "zid_search_users",
+      "description": "Search ZIdentity users by name, login name, or email."
+    },
+    {
+      "name": "zeasm_get_finding_details",
+      "description": "Get the full detail for one EASM finding.\n\nRead-only."
+    },
+    {
+      "name": "zeasm_get_finding_evidence",
+      "description": "Get the scan evidence attributed to one EASM finding.\n\nRead-only."
+    },
+    {
+      "name": "zeasm_get_finding_scan_output",
+      "description": "Get the complete scan output for one EASM finding.\n\nRead-only."
+    },
+    {
+      "name": "zeasm_get_lookalike_domain",
+      "description": "Get full detail for one EASM lookalike domain.\n\nRead-only."
+    },
+    {
+      "name": "zeasm_list_findings",
+      "description": "List EASM findings for an organization.\n\nRead-only."
+    },
+    {
+      "name": "zeasm_list_lookalike_domains",
+      "description": "List EASM lookalike domains for an organization.\n\nRead-only."
+    },
+    {
+      "name": "zeasm_list_organizations",
+      "description": "List ZEASM organizations.\n\nRead-only."
+    },
+    {
+      "name": "zins_get_casb_app_report",
+      "description": "Get the CASB (Cloud Access Security Broker) SaaS-application usage report."
+    },
+    {
+      "name": "zins_get_cyber_incidents",
+      "description": "Get cyber-security incidents grouped by category."
+    },
+    {
+      "name": "zins_get_cyber_incidents_by_location",
+      "description": "Get cyber-security incidents grouped by location (or app/user/department)."
+    },
+    {
+      "name": "zins_get_cyber_incidents_by_threat_and_app",
+      "description": "Get cyber-security incidents correlated by threat category and application."
+    },
+    {
+      "name": "zins_get_cyber_incidents_daily",
+      "description": "Get the daily cyber-security incident trend over time."
+    },
+    {
+      "name": "zins_get_firewall_by_action",
+      "description": "Get Zero Trust Firewall traffic grouped by action (allow/block)."
+    },
+    {
+      "name": "zins_get_firewall_by_location",
+      "description": "Get Zero Trust Firewall traffic grouped by location."
+    },
+    {
+      "name": "zins_get_firewall_network_services",
+      "description": "Get Zero Trust Firewall traffic grouped by network service."
+    },
+    {
+      "name": "zins_get_iot_device_stats",
+      "description": "Get IoT device statistics and classifications."
+    },
+    {
+      "name": "zins_get_shadow_it_apps",
+      "description": "Get discovered Shadow IT applications with risk and usage detail."
+    },
+    {
+      "name": "zins_get_shadow_it_summary",
+      "description": "Get the aggregate Shadow IT summary dashboard."
+    },
+    {
+      "name": "zins_get_threat_class",
+      "description": "Get threat-class distribution (Virus/Spyware, Advanced, Behavioral)."
+    },
+    {
+      "name": "zins_get_threat_super_categories",
+      "description": "Get threat super-categories (malware, phishing, spyware, …) from web traffic."
+    },
+    {
+      "name": "zins_get_web_protocols",
+      "description": "Get web traffic broken down by protocol (HTTP, HTTPS, SSL, …)."
+    },
+    {
+      "name": "zins_get_web_traffic_by_location",
+      "description": "Get web traffic aggregated per location."
+    },
+    {
+      "name": "zins_get_web_traffic_no_grouping",
+      "description": "Get overall web traffic volume with no grouping."
+    },
+    {
+      "name": "zms_get_agent_connection_status_statistics",
+      "description": "Get ZMS agent connection-status statistics (curated aggregate view).\n\nRead-only."
+    },
+    {
+      "name": "zms_get_agent_group_totp_secrets",
+      "description": "Get the TOTP secrets for a ZMS agent group (full record).\n\nRead-only API call, but the returned values ARE sensitive enrollment\ncredentials — treat them like secrets."
+    },
+    {
+      "name": "zms_get_agent_version_statistics",
+      "description": "Get ZMS agent version statistics (curated aggregate view).\n\nRead-only."
+    },
+    {
+      "name": "zms_get_metadata",
+      "description": "Get ZMS resource event metadata (full record).\n\nRead-only."
+    },
+    {
+      "name": "zms_get_nonce",
+      "description": "Get one ZMS nonce.\n\nRead-only."
+    },
+    {
+      "name": "zms_get_resource_group_members",
+      "description": "List the members of a ZMS resource group.\n\nRead-only."
+    },
+    {
+      "name": "zms_get_resource_group_protection_status",
+      "description": "Get the ZMS resource-group protection-status summary (aggregate view).\n\nRead-only."
+    },
+    {
+      "name": "zms_get_resource_protection_status",
+      "description": "Get the ZMS resource protection-status summary (curated aggregate view).\n\nRead-only."
+    },
+    {
+      "name": "zms_list_agent_groups",
+      "description": "List ZMS agent groups.\n\nRead-only."
+    },
+    {
+      "name": "zms_list_agents",
+      "description": "List ZMS microsegmentation agents.\n\nRead-only."
+    },
+    {
+      "name": "zms_list_app_catalog",
+      "description": "List the ZMS application catalog.\n\nRead-only."
+    },
+    {
+      "name": "zms_list_app_zones",
+      "description": "List ZMS app zones.\n\nRead-only."
+    },
+    {
+      "name": "zms_list_default_policy_rules",
+      "description": "List ZMS default policy rules.\n\nRead-only."
+    },
+    {
+      "name": "zms_list_nonces",
+      "description": "List ZMS enrollment nonces.\n\nRead-only."
+    },
+    {
+      "name": "zms_list_policy_rules",
+      "description": "List ZMS microsegmentation policy rules.\n\nRead-only."
+    },
+    {
+      "name": "zms_list_resource_groups",
+      "description": "List ZMS resource groups.\n\nRead-only."
+    },
+    {
+      "name": "zms_list_resources",
+      "description": "List ZMS resources (workloads).\n\nRead-only."
+    },
+    {
+      "name": "zms_list_tag_keys",
+      "description": "List ZMS tag keys within a namespace.\n\nRead-only."
+    },
+    {
+      "name": "zms_list_tag_namespaces",
+      "description": "List ZMS tag namespaces.\n\nRead-only."
+    },
+    {
+      "name": "zms_list_tag_values",
+      "description": "List ZMS tag values for a key.\n\nRead-only."
+    },
+    {
+      "name": "zcell_get_customer_data_handling",
+      "description": "Get the logged-in Zscaler Cellular customer's profile and SIM totals.\n\nRead-only."
+    },
+    {
+      "name": "zcell_get_sim_details",
+      "description": "Get the full Zscaler Cellular record for one SIM by ICCID.\n\nRead-only."
+    },
+    {
+      "name": "zcell_get_sim_location_group",
+      "description": "Get one Zscaler Cellular SIM location group.\n\nRead-only."
+    },
+    {
+      "name": "zcell_list_anomaly_policies",
+      "description": "List Zscaler Cellular anomaly policies.\n\nRead-only."
+    },
+    {
+      "name": "zcell_list_anomaly_policy_logs",
+      "description": "List the activity log for one Zscaler Cellular anomaly policy.\n\nRead-only."
+    },
+    {
+      "name": "zcell_list_anomaly_policy_violations",
+      "description": "List the ICCIDs that violated a Zscaler Cellular anomaly policy.\n\nRead-only."
+    },
+    {
+      "name": "zcell_list_audit_customers_search",
+      "description": "Search Zscaler Cellular audit-log entries over a lookback window.\n\nRead-only."
+    },
+    {
+      "name": "zcell_list_audit_metadata",
+      "description": "List the Zscaler Cellular audit filter vocabulary.\n\nRead-only."
+    },
+    {
+      "name": "zcell_list_iccid_violations",
+      "description": "List the anomaly-policy violation events for one ICCID.\n\nRead-only."
+    },
+    {
+      "name": "zcell_list_network_events",
+      "description": "Search Zscaler Cellular network/session events over a lookback window.\n\nRead-only."
+    },
+    {
+      "name": "zcell_list_region_operational_status",
+      "description": "List Zscaler Cellular configured regions with their operational status.\n\nRead-only."
+    },
+    {
+      "name": "zcell_list_regions",
+      "description": "List the Zscaler Cellular regions available/configured for the customer.\n\nRead-only."
+    },
+    {
+      "name": "zcell_list_sim_analytics_map",
+      "description": "List Zscaler Cellular SIM map points (dashboard lat/lng summary).\n\nRead-only."
+    },
+    {
+      "name": "zcell_list_sim_analytics_summary",
+      "description": "List the Zscaler Cellular SIM status summary (total/used/active/inactive).\n\nRead-only."
+    },
+    {
+      "name": "zcell_list_sim_location_groups",
+      "description": "List Zscaler Cellular SIM location groups.\n\nRead-only."
+    },
+    {
+      "name": "zcell_list_sim_usage_by_country",
+      "description": "List Zscaler Cellular data usage grouped by country (top countries).\n\nRead-only."
+    },
+    {
+      "name": "zcell_list_sim_usage_by_day",
+      "description": "List Zscaler Cellular data usage per day over the window.\n\nRead-only."
+    },
+    {
+      "name": "zcell_list_sim_usage_by_sim",
+      "description": "List Zscaler Cellular data usage grouped by SIM (top SIMs).\n\nRead-only."
+    },
+    {
+      "name": "zcell_list_sims",
+      "description": "Search the Zscaler Cellular SIM inventory with filters and pagination.\n\nRead-only (browses the inventory)."
+    },
+    {
+      "name": "zcell_list_tags",
+      "description": "List the Zscaler Cellular SIM tags defined for the customer.\n\nRead-only."
+    }
+  ],
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "python": ">=3.10"
+    }
+  },
+  "user_config": {
+    "enabled_services": {
+      "type": "string",
+      "title": "Enabled Services",
+      "description": "Comma-separated list of Zscaler services to enable. Available: zia, zpa, zdx, zcc, ztw, zid, zeasm, zins, zms, zcell. Default: every service the OneAPI credentials are entitled to.",
+      "required": false,
+      "sensitive": false,
+      "default": "zia,zpa,zdx,zcc,ztw,zid,zeasm,zins,zms,zcell"
+    },
+    "toolsets": {
+      "type": "string",
+      "title": "Enabled Toolsets",
+      "description": "Comma-separated list of toolset ids to enable (e.g. 'zia_url_filtering,zpa_app_segments'). Special values: 'default' for the curated default-on subset, 'all' for every toolset. Leave empty to load every toolset for the enabled services.",
+      "required": false,
+      "sensitive": false,
+      "default": ""
+    },
+    "debug_mode": {
+      "type": "boolean",
+      "title": "Enable Debug Mode",
+      "description": "Enable debug logging for troubleshooting. Logs all MCP operations and outbound API interactions to the Claude Desktop developer console.",
+      "required": false,
+      "sensitive": false,
+      "default": false
+    },
+    "enable_write_tools": {
+      "type": "boolean",
+      "title": "Enable Write Tools",
+      "description": "Enable tools that CREATE, UPDATE, or DELETE Zscaler resources. Read-only tools (list / get) remain available regardless of this setting. Off by default.",
+      "required": false,
+      "sensitive": false,
+      "default": false
+    },
+    "write_tools": {
+      "type": "string",
+      "title": "Write Tools Allowlist (MANDATORY when writes are enabled)",
+      "description": "Comma-separated allowlist of write tools. Supports fnmatch wildcards (e.g. 'zpa_create_*,zia_update_*'). Required when 'Enable Write Tools' is on — an empty allowlist registers zero write tools even with the toggle enabled.",
+      "required": false,
+      "sensitive": false,
+      "default": ""
+    },
+    "user_agent_comment": {
+      "type": "string",
+      "title": "Custom User Agent",
+      "description": "Optional comment appended to the SDK's outgoing User-Agent header. Useful for tagging requests when a single tenant has multiple deployments.",
+      "required": false,
+      "sensitive": false
+    },
+    "client_id": {
+      "type": "string",
+      "title": "ZSCALER_CLIENT_ID",
+      "description": "OneAPI client ID from the ZIdentity console.",
+      "required": false,
+      "sensitive": true
+    },
+    "client_secret": {
+      "type": "string",
+      "title": "ZSCALER_CLIENT_SECRET",
+      "description": "OneAPI client secret from the ZIdentity console.",
+      "required": false,
+      "sensitive": true
+    },
+    "customer_id": {
+      "type": "string",
+      "title": "ZSCALER_CUSTOMER_ID",
+      "description": "Zscaler customer/tenant ID. Required for ZPA tools; optional for other services.",
+      "required": false,
+      "sensitive": false
+    },
+    "zcell_customer_id": {
+      "type": "string",
+      "title": "ZCELL_CUSTOMER_ID",
+      "description": "Zscaler Cellular customer ID. Required for ZCell tools. Separate from ZSCALER_CUSTOMER_ID (used by ZPA).",
+      "required": false,
+      "sensitive": false
+    },
+    "vanity_domain": {
+      "type": "string",
+      "title": "ZSCALER_VANITY_DOMAIN",
+      "description": "ZIdentity vanity domain (e.g. 'acme').",
+      "required": false,
+      "sensitive": false
+    },
+    "cloud": {
+      "type": "string",
+      "title": "ZSCALER_CLOUD",
+      "description": "Optional Zscaler cloud override (e.g. 'BETA', 'zscalertwo'). Leave as 'production' for the standard cloud.",
+      "required": false,
+      "sensitive": false,
+      "default": "production"
+    }
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zscaler/zscaler-mcp-server"
+  }
+}

@@ -1,0 +1,56 @@
+# Copyright (c) 2026 DataRobot, Inc. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log
+*.bak
+
+# Data files (if any)
+*.csv
+*.parquet
+*.json
+!gemini-extension.json
+!.cursor-plugin/plugin.json
+!.claude-plugin/marketplace.json
+!.claude-plugin/plugin.json
+!tests/e2e/skill_hashes.json
+!package.json
+!.opencode-plugin/themes/*.json
+!docs/.well-known/ai-catalog.json
+
+# Environment variables
+.env
+.env.local
+
+# Swarm simulation reports
+eval_report.md
+evaluation_criteria.md
+.datarobot/swarm/
+

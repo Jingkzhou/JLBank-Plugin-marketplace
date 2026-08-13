@@ -1,0 +1,261 @@
+# FiftyOne Skills
+
+<div align="center">
+<p align="center">
+
+<!-- prettier-ignore -->
+<img src="https://user-images.githubusercontent.com/25985824/106288517-2422e000-6216-11eb-871d-26ad2e7b1e59.png" height="55px"> &nbsp;
+<img src="https://user-images.githubusercontent.com/25985824/106288518-24bb7680-6216-11eb-8f10-60052c519586.png" height="50px">
+
+</p>
+
+**Expert workflows for computer vision powered by AI assistants**
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![FiftyOne](https://img.shields.io/badge/FiftyOne-v1.10+-orange.svg)](https://github.com/voxel51/fiftyone)
+[![MCP Server](https://img.shields.io/badge/MCP%20Server-fiftyone--mcp-green.svg)](https://github.com/voxel51/fiftyone-mcp-server)
+[![Validate Skills](https://github.com/voxel51/fiftyone-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/voxel51/fiftyone-skills/actions/workflows/validate.yml)
+
+[![Discord](https://img.shields.io/badge/Discord-7289DA?logo=discord&logoColor=white)](https://discord.gg/fiftyone-community)
+[![Hugging Face](https://img.shields.io/badge/Hugging_Face-purple?style=flat&logo=huggingface)](https://huggingface.co/Voxel51)
+[![Voxel51 Blog](https://img.shields.io/badge/Voxel51_Blog-ff6d04?style=flat)](https://voxel51.com/blog)
+[![Newsletter](https://img.shields.io/badge/Newsletter-BE5B25?logo=mail.ru&logoColor=white)](https://share.hsforms.com/1zpJ60ggaQtOoVeBqIZdaaA2ykyk)
+[![LinkedIn](https://img.shields.io/badge/In-white?style=flat&label=Linked&labelColor=blue)](https://www.linkedin.com/company/voxel51)
+[![Twitter](https://img.shields.io/badge/Twitter-000000?logo=x&logoColor=white)](https://x.com/voxel51)
+[![Medium](https://img.shields.io/badge/Medium-12100E?logo=medium&logoColor=white)](https://medium.com/voxel51)
+
+[Documentation](https://docs.voxel51.com) · [MCP Server](https://github.com/voxel51/fiftyone-mcp-server) · [FiftyOne Plugins](https://github.com/voxel51/fiftyone-plugins) · [Discord](https://discord.gg/fiftyone-community)
+
+</div>
+
+## What are Skills?
+
+Skills are packaged workflows that teach AI assistants to perform complex computer vision tasks autonomously. Combined with the [FiftyOne MCP Server](https://github.com/voxel51/fiftyone-mcp-server), you can find duplicates, run inference, and explore datasets using natural language.
+
+```
+"Find and remove duplicate images from my dataset"
+"Import this COCO dataset and run object detection"
+"Visualize my embeddings and identify outliers"
+```
+
+Skills bridge the gap between natural language and FiftyOne's 80+ operators, providing step-by-step guidance that AI assistants follow to complete complex workflows.
+
+## Available Skills
+
+| Skill | Description | MCP |
+|-------|-------------|-----|
+| 📥 [**Dataset Import**](skills/fiftyone-dataset-import/SKILL.md) | Universal import for all media types, label formats, multimodal groups, and Hugging Face Hub | Yes |
+| 📤 [**Dataset Export**](skills/fiftyone-dataset-export/SKILL.md) | Export datasets to COCO, YOLO, VOC, CVAT, CSV, Hugging Face Hub, and more | Yes |
+| 🔍 [**Find Duplicates**](skills/fiftyone-find-duplicates/SKILL.md) | Find and remove duplicate images using brain similarity | Yes |
+| 🤖 [**Dataset Inference**](skills/fiftyone-dataset-inference/SKILL.md) | Run Zoo models for detection, classification, segmentation, embeddings | Yes |
+| 📈 [**Model Evaluation**](skills/fiftyone-model-evaluation/SKILL.md) | Compute mAP, precision, recall, confusion matrices, analyze TP/FP/FN | Yes |
+| 📊 [**Embeddings Visualization**](skills/fiftyone-embeddings-visualization/SKILL.md) | Visualize datasets in 2D, find clusters, identify outliers | Yes |
+| 🔌 [**Develop Plugin**](skills/fiftyone-develop-plugin/SKILL.md) | Create custom FiftyOne plugins (operators and panels) | — |
+| 🎨 [**VOODO Design**](skills/fiftyone-voodo-design/SKILL.md) | Build UIs with VOODO React components and design tokens | — |
+| 📝 [**Code Style**](skills/fiftyone-code-style/SKILL.md) | Write Python code following FiftyOne's official conventions | — |
+| 📓 [**Create Notebook**](skills/fiftyone-create-notebook/SKILL.md) | Create Jupyter notebooks: getting-started guides, tutorials, recipes, ML pipelines | — |
+| 🏷️ [**Issue Triage**](skills/fiftyone-issue-triage/SKILL.md) | Triage GitHub issues: validate status, categorize, generate responses | — |
+| 🧹 [**Dataset Curation**](skills/fiftyone-dataset-curation/SKILL.md) | End-to-end curation: quality checks, annotation audit, duplicates, class distribution, splits | Yes |
+| 🔧 [**Troubleshoot**](skills/fiftyone-troubleshoot/SKILL.md) | Fix common issues: dataset persistence, App connection, MongoDB errors, codecs, performance | — |
+| 🛡️ [**Eval Plugin**](skills/fiftyone-eval-plugin/SKILL.md) | Evaluate plugins for quality, security, and agent-readiness. Produces a structured report | — |
+| 🧩 [**Zoo Remote Model**](skills/fiftyone-zoo-remote-model/SKILL.md) | Build remote model zoo integrations that work with `register_zoo_model_source` and `dataset.apply_model` | — |
+| 🔌 [**Generate Data Lens Connector**](skills/fiftyone-generate-data-lens-connector/SKILL.md) | Generate a Data Lens connector from an external database schema (PostgreSQL, BigQuery, MySQL, etc.) | — |
+| 🎭 [**App Playwright**](skills/fiftyone-app-playwright/SKILL.md) | Drive the FiftyOne App via the Playwright MCP for operator/plugin verification, demos, and end-to-end UI automation | — |
+| 📚 [**SDK Guidance**](skills/fiftyone-sdk-guidance/SKILL.md) | Answer FiftyOne SDK and docs questions with live documentation search, or provide the SDK path when no operator exists | — |
+
+## Quick Start
+
+### Step 1: Install Skills
+
+**Universal Installer** (Recommended):
+```bash
+curl -sL skil.sh | sh -s -- voxel51/fiftyone-skills
+```
+Interactive prompts let you select skills, agents, and install scope (project or global).
+
+Supported agents: Claude Code, Cursor, Codex, OpenCode, GitHub Copilot, Amp, Antigravity, Roo Code, Kilo Code, Goose
+
+**Claude Code:**
+```bash
+# Register the skills marketplace
+/plugin marketplace add voxel51/fiftyone-skills
+
+# Install a skill
+/plugin install fiftyone-find-duplicates@fiftyone-skills
+```
+
+**Gemini CLI:**
+```bash
+gemini extensions install https://github.com/voxel51/fiftyone-skills.git --consent
+```
+
+### Step 2: Use It
+
+```
+"Write a FiftyOne plugin that displays model confidence"
+"Write Python code following FiftyOne conventions"
+```
+
+Your AI assistant will automatically load the skill instructions and execute the workflow.
+
+### Step 3: Set Up MCP Server (Optional)
+
+Skills marked with **MCP** in the [table above](#available-skills) require the [FiftyOne MCP Server](https://github.com/voxel51/fiftyone-mcp-server) to interact with datasets and run operators.
+
+```bash
+pip install fiftyone-mcp-server
+```
+
+> **⚠️ Important:** Make sure to use the same Python environment where you installed the MCP server when configuring your AI tool. If you installed it in a virtual environment or conda environment, you must activate that environment or specify the full path to the executable.
+
+Then configure your AI tool:
+
+<details>
+<summary><b>Claude Code</b> (Recommended)</summary>
+
+```bash
+claude mcp add fiftyone -- fiftyone-mcp
+```
+
+</details>
+
+<details>
+<summary><b>Claude Desktop</b></summary>
+
+Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "fiftyone": {
+      "command": "fiftyone-mcp"
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary><b>Cursor</b></summary>
+
+[![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](cursor://anysphere.cursor-deeplink/mcp/install?name=fiftyone&config=eyJjb21tYW5kIjoiZmlmdHlvbmUtbWNwIn0)
+
+Add to `~/.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "fiftyone": {
+      "command": "fiftyone-mcp"
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary><b>VSCode</b></summary>
+
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=fiftyone&config=%7B%22command%22%3A%22fiftyone-mcp%22%7D)
+
+Add to `.vscode/mcp.json`:
+
+```json
+{
+  "servers": {
+    "fiftyone": {
+      "command": "fiftyone-mcp"
+    }
+  }
+}
+```
+
+</details>
+
+Once configured, you can use MCP-dependent skills:
+
+```
+"Find and remove duplicate images from my dataset"
+"Import this COCO dataset and run object detection"
+```
+
+## Skill Structure
+
+Each skill follows the [Agent Skills](https://agentskills.io) specification:
+
+```
+skills/
+└── fiftyone-find-duplicates/
+    └── SKILL.md                     # Instructions for AI
+```
+
+**SKILL.md format:**
+
+```markdown
+---
+name: skill-name
+description: When to use this skill
+---
+
+# Overview
+What this skill does
+
+# Prerequisites
+Required setup
+
+# Key Directives
+ALWAYS/NEVER rules for AI
+
+# Workflow
+Step-by-step instructions
+
+# Troubleshooting
+Common errors and solutions
+```
+
+## Contributing
+
+We welcome contributions! Whether you want to add a new skill, improve an existing one, or help with integrations and tooling — there's a place for you here.
+
+See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full guide, including skill structure requirements, the quality bar, and how to test your skill before submitting.
+
+Looking for ideas? Browse issues labeled [`help wanted`](https://github.com/voxel51/fiftyone-skills/labels/help%20wanted) or [`good first issue`](https://github.com/voxel51/fiftyone-skills/labels/good%20first%20issue), or check the [project milestones](https://github.com/voxel51/fiftyone-skills/milestones) for planned work.
+
+## Feedback
+
+Help us improve FiftyOne Skills!
+
+**Just ask your AI assistant:**
+```
+"Help me submit feedback about [your issue]"
+```
+
+The agent will automatically gather session context, environment info, and can submit directly via `gh` CLI or generate content to paste at **[Submit Feedback](https://github.com/voxel51/fiftyone-skills/issues/new?template=skill-feedback.yml)**
+
+## Resources
+
+| Resource | Description |
+|----------|-------------|
+| [FiftyOne Docs](https://docs.voxel51.com) | Official documentation |
+| [FiftyOne MCP Server](https://github.com/voxel51/fiftyone-mcp-server) | MCP server for AI integration |
+| [FiftyOne Plugins](https://github.com/voxel51/fiftyone-plugins) | Official plugin collection |
+| [Agent Skills Spec](https://agentskills.io) | Skills format specification |
+| [PyPI Package](https://pypi.org/project/fiftyone-mcp-server/) | MCP server on PyPI |
+| [Discord Community](https://discord.gg/fiftyone-community) | Get help and share ideas |
+
+## 🧡 Community
+
+Join the FiftyOne community to get help, share your skills, and connect with other users:
+
+- **Discord**: [FiftyOne Community](https://discord.gg/fiftyone-community)
+- **GitHub Issues**: [Report bugs or request features](https://github.com/voxel51/fiftyone-skills/issues)
+
+---
+
+<div align="center">
+
+Copyright 2017-2026, Voxel51, Inc. · [Apache 2.0 License](LICENSE)
+
+</div>

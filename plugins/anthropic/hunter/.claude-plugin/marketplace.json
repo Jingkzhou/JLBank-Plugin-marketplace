@@ -1,0 +1,13 @@
+{
+  "name": "hunter",
+  "owner": {
+    "name": "Hunter.io",
+    "url": "https://hunter.io"
+  },
+  "plugins": [
+    {
+      "name": "hunter",
+      "source": "./"
+    }
+  ]
+}

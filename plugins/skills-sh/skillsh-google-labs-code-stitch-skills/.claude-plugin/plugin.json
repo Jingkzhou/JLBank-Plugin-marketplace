@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-google-labs-code-stitch-skills",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from google-labs-code/stitch-skills.",
+  "author": {
+    "name": "google-labs-code/stitch-skills"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "eval_id": 6,
+  "variant": "without_skill",
+  "assertions": [
+    {
+      "assertion": "Lists all four signing behaviors: SignAssertion, SignResponse, SignBoth, DoNotSign",
+      "pass": true,
+      "rationale": "Lists all four options, though doesn't use the exact enum names consistently (says 'Sign the Assertion' etc.) but the concepts are covered."
+    },
+    {
+      "assertion": "Recommends SignBoth for the specific requirement of signing both assertion and response",
+      "pass": true,
+      "rationale": "Shows SignBoth configuration for the user's requirement."
+    },
+    {
+      "assertion": "Notes that SignAssertion is the default and most interoperable option",
+      "pass": false,
+      "rationale": "Says assertion signing is 'the most common approach' but does not state it's the default or most interoperable."
+    },
+    {
+      "assertion": "Warns that DoNotSign should only be used for testing, never in production",
+      "pass": false,
+      "rationale": "Says 'not recommended for any environment' which is inaccurate \u2014 it's valid for testing. Does not specifically say 'testing only'."
+    },
+    {
+      "assertion": "Shows how to set SigningBehavior on the SamlServiceProvider or as a default via options.Saml.DefaultSigningBehavior",
+      "pass": true,
+      "rationale": "Shows both per-SP SigningBehavior and options.Saml.DefaultSigningBehavior."
+    }
+  ],
+  "pass_count": 3,
+  "total_count": 5,
+  "score": 0.6
+}

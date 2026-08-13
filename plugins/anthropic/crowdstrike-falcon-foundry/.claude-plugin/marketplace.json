@@ -1,0 +1,30 @@
+{
+  "name": "foundry-marketplace",
+  "description": "AI coding assistant skills for building CrowdStrike Falcon Foundry apps",
+  "owner": {
+    "name": "CrowdStrike"
+  },
+  "plugins": [
+    {
+      "name": "crowdstrike-falcon-foundry",
+      "source": "./",
+      "description": "CrowdStrike Falcon Foundry development skills for building cybersecurity applications on the Falcon platform. Includes UI development, collections, functions, workflows, API integration, security patterns, and debugging workflows.",
+      "version": "1.4.1",
+      "author": {
+        "name": "CrowdStrike"
+      },
+      "keywords": [
+        "foundry",
+        "crowdstrike",
+        "cybersecurity",
+        "falcon",
+        "ui-development",
+        "collections",
+        "functions",
+        "workflows",
+        "api-integration",
+        "security"
+      ]
+    }
+  ]
+}

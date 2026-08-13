@@ -1,0 +1,441 @@
+package terminal
+
+import (
+	"cmp"
+	"context"
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"net/http/cookiejar"
+	"net/url"
+	"os"
+	"regexp"
+	"strconv"
+	"strings"
+	"sync"
+	"time"
+
+	"errors"
+
+	"github.com/JetBrains/teamcity-cli/api"
+	"github.com/JetBrains/teamcity-cli/internal/output"
+	"github.com/gorilla/websocket"
+	"golang.org/x/term"
+)
+
+const (
+	// pingInterval is the interval between WebSocket ping messages.
+	// 60s is conservative; most proxies/load balancers have 60-120s idle timeouts.
+	pingInterval = 60 * time.Second
+
+	// writeTimeout is the maximum time to wait for a WebSocket write to complete.
+	// 10s is generous for small control messages; prevents hanging on network issues.
+	writeTimeout = 10 * time.Second
+
+	// readTimeout: 2.5x pingInterval — tolerates one missed pong.
+	readTimeout = pingInterval*2 + pingInterval/2
+)
+
+// Session holds the session token and node ID from TeamCity's agent terminal plugin
+type Session struct {
+	Token  string `json:"token"`
+	NodeID string `json:"nodeId"`
+}
+
+type Client struct {
+	baseURL      string
+	username     string
+	token        string
+	httpClient   *http.Client
+	debugf       func(string, ...any)
+	extraHeaders map[string]string
+}
+
+func NewClient(baseURL, username, token string, debugf func(string, ...any)) *Client {
+	jar, _ := cookiejar.New(nil)
+	return &Client{
+		baseURL:      strings.TrimSuffix(baseURL, "/"),
+		username:     username,
+		token:        token,
+		debugf:       debugf,
+		extraHeaders: api.EnvHeaders(),
+		httpClient: &http.Client{
+			Jar:     jar,
+			Timeout: 30 * time.Second,
+		},
+	}
+}
+
+func (c *Client) OpenSession(agentID int) (*Session, error) {
+	endpoint := fmt.Sprintf("%s/httpAuth/plugins/teamcity-agent-terminal/agentTerminal.html?id=%d", c.baseURL, agentID)
+
+	req, err := http.NewRequest(http.MethodPost, endpoint, strings.NewReader(""))
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Set("Accept", "application/json")
+	for k, v := range c.extraHeaders {
+		req.Header.Set(k, v)
+	}
+
+	req.SetBasicAuth(cmp.Or(c.username, "token"), c.token)
+
+	c.debugf("> POST %s", endpoint)
+
+	resp, err := c.httpClient.Do(req)
+	if err != nil {
+		return nil, &api.NetworkError{URL: c.baseURL, Cause: err}
+	}
+	defer func() { _ = resp.Body.Close() }()
+
+	c.debugf("< %s", resp.Status)
+
+	if resp.StatusCode == http.StatusUnauthorized || resp.StatusCode == http.StatusForbidden {
+		return nil, api.ErrorFromResponse(resp)
+	}
+	if resp.StatusCode != http.StatusOK {
+		body, _ := io.ReadAll(resp.Body)
+		return nil, api.Validation(
+			"Failed to open terminal session: "+strings.TrimSpace(string(body)),
+			"Check if the agent-terminal plugin is installed on the server",
+		)
+	}
+
+	var session Session
+	if err := json.NewDecoder(resp.Body).Decode(&session); err != nil {
+		return nil, fmt.Errorf("invalid response from server: %w", err)
+	}
+
+	if session.NodeID == "" {
+		session.NodeID = resp.Header.Get("Teamcity-Node-Id")
+	}
+
+	return &session, nil
+}
+
+func (c *Client) Connect(session *Session, cols, rows int) (*Conn, error) {
+	u, err := url.Parse(c.baseURL)
+	if err != nil {
+		return nil, err
+	}
+
+	scheme := "wss"
+	if u.Scheme == "http" {
+		scheme = "ws"
+	}
+
+	wsURL := fmt.Sprintf("%s://%s/app/agentTerminal/terminal/%s?cols=%d&rows=%d",
+		scheme, u.Host, session.Token, cols, rows)
+
+	header := http.Header{}
+	header.Set("Origin", c.baseURL)
+	for k, v := range c.extraHeaders {
+		header.Set(k, v)
+	}
+
+	var cookies []string
+	for _, cookie := range c.httpClient.Jar.Cookies(u) {
+		cookies = append(cookies, cookie.Name+"="+cookie.Value)
+	}
+	if session.NodeID != "" {
+		cookies = append(cookies, "X-TeamCity-Node-Id-Cookie="+session.NodeID)
+	}
+	if len(cookies) > 0 {
+		header.Set("Cookie", strings.Join(cookies, "; "))
+	}
+
+	c.debugf("WebSocket URL: %s://%s/app/agentTerminal/terminal/<redacted>?cols=%d&rows=%d", scheme, u.Host, cols, rows)
+
+	conn, resp, err := websocket.DefaultDialer.Dial(wsURL, header)
+	if err != nil {
+		if resp != nil {
+			body, _ := io.ReadAll(resp.Body)
+			_ = resp.Body.Close()
+			return nil, fmt.Errorf("WebSocket connection failed: %s %s", resp.Status, strings.TrimSpace(string(body)))
+		}
+		return nil, fmt.Errorf("WebSocket connection failed: %w", err)
+	}
+
+	return &Conn{conn: conn, done: make(chan struct{}), debugf: c.debugf}, nil
+}
+
+type Conn struct {
+	conn      *websocket.Conn
+	closeOnce sync.Once
+	done      chan struct{}
+	mu        sync.Mutex
+	writeMu   sync.Mutex // serializes writes to WebSocket
+	err       error
+	debugf    func(string, ...any)
+}
+
+const execMarker = "__TC_EXEC_7f3a9e2b__"
+
+func (tc *Conn) RunInteractive(ctx context.Context) error {
+	stdin := os.Stdin
+	stdout := os.Stdout
+	fd := int(stdin.Fd())
+	if !term.IsTerminal(fd) {
+		return errors.New("terminal command requires an interactive terminal")
+	}
+
+	output.StopSpinner() // hand the terminal to raw-mode PTY I/O
+
+	defer tc.Close()
+
+	oldState, err := term.MakeRaw(fd)
+	if err != nil {
+		return fmt.Errorf("failed to set raw terminal mode: %w", err)
+	}
+	defer func() { _ = term.Restore(fd, oldState) }()
+
+	_ = tc.conn.SetReadDeadline(time.Now().Add(readTimeout))
+	tc.conn.SetPongHandler(func(string) error {
+		return tc.conn.SetReadDeadline(time.Now().Add(readTimeout))
+	})
+
+	errChan := make(chan error, 2)
+	go tc.copyToWriter(stdout, errChan)
+	go tc.copyFromReader(stdin, errChan)
+
+	sigChan, stopSig := resizeSignal()
+	defer stopSig()
+
+	ticker := time.NewTicker(pingInterval)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-tc.done:
+			tc.mu.Lock()
+			err := tc.err
+			tc.mu.Unlock()
+			return err
+		case err := <-errChan:
+			return err
+		case <-sigChan:
+			tc.sendResize()
+		case <-ticker.C:
+			tc.sendPing()
+		}
+	}
+}
+
+func (tc *Conn) Exec(ctx context.Context, command string) error {
+	stdout := os.Stdout
+	defer tc.Close()
+
+	type result struct {
+		output string
+		err    error
+	}
+	resultCh := make(chan result, 1)
+	readyCh := make(chan struct{}, 1)
+
+	go func() {
+		var buf strings.Builder
+		signalledReady := false
+
+		for {
+			_, msg, err := tc.conn.ReadMessage()
+			if err != nil {
+				switch {
+				case buf.Len() > 0:
+					resultCh <- result{output: extractExecOutput(buf.String())}
+				case !websocket.IsCloseError(err, websocket.CloseNormalClosure, websocket.CloseGoingAway):
+					resultCh <- result{err: fmt.Errorf("connection error: %w", err)}
+				default:
+					resultCh <- result{}
+				}
+				return
+			}
+
+			buf.Write(msg)
+
+			if !signalledReady {
+				signalledReady = true
+				select {
+				case readyCh <- struct{}{}:
+				default:
+				}
+			}
+
+			content := normalizeLineEndings(stripANSI(buf.String()))
+			if strings.Count(content, execMarker+"\n") >= 2 {
+				resultCh <- result{output: extractExecOutput(content)}
+				return
+			}
+		}
+	}()
+
+	select {
+	case <-ctx.Done():
+		return errors.New("command timed out")
+	case <-readyCh:
+	}
+
+	time.Sleep(100 * time.Millisecond)
+
+	if err := tc.writeMessage(websocket.TextMessage, []byte("stty -echo\r")); err != nil {
+		return fmt.Errorf("failed to send stty: %w", err)
+	}
+	time.Sleep(100 * time.Millisecond)
+
+	fullCmd := fmt.Sprintf("echo %s; %s; echo \"\"; echo %s; exit\r", execMarker, command, execMarker)
+	if err := tc.writeMessage(websocket.TextMessage, []byte(fullCmd)); err != nil {
+		return fmt.Errorf("failed to send command: %w", err)
+	}
+
+	select {
+	case <-ctx.Done():
+		return errors.New("command timed out")
+	case res := <-resultCh:
+		if res.err != nil {
+			return res.err
+		}
+		if res.output != "" {
+			_, _ = fmt.Fprintln(stdout, res.output)
+		}
+		return nil
+	}
+}
+
+func normalizeLineEndings(s string) string {
+	s = strings.ReplaceAll(s, "\r\n", "\n")
+	s = strings.ReplaceAll(s, "\r", "")
+	return s
+}
+
+var ansiEscapeRE = regexp.MustCompile(`\x1b\[[0-9;?]*[a-zA-Z]|\x1b\][^\a\x1b]*(?:\a|\x1b\\)|\x1b[A-Z@\\^_]`)
+
+func stripANSI(s string) string {
+	return ansiEscapeRE.ReplaceAllString(s, "")
+}
+
+func extractExecOutput(raw string) string {
+	raw = normalizeLineEndings(stripANSI(raw))
+	startPattern := execMarker + "\n"
+	_, after, ok := strings.Cut(raw, startPattern)
+	if !ok {
+		return ""
+	}
+	raw, _, _ = strings.Cut(after, execMarker)
+
+	return strings.TrimSpace(raw)
+}
+
+func (tc *Conn) Close() {
+	tc.closeOnce.Do(func() {
+		close(tc.done)
+		_ = tc.conn.Close()
+	})
+}
+
+// writeMessage writes a message to the WebSocket with proper serialization and deadline.
+func (tc *Conn) writeMessage(messageType int, data []byte) error {
+	tc.writeMu.Lock()
+	defer tc.writeMu.Unlock()
+	_ = tc.conn.SetWriteDeadline(time.Now().Add(writeTimeout))
+	return tc.conn.WriteMessage(messageType, data)
+}
+
+func (tc *Conn) copyToWriter(w io.Writer, errChan chan<- error) {
+	tc.copyToWriterWithReady(w, errChan, nil)
+}
+
+func (tc *Conn) copyToWriterWithReady(w io.Writer, errChan chan<- error, readyCh chan<- struct{}) {
+	defer tc.Close()
+	signalledReady := false
+	for {
+		_, r, err := tc.conn.NextReader()
+		if err != nil {
+			if !websocket.IsCloseError(err, websocket.CloseNormalClosure, websocket.CloseGoingAway) {
+				tc.mu.Lock()
+				tc.err = err
+				tc.mu.Unlock()
+			}
+			return
+		}
+		_ = tc.conn.SetReadDeadline(time.Now().Add(readTimeout))
+
+		if !signalledReady && readyCh != nil {
+			signalledReady = true
+			select {
+			case readyCh <- struct{}{}:
+			default:
+			}
+		}
+
+		if _, err := io.Copy(w, r); err != nil {
+			select {
+			case errChan <- err:
+			default:
+			}
+			return
+		}
+	}
+}
+
+func (tc *Conn) copyFromReader(r io.Reader, errChan chan<- error) {
+	buf := make([]byte, 32*1024)
+	for {
+		n, err := r.Read(buf)
+		if err != nil {
+			if err != io.EOF { // Propagate read errors (e.g., stdin closed unexpectedly)
+				select {
+				case errChan <- fmt.Errorf("stdin read error: %w", err):
+				default:
+				}
+			}
+			return
+		}
+		select {
+		case <-tc.done:
+			return
+		default:
+		}
+		if err := tc.writeMessage(websocket.TextMessage, buf[:n]); err != nil {
+			select {
+			case errChan <- err:
+			default:
+			}
+			return
+		}
+	}
+}
+
+func (tc *Conn) sendResize() {
+	cols, rows := output.TerminalSize()
+	tc.sendJSON("resize", map[string]string{
+		"cols": strconv.Itoa(cols),
+		"rows": strconv.Itoa(rows),
+	})
+}
+
+func (tc *Conn) sendPing() {
+	if err := tc.conn.WriteControl(websocket.PingMessage, nil, time.Now().Add(writeTimeout)); err != nil {
+		tc.debugf("terminal: failed to send WS ping: %v", err)
+	}
+	tc.sendJSON("ping", map[string]string{
+		"ts": strconv.FormatInt(time.Now().UnixMilli(), 10),
+	})
+}
+
+func (tc *Conn) sendJSON(cmd string, details map[string]string) {
+	data, err := json.Marshal(map[string]any{
+		"agent-terminal-command": cmd,
+		"details":                details,
+	})
+	if err != nil {
+		tc.debugf("terminal: failed to marshal %s command: %v", cmd, err)
+		return
+	}
+	if err := tc.writeMessage(websocket.TextMessage, data); err != nil {
+		tc.debugf("terminal: failed to send %s command: %v", cmd, err)
+	}
+}

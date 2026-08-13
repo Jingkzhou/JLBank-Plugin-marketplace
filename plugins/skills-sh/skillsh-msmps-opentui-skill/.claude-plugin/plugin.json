@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-msmps-opentui-skill",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from msmps/opentui-skill.",
+  "author": {
+    "name": "msmps/opentui-skill"
+  }
+}

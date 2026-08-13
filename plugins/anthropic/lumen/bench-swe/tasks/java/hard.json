@@ -1,0 +1,18 @@
+{
+  "id": "java-hard",
+  "language": "java",
+  "repo": "https://github.com/jhy/jsoup",
+  "base_commit": "6bdfd486a2e36f715f9b0ff624f6d7740f5c2bc9",
+  "fix_commit": "582aaa0d725a161e3f993acfa8ab2d73a6563303",
+  "issue_url": "https://github.com/jhy/jsoup/issues/2380",
+  "issue_title": "`*=` trims its argument",
+  "issue_body": "The CSS attribute selector `*=` (contains) incorrectly trims whitespace from its argument value, causing it to match elements that it should not match according to the CSS specification.\n\nFor example, given the HTML:\n```html\n<body>\n  <article xxx=\"xpaywalled\"></article>\n</body>\n```\n\nThe selector `article[xxx*=\"paywalled\"]` correctly matches the element (the attribute value contains \"paywalled\").\n\nHowever, the selector `article[xxx*=\" paywalled \"]` (with leading and trailing spaces in the value) also matches the element, which is incorrect. The browser's native `document.querySelectorAll` respects the spaces and does not match, because the attribute value \"xpaywalled\" does not contain the substring \" paywalled \" (with spaces).\n\nThis trimming behavior affects multiple attribute selectors including exact match (`=`), starts-with (`^=`), ends-with (`$=`), and contains (`*=`). Quoted attribute values should preserve their whitespace exactly as specified, consistent with browser CSS selector behavior.\n\nAdditionally, selectors with empty attribute values like `div[data='']` or `div[data^='']` should be valid and match elements with empty or present attributes, but currently fail with a validation error because the value is rejected as empty after trimming.",
+  "gold_patch_file": "patches/java-hard.patch",
+  "expected_files": [
+    "src/main/java/org/jsoup/select/Evaluator.java",
+    "src/test/java/org/jsoup/select/SelectorTest.java"
+  ],
+  "setup_commands": [],
+  "test_command": "mvn test -pl . -Dtest=org.jsoup.select.SelectorTest#attributeSelectorQuotedWhitespace+canSelectBlankAttribute -DfailIfNoTests=false -q",
+  "timeout_s": 900
+}

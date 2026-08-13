@@ -1,0 +1,166 @@
+{
+  "metadata": {
+    "skill_name": "identityserver-ui-flows",
+    "iteration": 1,
+    "model": "claude-opus-4-20250514",
+    "date": "2026-03-26"
+  },
+  "summary": {
+    "with_skill": {
+      "total_assertions": 30,
+      "passed": 30,
+      "failed": 0,
+      "pass_rate": 100.0
+    },
+    "without_skill": {
+      "total_assertions": 30,
+      "passed": 22,
+      "failed": 8,
+      "pass_rate": 73.3
+    },
+    "delta": {
+      "assertions_improved": 8,
+      "delta_pass_rate": 26.7
+    }
+  },
+  "evals": [
+    {
+      "eval_id": 1,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "pass_rate": 0.75
+      },
+      "delta": 0.25,
+      "without_skill_failures": [
+        "The login page creates an IdentityServerUser with the subject ID and calls HttpContext.SignInAsync to establish the session"
+      ]
+    },
+    {
+      "eval_id": 2,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 1,
+        "failed": 4,
+        "total": 5,
+        "pass_rate": 0.2
+      },
+      "delta": 0.8,
+      "without_skill_failures": [
+        "Program.cs or an authentication setup file registers an OpenIdConnect handler with scheme name 'AAD' and SignInScheme set to IdentityServerConstants.ExternalCookieAuthenticationScheme",
+        "The callback handler calls HttpContext.AuthenticateAsync with IdentityServerConstants.ExternalCookieAuthenticationScheme to read the external identity",
+        "The callback handler calls HttpContext.SignOutAsync with IdentityServerConstants.ExternalCookieAuthenticationScheme to clean up the temporary cookie",
+        "The callback handler creates an IdentityServerUser or ClaimsPrincipal with IdentityProvider set to the external scheme name"
+      ]
+    },
+    {
+      "eval_id": 3,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "delta": 0.0,
+      "without_skill_failures": []
+    },
+    {
+      "eval_id": 4,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "pass_rate": 1.0
+      },
+      "delta": 0.0,
+      "without_skill_failures": []
+    },
+    {
+      "eval_id": 5,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 2,
+        "failed": 2,
+        "total": 4,
+        "pass_rate": 0.5
+      },
+      "delta": 0.5,
+      "without_skill_failures": [
+        "The error page displays the Error code and RequestId to the user but does not render ErrorDescription directly in the view",
+        "The error page logs the full error details including ErrorDescription using ILogger at Debug level"
+      ]
+    },
+    {
+      "eval_id": 6,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "delta": 0.0,
+      "without_skill_failures": []
+    },
+    {
+      "eval_id": 7,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "pass_rate": 0.75
+      },
+      "delta": 0.25,
+      "without_skill_failures": [
+        "Program.cs calls AddOidcStateDataFormatterCache with the 'corporate-idp' scheme to use server-side state storage"
+      ]
+    }
+  ]
+}

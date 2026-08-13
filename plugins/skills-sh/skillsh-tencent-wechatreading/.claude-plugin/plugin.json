@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-tencent-wechatreading",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from tencent/wechatreading.",
+  "author": {
+    "name": "tencent/wechatreading"
+  }
+}

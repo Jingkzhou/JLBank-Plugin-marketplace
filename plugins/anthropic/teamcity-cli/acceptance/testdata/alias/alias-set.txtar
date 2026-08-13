@@ -1,0 +1,23 @@
+# Test alias set variants.
+
+exec teamcity alias set rl 'run list' --no-input
+stdout 'Added alias'
+
+exec teamcity alias list --no-input
+stdout 'rl'
+stdout 'run list'
+
+exec teamcity alias set rl 'project list' --no-input
+stdout 'Changed alias'
+
+exec teamcity alias list --no-input
+stdout 'project list'
+
+exec teamcity alias set myshell 'echo hello' --shell --no-input
+stdout 'Added alias'
+
+exec teamcity alias list --json --no-input
+stdout '"type": "shell"'
+
+! exec teamcity alias set run 'project list' --no-input
+stderr 'built-in command'

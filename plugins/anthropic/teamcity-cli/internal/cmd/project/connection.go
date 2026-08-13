@@ -1,0 +1,165 @@
+package project
+
+import (
+	"cmp"
+	"strings"
+
+	"github.com/JetBrains/teamcity-cli/api"
+	"github.com/JetBrains/teamcity-cli/internal/cmdutil"
+	"github.com/JetBrains/teamcity-cli/internal/completion"
+	"github.com/JetBrains/teamcity-cli/internal/output"
+	"github.com/spf13/cobra"
+)
+
+func newConnectionCmd(f *cmdutil.Factory) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "connection",
+		Short: "Manage project connections",
+		Long: `List OAuth and other connections configured in a project.
+
+Connections let TeamCity talk to external services (GitHub, GitLab,
+Bitbucket, Slack, Jira, Docker registries, ...) without storing
+credentials in individual jobs.
+
+See: https://www.jetbrains.com/help/teamcity/configuring-connections.html`,
+		Args: cobra.NoArgs,
+		RunE: cmdutil.SubcommandRequired,
+	}
+
+	cmd.AddCommand(newConnectionListCmd(f))
+	cmd.AddCommand(newConnectionViewCmd(f))
+	cmd.AddCommand(newConnectionCreateCmd(f))
+	cmd.AddCommand(newConnectionAuthorizeCmd(f))
+	cmd.AddCommand(newConnectionDeleteCmd(f))
+
+	return cmd
+}
+
+type connectionListOptions struct {
+	project string
+	cmdutil.ListFlags
+}
+
+func newConnectionListCmd(f *cmdutil.Factory) *cobra.Command {
+	opts := &connectionListOptions{}
+
+	cmd := &cobra.Command{
+		Use:     "list",
+		Short:   "List project connections",
+		Aliases: []string{"ls"},
+		Example: `  teamcity project connection list
+  teamcity project connection list --project MyProject
+  teamcity project connection list --json
+  teamcity project connection list --plain`,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return cmdutil.RunList(f, cmd, &opts.ListFlags, &api.ConnectionFields, opts.fetch)
+		},
+	}
+
+	cmd.Flags().StringVarP(&opts.project, "project", "p", "", "Project ID (default: _Root)")
+	cmdutil.AddListFlags(cmd, &opts.ListFlags, 100)
+
+	_ = cmd.RegisterFlagCompletionFunc("project", completion.LinkedProjects())
+
+	return cmd
+}
+
+func (opts *connectionListOptions) fetch(client api.ClientInterface, fields []string) (*cmdutil.ListResult, error) {
+	features, err := client.GetProjectConnections(cmp.Or(opts.project, "_Root"))
+	if err != nil {
+		return nil, err
+	}
+
+	items := features.ProjectFeature
+	truncated := opts.Limit > 0 && opts.Limit < len(items)
+	if truncated {
+		items = items[:opts.Limit]
+	}
+
+	headers := []string{"ID", "NAME", "TYPE"}
+	var rows [][]string
+	for _, feat := range items {
+		name, providerType := connectionDisplayInfo(feat)
+		rows = append(rows, []string{feat.ID, name, providerType})
+	}
+
+	return &cmdutil.ListResult{
+		JSON:      cmdutil.FilterJSONList(items, fields, connectionToMap),
+		Table:     cmdutil.ListTable{Headers: headers, Rows: rows, FlexCols: []int{0, 1, 2}},
+		EmptyMsg:  "No connections found",
+		EmptyTip:  output.TipNoConnections,
+		Truncated: truncated,
+	}, nil
+}
+
+func connectionToMap(feat api.ProjectFeature) map[string]any {
+	m := map[string]any{
+		"id":   feat.ID,
+		"type": feat.Type,
+	}
+	if feat.Properties != nil {
+		masked := make([]api.Property, len(feat.Properties.Property))
+		for i, p := range feat.Properties.Property {
+			masked[i] = api.Property{Name: p.Name, Value: maskSecure(p.Name, p.Value)}
+		}
+		m["properties"] = &api.PropertyList{Property: masked}
+	}
+	return m
+}
+
+// maskSecure hides the values of secure: properties, which hold connection secrets.
+func maskSecure(name, value string) string {
+	if strings.HasPrefix(name, "secure:") {
+		return "********"
+	}
+	return value
+}
+
+func connectionDisplayInfo(feat api.ProjectFeature) (name, providerType string) {
+	if feat.Properties == nil {
+		return feat.ID, feat.Type
+	}
+	for _, p := range feat.Properties.Property {
+		switch p.Name {
+		case "displayName":
+			name = p.Value
+		case "providerType":
+			providerType = p.Value
+		}
+	}
+	if name == "" {
+		name = feat.ID
+	}
+	if providerType == "" {
+		providerType = feat.Type
+	}
+	return name, providerType
+}
+
+var vcsCapableProviders = map[string]bool{
+	"GitHubApp":       true,
+	"GitHub":          true,
+	"GHE":             true,
+	"GitLabCom":       true,
+	"GitLabCEorEE":    true,
+	"BitBucketCloud":  true,
+	"AzureDevOps":     true,
+	"JetBrains Space": true,
+}
+
+// connectionOptions fetches VCS-capable connections for the vcs create wizard select prompt.
+func connectionOptions(client api.ClientInterface, projectID string) (ids, labels []string, err error) {
+	features, err := client.GetProjectConnections(projectID)
+	if err != nil {
+		return nil, nil, err
+	}
+	for _, feat := range features.ProjectFeature {
+		name, ptype := connectionDisplayInfo(feat)
+		if !vcsCapableProviders[ptype] {
+			continue
+		}
+		ids = append(ids, feat.ID)
+		labels = append(labels, feat.ID+" - "+name+" ("+ptype+")")
+	}
+	return ids, labels, nil
+}

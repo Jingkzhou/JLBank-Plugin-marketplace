@@ -1,0 +1,291 @@
+package config
+
+import (
+	"errors"
+	"fmt"
+	"maps"
+	"os"
+	"slices"
+	"strings"
+
+	"github.com/JetBrains/teamcity-cli/internal/cmdutil"
+	"github.com/JetBrains/teamcity-cli/internal/completion"
+	cfg "github.com/JetBrains/teamcity-cli/internal/config"
+	"github.com/JetBrains/teamcity-cli/internal/output"
+	"github.com/charmbracelet/huh"
+	"github.com/spf13/cobra"
+)
+
+func NewCmd(f *cmdutil.Factory) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "config",
+		Short: "Manage CLI configuration",
+		Long: `Get, set, and list CLI configuration values.
+
+Configuration is stored in $XDG_CONFIG_HOME/tc/config.yml (defaults
+to ~/.config/tc/config.yml) and covers the default server, per-server
+flags (guest, read-only), and aliases. Environment variables
+(TEAMCITY_URL, TEAMCITY_TOKEN, ...) override the persisted values
+at runtime.`,
+		Args: cobra.NoArgs,
+		RunE: cmdutil.SubcommandRequired,
+	}
+
+	cmd.AddCommand(newListCmd(f))
+	cmd.AddCommand(newGetCmd(f))
+	cmd.AddCommand(newSetCmd(f))
+
+	return cmd
+}
+
+func newListCmd(f *cmdutil.Factory) *cobra.Command {
+	var jsonOutput bool
+
+	cmd := &cobra.Command{
+		Use:     "list",
+		Short:   "List configuration settings",
+		Aliases: []string{"ls"},
+		Args:    cobra.NoArgs,
+		Example: `  teamcity config list
+  teamcity config list --json`,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return runList(f, jsonOutput)
+		},
+	}
+
+	cmd.Flags().BoolVar(&jsonOutput, "json", false, "Output as JSON")
+	return cmd
+}
+
+type configJSON struct {
+	DefaultServer string                `json:"default_server"`
+	Servers       map[string]serverJSON `json:"servers"`
+	Aliases       map[string]string     `json:"aliases"`
+	Environment   map[string]string     `json:"environment,omitempty"`
+}
+
+type serverJSON struct {
+	Guest       bool   `json:"guest"`
+	RO          bool   `json:"ro"`
+	TokenExpiry string `json:"token_expiry,omitempty"`
+}
+
+func runList(f *cmdutil.Factory, jsonOutput bool) error {
+	p := f.Printer
+	c := cfg.Get()
+
+	if jsonOutput {
+		return printListJSON(p, c)
+	}
+
+	_, _ = fmt.Fprintf(p.Out, "%s %s\n\n", output.Faint("Config:"), cfg.ConfigPath())
+
+	if c.DefaultServer != "" {
+		_, _ = fmt.Fprintf(p.Out, "default_server=%s\n", c.DefaultServer)
+	} else {
+		_, _ = fmt.Fprintf(p.Out, "default_server=\n")
+	}
+
+	urls := cfg.SortedServerURLs(c)
+	for _, serverURL := range urls {
+		sc := c.Servers[serverURL]
+		suffix := ""
+		if serverURL == c.DefaultServer && len(urls) > 1 {
+			suffix = output.Faint(" (default)")
+		}
+		_, _ = fmt.Fprintf(p.Out, "\n%s%s\n", serverURL, suffix)
+		_, _ = fmt.Fprintf(p.Out, "  guest=%t\n", sc.Guest)
+		_, _ = fmt.Fprintf(p.Out, "  ro=%t\n", sc.RO)
+		if sc.TokenExpiry != "" {
+			_, _ = fmt.Fprintf(p.Out, "  token_expiry=%s\n", sc.TokenExpiry)
+		}
+	}
+
+	if aliases := cfg.GetAllAliases(); len(aliases) > 0 {
+		_, _ = fmt.Fprintf(p.Out, "\n%s %d configured %s\n",
+			output.Faint("Aliases:"), len(aliases), output.Faint("(run 'teamcity alias list' to view)"))
+	}
+
+	printEnvOverrides(p)
+	return nil
+}
+
+func printListJSON(p *output.Printer, c *cfg.Config) error {
+	servers := map[string]serverJSON{}
+	for url, sc := range c.Servers {
+		servers[url] = serverJSON{
+			Guest:       sc.Guest,
+			RO:          sc.RO,
+			TokenExpiry: sc.TokenExpiry,
+		}
+	}
+	aliases := c.Aliases
+	if aliases == nil {
+		aliases = map[string]string{}
+	}
+	env := collectEnvOverrides()
+	out := configJSON{
+		DefaultServer: c.DefaultServer,
+		Servers:       servers,
+		Aliases:       aliases,
+	}
+	if len(env) > 0 {
+		out.Environment = env
+	}
+	return p.PrintJSON(out)
+}
+
+func printEnvOverrides(p *output.Printer) {
+	env := collectEnvOverrides()
+	if len(env) == 0 {
+		return
+	}
+	_, _ = fmt.Fprintf(p.Out, "\n%s\n", output.Faint("Environment overrides:"))
+	for _, key := range slices.Sorted(maps.Keys(env)) {
+		_, _ = fmt.Fprintf(p.Out, "  %s %s=%s\n", output.Yellow("!"), key, env[key])
+	}
+}
+
+func collectEnvOverrides() map[string]string {
+	env := map[string]string{}
+	for _, key := range []string{cfg.EnvServerURL, cfg.EnvToken, cfg.EnvGuestAuth, cfg.EnvReadOnly} {
+		if v := os.Getenv(key); v != "" {
+			if key == cfg.EnvToken {
+				v = "****"
+			}
+			env[key] = v
+		}
+	}
+	return env
+}
+
+func newGetCmd(f *cmdutil.Factory) *cobra.Command {
+	var serverURL string
+	var jsonOutput bool
+
+	cmd := &cobra.Command{
+		Use:   "get <key>",
+		Short: "Get a configuration value",
+		Long:  "Get the value of a configuration key.\n\nValid keys: " + strings.Join(cfg.ValidKeys(), ", "),
+		Example: `  teamcity config get default_server
+  teamcity config get ro
+  teamcity config get guest --server tc.example.com`,
+		Args:              cobra.ExactArgs(1),
+		ValidArgsFunction: completion.ConfigKeys(),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			value, err := cfg.GetField(args[0], serverURL)
+			if err != nil {
+				return err
+			}
+			if jsonOutput {
+				return f.Printer.PrintJSON(map[string]string{"key": args[0], "value": value})
+			}
+			_, _ = fmt.Fprintln(f.Printer.Out, value)
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&serverURL, "server", "s", "", "Server URL for per-server settings")
+	cmd.Flags().BoolVar(&jsonOutput, "json", false, "Output as JSON")
+
+	_ = cmd.RegisterFlagCompletionFunc("server", completion.ConfiguredServers())
+
+	return cmd
+}
+
+func newSetCmd(f *cmdutil.Factory) *cobra.Command {
+	var serverURL string
+
+	cmd := &cobra.Command{
+		Use:   "set <key> [<value>]",
+		Short: "Set a configuration value",
+		Long:  "Set the value of a configuration key.\n\nValid keys: " + strings.Join(cfg.ValidKeys(), ", "),
+		Example: `  # Switch default server (interactive picker)
+  teamcity config set default_server
+
+  # Switch default server
+  teamcity config set default_server tc.example.com
+
+  # Enable read-only mode for a server
+  teamcity config set ro true --server tc.example.com
+
+  # Enable guest auth for the default server
+  teamcity config set guest true`,
+		Args: cobra.RangeArgs(1, 2),
+		ValidArgsFunction: func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			switch len(args) {
+			case 0:
+				return completion.ConfigKeys()(cmd, args, toComplete)
+			case 1:
+				if args[0] == "default_server" {
+					return completion.ConfiguredServers()(cmd, args, toComplete)
+				}
+				if args[0] == "guest" || args[0] == "ro" {
+					return completion.Fixed("true", "false")(cmd, args, toComplete)
+				}
+			}
+			return nil, cobra.ShellCompDirectiveNoFileComp
+		},
+		RunE: func(cmd *cobra.Command, args []string) error {
+			key := args[0]
+			var value string
+			switch {
+			case len(args) == 2:
+				value = args[1]
+			case key == "default_server":
+				selected, err := selectDefaultServer(f)
+				if err != nil {
+					return err
+				}
+				value = selected
+			default:
+				return fmt.Errorf("value is required for key %q", key)
+			}
+
+			if err := cfg.SetField(key, value, serverURL); err != nil {
+				return err
+			}
+			f.Printer.Success("Set %s to %q", key, value)
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&serverURL, "server", "s", "", "Server URL for per-server settings")
+
+	_ = cmd.RegisterFlagCompletionFunc("server", completion.ConfiguredServers())
+
+	return cmd
+}
+
+func selectDefaultServer(f *cmdutil.Factory) (string, error) {
+	if !f.IsInteractive() {
+		return "", errors.New("value is required for key \"default_server\" in non-interactive mode")
+	}
+
+	c := cfg.Get()
+	if len(c.Servers) == 0 {
+		return "", errors.New("no servers configured; run 'teamcity auth login' first")
+	}
+
+	urls := cfg.SortedServerURLs(c)
+
+	if len(urls) == 1 {
+		return urls[0], nil
+	}
+
+	options := make([]huh.Option[string], len(urls))
+	for i, u := range urls {
+		label := u
+		if u == c.DefaultServer {
+			label = u + " (current)"
+		}
+		options[i] = huh.NewOption(label, u)
+	}
+
+	var selected string
+	if err := cmdutil.Select(f.Printer, "Select default server", options, &selected); err != nil {
+		return "", err
+	}
+
+	return selected, nil
+}

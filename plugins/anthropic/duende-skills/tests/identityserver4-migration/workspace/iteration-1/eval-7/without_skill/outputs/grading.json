@@ -1,0 +1,25 @@
+{
+  "model": "claude-opus-4-20250514",
+  "eval_id": 7,
+  "mode": "without_skill",
+  "assertions": [
+    {
+      "assertion": "Response identifies ASP.NET Core Data Protection as the root cause of the decryption failure",
+      "passed": true
+    },
+    {
+      "assertion": "Response explains that the default application name (content root path discriminator) changed between .NET versions",
+      "passed": true
+    },
+    {
+      "assertion": "Response recommends calling SetApplicationName() on AddDataProtection() with an explicit application name",
+      "passed": true
+    },
+    {
+      "assertion": "Response mentions ensuring old Data Protection keys are still accessible (not deleted or rotated away)",
+      "passed": true
+    }
+  ],
+  "passed": 4,
+  "total": 4
+}

@@ -1,0 +1,219 @@
+use super::experimental::ExperimentalArgs;
+use crate::VERSION;
+use crate::executor::config::{SimulationTool, WalltimeProfiler};
+use crate::prelude::*;
+use crate::run_environment::interfaces::RepositoryProvider;
+use crate::runner_mode::{RunnerMode, load_shell_session_mode};
+use clap::Args;
+use clap::ValueEnum;
+use std::path::PathBuf;
+
+pub(crate) fn show_banner() {
+    let banner = format!(
+        r#"
+   ______            __ _____                         __
+  / ____/____   ____/ // ___/ ____   ___   ___   ____/ /
+ / /    / __ \ / __  / \__ \ / __ \ / _ \ / _ \ / __  /
+/ /___ / /_/ // /_/ / ___/ // /_/ //  __//  __// /_/ /
+\____/ \____/ \__,_/ /____// .___/ \___/ \___/ \__,_/
+  https://codspeed.io     /_/          runner v{VERSION}
+"#
+    );
+    println!("{banner}");
+    debug!("codspeed v{VERSION}");
+}
+
+/// Arguments shared between run and exec commands
+#[derive(Args, Debug, Clone)]
+pub struct ExecAndRunSharedArgs {
+    /// The upload URL to use for uploading the results, useful for on-premises installations
+    #[arg(long, env = "CODSPEED_UPLOAD_URL")]
+    pub upload_url: Option<String>,
+
+    /// The token to use for uploading the results,
+    ///
+    /// It can be either a CodSpeed token retrieved from the repository setting
+    /// or an OIDC token issued by the identity provider.
+    #[arg(long, env = "CODSPEED_TOKEN")]
+    pub token: Option<String>,
+
+    /// The repository the benchmark is associated with, under the format `owner/repo`.
+    #[arg(short, long, env = "CODSPEED_REPOSITORY")]
+    pub repository: Option<String>,
+
+    /// The repository provider to use in case --repository is used. Defaults to github
+    #[arg(
+        long,
+        env = "CODSPEED_PROVIDER",
+        requires = "repository",
+        ignore_case = true
+    )]
+    pub provider: Option<RepositoryProvider>,
+
+    /// The directory where the command will be executed.
+    #[arg(long)]
+    pub working_directory: Option<String>,
+
+    /// The mode to run the benchmarks in.
+    /// If not provided, the mode will be loaded from the shell session (set via `codspeed use <mode>`).
+    #[arg(
+        short,
+        long,
+        value_enum,
+        env = "CODSPEED_RUNNER_MODE",
+        value_delimiter = ','
+    )]
+    pub mode: Vec<RunnerMode>,
+
+    /// The Valgrind simulation tool to use (callgrind or tracegrind).
+    #[arg(long, value_enum, env = "CODSPEED_SIMULATION_TOOL", hide = true)]
+    pub simulation_tool: Option<SimulationTool>,
+
+    /// The profiler to use for walltime mode (perf or samply).
+    /// If not provided, the profiler is selected based on the platform.
+    #[arg(long, value_enum, env = "CODSPEED_WALLTIME_PROFILER", hide = true)]
+    pub walltime_profiler: Option<WalltimeProfiler>,
+
+    /// Profile folder to use for the run.
+    #[arg(long)]
+    pub profile_folder: Option<PathBuf>,
+
+    /// Only for debugging purposes, skips the upload of the results
+    #[arg(
+        long,
+        default_value = "false",
+        hide = true,
+        env = "CODSPEED_SKIP_UPLOAD"
+    )]
+    pub skip_upload: bool,
+
+    /// Used internally to upload the results after running the benchmarks in a sandbox environment
+    /// with no internet access
+    #[arg(long, default_value = "false", hide = true)]
+    pub skip_run: bool,
+
+    /// Only for debugging purposes, skips the setup of the runner
+    #[arg(long, default_value = "false", hide = true)]
+    pub skip_setup: bool,
+
+    /// Allow runs without any benchmarks to succeed instead of failing
+    #[arg(long, default_value = "false", hide = true)]
+    pub allow_empty: bool,
+
+    /// The version of the go-runner to use (e.g., 1.2.3, 1.0.0-beta.1)
+    /// If not specified, the runner installs the pinned default version
+    #[arg(long, env = "CODSPEED_GO_RUNNER_VERSION", value_parser = parse_version)]
+    pub go_runner_version: Option<semver::Version>,
+
+    /// Show full executor output instead of a rolling buffer window
+    #[arg(long, default_value = "false")]
+    pub show_full_output: bool,
+
+    /// Compare the results against this base run ID
+    #[arg(long)]
+    pub base: Option<String>,
+
+    /// Enable Valgrind cycle estimation (--cycle-estimation) in simulation mode.
+    #[arg(
+        long,
+        env = "CODSPEED_CYCLE_ESTIMATION",
+        default_value_t = true,
+        num_args = 0..=1,
+        require_equals = true,
+        default_missing_value = "true"
+    )]
+    pub cycle_estimation: bool,
+
+    /// Exclude memory allocation time from simulation results.
+    #[arg(
+        long,
+        env = "CODSPEED_EXCLUDE_ALLOCATIONS",
+        default_value = "false",
+        num_args = 0..=1,
+        require_equals = true,
+        default_missing_value = "true"
+    )]
+    pub exclude_allocations: bool,
+
+    #[command(flatten)]
+    pub profiler_run_args: ProfilerRunArgs,
+
+    #[command(flatten)]
+    pub experimental: ExperimentalArgs,
+}
+
+impl ExecAndRunSharedArgs {
+    /// Resolves the runner modes from CLI argument, shell session, or returns an error.
+    ///
+    /// Priority:
+    /// 1. CLI argument (--mode or -m)
+    /// 2. Shell session mode (set via `codspeed use <mode>`)
+    /// 3. Error if neither is available
+    pub fn resolve_modes(&self) -> Result<Vec<RunnerMode>> {
+        if !self.mode.is_empty() {
+            return Ok(self.mode.clone());
+        }
+
+        let modes = load_shell_session_mode()?;
+
+        if modes.is_empty() {
+            return Err(anyhow!(
+                "No runner mode specified. Use --mode <mode> or set the mode for this shell session with `codspeed use <mode>`."
+            ));
+        }
+
+        Ok(modes)
+    }
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, ValueEnum, Default)]
+pub enum UnwindingMode {
+    /// Use the frame pointer for unwinding. Requires the binary to be compiled with frame pointers enabled.
+    #[clap(name = "fp")]
+    FramePointer,
+
+    /// Use DWARF unwinding. This does not require any special compilation flags and is enabled by default.
+    #[default]
+    Dwarf,
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct ProfilerRunArgs {
+    /// Enable a profiler to collect granular performance data.
+    /// This is only supported on Linux.
+    #[arg(long, env = "CODSPEED_PROFILER_ENABLED", default_value_t = true)]
+    pub enable_profiler: bool,
+
+    /// Deprecated alias for --enable-profiler / CODSPEED_PROFILER_ENABLED.
+    #[arg(long, env = "CODSPEED_PERF_ENABLED", hide = true)]
+    pub enable_perf: Option<bool>,
+
+    #[command(flatten)]
+    pub perf: PerfRunArgs,
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct PerfRunArgs {
+    /// The unwinding mode that should be used with perf to collect the call stack.
+    #[arg(long, env = "CODSPEED_PERF_UNWINDING_MODE")]
+    pub perf_unwinding_mode: Option<UnwindingMode>,
+}
+
+impl ProfilerRunArgs {
+    /// Resolves the effective `enable_profiler` value, honoring the deprecated
+    /// `--enable-perf` / `CODSPEED_PERF_ENABLED` flag with a warning.
+    pub fn resolve_enable_profiler(&self) -> bool {
+        let Some(legacy) = self.enable_perf else {
+            return self.enable_profiler;
+        };
+        log::warn!(
+            "CODSPEED_PERF_ENABLED / --enable-perf is deprecated; use CODSPEED_PROFILER_ENABLED / --enable-profiler instead."
+        );
+        legacy
+    }
+}
+
+/// Parser for go-runner version that validates semver format
+fn parse_version(s: &str) -> Result<semver::Version, String> {
+    semver::Version::parse(s).map_err(|e| format!("Invalid semantic version: {e}"))
+}

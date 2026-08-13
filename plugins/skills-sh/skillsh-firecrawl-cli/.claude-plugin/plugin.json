@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-firecrawl-cli",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from firecrawl/cli.",
+  "author": {
+    "name": "firecrawl/cli"
+  }
+}

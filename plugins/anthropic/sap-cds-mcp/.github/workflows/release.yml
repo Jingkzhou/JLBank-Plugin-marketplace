@@ -1,0 +1,70 @@
+name: Release
+
+permissions:
+  contents: write
+  id-token: write
+
+on:
+  workflow_dispatch:
+
+env:
+  NPM_CONFIG_IGNORE_SCRIPTS: true
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org/
+
+      - name: run tests
+        run: |
+          npm i -g @sap/cds-dk
+          npm ci
+          npm run lint
+          npm run test
+
+      - name: get version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@3cf273023a0dda27efcd3164bdfb51908dd46a5b # v1.3.1
+      - name: check versions
+        run: |
+          version_in_server_json=$(jq -r '.packages[0].version' server.json)
+          if [ "$version_in_server_json" != "${{ steps.package-version.outputs.current-version }}" ]; then
+            echo "Version in server.json ($version_in_server_json) does not match package.json (${{
+              steps.package-version.outputs.current-version
+            }})"
+            exit 1
+          fi
+          version_in_plugin_json=$(jq -r '.version' .claude-plugin/plugin.json)
+          if [ "$version_in_plugin_json" != "${{ steps.package-version.outputs.current-version }}" ]; then
+            echo "Version in .claude-plugin/plugin.json ($version_in_plugin_json) does not match package.json (${{
+              steps.package-version.outputs.current-version
+            }})"
+            exit 1
+          fi
+
+      - name: parse changelog
+        id: parse-changelog
+        uses: schwma/parse-changelog-action@1c2b2005ccf594cc3a45d33c10af4ab924d3a1c5 # v1.2.0
+        with:
+          version: '${{ steps.package-version.outputs.current-version }}'
+
+      - name: create a GitHub release
+        uses: ncipollo/release-action@339a81892b84b4eeb0f6e744e4574d79d0d9b8dd # v1
+        with:
+          tag: 'v${{ steps.package-version.outputs.current-version }}'
+          body: '${{ steps.parse-changelog.outputs.body }}'
+      - run: npm publish --access public --provenance
+
+      - name: Download MCP Publisher
+        run: |
+          curl -L "https://github.com/modelcontextprotocol/registry/releases/download/latest/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
+      - name: Publish to MCP Registry
+        run: |
+          ./mcp-publisher login github-oidc
+          ./mcp-publisher publish

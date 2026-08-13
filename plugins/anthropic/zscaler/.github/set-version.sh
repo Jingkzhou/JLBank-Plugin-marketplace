@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+
+SCRIPT_BASE="$(cd "$( dirname "$0")" && pwd )"
+ROOT=${SCRIPT_BASE}/..
+
+# Exit immediatly if any command exits with a non-zero status
+set -e
+
+# Usage
+print_usage() {
+    echo "Set the app/add-on version"
+    echo ""
+    echo "Usage:"
+    echo "  set-version.sh <new-version>"
+    echo ""
+}
+
+# if less than one arguments supplied, display usage
+if [  $# -lt 1 ]
+then
+    print_usage
+    exit 1
+fi
+
+# check whether user had supplied -h or --help . If yes display usage
+if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
+    print_usage
+    exit 0
+fi
+
+NEW_VERSION=$(echo "$1" | sed -e 's/-beta\./.b/' | sed -e 's/-alpha\./.a/')
+
+# Set version in pyproject.toml
+echo "Updating pyproject.toml"
+grep -E '^version = ".+"$' "$ROOT/pyproject.toml" || exit 1
+sed -i.bak -E "s/^version = \".+\"$/version = \"$1\"/" "$ROOT/pyproject.toml" && rm "$ROOT/pyproject.toml.bak"
+
+# Set version in src/zscaler_mcp/__init__.py
+echo "Updating src/zscaler_mcp/__init__.py"
+grep -E '^__version__ = ".+"$' "$ROOT/src/zscaler_mcp/__init__.py" >/dev/null
+sed -i.bak -E "s/^__version__ = \".+\"$/__version__ = \"$NEW_VERSION\"/" "$ROOT/src/zscaler_mcp/__init__.py" && rm "$ROOT/src/zscaler_mcp/__init__.py.bak"
+
+# Set version in .claude-plugin/marketplace.json
+echo "Updating .claude-plugin/marketplace.json"
+sed -i.bak -E 's/"version": ".+"/"version": "'"$1"'"/' "$ROOT/.claude-plugin/marketplace.json" && rm "$ROOT/.claude-plugin/marketplace.json.bak"
+
+# Set version in .claude-plugin/plugin.json
+echo "Updating .claude-plugin/plugin.json"
+sed -i.bak -E 's/"version": ".+"/"version": "'"$1"'"/' "$ROOT/.claude-plugin/plugin.json" && rm "$ROOT/.claude-plugin/plugin.json.bak"
+
+# Set pinned PyPI version in .mcp.json (zscaler-mcp@<version>)
+echo "Updating .mcp.json"
+sed -i.bak -E 's/"zscaler-mcp@[^"]+"/"zscaler-mcp@'"$1"'"/' "$ROOT/.mcp.json" && rm "$ROOT/.mcp.json.bak"
+
+# Set version in .cursor-plugin/plugin.json
+echo "Updating .cursor-plugin/plugin.json"
+sed -i.bak -E 's/"version": ".+"/"version": "'"$1"'"/' "$ROOT/.cursor-plugin/plugin.json" && rm "$ROOT/.cursor-plugin/plugin.json.bak"
+
+# Set version in gemini-extension.json
+echo "Updating gemini-extension.json"
+sed -i.bak -E 's/"version": ".+"/"version": "'"$1"'"/' "$ROOT/gemini-extension.json" && rm "$ROOT/gemini-extension.json.bak"
+
+# Set version in server.json (MCP Registry manifest)
+echo "Updating server.json"
+sed -i.bak -E 's/"version": ".+"/"version": "'"$1"'"/' "$ROOT/server.json" && rm "$ROOT/server.json.bak"
+
+# Set version + release in docsrc/conf.py (Sphinx documentation builder).
+# Both the short `version` and the full `release` are pinned to the new
+# release so the rendered docs always advertise the current version.
+echo "Updating docsrc/conf.py"
+grep -E '^version = ".+"$' "$ROOT/docsrc/conf.py" >/dev/null
+sed -i.bak -E "s/^version = \".+\"$/version = \"$1\"/" "$ROOT/docsrc/conf.py" && rm "$ROOT/docsrc/conf.py.bak"
+grep -E '^release = ".+"$' "$ROOT/docsrc/conf.py" >/dev/null
+sed -i.bak -E "s/^release = \".+\"$/release = \"$1\"/" "$ROOT/docsrc/conf.py" && rm "$ROOT/docsrc/conf.py.bak"
+
+# Generate requirements.txt from pyproject.toml
+echo "Updating requirements.txt"
+uv pip compile pyproject.toml --output-file requirements.txt
+
+# Regenerate the MCPB (Claude Desktop) manifest so its `version` field
+# tracks the new release. The manifest content is otherwise derived
+# from the live tool inventory; it's safe to regenerate unconditionally.
+#
+# IMPORTANT: this MUST run after `zscaler_mcp/__init__.py` has been
+# rewritten above — `mcpb.build_manifest()` reads `__version__` at
+# import time.
+echo "Regenerating MCPB manifest"
+python -m zscaler_mcp.server --generate-docs

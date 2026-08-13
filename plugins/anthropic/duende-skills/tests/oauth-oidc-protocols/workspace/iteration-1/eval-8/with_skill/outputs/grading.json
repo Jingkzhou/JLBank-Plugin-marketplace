@@ -1,0 +1,25 @@
+{
+  "model": "claude-opus-4-20250514",
+  "eval_id": 8,
+  "mode": "with_skill",
+  "assertions": [
+    {
+      "assertion": "Response explains that PAR moves authorization parameters from the query string to a backchannel POST to the /connect/par endpoint, returning a request_uri that the client uses in the authorize redirect",
+      "passed": true
+    },
+    {
+      "assertion": "Response explains that DPoP binds access tokens to a client's cryptographic key pair via a 'cnf' claim, preventing stolen tokens from being used by attackers",
+      "passed": true
+    },
+    {
+      "assertion": "Response mentions that PAR prevents parameter tampering and URL length issues with authorization requests",
+      "passed": true
+    },
+    {
+      "assertion": "Response mentions FAPI 2.0 as a financial-grade API profile that requires PAR and DPoP (or mTLS) for enhanced security",
+      "passed": true
+    }
+  ],
+  "passed": 4,
+  "total": 4
+}

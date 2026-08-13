@@ -1,0 +1,22 @@
+# Auth login with a valid token succeeds and persists credentials.
+[!has_token] skip 'requires authentication token'
+
+exec teamcity auth login --server $TC_HOST --token $TEAMCITY_TOKEN --insecure-storage --no-input
+stdout 'Logged in to'
+! stderr 'Error'
+
+# Verify credentials persisted
+env SAVED_TOKEN=$TEAMCITY_TOKEN
+env TEAMCITY_URL=
+env TEAMCITY_TOKEN=
+exec teamcity auth status --no-input
+stdout 'Logged in to'
+! stderr 'Error'
+
+env TEAMCITY_URL=$TC_HOST
+exec teamcity auth logout --no-input
+stdout 'Logged out'
+! stderr 'Error'
+
+# Restore env for other tests
+env TEAMCITY_TOKEN=$SAVED_TOKEN

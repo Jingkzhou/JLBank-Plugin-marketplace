@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-nexscope-ai-amazon-skills",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from nexscope-ai/amazon-skills.",
+  "author": {
+    "name": "nexscope-ai/amazon-skills"
+  }
+}

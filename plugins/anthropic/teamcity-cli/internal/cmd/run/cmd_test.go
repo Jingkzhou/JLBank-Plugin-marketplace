@@ -1,0 +1,859 @@
+package run_test
+
+import (
+	"bytes"
+	"encoding/json"
+	"io"
+	"net/http"
+	"slices"
+	"strings"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+
+	"github.com/JetBrains/teamcity-cli/api"
+	"github.com/JetBrains/teamcity-cli/internal/cmd"
+	"github.com/JetBrains/teamcity-cli/internal/cmdtest"
+	"github.com/JetBrains/teamcity-cli/internal/config"
+	"github.com/JetBrains/teamcity-cli/internal/output"
+)
+
+func init() { output.NoColor = true }
+
+const (
+	testJob     = "TestProject_Build"
+	testBuildID = "1"
+)
+
+func TestRunList(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	f := ts.Factory
+
+	cmdtest.RunCmdWithFactory(T, f, "run", "list", "--limit", "5")
+	cmdtest.RunCmdWithFactory(T, f, "run", "list", "--favorites", "--limit", "5")
+	cmdtest.RunCmdWithFactory(T, f, "run", "list", "--user", "@me", "--limit", "1")
+	cmdtest.RunCmdWithFactory(T, f, "run", "list", "--job", testJob, "--limit", "3")
+	cmdtest.RunCmdWithFactory(T, f, "run", "list", "--project", "TestProject", "--status", "success", "--limit", "2")
+	cmdtest.RunCmdWithFactory(T, f, "run", "list", "--json", "--limit", "2")
+}
+
+func TestRunListBackwardsDateRange(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+
+	cmdtest.RunCmdWithFactoryExpectErr(T, ts.Factory, "is more recent than", "run", "list", "--since", "2020-01-01", "--until", "2019-01-01")
+}
+
+func runListSplit(t *testing.T, ts *cmdtest.TestServer, args ...string) (stdout, stderr string) {
+	t.Helper()
+	var out, errBuf bytes.Buffer
+	f := ts.CloneFactory()
+	// NewCommand strips PersistentPreRun (and thus InitOutput), so mirror the
+	// --quiet → Printer.Quiet wiring that production does at runtime.
+	f.Printer = &output.Printer{Out: &out, ErrOut: &errBuf, Quiet: slices.Contains(args, "--quiet") || slices.Contains(args, "-q")}
+	rootCmd := cmd.NewCommand(f)
+	rootCmd.SetArgs(args)
+	rootCmd.SetOut(&out)
+	rootCmd.SetErr(&errBuf)
+	require.NoError(t, rootCmd.Execute())
+	return out.String(), errBuf.String()
+}
+
+func handleTruncatedBuilds(ts *cmdtest.TestServer) {
+	ts.Handle("GET /app/rest/builds", func(w http.ResponseWriter, r *http.Request) {
+		if strings.Contains(r.URL.Query().Get("locator"), "count:1000") {
+			cmdtest.JSON(w, map[string]any{"count": 3, "build": []map[string]any{
+				{"id": 1, "buildTypeId": "B"}, {"id": 2, "buildTypeId": "B"}, {"id": 3, "buildTypeId": "B"},
+			}})
+			return
+		}
+		cmdtest.JSON(w, map[string]any{
+			"count":    2,
+			"nextHref": "/app/rest/builds?locator=count:2,start:2",
+			"build":    []map[string]any{{"id": 1, "buildTypeId": "B"}, {"id": 2, "buildTypeId": "B"}},
+		})
+	})
+}
+
+const runTruncationHint = "use --limit 0 to fetch all"
+
+func TestRunListTruncationHint(T *testing.T) {
+	T.Run("finite limit emits hint on stderr only", func(t *testing.T) {
+		ts := cmdtest.NewTestServer(t)
+		handleTruncatedBuilds(ts)
+
+		stdout, stderr := runListSplit(t, ts, "run", "list", "--limit", "2")
+		assert.NotContains(t, stdout, runTruncationHint)
+		assert.Contains(t, stderr, "Showing only the first 2 results")
+		assert.Contains(t, stderr, runTruncationHint)
+	})
+
+	T.Run("limit 0 fetches all without a hint", func(t *testing.T) {
+		ts := cmdtest.NewTestServer(t)
+		handleTruncatedBuilds(ts)
+
+		stdout, stderr := runListSplit(t, ts, "run", "list", "--limit", "0", "--json")
+		var list api.BuildList
+		require.NoError(t, json.Unmarshal([]byte(stdout), &list))
+		assert.Equal(t, 3, list.Count)
+		assert.NotContains(t, stderr, runTruncationHint)
+	})
+
+	T.Run("json output stays clean while hint goes to stderr", func(t *testing.T) {
+		ts := cmdtest.NewTestServer(t)
+		handleTruncatedBuilds(ts)
+
+		stdout, stderr := runListSplit(t, ts, "run", "list", "--limit", "2", "--json")
+		var list api.BuildList
+		require.NoError(t, json.Unmarshal([]byte(stdout), &list))
+		assert.Equal(t, 2, list.Count)
+		assert.Contains(t, stderr, runTruncationHint)
+	})
+
+	T.Run("quiet suppresses the hint", func(t *testing.T) {
+		ts := cmdtest.NewTestServer(t)
+		handleTruncatedBuilds(ts)
+
+		_, stderr := runListSplit(t, ts, "run", "list", "--limit", "2", "--quiet")
+		assert.NotContains(t, stderr, runTruncationHint)
+	})
+}
+
+func TestRunListWeb(t *testing.T) {
+	ts := cmdtest.SetupMockClient(t)
+
+	out := cmdtest.CaptureOutput(t, ts.Factory, "run", "list", "--web")
+	assert.Contains(t, out, ts.URL+"/builds")
+
+	fav := cmdtest.CaptureOutput(t, ts.Factory, "run", "list", "--favorites", "--web")
+	assert.Contains(t, fav, ts.URL+"/favorite/builds")
+}
+
+func TestRunListWebValidatesFlags(t *testing.T) {
+	ts := cmdtest.SetupMockClient(t)
+
+	cmdtest.RunCmdWithFactoryExpectErr(t, ts.Factory, "invalid status", "run", "list", "--status", "bogus", "--web")
+}
+
+func TestRunView(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	f := ts.Factory
+
+	cmdtest.RunCmdWithFactory(T, f, "run", "view", testBuildID)
+	cmdtest.RunCmdWithFactory(T, f, "run", "view", testBuildID, "--json")
+}
+
+func TestRunStart(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+
+	cmdtest.RunCmdWithFactory(T, ts.Factory, "run", "start", testJob, "--comment", "CLI test")
+}
+
+func TestRunStartWithOptions(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+
+	cmdtest.RunCmdWithFactory(T, ts.Factory, "run", "start", testJob,
+		"-P", "key1=val1",
+		"-S", "sys.prop=sysval",
+		"-E", "ENV_VAR=envval",
+		"-m", "Full options test",
+		"-t", "test-tag",
+		"--clean",
+	)
+}
+
+func TestRunStartDryRun(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	got := cmdtest.CaptureOutput(T, ts.Factory, "run", "start", testJob, "--dry-run")
+	assert.Contains(T, got, "Would trigger run for")
+	assert.Contains(T, got, testJob)
+}
+
+func TestRunStartDryRunJSON(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	got := cmdtest.CaptureOutput(T, ts.Factory, "run", "start", testJob,
+		"--branch", "main", "--rebuild-failed-deps", "--dry-run", "--json")
+
+	var plan struct {
+		DryRun            bool   `json:"dry_run"`
+		Job               string `json:"job"`
+		Branch            string `json:"branch"`
+		RebuildFailedDeps bool   `json:"rebuild_failed_deps"`
+	}
+	require.NoError(T, json.Unmarshal([]byte(got), &plan), "dry-run --json must emit valid JSON, got: %s", got)
+	assert.True(T, plan.DryRun)
+	assert.Equal(T, testJob, plan.Job)
+	assert.Equal(T, "main", plan.Branch)
+	assert.True(T, plan.RebuildFailedDeps, "dry-run JSON must reflect --rebuild-failed-deps")
+	assert.NotContains(T, got, "Would trigger", "human preview text must not appear in --json output")
+}
+
+func TestRunStartReuseDepsDryRun(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	ts.Handle("GET /app/rest/builds/id:6946", func(w http.ResponseWriter, r *http.Request) {
+		cmdtest.JSON(w, api.Build{ID: 6946, Number: "42", Status: "SUCCESS", BuildTypeID: "Dep_A"})
+	})
+	ts.Handle("GET /app/rest/builds/id:6917", func(w http.ResponseWriter, r *http.Request) {
+		cmdtest.JSON(w, api.Build{ID: 6917, Number: "41", Status: "SUCCESS", BuildTypeID: "Dep_B"})
+	})
+	got := cmdtest.CaptureOutput(T, ts.Factory, "run", "start", testJob,
+		"--reuse-deps", "6946,6917", "--dry-run")
+	assert.Contains(T, got, "Snapshot dependencies:")
+	assert.Contains(T, got, "6946")
+	assert.Contains(T, got, "#42")
+	assert.Contains(T, got, "Dep_A")
+	assert.Contains(T, got, "6917")
+}
+
+func TestRunStartReuseDepsSendsIDs(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+
+	var captured api.TriggerBuildRequest
+	ts.Handle("POST /app/rest/buildQueue", func(w http.ResponseWriter, r *http.Request) {
+		body, _ := io.ReadAll(r.Body)
+		require.NoError(T, json.Unmarshal(body, &captured))
+		cmdtest.JSON(w, api.Build{ID: 999, BuildTypeID: testJob, WebURL: "https://example/build/999"})
+	})
+
+	cmdtest.RunCmdWithFactory(T, ts.Factory, "run", "start", testJob, "--reuse-deps", "6946,6917")
+
+	require.NotNil(T, captured.SnapshotDependencies)
+	require.Len(T, captured.SnapshotDependencies.Build, 2)
+	assert.Equal(T, 6946, captured.SnapshotDependencies.Build[0].ID)
+	assert.Equal(T, 6917, captured.SnapshotDependencies.Build[1].ID)
+}
+
+func TestRunStartDryRunNonExistentJob(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	err := cmdtest.CaptureErr(T, ts.Factory, "run", "start", "NonExistentJob123456", "--dry-run")
+	assert.Contains(T, err.Error(), "not found")
+}
+
+func TestRunStartSettingsSendsFreezeSettings(T *testing.T) {
+	cases := []struct {
+		flag string
+		want bool
+	}{
+		{"vcs", true},
+		{"current", false},
+	}
+	for _, tc := range cases {
+		T.Run(tc.flag, func(T *testing.T) {
+			ts := cmdtest.SetupMockClient(T)
+			var captured api.TriggerBuildRequest
+			ts.Handle("POST /app/rest/buildQueue", func(w http.ResponseWriter, r *http.Request) {
+				body, _ := io.ReadAll(r.Body)
+				require.NoError(T, json.Unmarshal(body, &captured))
+				cmdtest.JSON(w, api.Build{ID: 777, BuildTypeID: testJob, WebURL: "https://example/build/777"})
+			})
+
+			cmdtest.RunCmdWithFactory(T, ts.Factory, "run", "start", testJob, "--settings", tc.flag)
+
+			require.NotNil(T, captured.TriggeringOptions)
+			require.NotNil(T, captured.TriggeringOptions.FreezeSettings)
+			assert.Equal(T, tc.want, *captured.TriggeringOptions.FreezeSettings)
+		})
+	}
+}
+
+func TestRunStartSettingsInvalid(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	err := cmdtest.CaptureErr(T, ts.Factory, "run", "start", testJob, "--settings", "bogus")
+	assert.Contains(T, err.Error(), "invalid --settings value")
+}
+
+func TestRunCancel(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+
+	cmdtest.RunCmdWithFactory(T, ts.Factory, "run", "cancel", testBuildID, "--comment", "Test cleanup")
+}
+
+func TestRunLog(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+
+	cmdtest.RunCmdWithFactory(T, ts.Factory, "run", "log", testBuildID)
+}
+
+func TestRunLogRaw(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	ts.Handle("GET /downloadBuildLog.html", func(w http.ResponseWriter, r *http.Request) {
+		_, _ = w.Write([]byte("plain text line\n"))
+	})
+	got := cmdtest.CaptureOutput(T, ts.Factory, "run", "log", testBuildID, "--raw")
+	assert.Contains(T, got, "plain text line")
+	assert.NotContains(T, got, "  plain text line")
+}
+
+func TestRunLogEmpty(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	ts.Handle("GET /downloadBuildLog.html", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	})
+	got := cmdtest.CaptureOutput(T, ts.Factory, "run", "log", testBuildID)
+	assert.Contains(T, got, "No log available")
+}
+
+func TestRunLogStreamErrorSurfaces(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	ts.Handle("GET /downloadBuildLog.html", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Length", "9999")
+		w.Header().Set("Content-Type", "text/plain")
+		_, _ = w.Write([]byte("partial line without newline"))
+	})
+	err := cmdtest.CaptureErr(T, ts.Factory, "run", "log", testBuildID)
+	assert.Contains(T, err.Error(), "failed to read run log")
+}
+
+func TestRunLogJSON(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	got := cmdtest.CaptureOutput(T, ts.Factory, "run", "log", testBuildID, "--json")
+	assert.Contains(T, got, `"run_id"`)
+	assert.Contains(T, got, `"log"`)
+	assert.Contains(T, got, "Build started")
+}
+
+func TestRunLogJSON_failed(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	ts.Handle("GET /app/rest/builds/id:1", func(w http.ResponseWriter, r *http.Request) {
+		cmdtest.JSON(w, api.Build{
+			ID:     1,
+			Number: "1",
+			Status: "FAILURE",
+			State:  "finished",
+			WebURL: ts.URL + "/viewLog.html?buildId=1",
+		})
+	})
+	got := cmdtest.CaptureOutput(T, ts.Factory, "run", "log", testBuildID, "--json", "--failed")
+	assert.Contains(T, got, `"run_id"`)
+	assert.Contains(T, got, `"status"`)
+	assert.Contains(T, got, `"problems"`)
+	assert.Contains(T, got, "FAILURE")
+}
+
+func TestRunLogJSON_raw_mutually_exclusive(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	err := cmdtest.CaptureErr(T, ts.Factory, "run", "log", testBuildID, "--json", "--raw")
+	assert.Contains(T, err.Error(), "if any flags in the group [json raw] are set none of the others can be")
+}
+
+func TestRunLogJSON_job(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	got := cmdtest.CaptureOutput(T, ts.Factory, "run", "log", "--job", testJob, "--json")
+	assert.Contains(T, got, `"run_id"`)
+	assert.Contains(T, got, `"log"`)
+}
+
+func TestRunLogTail(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	f := ts.Factory
+
+	got := cmdtest.CaptureOutput(T, f, "run", "log", testBuildID, "--tail", "10")
+	assert.Contains(T, got, "Build started")
+	assert.Contains(T, got, "Build finished")
+
+	got = cmdtest.CaptureOutput(T, f, "run", "log", testBuildID, "--tail", "10", "--json")
+	assert.Contains(T, got, `"messages"`)
+}
+
+func TestRunLogFollow(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	ts.Handle("GET /app/rest/builds/id:", func(w http.ResponseWriter, r *http.Request) {
+		cmdtest.JSON(w, api.Build{
+			ID:     1,
+			Number: "1",
+			Status: "SUCCESS",
+			State:  "finished",
+			WebURL: ts.URL + "/viewLog.html?buildId=1",
+		})
+	})
+	got := cmdtest.CaptureOutput(T, ts.Factory, "run", "log", testBuildID, "--follow")
+	assert.Contains(T, got, "Build started")
+	assert.Contains(T, got, "Build finished")
+}
+
+func TestRunArtifacts(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	f := ts.Factory
+
+	cmdtest.RunCmdWithFactory(T, f, "run", "artifacts", testBuildID)
+	cmdtest.RunCmdWithFactory(T, f, "run", "artifacts", testBuildID, "--json")
+	cmdtest.RunCmdWithFactory(T, f, "run", "artifacts", "--job", testJob)
+	cmdtest.RunCmdWithFactory(T, f, "run", "artifacts", testBuildID, "--path", "logs", "--json")
+	cmdtest.RunCmdWithFactoryExpectErr(T, f, "failed to get artifacts", "run", "artifacts", testBuildID, "--path", "nonexistent")
+}
+
+func TestRunPinUnpin(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	f := ts.Factory
+
+	cmdtest.RunCmdWithFactory(T, f, "run", "pin", testBuildID, "--comment", "CLI test pin")
+	cmdtest.RunCmdWithFactory(T, f, "run", "unpin", testBuildID)
+}
+
+func TestRunTagUntag(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	f := ts.Factory
+
+	cmdtest.RunCmdWithFactory(T, f, "run", "tag", testBuildID, "cli-test-tag", "another-tag")
+	cmdtest.RunCmdWithFactory(T, f, "run", "untag", testBuildID, "cli-test-tag", "another-tag")
+}
+
+func TestRunComment(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	f := ts.Factory
+
+	cmdtest.RunCmdWithFactory(T, f, "run", "comment", testBuildID, "CLI test comment")
+	cmdtest.RunCmdWithFactory(T, f, "run", "comment", testBuildID)
+	cmdtest.RunCmdWithFactory(T, f, "run", "comment", testBuildID, "--delete")
+}
+
+func TestRunChanges(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	f := ts.Factory
+
+	cmdtest.RunCmdWithFactory(T, f, "run", "changes", testBuildID)
+	cmdtest.RunCmdWithFactory(T, f, "run", "changes", testBuildID, "--no-files")
+	cmdtest.RunCmdWithFactory(T, f, "run", "changes", testBuildID, "--json")
+}
+
+func TestRunTree(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+
+	cmdtest.RunCmdWithFactory(T, ts.Factory, "run", "tree", testBuildID)
+	cmdtest.RunCmdWithFactory(T, ts.Factory, "run", "tree", testBuildID, "--depth", "2")
+}
+
+func TestRunTreeWithDeps(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+
+	ts.Handle("GET /app/rest/builds", func(w http.ResponseWriter, r *http.Request) {
+		if strings.Contains(r.URL.RawQuery, "snapshotDependency") {
+			cmdtest.JSON(w, api.BuildList{
+				Count: 1,
+				Builds: []api.Build{
+					{
+						ID:          2,
+						Number:      "2",
+						Status:      "SUCCESS",
+						State:       "finished",
+						BuildTypeID: "TestProject_UnitTests",
+						BuildType:   &api.BuildType{ID: "TestProject_UnitTests", Name: "Unit Tests"},
+					},
+				},
+			})
+			return
+		}
+		cmdtest.JSON(w, api.BuildList{Count: 0, Builds: []api.Build{}})
+	})
+
+	got := cmdtest.CaptureOutput(T, ts.Factory, "run", "tree", testBuildID)
+	assert.Contains(T, got, "Unit Tests")
+}
+
+func TestRunTests(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	f := ts.Factory
+
+	cmdtest.RunCmdWithFactory(T, f, "run", "tests", testBuildID)
+	cmdtest.RunCmdWithFactory(T, f, "run", "tests", testBuildID, "--failed")
+	cmdtest.RunCmdWithFactory(T, f, "run", "tests", testBuildID, "--json")
+}
+
+func TestRunTestsFailedAndMutedFilters(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	installRunTestsFilterHandler(ts)
+
+	failed := cmdtest.CaptureOutput(T, ts.Factory, "run", "tests", testBuildID, "--failed")
+	assert.Contains(T, failed, "PlainFailure")
+	assert.NotContains(T, failed, "MutedFailure")
+	assert.Contains(T, failed, "TESTS: 1 failed")
+	assert.Contains(T, failed, "buildTab=tests&status=failed")
+
+	muted := cmdtest.CaptureOutput(T, ts.Factory, "run", "tests", testBuildID, "--muted")
+	assert.Contains(T, muted, "MutedFailure")
+	assert.NotContains(T, muted, "PlainFailure")
+	assert.Contains(T, muted, "TESTS: 1 muted")
+	assert.Contains(T, muted, "buildTab=tests&status=muted")
+}
+
+func TestRunTestsAllLabelsMutedOccurrences(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	installRunTestsFilterHandler(ts)
+
+	got := cmdtest.CaptureOutput(T, ts.Factory, "run", "tests", testBuildID)
+	assert.Contains(T, got, "PlainFailure")
+	assert.Contains(T, got, "MutedFailure")
+	assert.Contains(T, got, "TESTS: 1 passed, 1 failed, 1 muted, 1 ignored")
+}
+
+func TestRunTestsMutedJSON(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+	installRunTestsFilterHandler(ts)
+
+	got := cmdtest.CaptureOutput(T, ts.Factory, "run", "tests", testBuildID, "--muted", "--json")
+	var tests api.TestOccurrences
+	require.NoError(T, json.Unmarshal([]byte(got), &tests))
+	assert.Equal(T, 1, tests.Muted)
+	require.Len(T, tests.TestOccurrence, 1)
+	assert.True(T, tests.TestOccurrence[0].Muted)
+}
+
+func TestRunTestsFailedAndMutedAreMutuallyExclusive(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+
+	err := cmdtest.CaptureErr(T, ts.Factory, "run", "tests", testBuildID, "--failed", "--muted")
+	assert.Contains(T, err.Error(), "failed")
+	assert.Contains(T, err.Error(), "muted")
+}
+
+func installRunTestsFilterHandler(ts *cmdtest.TestServer) {
+	ts.Handle("GET /app/rest/testOccurrences", func(w http.ResponseWriter, r *http.Request) {
+		locator := r.URL.Query().Get("locator")
+		fields := r.URL.Query().Get("fields")
+		detail := strings.Contains(fields, "testOccurrence(")
+
+		switch {
+		case strings.Contains(locator, "muted:false"):
+			if detail {
+				cmdtest.JSON(w, api.TestOccurrences{
+					TestOccurrence: []api.TestOccurrence{
+						{ID: "failed", Name: "PlainFailure", Status: "FAILURE"},
+					},
+				})
+				return
+			}
+			cmdtest.JSON(w, api.TestOccurrences{Count: 1, Failed: 1})
+		case strings.Contains(locator, "muted:true"):
+			if detail {
+				cmdtest.JSON(w, api.TestOccurrences{
+					TestOccurrence: []api.TestOccurrence{
+						{ID: "muted", Name: "MutedFailure", Status: "FAILURE", Muted: true},
+					},
+				})
+				return
+			}
+			cmdtest.JSON(w, api.TestOccurrences{Count: 1, Muted: 1})
+		default:
+			if detail {
+				cmdtest.JSON(w, api.TestOccurrences{
+					TestOccurrence: []api.TestOccurrence{
+						{ID: "passed", Name: "PassingTest", Status: "SUCCESS"},
+						{ID: "failed", Name: "PlainFailure", Status: "FAILURE"},
+						{ID: "muted", Name: "MutedFailure", Status: "FAILURE", Muted: true},
+						{ID: "ignored", Name: "IgnoredTest", Status: "IGNORED"},
+					},
+				})
+				return
+			}
+			cmdtest.JSON(w, api.TestOccurrences{Count: 4, Passed: 1, Failed: 1, Muted: 1, Ignored: 1})
+		}
+	})
+}
+
+func TestRunListWithAtMe(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+
+	config.SetUserForServer("http://mock.teamcity.test", "admin")
+	cmdtest.RunCmdWithFactory(T, ts.Factory, "run", "list", "--user", "@me", "--limit", "5")
+}
+
+func TestInvalidStatusFilter(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+
+	rootCmd := cmd.NewCommand(ts.Factory)
+	rootCmd.SetArgs([]string{"run", "list", "--status", "invalid"})
+	var out bytes.Buffer
+	rootCmd.SetOut(&out)
+	rootCmd.SetErr(&out)
+	err := rootCmd.Execute()
+	assert.Error(T, err, "expected error for invalid status")
+	assert.Contains(T, err.Error(), "invalid status")
+}
+
+func TestValidStatusFilter(T *testing.T) {
+	ts := cmdtest.SetupMockClient(T)
+
+	validStatuses := []string{"success", "failure", "running", "queued", "canceled"}
+	for _, status := range validStatuses {
+		T.Run(status, func(t *testing.T) {
+			rootCmd := cmd.NewCommand(ts.Factory)
+			rootCmd.SetArgs([]string{"run", "list", "--status", status, "--limit", "1"})
+			var out bytes.Buffer
+			rootCmd.SetOut(&out)
+			rootCmd.SetErr(&out)
+			err := rootCmd.Execute()
+			require.NoError(t, err, "expected no error for valid status %s", status)
+		})
+	}
+}
+
+func TestStatusFilterLocator(T *testing.T) {
+	tests := []struct {
+		status        string
+		wantLocator   string // substring that must appear in the locator query
+		wantState     string // additional substring that must appear (e.g., state:finished)
+		rejectLocator string // substring that must NOT appear
+	}{
+		{"success", "status%3ASUCCESS", "state%3Afinished", ""},
+		{"failure", "status%3AFAILURE", "state%3Afinished", ""},
+		{"running", "state%3Arunning", "", "status%3ARUNNING"},
+		{"queued", "state%3Aqueued", "", "status%3AQUEUED"},
+		{"error", "status%3AERROR", "state%3Afinished", ""},
+		{"unknown", "status%3AUNKNOWN", "state%3Afinished", ""},
+		{"canceled", "status%3AUNKNOWN", "state%3Afinished", ""},
+	}
+
+	for _, tt := range tests {
+		T.Run(tt.status, func(t *testing.T) {
+			var capturedQuery string
+			ts := cmdtest.NewTestServer(t)
+			ts.Handle("GET /app/rest/server", func(w http.ResponseWriter, r *http.Request) {
+				cmdtest.JSON(w, api.Server{VersionMajor: 2025, VersionMinor: 7, BuildNumber: "197398"})
+			})
+			ts.Handle("HEAD /app/rest/server", func(w http.ResponseWriter, r *http.Request) {
+				w.WriteHeader(http.StatusOK)
+			})
+			ts.Handle("GET /app/rest/builds", func(w http.ResponseWriter, r *http.Request) {
+				capturedQuery = r.URL.RawQuery
+				cmdtest.JSON(w, api.BuildList{Count: 0, Builds: []api.Build{}})
+			})
+
+			rootCmd := cmd.NewCommand(ts.Factory)
+			rootCmd.SetArgs([]string{"run", "list", "--status", tt.status, "--limit", "1"})
+			var out bytes.Buffer
+			rootCmd.SetOut(&out)
+			rootCmd.SetErr(&out)
+			err := rootCmd.Execute()
+			require.NoError(t, err)
+
+			assert.Contains(t, capturedQuery, tt.wantLocator,
+				"--status %s: expected locator to contain %s, got query: %s", tt.status, tt.wantLocator, capturedQuery)
+			if tt.wantState != "" {
+				assert.Contains(t, capturedQuery, tt.wantState,
+					"--status %s: expected locator to contain %s, got query: %s", tt.status, tt.wantState, capturedQuery)
+			}
+			if tt.rejectLocator != "" {
+				assert.NotContains(t, capturedQuery, tt.rejectLocator,
+					"--status %s: locator must not contain %s, got query: %s", tt.status, tt.rejectLocator, capturedQuery)
+			}
+		})
+	}
+}
+
+func TestRunListFavoritesLocator(T *testing.T) {
+	var capturedQuery string
+	ts := cmdtest.NewTestServer(T)
+	ts.Handle("GET /app/rest/server", func(w http.ResponseWriter, r *http.Request) {
+		cmdtest.JSON(w, api.Server{VersionMajor: 2025, VersionMinor: 7, BuildNumber: "197398"})
+	})
+	ts.Handle("HEAD /app/rest/server", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	})
+	ts.Handle("GET /app/rest/builds", func(w http.ResponseWriter, r *http.Request) {
+		capturedQuery = r.URL.RawQuery
+		cmdtest.JSON(w, api.BuildList{Count: 0, Builds: []api.Build{}})
+	})
+
+	rootCmd := cmd.NewCommand(ts.Factory)
+	rootCmd.SetArgs([]string{"run", "list", "--favorites", "--limit", "1"})
+	var out bytes.Buffer
+	rootCmd.SetOut(&out)
+	rootCmd.SetErr(&out)
+	err := rootCmd.Execute()
+	require.NoError(T, err)
+
+	assert.Contains(T, capturedQuery, api.BuildsOptions{Favorites: true}.Locator().Encode())
+	assert.Contains(T, capturedQuery, "count%3A1")
+}
+
+func TestRunList_plain(t *testing.T) {
+	ts := cmdtest.SetupMockClient(t)
+	got := cmdtest.CaptureOutput(t, ts.Factory, "run", "list", "--plain")
+	want := "" +
+		"STATUS \tID\tJOB              \tBRANCH\tTRIGGERED_BY\tDURATION\tAGE   \n" +
+		"success\t1 \tTestProject_Build\t-     \t-           \t1m 0s   \tJan 01\n"
+	assert.Equal(t, want, got)
+}
+
+func TestRunView_output(t *testing.T) {
+	ts := cmdtest.SetupMockClient(t)
+	ts.Handle("GET /app/rest/builds/id:42", func(w http.ResponseWriter, r *http.Request) {
+		cmdtest.JSON(w, api.Build{
+			ID:          42,
+			Number:      "7",
+			Status:      "SUCCESS",
+			State:       "finished",
+			StatusText:  "Tests passed: 128",
+			BuildTypeID: "TestProject_Build",
+			BuildType:   &api.BuildType{ID: "TestProject_Build", Name: "Build"},
+			BranchName:  "main",
+			StartDate:   "20240101T120000+0000",
+			FinishDate:  "20240101T120130+0000",
+			WebURL:      "https://ci.example.com/viewLog.html?buildId=42",
+			Triggered:   &api.Triggered{Type: "user", User: &api.User{Name: "Alice"}},
+			Agent:       &api.Agent{ID: 1, Name: "Agent-Linux-01"},
+			Tags:        &api.TagList{Tag: []api.Tag{{Name: "release"}, {Name: "v2.0"}}},
+		})
+	})
+	got := cmdtest.CaptureOutput(t, ts.Factory, "run", "view", "42")
+	want := cmdtest.Dedent(`
+		✓ Build 42  #7 · main
+		Triggered by Alice · Jan 01 · Took 1m 30s
+
+		Status: Tests passed: 128
+
+		Agent: Agent-Linux-01
+
+		Tags: release, v2.0
+
+		View in browser: https://ci.example.com/viewLog.html?buildId=42
+	`)
+	assert.Equal(t, want, got)
+}
+
+func TestRunView_usedByOtherBuilds(t *testing.T) {
+	ts := cmdtest.SetupMockClient(t)
+	ts.Handle("GET /app/rest/builds/id:55", func(w http.ResponseWriter, r *http.Request) {
+		cmdtest.JSON(w, api.Build{
+			ID:                55,
+			Number:            "10",
+			Status:            "SUCCESS",
+			State:             "finished",
+			BuildTypeID:       "TestProject_Build",
+			BuildType:         &api.BuildType{ID: "TestProject_Build", Name: "Build"},
+			BranchName:        "main",
+			StartDate:         "20240101T120000+0000",
+			FinishDate:        "20240101T120000+0000",
+			WebURL:            "https://ci.example.com/viewLog.html?buildId=55",
+			Triggered:         &api.Triggered{Type: "snapshotDependency"},
+			UsedByOtherBuilds: true,
+		})
+	})
+	got := cmdtest.CaptureOutput(t, ts.Factory, "run", "view", "55")
+	assert.Contains(t, got, "Results shared in build chain")
+}
+
+func TestRunView_waitReason(t *testing.T) {
+	ts := cmdtest.SetupMockClient(t)
+	ts.Handle("GET /app/rest/builds/id:60", func(w http.ResponseWriter, r *http.Request) {
+		cmdtest.JSON(w, api.Build{
+			ID:          60,
+			Number:      "11",
+			Status:      "",
+			State:       "queued",
+			BuildTypeID: "TestProject_Build",
+			BuildType:   &api.BuildType{ID: "TestProject_Build", Name: "Build"},
+			BranchName:  "main",
+			WebURL:      "https://ci.example.com/viewLog.html?buildId=60",
+			Triggered:   &api.Triggered{Type: "user", User: &api.User{Name: "Bob"}},
+			WaitReason:  "No compatible agents available",
+		})
+	})
+	got := cmdtest.CaptureOutput(t, ts.Factory, "run", "view", "60")
+	assert.Contains(t, got, "Wait reason: No compatible agents available")
+	assert.Contains(t, got, "Compatible agents")
+	assert.Contains(t, got, "Incompatible agents")
+}
+
+func TestRunView_waitReason_nonCompatibility_skipsAgentQuery(t *testing.T) {
+	ts := cmdtest.SetupMockClient(t)
+	ts.Handle("GET /app/rest/builds/id:65", func(w http.ResponseWriter, r *http.Request) {
+		cmdtest.JSON(w, api.Build{
+			ID: 65, State: "queued", BuildTypeID: "TestProject_Build",
+			BuildType:  &api.BuildType{ID: "TestProject_Build", Name: "Build"},
+			WebURL:     "https://ci.example.com/viewLog.html?buildId=65",
+			Triggered:  &api.Triggered{Type: "user", User: &api.User{Name: "Bob"}},
+			WaitReason: "Build dependencies have not been built yet",
+		})
+	})
+	got := cmdtest.CaptureOutput(t, ts.Factory, "run", "view", "65")
+	assert.Contains(t, got, "Wait reason: Build dependencies have not been built yet")
+	assert.NotContains(t, got, "Compatible agents")
+	assert.NotContains(t, got, "Incompatible agents")
+}
+
+func TestRunView_compatibilityDetails(t *testing.T) {
+	ts := cmdtest.SetupMockClient(t)
+	ts.Handle("GET /app/rest/builds/id:71", func(w http.ResponseWriter, r *http.Request) {
+		cmdtest.JSON(w, api.Build{
+			ID:          71,
+			Number:      "12",
+			State:       "queued",
+			BuildTypeID: "Target_BT",
+			BuildType:   &api.BuildType{ID: "Target_BT", Name: "Target"},
+			BranchName:  "main",
+			WebURL:      "https://ci.example.com/viewLog.html?buildId=71",
+			Triggered:   &api.Triggered{Type: "user", User: &api.User{Name: "Bob"}},
+			WaitReason:  "There are no idle compatible agents which can run this build",
+		})
+	})
+	// agents endpoint is shared for compatible/incompatible locators via the default handler;
+	// override it so compatible returns empty and incompatible returns one agent grouped by pool.
+	ts.Handle("GET /app/rest/agents", func(w http.ResponseWriter, r *http.Request) {
+		locator := r.URL.Query().Get("locator")
+		if strings.Contains(locator, "incompatible:") {
+			cmdtest.JSON(w, api.AgentList{
+				Count: 1,
+				Agents: []api.Agent{
+					{ID: 42, Name: "linux-agent-bad", Connected: true, Enabled: true, Authorized: true,
+						Pool: &api.Pool{ID: 3, Name: "Linux Pool"}},
+				},
+			})
+			return
+		}
+		if strings.Contains(locator, "compatible:") {
+			cmdtest.JSON(w, api.AgentList{Count: 0})
+			return
+		}
+		cmdtest.JSON(w, api.AgentList{Count: 0})
+	})
+	ts.Handle("GET /app/rest/agents/id:42/incompatibleBuildTypes", func(w http.ResponseWriter, r *http.Request) {
+		cmdtest.JSON(w, api.CompatibilityList{
+			Count: 1,
+			Compatibility: []api.Compatibility{
+				{
+					Compatible:        false,
+					BuildType:         &api.BuildType{ID: "Target_BT"},
+					UnmetRequirements: &api.UnmetRequirements{Description: "Incompatible runner: Docker"},
+				},
+			},
+		})
+	})
+
+	got := cmdtest.CaptureOutput(t, ts.Factory, "run", "view", "71")
+	assert.Contains(t, got, "Wait reason: There are no idle compatible agents which can run this build")
+	assert.Contains(t, got, "Compatible agents (0)")
+	assert.Contains(t, got, "Incompatible agents (1)")
+	assert.Contains(t, got, "[Linux Pool]")
+	assert.Contains(t, got, "linux-agent-bad")
+	assert.Contains(t, got, "Incompatible runner: Docker")
+}
+
+func TestRunStart_reused(t *testing.T) {
+	ts := cmdtest.SetupMockClient(t)
+	ts.Handle("POST /app/rest/buildQueue", func(w http.ResponseWriter, r *http.Request) {
+		cmdtest.JSON(w, api.Build{
+			ID:          42,
+			Number:      "7",
+			State:       "finished",
+			Status:      "SUCCESS",
+			BuildTypeID: "TestProject_Build",
+			WebURL:      ts.URL + "/viewLog.html?buildId=42",
+		})
+	})
+	got := cmdtest.CaptureOutput(t, ts.Factory, "run", "start", testJob)
+	assert.Contains(t, got, "Reused existing")
+	assert.Contains(t, got, "(optimization)")
+}
+
+func TestRunList_invalid_status(t *testing.T) {
+	ts := cmdtest.SetupMockClient(t)
+	err := cmdtest.CaptureErr(t, ts.Factory, "run", "list", "--status", "bogus")
+	assert.Equal(t, `invalid status "bogus", must be one of: success, failure, running, queued, error, unknown, canceled`, err.Error())
+}
+
+func TestRunList_invalid_limit(t *testing.T) {
+	ts := cmdtest.SetupMockClient(t)
+	err := cmdtest.CaptureErr(t, ts.Factory, "run", "list", "--limit", "-1")
+	assert.Equal(t, "--limit must not be negative, got -1", err.Error())
+}

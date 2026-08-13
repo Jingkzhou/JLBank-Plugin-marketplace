@@ -1,0 +1,12 @@
+# `teamcity link` help surface and validation.
+
+exec teamcity link --help
+stdout 'teamcity\.toml'
+stdout '--server'
+stdout '--project'
+stdout '--job'
+stdout '--jobs'
+! stderr 'Error'
+
+! exec teamcity link --server https://x.example --no-input
+stderr 'at least one of --project'

@@ -1,0 +1,995 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`listFunctionalities call with valid app and data 1`] = `
+Array [
+  Object {
+    "description": "Create new fiori elements page like ListReport, ObjectPage, CustomPage",
+    "functionalityId": "add-page",
+  },
+  Object {
+    "description": "Remove existing fiori elements page from the application",
+    "functionalityId": "delete-page",
+  },
+  Object {
+    "description": "Add new controller extension by creating javascript or typescript file and updates manifest.json with entry. Controller extensions allow users to extensiate default behaviour with custom controllers code.",
+    "functionalityId": "create-controller-extension",
+  },
+  Object {
+    "description": "Represents a prefix that is prepended in front of the viewName",
+    "functionalityId": Array [
+      "settings",
+      "path",
+    ],
+  },
+  Object {
+    "description": "standard view type of views",
+    "functionalityId": Array [
+      "settings",
+      "viewType",
+    ],
+  },
+  Object {
+    "description": "Define the default creation mode that is used for all tables, unless a specific creation mode has been set.",
+    "functionalityId": Array [
+      "settings",
+      "defaultCreationMode",
+    ],
+  },
+  Object {
+    "description": "Defines the default layout options of the table popins. A separate layout options of the table popins can be set for each responsive table in the application.",
+    "functionalityId": Array [
+      "settings",
+      "defaultPopinLayout",
+    ],
+  },
+  Object {
+    "description": "Enables lazy loading for sections in object pages. If a specific object page defines its own \`enableLazyLoading\` property, that page-level setting overrides this application-level setting.",
+    "functionalityId": Array [
+      "settings",
+      "enableLazyLoading",
+    ],
+  },
+  Object {
+    "description": "Disables strict filtering. Strict filtering requires users to enter a single value in the unit of measure field when filtering for measure field values.",
+    "functionalityId": Array [
+      "settings",
+      "disableStrictUomFiltering",
+    ],
+  },
+  Object {
+    "description": "Defines the title for the application.",
+    "functionalityId": Array [
+      "settings",
+      "title",
+    ],
+  },
+  Object {
+    "description": "Defines the description for the application.",
+    "functionalityId": Array [
+      "settings",
+      "description",
+    ],
+  },
+  Object {
+    "description": "Enables key user adaptation for an application.",
+    "functionalityId": Array [
+      "settings",
+      "flexEnabled",
+    ],
+  },
+  Object {
+    "description": "Represents the release status for the developer adaptation in the cloud (relevant for SAP internal only). The supported types are released, deprecated, obsolete, no value means not released.",
+    "functionalityId": Array [
+      "settings",
+      "cloudDevAdaptationStatus",
+    ],
+  },
+  Object {
+    "description": "The flexible column layout allows users to see more details on the page, and to expand and collapse the screen areas.",
+    "functionalityId": Array [
+      "settings",
+      "flexibleColumnLayout",
+    ],
+  },
+  Object {
+    "description": "Determines whether the Flexible Column Layout is limited to two columns. If set to true, the third level will be displayed in full screen mode rather than a third column.",
+    "functionalityId": Array [
+      "settings",
+      "flexibleColumnLayout",
+      "limitFCLToTwoColumns",
+    ],
+  },
+  Object {
+    "description": "Default Two Column Layout Type",
+    "functionalityId": Array [
+      "settings",
+      "flexibleColumnLayout",
+      "defaultTwoColumnLayoutType",
+    ],
+  },
+  Object {
+    "description": "Default Three Column Layout Type",
+    "functionalityId": Array [
+      "settings",
+      "flexibleColumnLayout",
+      "defaultThreeColumnLayoutType",
+    ],
+  },
+  Object {
+    "description": "Controller extensions allow users to extensiate default behaviour with custom controllers code.",
+    "functionalityId": Array [
+      "settings",
+      "controllerExtensions",
+    ],
+  },
+  Object {
+    "description": "Hidden draft features.",
+    "functionalityId": Array [
+      "settings",
+      "hideDraft",
+    ],
+  },
+  Object {
+    "description": "All features related to draft handling can be hidden from the UI while the draft functionality remains active in the background. To achieve this, enable the 'Hide Draft' property.",
+    "functionalityId": Array [
+      "settings",
+      "hideDraft",
+      "enabled",
+    ],
+  },
+  Object {
+    "description": "Determines whether to stay on the current page after saving an object.
+To ensure a consistent experience, set this and 'Stay On Current Page After Cancel' to the same value.",
+    "functionalityId": Array [
+      "settings",
+      "hideDraft",
+      "stayOnCurrentPageAfterSave",
+    ],
+  },
+  Object {
+    "description": "Determines whether to stay on the current page after canceling an object.
+To ensure a consistent experience, set this and 'Stay On Current Page After Save' to the same value.",
+    "functionalityId": Array [
+      "settings",
+      "hideDraft",
+      "stayOnCurrentPageAfterCancel",
+    ],
+  },
+  Object {
+    "description": "Controls the visibility of the 'Create Next' button.",
+    "functionalityId": Array [
+      "settings",
+      "hideDraft",
+      "hideCreateNext",
+    ],
+  },
+  Object {
+    "description": "variantManagement defines how the variant management of page personalizations is controlled.
+- None - No variant management by default.
+- Control - Individual personalizations for each control.",
+    "functionalityId": Array [
+      "TravelList",
+      "variantManagement",
+    ],
+  },
+  Object {
+    "description": "Inline edit allows users to directly edit a field or a group of fields in the active version without switching the entire object to draft. Inline edit supports the same features as the regular edit mode.",
+    "functionalityId": Array [
+      "TravelList",
+      "inlineEdit",
+    ],
+  },
+  Object {
+    "description": "inlineEdit",
+    "functionalityId": Array [
+      "TravelList",
+      "inlineEdit",
+    ],
+  },
+  Object {
+    "description": "Array of fields which are inline editable.
+If empty or undefined, all fields within the page are inline editable except for fields specified in 'Disabled Fields'.
+Each string may be a direct property, a navigation property, or a field group.",
+    "functionalityId": Array [
+      "inlineEdit",
+      "enabledFields",
+    ],
+  },
+  Object {
+    "description": "Array of fields which are not inline editable.
+If empty or undefined, all fields within the page are not inline editable except for those specified in 'Enabled Fields'.
+Each string may be a direct property, a navigation property, or a field group.",
+    "functionalityId": Array [
+      "inlineEdit",
+      "disabledFields",
+    ],
+  },
+  Object {
+    "description": "Array of arrays of fields which are edited inline together.
+Fields specified in 'Connected Fields' must not be included in 'Enabled Fields' or 'Disabled Fields'.
+May contain direct properties, navigation properties, or a field group.",
+    "functionalityId": Array [
+      "inlineEdit",
+      "connectedFields",
+    ],
+  },
+  Object {
+    "description": "Allows you to hide the filter bar.",
+    "functionalityId": Array [
+      "TravelList",
+      "filterBar",
+      "hideFilterBar",
+    ],
+  },
+  Object {
+    "description": "Determines whether the data in the table is automatically loaded.
+- Auto (default): Data is loaded automatically if a default filter value has been set in the filter bar.
+- Enabled: Data is loaded automatically, as defined by the standard variant
+- Disabled: Data is not loaded automatically. Users have to click the Go button.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "initialLoad",
+    ],
+  },
+  Object {
+    "description": "Defines the personalization mode, currently only effective if variant management on page is either set to Page or Control.
+By default all table settings are enabled. You can change this for the different parts of the table by setting the properties \\"Column\\", \\"Sort\\" and \\"Filter\\" accordingly.
+Omitting a property is treated as false, this allows apps to avoid getting new features like grouping in upcoming releases.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "personalization",
+    ],
+  },
+  Object {
+    "description": "Defines the layout options of the table popins. A popin layout defined at the table level takes precedence over a popin layout defined at the application level.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "popinLayout",
+    ],
+  },
+  Object {
+    "description": "Defines the table type. Note: Grid tables, analytical tables, and tree tables aren't rendered on small-screen devices. Responsive tables are shown instead.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "type",
+    ],
+  },
+  Object {
+    "description": "Allows you to enable or disable row selection and choose between single or multiple row selection.
+- Auto: This type is deprecated. Choose any of the following modes:
+- Multi (default): This type allows multiple table selections if relevant actions are available in the toolbar.
+- Single: This type allows single table selection if relevant actions are available in the toolbar.
+- None: No table selection is possible in display mode.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "selectionMode",
+    ],
+  },
+  Object {
+    "description": "The selectAll configuration overrides the selectionLimit and allows the user to select all the items. When set to true, the select all feature is enabled: a checkbox in the table header is displayed which selects all items when clicked.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "selectAll",
+    ],
+  },
+  Object {
+    "description": "You can define how many items can be selected at a time using the selectionLimit.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "selectionLimit",
+    ],
+  },
+  Object {
+    "description": "Defines whether the Export button is displayed in the table toolbar. The default value is true.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "enableExport",
+    ],
+  },
+  Object {
+    "description": "Determines whether the content density for ui.table is condensed.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "condensedTableLayout",
+    ],
+  },
+  Object {
+    "description": "Leading property that decides between either a recursive hierarchy or data aggregation.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "hierarchyQualifier",
+    ],
+  },
+  Object {
+    "description": "Determines whether the column header is included in the column width calculation. By default, the column width is calculated based on the type of the content.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "widthIncludingColumnHeader",
+    ],
+  },
+  Object {
+    "description": "Determines the visibility of the Copy to Clipboard button. By default, the Copy to Clipboard button is displayed in the table toolbar if the selection mode is configured.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "disableCopyToClipboard",
+    ],
+  },
+  Object {
+    "description": "Mass edit allows users to simultaneously change multiple objects that share the same editable properties.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "enableMassEdit",
+    ],
+  },
+  Object {
+    "description": "personalization",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "personalization",
+    ],
+  },
+  Object {
+    "description": "Defines whether the user can add and remove columns to a given table.",
+    "functionalityId": Array [
+      "table",
+      "personalization",
+      "column",
+    ],
+  },
+  Object {
+    "description": "Defines whether the user can sort a given table.",
+    "functionalityId": Array [
+      "table",
+      "personalization",
+      "sort",
+    ],
+  },
+  Object {
+    "description": "Defines whether the user can filter data of a given table.",
+    "functionalityId": Array [
+      "table",
+      "personalization",
+      "filter",
+    ],
+  },
+  Object {
+    "description": "With quickVariantSelection you can switch to multiple views (single table mode). It links to a SelectionVariant (filters) or SelectionPresentationVariant (filters and sorters) that you have added to your annotations.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "quickVariantSelection",
+    ],
+  },
+  Object {
+    "description": "Determines whether the table title is hidden and the tab titles are displayed.",
+    "functionalityId": Array [
+      "table",
+      "quickVariantSelection",
+      "hideTableTitle",
+    ],
+  },
+  Object {
+    "description": "Determines whether the entry view counts are shown.",
+    "functionalityId": Array [
+      "table",
+      "quickVariantSelection",
+      "showCounts",
+    ],
+  },
+  Object {
+    "description": "List of annotation paths referring to SelectionVariant annotations.",
+    "functionalityId": Array [
+      "table",
+      "quickVariantSelection",
+      "paths",
+    ],
+  },
+  Object {
+    "description": "enableMassEdit",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "enableMassEdit",
+    ],
+  },
+  Object {
+    "description": "Define how changes using mass edit are applied. The default mode for mass edit is 'ChangeSet' on object pages and 'Isolated' on list report pages.
+
+- ChangeSet: Grouped for all objects within the same request.
+- Isolated: Separately for each object (as an individual OData change set in the same request).",
+    "functionalityId": Array [
+      "table",
+      "enableMassEdit",
+      "operationGroupingMode",
+    ],
+  },
+  Object {
+    "description": "The 'visibleFields' property lets you specify which fields are available in the mass edit dialog. If empty or undefined, all fields within the page appear in the edit dialog except for read-only fields and fields specified in 'Disabled Fields'.",
+    "functionalityId": Array [
+      "table",
+      "enableMassEdit",
+      "visibleFields",
+    ],
+  },
+  Object {
+    "description": "The 'ignoredFields' property lets you hide specific fields from the mass edit dialog, even if these fields are displayed in the table. If empty or undefined, all fields within the page appear in the edit dialog except for fields specified in 'Visible Fields'. If 'Visible Fields' are defined, this field is ignored.",
+    "functionalityId": Array [
+      "table",
+      "enableMassEdit",
+      "ignoredFields",
+    ],
+  },
+  Object {
+    "description": "Defines the page behavior when a new record is created.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "creationMode",
+    ],
+  },
+  Object {
+    "description": "Defines the creation mode to be used by the List Report table.
+The allowed values are \`NewPage\` or \`CreationDialog\`.
+
+- NewPage: The created document is shown in a new page, depending on whether 'Sync', 'Async' or 'Deferred' metadata is used.
+- CreationDialog: The creation is performed in the table, with a dialog which allows you to specify initial property values that are are listed in \`creationFields\`.
+
+If this is not set with a value, the default value is 'NewPage'.",
+    "functionalityId": Array [
+      "table",
+      "creationMode",
+      "name",
+    ],
+  },
+  Object {
+    "description": "Enables single selection for a bound action.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.createDraftTravel::Collection::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.TravelType",
+      "enableOnSelect",
+    ],
+  },
+  Object {
+    "description": "Allows users to set the group for the action or action menu. When there's not enough space to display all grouped actions, they are moved together into overflow.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.createDraftTravel::Collection::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.TravelType",
+      "overflowGroup",
+    ],
+  },
+  Object {
+    "description": "Allows users to set the priority of the action or action menu. This determines ordering and whether the action or action menu is moved into overflow.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.createDraftTravel::Collection::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.TravelType",
+      "priority",
+    ],
+  },
+  Object {
+    "description": "Settings that control the behavior after creating a new entry.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.createDraftTravel::Collection::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.TravelType",
+      "afterExecution",
+    ],
+  },
+  Object {
+    "description": "Allows you to disable the navigation. By default, navigation is automatically triggered after you have performed an action.",
+    "functionalityId": Array [
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.createDraftTravel::Collection::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.TravelType",
+      "afterExecution",
+      "navigateToInstance",
+    ],
+  },
+  Object {
+    "description": "Allows you to scroll to the newly created or changed item after you have performed an action.",
+    "functionalityId": Array [
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.createDraftTravel::Collection::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.TravelType",
+      "afterExecution",
+      "enableAutoScroll",
+    ],
+  },
+  Object {
+    "description": "Enables single selection for a bound action.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.createActiveTravel::Collection::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.TravelType",
+      "enableOnSelect",
+    ],
+  },
+  Object {
+    "description": "Allows users to set the group for the action or action menu. When there's not enough space to display all grouped actions, they are moved together into overflow.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.createActiveTravel::Collection::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.TravelType",
+      "overflowGroup",
+    ],
+  },
+  Object {
+    "description": "Allows users to set the priority of the action or action menu. This determines ordering and whether the action or action menu is moved into overflow.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.createActiveTravel::Collection::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.TravelType",
+      "priority",
+    ],
+  },
+  Object {
+    "description": "Settings that control the behavior after creating a new entry.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.createActiveTravel::Collection::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.TravelType",
+      "afterExecution",
+    ],
+  },
+  Object {
+    "description": "Allows you to disable the navigation. By default, navigation is automatically triggered after you have performed an action.",
+    "functionalityId": Array [
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.createActiveTravel::Collection::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.TravelType",
+      "afterExecution",
+      "navigateToInstance",
+    ],
+  },
+  Object {
+    "description": "Allows you to scroll to the newly created or changed item after you have performed an action.",
+    "functionalityId": Array [
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.createActiveTravel::Collection::com.sap.gateway.srvd.dmo.ui_travel_uuid_um.v0001.TravelType",
+      "afterExecution",
+      "enableAutoScroll",
+    ],
+  },
+  Object {
+    "description": "Enables single selection for a bound action.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction",
+      "enableOnSelect",
+    ],
+  },
+  Object {
+    "description": "Allows users to set the group for the action or action menu. When there's not enough space to display all grouped actions, they are moved together into overflow.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction",
+      "overflowGroup",
+    ],
+  },
+  Object {
+    "description": "Allows users to set the priority of the action or action menu. This determines ordering and whether the action or action menu is moved into overflow.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction",
+      "priority",
+    ],
+  },
+  Object {
+    "description": "Settings that control the behavior after creating a new entry.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction",
+      "afterExecution",
+    ],
+  },
+  Object {
+    "description": "Allows you to disable the navigation. By default, navigation is automatically triggered after you have performed an action.",
+    "functionalityId": Array [
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction",
+      "afterExecution",
+      "navigateToInstance",
+    ],
+  },
+  Object {
+    "description": "Allows you to scroll to the newly created or changed item after you have performed an action.",
+    "functionalityId": Array [
+      "table",
+      "toolBar",
+      "actions",
+      "DataFieldForAction",
+      "afterExecution",
+      "enableAutoScroll",
+    ],
+  },
+  Object {
+    "description": "A string type that represents CSS size values.
+Refer to https://ui5.sap.com/api/sap.ui.core.CSSSize",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::TravelID",
+      "width",
+    ],
+  },
+  Object {
+    "description": "Defines where the column should be shown.
+Default: it will be shown by default in the table.
+Adaptation: it will initially not be shown in the table but be available via end user adaptation.
+Hidden: the column is neither available in the table nor in adaptation.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::TravelID",
+      "availability",
+    ],
+  },
+  Object {
+    "description": "By default, the column width is calculated based on the type of the content. You can include the column header in the width calculation using the widthIncludingColumnHeader setting in the manifest.json.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::TravelID",
+      "widthIncludingColumnHeader",
+    ],
+  },
+  Object {
+    "description": "A string type that represents CSS size values.
+Refer to https://ui5.sap.com/api/sap.ui.core.CSSSize",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::AgencyID",
+      "width",
+    ],
+  },
+  Object {
+    "description": "Defines where the column should be shown.
+Default: it will be shown by default in the table.
+Adaptation: it will initially not be shown in the table but be available via end user adaptation.
+Hidden: the column is neither available in the table nor in adaptation.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::AgencyID",
+      "availability",
+    ],
+  },
+  Object {
+    "description": "By default, the column width is calculated based on the type of the content. You can include the column header in the width calculation using the widthIncludingColumnHeader setting in the manifest.json.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::AgencyID",
+      "widthIncludingColumnHeader",
+    ],
+  },
+  Object {
+    "description": "A string type that represents CSS size values.
+Refer to https://ui5.sap.com/api/sap.ui.core.CSSSize",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::CustomerID",
+      "width",
+    ],
+  },
+  Object {
+    "description": "Defines where the column should be shown.
+Default: it will be shown by default in the table.
+Adaptation: it will initially not be shown in the table but be available via end user adaptation.
+Hidden: the column is neither available in the table nor in adaptation.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::CustomerID",
+      "availability",
+    ],
+  },
+  Object {
+    "description": "By default, the column width is calculated based on the type of the content. You can include the column header in the width calculation using the widthIncludingColumnHeader setting in the manifest.json.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::CustomerID",
+      "widthIncludingColumnHeader",
+    ],
+  },
+  Object {
+    "description": "A string type that represents CSS size values.
+Refer to https://ui5.sap.com/api/sap.ui.core.CSSSize",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::BeginDate",
+      "width",
+    ],
+  },
+  Object {
+    "description": "Defines where the column should be shown.
+Default: it will be shown by default in the table.
+Adaptation: it will initially not be shown in the table but be available via end user adaptation.
+Hidden: the column is neither available in the table nor in adaptation.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::BeginDate",
+      "availability",
+    ],
+  },
+  Object {
+    "description": "By default, the column width is calculated based on the type of the content. You can include the column header in the width calculation using the widthIncludingColumnHeader setting in the manifest.json.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::BeginDate",
+      "widthIncludingColumnHeader",
+    ],
+  },
+  Object {
+    "description": "A string type that represents CSS size values.
+Refer to https://ui5.sap.com/api/sap.ui.core.CSSSize",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::EndDate",
+      "width",
+    ],
+  },
+  Object {
+    "description": "Defines where the column should be shown.
+Default: it will be shown by default in the table.
+Adaptation: it will initially not be shown in the table but be available via end user adaptation.
+Hidden: the column is neither available in the table nor in adaptation.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::EndDate",
+      "availability",
+    ],
+  },
+  Object {
+    "description": "By default, the column width is calculated based on the type of the content. You can include the column header in the width calculation using the widthIncludingColumnHeader setting in the manifest.json.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::EndDate",
+      "widthIncludingColumnHeader",
+    ],
+  },
+  Object {
+    "description": "A string type that represents CSS size values.
+Refer to https://ui5.sap.com/api/sap.ui.core.CSSSize",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::TotalPrice",
+      "width",
+    ],
+  },
+  Object {
+    "description": "Defines where the column should be shown.
+Default: it will be shown by default in the table.
+Adaptation: it will initially not be shown in the table but be available via end user adaptation.
+Hidden: the column is neither available in the table nor in adaptation.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::TotalPrice",
+      "availability",
+    ],
+  },
+  Object {
+    "description": "By default, the column width is calculated based on the type of the content. You can include the column header in the width calculation using the widthIncludingColumnHeader setting in the manifest.json.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::TotalPrice",
+      "widthIncludingColumnHeader",
+    ],
+  },
+  Object {
+    "description": "A string type that represents CSS size values.
+Refer to https://ui5.sap.com/api/sap.ui.core.CSSSize",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::TravelStatus",
+      "width",
+    ],
+  },
+  Object {
+    "description": "Defines where the column should be shown.
+Default: it will be shown by default in the table.
+Adaptation: it will initially not be shown in the table but be available via end user adaptation.
+Hidden: the column is neither available in the table nor in adaptation.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::TravelStatus",
+      "availability",
+    ],
+  },
+  Object {
+    "description": "By default, the column width is calculated based on the type of the content. You can include the column header in the width calculation using the widthIncludingColumnHeader setting in the manifest.json.",
+    "functionalityId": Array [
+      "TravelList",
+      "table",
+      "columns",
+      "DataField::TravelStatus",
+      "widthIncludingColumnHeader",
+    ],
+  },
+  Object {
+    "description": "Determines whether variant management is enabled for tables:
+- None (default): Variant management is disabled.
+- Control: Variant management can be enabled individually for each control using personalization.",
+    "functionalityId": Array [
+      "TravelObjectPage",
+      "variantManagement",
+    ],
+  },
+  Object {
+    "description": "Enable lazy loading for sections in an object page.",
+    "functionalityId": Array [
+      "TravelObjectPage",
+      "enableLazyLoading",
+    ],
+  },
+  Object {
+    "description": "Set editableHeaderContent to true to make the header fields editable.",
+    "functionalityId": Array [
+      "TravelObjectPage",
+      "header",
+      "editableHeaderContent",
+    ],
+  },
+  Object {
+    "description": "Set visible to true to make the header visible.",
+    "functionalityId": Array [
+      "TravelObjectPage",
+      "header",
+      "visible",
+    ],
+  },
+  Object {
+    "description": "Determines whether the anchor bar is displayed.",
+    "functionalityId": Array [
+      "TravelObjectPage",
+      "header",
+      "anchorBarVisible",
+    ],
+  },
+  Object {
+    "description": "Allows users to set the group for the action or action menu. When there's not enough space to display all grouped actions, they are moved together into overflow.",
+    "functionalityId": Array [
+      "TravelObjectPage",
+      "header",
+      "actions",
+      "EditAction",
+      "overflowGroup",
+    ],
+  },
+  Object {
+    "description": "Allows users to set the priority of the action or action menu. This determines ordering and whether the action or action menu is moved into overflow.",
+    "functionalityId": Array [
+      "TravelObjectPage",
+      "header",
+      "actions",
+      "EditAction",
+      "priority",
+    ],
+  },
+  Object {
+    "description": "Allows users to set the group for the action or action menu. When there's not enough space to display all grouped actions, they are moved together into overflow.",
+    "functionalityId": Array [
+      "TravelObjectPage",
+      "header",
+      "actions",
+      "DeleteAction",
+      "overflowGroup",
+    ],
+  },
+  Object {
+    "description": "Allows users to set the priority of the action or action menu. This determines ordering and whether the action or action menu is moved into overflow.",
+    "functionalityId": Array [
+      "TravelObjectPage",
+      "header",
+      "actions",
+      "DeleteAction",
+      "priority",
+    ],
+  },
+  Object {
+    "description": "Set showRelatedApps to true to show the navigation button for related apps.",
+    "functionalityId": Array [
+      "TravelObjectPage",
+      "header",
+      "actions",
+      "RelatedApps",
+      "showRelatedApps",
+    ],
+  },
+  Object {
+    "description": "Defines the layout of the sections.
+- Page (default): In this mode, all the sections and subsections are added to the same page.
+- Tabs: In this mode, the sections are represented as tabs under the header facet.",
+    "functionalityId": Array [
+      "TravelObjectPage",
+      "layout",
+      "sectionLayout",
+    ],
+  },
+]
+`;

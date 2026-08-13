@@ -1,0 +1,16 @@
+---
+source: crates/memtrack/tests/rust_tests.rs
+expression: formatted_events
+---
+[
+    "Malloc { size: 4321 }",
+    "Free",
+    "Calloc { size: 1234 }",
+    "Free",
+    "Malloc { size: 4 }",
+    "Free",
+    "Malloc { size: 1111 }",
+    "Free",
+    "Realloc { size: 2222 }",
+    "Free",
+]

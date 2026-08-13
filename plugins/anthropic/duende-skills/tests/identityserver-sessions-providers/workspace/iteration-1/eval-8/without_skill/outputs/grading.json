@@ -1,0 +1,34 @@
+{
+  "eval_id": 8,
+  "variant": "without_skill",
+  "assertions": [
+    {
+      "assertion": "Code shows one-step registration: AddServerSideSessions<CustomStore>() with a custom store type parameter",
+      "pass": false,
+      "rationale": "Only shows the two-step approach. Does not show AddServerSideSessions<CustomStore>()."
+    },
+    {
+      "assertion": "Code shows two-step registration: AddServerSideSessions() followed by AddServerSideSessionStore<CustomStore>()",
+      "pass": true,
+      "rationale": "Shows AddServerSideSessions().AddServerSideSessionStore<RedisSessionStore>()."
+    },
+    {
+      "assertion": "Response explains that session data contains the serialized AuthenticationTicket protected by Data Protection",
+      "pass": false,
+      "rationale": "Mentions 'serialized authentication ticket' but does not mention Data Protection."
+    },
+    {
+      "assertion": "Response mentions the three queryable indices: SubjectId (sub), SessionId (sid), and DisplayName",
+      "pass": false,
+      "rationale": "Mentions Subject ID and Session ID but not DisplayName as a queryable index."
+    },
+    {
+      "assertion": "Response notes that UserDisplayNameClaimType is null by default due to PII concerns",
+      "pass": false,
+      "rationale": "Does not mention UserDisplayNameClaimType or PII concerns."
+    }
+  ],
+  "pass_count": 1,
+  "total_count": 5,
+  "score": 0.2
+}

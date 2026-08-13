@@ -1,0 +1,10 @@
+---
+source: crates/memtrack/tests/spawn_tests.rs
+expression: formatted_events
+---
+[
+    "Malloc { size: 4321 }",
+    "Free",
+    "Calloc { size: 1234 }",
+    "Free",
+]

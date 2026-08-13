@@ -1,0 +1,732 @@
+// Copyright 2026 Aeneas Rekkas
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// Package index orchestrates chunking, embedding, and storage for code indexes.
+package index
+
+import (
+	"context"
+	"database/sql"
+	"fmt"
+	"log/slog"
+	"os"
+	"path/filepath"
+	"slices"
+	"strconv"
+	"sync"
+	"time"
+
+	"github.com/ory/lumen/internal/chunker"
+	"github.com/ory/lumen/internal/embedder"
+	"github.com/ory/lumen/internal/git"
+	"github.com/ory/lumen/internal/merkle"
+	"github.com/ory/lumen/internal/store"
+)
+
+// supportedExts is the set of file extensions that lumen indexes, computed
+// once at init time to avoid rebuilding the map on every incremental index.
+var supportedExts = func() map[string]bool {
+	m := make(map[string]bool, len(chunker.SupportedExtensions()))
+	for _, ext := range chunker.SupportedExtensions() {
+		m[ext] = true
+	}
+	return m
+}()
+
+// ProgressFunc is an optional callback for reporting indexing progress.
+// current is the number of items processed so far, total is the total number
+// of items (0 if unknown), and message describes the current step.
+type ProgressFunc func(current, total int, message string)
+
+// Stats holds statistics from an indexing run.
+type Stats struct {
+	TotalFiles    int
+	IndexedFiles  int
+	ChunksCreated int
+	FilesChanged  int
+	FilesSkipped  int
+
+	// Breakdown of changed files by category.
+	FilesAdded    int
+	FilesModified int
+	FilesRemoved  int
+
+	// Reason explains why reindexing was triggered.
+	Reason string
+
+	// OldRootHash and NewRootHash are the merkle root hashes before and after.
+	OldRootHash string
+	NewRootHash string
+}
+
+// StatusInfo holds information about the current index state for a project.
+type StatusInfo struct {
+	ProjectPath       string
+	TotalFiles        int
+	IndexedFiles      int
+	TotalChunks       int
+	UniqueVectors     int
+	SharedReferences  int
+	DeduplicationRate float64
+	VectorStorage     string
+	DatabaseBytes     int64
+	ReclaimableBytes  int64
+	LastIndexedAt     string
+	EmbeddingModel    string
+}
+
+// Indexer orchestrates chunking, embedding, and storage for a code index.
+type Indexer struct {
+	mu             sync.Mutex
+	projectMu      sync.RWMutex
+	store          *store.Store
+	emb            embedder.Embedder
+	chunker        chunker.Chunker
+	maxChunkTokens int
+	logger         *slog.Logger
+	dsn            string // path to the SQLite database file; used for corruption recovery
+	vectorStorage  string
+	projectPath    string
+	legacyVectors  map[[32]byte][]float32
+	legacySource   string
+	embedBatchSize int
+}
+
+// SetLogger attaches a logger to the indexer for structured diagnostic output.
+func (idx *Indexer) SetLogger(l *slog.Logger) {
+	idx.logger = l
+}
+
+// NewIndexer creates a new Indexer backed by a SQLite store at dsn,
+// using the given embedder for vector generation. maxChunkTokens controls
+// the maximum estimated token count per chunk before splitting; 0 disables splitting.
+func NewIndexer(dsn string, emb embedder.Embedder, maxChunkTokens int) (*Indexer, error) {
+	return NewIndexerWithStorage(dsn, emb, maxChunkTokens, "int8")
+}
+
+// NewIndexerWithStorage creates a shared-collection indexer with the selected
+// sqlite-vec element type.
+func NewIndexerWithStorage(dsn string, emb embedder.Embedder, maxChunkTokens int, vectorStorage string) (*Indexer, error) {
+	return NewIndexerForProject(dsn, emb, maxChunkTokens, vectorStorage, "")
+}
+
+// NewIndexerForProject opens a shared collection with projectPath selected up
+// front, allowing metadata such as last_indexed_at to be read before indexing.
+func NewIndexerForProject(dsn string, emb embedder.Embedder, maxChunkTokens int, vectorStorage, projectPath string) (*Indexer, error) {
+	s, err := store.NewCollection(dsn, emb.Dimensions(), vectorStorage, projectPath)
+	if err != nil {
+		return nil, fmt.Errorf("create store: %w", err)
+	}
+	return &Indexer{
+		store:          s,
+		emb:            emb,
+		chunker:        chunker.NewMultiChunker(chunker.DefaultLanguages(maxChunkTokens)),
+		maxChunkTokens: maxChunkTokens,
+		dsn:            dsn,
+		vectorStorage:  vectorStorage,
+		projectPath:    projectPath,
+		embedBatchSize: 256,
+	}, nil
+}
+
+// rebuildStore closes the current store, deletes the database files, and
+// opens a fresh store. Callers must hold idx.mu but must not hold a project
+// lease: the exclusive project lock drains concurrent readers before the
+// underlying connections are replaced.
+func (idx *Indexer) rebuildStore(projectPath string) error {
+	idx.projectMu.Lock()
+	defer idx.projectMu.Unlock()
+
+	_ = idx.store.Close()
+	if idx.dsn != "" && idx.dsn != ":memory:" {
+		for _, suffix := range []string{"", "-wal", "-shm"} {
+			_ = os.Remove(idx.dsn + suffix)
+		}
+	}
+	s, err := store.NewCollection(idx.dsn, idx.emb.Dimensions(), idx.vectorStorage, projectPath)
+	if err != nil {
+		return fmt.Errorf("open fresh store: %w", err)
+	}
+	idx.store = s
+	idx.projectPath = projectPath
+	return nil
+}
+
+// Close closes the underlying store.
+func (idx *Indexer) Close() error {
+	idx.mu.Lock()
+	defer idx.mu.Unlock()
+	idx.projectMu.Lock()
+	defer idx.projectMu.Unlock()
+	return idx.store.Close()
+}
+
+// makeSkip returns a SkipFunc for projectDir that excludes internal worktrees
+// and, when projectDir is not itself a git repository, any nested git repos.
+func makeSkip(projectDir string) merkle.SkipFunc {
+	extraSkip := git.InternalWorktreePaths(projectDir)
+	if !git.IsGitRoot(projectDir) {
+		for _, repoPath := range git.DiscoverNestedGitRepos(projectDir) {
+			if rel, err := filepath.Rel(projectDir, repoPath); err == nil {
+				extraSkip = append(extraSkip, rel)
+			}
+		}
+	}
+	return merkle.MakeSkipWithExtra(projectDir, chunker.SupportedExtensions(), extraSkip)
+}
+
+// Index indexes the project at projectDir. If force is true, all files are
+// re-indexed regardless of whether they have changed.
+func (idx *Indexer) Index(ctx context.Context, projectDir string, force bool, progress ProgressFunc) (Stats, error) {
+	// Build tree outside the lock: it is read-only and can be slow for large projects.
+	curTree, err := merkle.BuildTree(projectDir, makeSkip(projectDir))
+	if err != nil {
+		return Stats{}, fmt.Errorf("build merkle tree: %w", err)
+	}
+
+	idx.mu.Lock()
+	defer idx.mu.Unlock()
+	releaseProject, err := idx.lockProject(projectDir)
+	if err != nil {
+		return Stats{}, err
+	}
+	defer func() { releaseProject() }()
+
+	storedHash, err := idx.store.GetMeta("root_hash")
+	if err != nil && err != sql.ErrNoRows {
+		return Stats{}, fmt.Errorf("get root_hash: %w", err)
+	}
+
+	// If not forcing, check root hash before doing any work.
+	// Even when the root hash matches, sentinel files (hash="") indicate an
+	// interrupted previous run — fall through to incremental indexing so those
+	// files get completed.
+	if !force {
+		if storedHash == curTree.RootHash {
+			hasSentinels, _ := idx.store.HasSentinelFiles()
+			if !hasSentinels {
+				return Stats{}, nil
+			}
+		}
+	}
+
+	stats, indexErr := idx.indexWithTree(ctx, projectDir, storedHash, force, curTree, progress)
+	if indexErr != nil {
+		if !store.IsCorruptionErr(indexErr) {
+			return stats, indexErr
+		}
+		if idx.logger != nil {
+			idx.logger.Error("corrupted database detected during index, rebuilding",
+				"project", projectDir, "err", indexErr)
+		}
+		releaseProject()
+		releaseProject = func() {}
+		if rebuildErr := idx.rebuildStore(projectDir); rebuildErr != nil {
+			return Stats{}, fmt.Errorf("rebuild corrupted db: %w", rebuildErr)
+		}
+		releaseProject, err = idx.lockProject(projectDir)
+		if err != nil {
+			return Stats{}, err
+		}
+		// Retry with force=true so the fresh DB gets a full index pass.
+		stats, indexErr = idx.indexWithTree(ctx, projectDir, "", true, curTree, progress)
+		if indexErr != nil {
+			return stats, fmt.Errorf("reindex after rebuild: %w", indexErr)
+		}
+		stats.OldRootHash = storedHash
+		stats.NewRootHash = curTree.RootHash
+		stats.Reason = "rebuilt after corruption"
+		return stats, nil
+	}
+
+	if force {
+		stats.Reason = "force reindex requested"
+	} else if storedHash == "" || err == sql.ErrNoRows {
+		stats.Reason = "fresh index (no previous root hash)"
+	} else {
+		stats.Reason = "root hash changed"
+	}
+	stats.OldRootHash = storedHash
+	stats.NewRootHash = curTree.RootHash
+	return stats, nil
+}
+
+// EnsureFresh checks if the index is stale and re-indexes if needed.
+// Returns whether a re-index occurred, the stats, and any error.
+func (idx *Indexer) EnsureFresh(ctx context.Context, projectDir string, progress ProgressFunc) (bool, Stats, error) {
+	// Build tree outside the lock: it is read-only and can be slow for large projects.
+	curTree, err := merkle.BuildTree(projectDir, makeSkip(projectDir))
+	if err != nil {
+		return false, Stats{}, fmt.Errorf("build merkle tree: %w", err)
+	}
+
+	idx.mu.Lock()
+	defer idx.mu.Unlock()
+	releaseProject, err := idx.lockProject(projectDir)
+	if err != nil {
+		return false, Stats{}, err
+	}
+	defer func() { releaseProject() }()
+
+	storedHash, err := idx.store.GetMeta("root_hash")
+	if err != nil && err != sql.ErrNoRows {
+		return false, Stats{}, fmt.Errorf("get root_hash: %w", err)
+	}
+	if storedHash == curTree.RootHash {
+		hasSentinels, _ := idx.store.HasSentinelFiles()
+		if !hasSentinels {
+			return false, Stats{}, nil
+		}
+		// Has incomplete files from an interrupted run — fall through.
+	}
+
+	var reason string
+	switch {
+	case storedHash == "" || err == sql.ErrNoRows:
+		reason = "fresh index (no previous root hash)"
+	default:
+		reason = "root hash changed"
+	}
+
+	stats, err := idx.indexWithTree(ctx, projectDir, storedHash, false, curTree, progress)
+	if err != nil {
+		if !store.IsCorruptionErr(err) {
+			return false, stats, err
+		}
+		if idx.logger != nil {
+			idx.logger.Error("corrupted database detected during reindex, rebuilding",
+				"project", projectDir, "err", err)
+		}
+		releaseProject()
+		releaseProject = func() {}
+		if rebuildErr := idx.rebuildStore(projectDir); rebuildErr != nil {
+			return false, Stats{}, fmt.Errorf("rebuild corrupted db: %w", rebuildErr)
+		}
+		releaseProject, err = idx.lockProject(projectDir)
+		if err != nil {
+			return false, Stats{}, err
+		}
+		// Retry with empty storedHash so the fresh DB gets a full index pass.
+		stats, err = idx.indexWithTree(ctx, projectDir, "", false, curTree, progress)
+		if err != nil {
+			return false, stats, fmt.Errorf("reindex after rebuild: %w", err)
+		}
+		reason = "rebuilt after corruption"
+		storedHash = ""
+	}
+	stats.Reason = reason
+	stats.OldRootHash = storedHash
+	stats.NewRootHash = curTree.RootHash
+	return true, stats, nil
+}
+
+// indexWithTree is the internal implementation of Index that accepts a pre-built
+// merkle tree, so callers that already have one (e.g. EnsureFresh) do not need
+// to build it again.
+func (idx *Indexer) indexWithTree(ctx context.Context, projectDir, oldRootHash string, force bool, curTree *merkle.Tree, progress ProgressFunc) (stats Stats, retErr error) {
+	defer func() {
+		if retErr != nil {
+			_ = idx.store.SetMeta(store.MetaLastIndexError, retErr.Error())
+			return
+		}
+		_ = idx.store.SetMeta(store.MetaLastIndexError, "")
+	}()
+	if idx.store.IsShared() {
+		return idx.indexSharedWithTree(ctx, projectDir, oldRootHash, force, curTree, progress)
+	}
+
+	stats.TotalFiles = len(curTree.Files)
+
+	// Load stored hashes once — used for extension purge in both paths,
+	// and for deletion diff in both paths.
+	oldHashes, err := idx.store.GetFileHashes()
+	if err != nil {
+		return stats, fmt.Errorf("get file hashes: %w", err)
+	}
+	// Purge stale records with unsupported extensions — applies in both
+	// force and incremental paths to clean up donor-seeded .md etc. records.
+	for path := range oldHashes {
+		if !supportedExts[filepath.Ext(path)] {
+			if err := idx.store.DeleteFileChunks(path); err != nil {
+				return stats, fmt.Errorf("purge stale file %s: %w", path, err)
+			}
+			delete(oldHashes, path)
+		}
+	}
+
+	// Determine which files need processing.
+	var filesToIndex []string
+	var filesToRemove []string
+
+	if force {
+		for path := range curTree.Files {
+			filesToIndex = append(filesToIndex, path)
+		}
+		// Compute removals: files in DB but not on disk.
+		for path := range oldHashes {
+			if _, exists := curTree.Files[path]; !exists {
+				filesToRemove = append(filesToRemove, path)
+			}
+		}
+		stats.FilesAdded = len(filesToIndex)
+		stats.FilesRemoved = len(filesToRemove)
+	} else {
+		oldTree := &merkle.Tree{Files: oldHashes}
+		added, removed, modified := merkle.Diff(oldTree, curTree)
+		filesToIndex = append(filesToIndex, added...)
+		filesToIndex = append(filesToIndex, modified...)
+		filesToRemove = removed
+		stats.FilesAdded = len(added)
+		stats.FilesModified = len(modified)
+		stats.FilesRemoved = len(removed)
+	}
+
+	stats.FilesChanged = len(filesToIndex) + len(filesToRemove)
+
+	if idx.logger != nil {
+		logArgs := []any{
+			"project", projectDir,
+			"total_files", stats.TotalFiles,
+			"files_unchanged", stats.TotalFiles - stats.FilesChanged,
+			"files_to_add", stats.FilesAdded,
+			"files_to_modify", stats.FilesModified,
+			"files_to_remove", stats.FilesRemoved,
+			"old_root_hash", oldRootHash,
+			"new_root_hash", curTree.RootHash,
+		}
+		if git.IsWorktree(projectDir) {
+			if worktrees, err := git.ListWorktrees(projectDir); err == nil && len(worktrees) > 0 {
+				logArgs = append(logArgs, "main_worktree", worktrees[0])
+			}
+		}
+		idx.logger.Info("indexing plan", logArgs...)
+	}
+
+	if progress != nil {
+		progress(0, len(filesToIndex), fmt.Sprintf("Found %d files to index", len(filesToIndex)))
+	}
+
+	for _, path := range filesToRemove {
+		if err := idx.store.DeleteFileChunks(path); err != nil {
+			return stats, fmt.Errorf("delete chunks for %s: %w", path, err)
+		}
+	}
+
+	// saveMeta persists the root hash and other metadata so that subsequent
+	// runs can resume from sentinel files instead of redoing completed batches.
+	// last_indexed_at is only stamped on full success; partial progress must not
+	// masquerade as a successfully completed index.
+	metaSaved := false
+	saveMeta := func(success bool) {
+		if metaSaved {
+			return
+		}
+		metaSaved = true
+		_ = idx.store.SetMeta("root_hash", curTree.RootHash)
+		_ = idx.store.SetMeta("embedding_model", idx.emb.ModelName())
+		_ = idx.store.SetMeta("project_path", projectDir)
+		_ = idx.store.SetMeta("total_files", strconv.Itoa(stats.TotalFiles))
+		if success {
+			_ = idx.store.SetMeta("last_indexed_at", time.Now().UTC().Format(time.RFC3339))
+		}
+	}
+
+	const chunkBatchSize = 256
+	var batch []chunker.Chunk
+	var totalChunks int
+
+	flushBatch := func(fileIdx int) error {
+		if len(batch) == 0 {
+			return nil
+		}
+		texts := make([]string, len(batch))
+		for i, c := range batch {
+			texts[i] = "// " + c.FilePath + "\n" + c.Content
+		}
+		vectors, err := idx.emb.Embed(ctx, texts)
+		if err != nil {
+			return fmt.Errorf("embed batch: %w", err)
+		}
+		if err := idx.store.InsertChunks(batch, vectors); err != nil {
+			return fmt.Errorf("insert batch: %w", err)
+		}
+		totalChunks += len(batch)
+		batch = batch[:0]
+		if progress != nil {
+			progress(fileIdx, len(filesToIndex), fmt.Sprintf("Embedded %d chunks so far", totalChunks))
+		}
+		return nil
+	}
+
+	type pendingFile struct {
+		relPath string
+		hash    string
+	}
+	var pendingFiles []pendingFile
+
+	for fileIdx, relPath := range filesToIndex {
+		if progress != nil {
+			progress(fileIdx, len(filesToIndex), fmt.Sprintf("Processing file %d/%d: %s", fileIdx+1, len(filesToIndex), relPath))
+		}
+
+		absPath := filepath.Join(projectDir, relPath)
+		content, err := os.ReadFile(absPath)
+		if err != nil {
+			if os.IsPermission(err) {
+				if idx.logger != nil {
+					idx.logger.Warn("skipping inaccessible file", "path", relPath, "error", err)
+				}
+				continue
+			}
+			return stats, fmt.Errorf("read file %s: %w", relPath, err)
+		}
+
+		if isBinaryContent(content) {
+			continue
+		}
+
+		if err := idx.store.DeleteFileChunks(relPath); err != nil {
+			return stats, fmt.Errorf("delete old chunks for %s: %w", relPath, err)
+		}
+
+		// Register the file with a sentinel hash ("") so that the chunks FK
+		// constraint is satisfied during InsertChunks. The real hash is written
+		// only after the batch flush succeeds. A sentinel hash never equals a
+		// real SHA-256, so if the process crashes here the file will be
+		// re-indexed on the next run.
+		if err := idx.store.UpsertFile(relPath, ""); err != nil {
+			return stats, fmt.Errorf("upsert file placeholder %s: %w", relPath, err)
+		}
+
+		chunks, err := idx.chunker.Chunk(relPath, content)
+		if err != nil {
+			if idx.logger != nil {
+				idx.logger.Warn("skipping unchunkable file", "path", relPath, "error", err)
+			}
+			stats.FilesSkipped++
+			// Overwrite the sentinel hash (set above) with the real hash so this
+			// file is not retried every run. If the user later fixes the source,
+			// the hash changes and it gets re-indexed naturally.
+			if err := idx.store.UpsertFile(relPath, curTree.Files[relPath]); err != nil {
+				return stats, fmt.Errorf("upsert skipped file %s: %w", relPath, err)
+			}
+			continue
+		}
+
+		chunks = splitOversizedChunks(chunks, idx.maxChunkTokens)
+		chunks = mergeUndersizedChunks(chunks)
+		// Re-split after merge: merging can combine chunks that together exceed
+		// the per-chunk limit, which would cause context-length errors in the
+		// embedder. A second pass keeps each text within the model's budget.
+		chunks = splitOversizedChunks(chunks, idx.maxChunkTokens)
+
+		batch = append(batch, chunks...)
+		pendingFiles = append(pendingFiles, pendingFile{relPath, curTree.Files[relPath]})
+
+		if len(batch) >= chunkBatchSize {
+			if err := flushBatch(fileIdx + 1); err != nil {
+				// At least some batches may have succeeded earlier;
+				// persist metadata so the next run can match root_hash.
+				if totalChunks > 0 {
+					saveMeta(false)
+				}
+				return stats, err
+			}
+			// Chunks are durably stored — now commit the real file hashes.
+			for _, pf := range pendingFiles {
+				if err := idx.store.UpsertFile(pf.relPath, pf.hash); err != nil {
+					return stats, fmt.Errorf("upsert file %s: %w", pf.relPath, err)
+				}
+			}
+			pendingFiles = pendingFiles[:0]
+		}
+	}
+
+	// Final flush + upsert.
+	if err := flushBatch(len(filesToIndex)); err != nil {
+		if totalChunks > 0 {
+			saveMeta(false)
+		}
+		return stats, err
+	}
+	for _, pf := range pendingFiles {
+		if err := idx.store.UpsertFile(pf.relPath, pf.hash); err != nil {
+			return stats, fmt.Errorf("upsert file %s: %w", pf.relPath, err)
+		}
+	}
+
+	if len(filesToIndex) > 0 {
+		idx.store.Analyze()
+	}
+
+	if progress != nil && len(filesToIndex) > 0 {
+		progress(len(filesToIndex), len(filesToIndex),
+			fmt.Sprintf("Indexing complete: %d files, %d chunks", len(filesToIndex), totalChunks))
+	}
+
+	stats.IndexedFiles = len(filesToIndex) - stats.FilesSkipped
+	stats.ChunksCreated = totalChunks
+
+	saveMeta(true)
+
+	return stats, nil
+}
+
+// LastIndexedAt returns the time projectDir was last successfully updated, as
+// stored in its last_indexed_at metadata field. Returns (zero, false) if the
+// field is absent or unparseable (e.g. the project has never been indexed).
+func (idx *Indexer) LastIndexedAt(projectDir string) (time.Time, bool) {
+	releaseProject, err := idx.lockProject(projectDir)
+	if err != nil {
+		return time.Time{}, false
+	}
+	defer releaseProject()
+	val, err := idx.store.GetMeta("last_indexed_at")
+	if err != nil || val == "" {
+		return time.Time{}, false
+	}
+	t, err := time.Parse(time.RFC3339, val)
+	if err != nil {
+		return time.Time{}, false
+	}
+	return t, true
+}
+
+// IsFresh checks whether the index for projectDir is up to date by comparing
+// the current Merkle tree root hash against the stored one. Returns false if
+// the project has never been indexed (no stored hash).
+//
+// IsFresh does not acquire the indexer mutex; it reads through the store's
+// read-only connection (SQLite WAL isolation).
+func (idx *Indexer) IsFresh(projectDir string) (bool, error) {
+	curTree, err := merkle.BuildTree(projectDir, makeSkip(projectDir))
+	if err != nil {
+		return false, fmt.Errorf("build merkle tree: %w", err)
+	}
+	releaseProject, err := idx.lockProject(projectDir)
+	if err != nil {
+		return false, err
+	}
+	defer releaseProject()
+	storedHash, err := idx.store.GetMeta("root_hash")
+	if err != nil && err != sql.ErrNoRows {
+		return false, fmt.Errorf("get root_hash: %w", err)
+	}
+	if storedHash == "" {
+		return false, nil
+	}
+	return storedHash == curTree.RootHash, nil
+}
+
+// Search performs a vector similarity search against the index.
+// If maxDistance > 0, results with distance >= maxDistance are excluded.
+// If pathPrefix != "", only chunks under that relative path are returned.
+//
+// Search uses a dedicated read-only database connection so it can execute
+// concurrently with write operations (e.g. during indexing). It does not
+// acquire the indexer mutex, relying on SQLite WAL mode for isolation.
+
+func (idx *Indexer) Search(ctx context.Context, projectDir string, queryVec []float32, limit int, maxDistance float64, pathPrefix string) ([]store.SearchResult, error) {
+	releaseProject, err := idx.lockProject(projectDir)
+	if err != nil {
+		return nil, err
+	}
+	defer releaseProject()
+	return idx.store.Search(ctx, queryVec, limit, maxDistance, pathPrefix)
+}
+
+// Status returns information about the current index state for a project.
+// All values are read from the database; no filesystem walk is performed.
+//
+// Status does not acquire the indexer mutex; it reads through the store's
+// read-only connection (SQLite WAL isolation).
+func (idx *Indexer) Status(projectDir string) (StatusInfo, error) {
+	var info StatusInfo
+	info.ProjectPath = projectDir
+	releaseProject, err := idx.lockProject(projectDir)
+	if err != nil {
+		return info, err
+	}
+	defer releaseProject()
+
+	storeStats, err := idx.store.Stats()
+	if err != nil {
+		return info, fmt.Errorf("get store stats: %w", err)
+	}
+	info.IndexedFiles = storeStats.TotalFiles
+	info.TotalChunks = storeStats.TotalChunks
+	info.UniqueVectors = storeStats.UniqueVectors
+	info.SharedReferences = storeStats.SharedReferences
+	if references := info.UniqueVectors + info.SharedReferences; references > 0 {
+		info.DeduplicationRate = float64(info.SharedReferences) / float64(references)
+	}
+	info.VectorStorage = storeStats.VectorStorage
+	info.DatabaseBytes = storeStats.DatabaseBytes
+	info.ReclaimableBytes = storeStats.ReclaimableBytes
+
+	meta, err := idx.store.GetMetaBatch([]string{"embedding_model", "last_indexed_at", "total_files"})
+	if err != nil {
+		return info, fmt.Errorf("get meta batch: %w", err)
+	}
+	info.EmbeddingModel = meta["embedding_model"]
+	info.LastIndexedAt = meta["last_indexed_at"]
+	if n, err := strconv.Atoi(meta["total_files"]); err == nil {
+		info.TotalFiles = n
+	}
+
+	return info, nil
+}
+
+// lockProject returns with a shared project lease held for the requested
+// membership. Same-project operations can therefore run concurrently, while a
+// membership switch waits for all operations using the previous project to
+// finish. The loop closes the gap between switching and reacquiring the shared
+// lease if another waiter changes the membership first.
+func (idx *Indexer) lockProject(projectDir string) (func(), error) {
+	for {
+		idx.projectMu.RLock()
+		selectedPath := projectDir
+		if selectedPath == "" {
+			selectedPath = idx.projectPath
+		}
+		if idx.projectPath == selectedPath {
+			return idx.projectMu.RUnlock, nil
+		}
+		idx.projectMu.RUnlock()
+
+		idx.projectMu.Lock()
+		selectedPath = projectDir
+		if selectedPath == "" {
+			selectedPath = idx.projectPath
+		}
+		if idx.projectPath != selectedPath {
+			if err := idx.store.UseProject(selectedPath); err != nil {
+				idx.projectMu.Unlock()
+				return nil, fmt.Errorf("select project: %w", err)
+			}
+			idx.projectPath = selectedPath
+		}
+		idx.projectMu.Unlock()
+	}
+}
+
+// isBinaryContent reports whether data appears to be binary by checking
+// for NUL bytes in the first 512 bytes — the same heuristic used by git.
+func isBinaryContent(data []byte) bool {
+	check := data
+	if len(check) > 512 {
+		check = check[:512]
+	}
+	return slices.Contains(check, 0)
+}

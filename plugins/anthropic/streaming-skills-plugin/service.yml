@@ -1,0 +1,21 @@
+name: agent-skills
+lang: unknown
+lang_version: unknown
+git:
+  enable: true
+github:
+  enable: true
+codeowners:
+  enable: true
+make:
+  enable: false
+  enable_updates: true
+renovatebot:
+  enable: false
+semaphore:
+  enable: true
+  managed_sections:
+    - version
+    - name
+    - agent
+    - global_job_config

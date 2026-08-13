@@ -1,0 +1,8 @@
+{
+  "name": "build-with-wordpress",
+  "version": "0.0.2",
+  "description": "Craft production-grade WordPress sites and applications. Everything from themes and plugins to commerce and deployment.",
+  "author": {
+    "name": "Automattic"
+  }
+}

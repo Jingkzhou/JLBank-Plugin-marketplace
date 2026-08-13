@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quarkus Agent MCP</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;700;800&display=swap');
+
+  :root {
+    --q-blue: #4695EB;
+    --q-blue-dim: #2a5a9e;
+    --q-red: #FF004A;
+    --q-green: #00FF41;
+    --q-bg: #0a0e17;
+    --q-surface: #111827;
+    --q-surface-2: #1a2332;
+    --q-border: #1e2d3d;
+    --q-text: #e2e8f0;
+    --q-text-dim: #8892a4;
+    --q-glow-blue: 0 0 30px rgba(70, 149, 235, 0.3);
+    --q-glow-red: 0 0 30px rgba(255, 0, 74, 0.3);
+  }
+
+  .reveal {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    color: var(--q-text);
+  }
+
+  .reveal .slides { text-align: left; }
+
+  .reveal .slides section {
+    padding: 30px 60px;
+    box-sizing: border-box;
+  }
+
+  .reveal h1, .reveal h2, .reveal h3 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+
+  .reveal h1 { font-size: 2.8em; line-height: 1.1; }
+  .reveal h2 { font-size: 1.6em; margin-bottom: 0.4em; }
+  .reveal h3 { font-size: 1.3em; color: var(--q-blue); }
+
+  .reveal code, .reveal pre {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .reveal .slide-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--q-text-dim);
+    background: transparent;
+    right: 24px;
+    bottom: 18px;
+  }
+
+  /* ── Background grid ── */
+  .reveal .slides {
+    background-image:
+      linear-gradient(rgba(70,149,235,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(70,149,235,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* ── Accent bar on section titles ── */
+  .section-title h2 {
+    display: inline-block;
+    border-left: 4px solid var(--q-red);
+    padding-left: 20px;
+  }
+
+  /* ── Tag pill ── */
+  .tag {
+    display: inline-block;
+    background: var(--q-surface-2);
+    border: 1px solid var(--q-border);
+    border-radius: 6px;
+    padding: 4px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65em;
+    color: var(--q-blue);
+    margin: 3px 2px;
+  }
+
+  .tag.red { color: var(--q-red); border-color: rgba(255,0,74,0.3); }
+  .tag.green { color: var(--q-green); border-color: rgba(0,255,65,0.3); }
+
+  /* ── Problem cards ── */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 16px;
+  }
+
+  .problem-card {
+    background: var(--q-surface);
+    border: 1px solid var(--q-border);
+    border-left: 3px solid var(--q-red);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.65em;
+    line-height: 1.4;
+  }
+
+  .problem-card .icon {
+    font-size: 1.4em;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .problem-card strong {
+    color: #fff;
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  /* ── Solution cards ── */
+  .solution-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 16px;
+  }
+
+  .solution-card {
+    background: var(--q-surface);
+    border: 1px solid var(--q-border);
+    border-left: 3px solid var(--q-blue);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.65em;
+    line-height: 1.4;
+  }
+
+  .solution-card .icon {
+    font-size: 1.4em;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .solution-card strong {
+    color: #fff;
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  /* ── Architecture diagram ── */
+  .arch-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin-top: 10px;
+    font-size: 0.65em;
+  }
+
+  .arch-box {
+    background: var(--q-surface);
+    border: 1px solid var(--q-border);
+    border-radius: 10px;
+    padding: 12px 24px;
+    text-align: center;
+    position: relative;
+    min-width: 340px;
+  }
+
+  .arch-box.agent {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border-color: var(--q-blue);
+    box-shadow: var(--q-glow-blue);
+  }
+
+  .arch-box.mcp {
+    background: linear-gradient(135deg, #0f1923, #162030);
+    border: 2px solid var(--q-blue);
+    min-width: 500px;
+    padding: 20px;
+  }
+
+  .arch-box.external {
+    background: var(--q-surface-2);
+    border-color: var(--q-border);
+    font-size: 0.9em;
+  }
+
+  .arch-connector {
+    width: 2px;
+    height: 18px;
+    background: var(--q-blue);
+    position: relative;
+  }
+
+  .arch-connector::before,
+  .arch-connector::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+  }
+
+  .arch-connector::after {
+    bottom: -4px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid var(--q-blue);
+  }
+
+  .arch-connector.bidi::before {
+    top: -4px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 6px solid var(--q-blue);
+  }
+
+  .arch-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6em;
+    color: var(--q-text-dim);
+    padding: 4px 0;
+  }
+
+  .arch-modules {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+
+  .arch-module {
+    background: rgba(70,149,235,0.1);
+    border: 1px solid rgba(70,149,235,0.25);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75em;
+    color: var(--q-blue);
+  }
+
+  .arch-bottom {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    margin-top: 0;
+  }
+
+  .arch-bottom-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* ── Tool groups ── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+    font-size: 0.6em;
+  }
+
+  .tool-group {
+    background: var(--q-surface);
+    border: 1px solid var(--q-border);
+    border-radius: 10px;
+    padding: 14px 18px;
+  }
+
+  .tool-group h3 {
+    font-size: 1.1em;
+    margin: 0 0 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tool-group .tool-name {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--q-text);
+    font-size: 0.95em;
+    padding: 3px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .tool-group .tool-name span {
+    color: var(--q-text-dim);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85em;
+  }
+
+  /* ── Workflow ── */
+  .workflow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 10px;
+    font-size: 0.65em;
+  }
+
+  .workflow-step {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 6px 0;
+  }
+
+  .step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--q-blue);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9em;
+    flex-shrink: 0;
+  }
+
+  .step-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .step-tool {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--q-blue);
+    background: rgba(70,149,235,0.1);
+    border: 1px solid rgba(70,149,235,0.25);
+    border-radius: 6px;
+    padding: 4px 12px;
+    white-space: nowrap;
+  }
+
+  .step-arrow {
+    color: var(--q-text-dim);
+    font-size: 1.2em;
+  }
+
+  .step-desc { color: var(--q-text); }
+
+  .workflow-line {
+    width: 2px;
+    height: 4px;
+    background: var(--q-border);
+    margin-left: 15px;
+  }
+
+  /* ── Skills stack ── */
+  .skills-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 10px;
+    max-width: 700px;
+  }
+
+  .skill-layer {
+    border: 2px solid var(--q-border);
+    border-radius: 10px;
+    padding: 14px 22px;
+    position: relative;
+    font-size: 0.65em;
+  }
+
+  .skill-layer:not(:last-child) {
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .skill-layer:not(:first-child):not(:last-child) {
+    border-radius: 0;
+  }
+
+  .skill-layer:last-child {
+    border-radius: 0 0 10px 10px;
+  }
+
+  .skill-layer.project {
+    background: linear-gradient(135deg, rgba(70,149,235,0.12), rgba(70,149,235,0.04));
+    border-color: var(--q-blue);
+  }
+
+  .skill-layer.user {
+    background: linear-gradient(135deg, rgba(255,0,74,0.08), rgba(255,0,74,0.02));
+    border-color: rgba(255,0,74,0.4);
+  }
+
+  .skill-layer.jar {
+    background: var(--q-surface);
+  }
+
+  .skill-layer strong {
+    color: #fff;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .skill-layer .path {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    color: var(--q-text-dim);
+  }
+
+  .skill-badge {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7em;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+
+  .skill-badge.wins {
+    background: rgba(70,149,235,0.15);
+    color: var(--q-blue);
+    border: 1px solid rgba(70,149,235,0.3);
+  }
+
+  .skill-badge.override {
+    background: rgba(255,0,74,0.1);
+    color: var(--q-red);
+    border: 1px solid rgba(255,0,74,0.25);
+  }
+
+  .skill-badge.baseline {
+    color: var(--q-text-dim);
+    border: 1px solid var(--q-border);
+  }
+
+  /* ── Code block ── */
+  .code-block {
+    background: #0d1117;
+    border: 1px solid var(--q-border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.5em;
+    line-height: 1.55;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+
+  .code-block .comment { color: #6a737d; }
+  .code-block .key { color: var(--q-blue); }
+  .code-block .string { color: #a5d6ff; }
+  .code-block .heading { color: var(--q-red); font-weight: 700; }
+  .code-block .bullet { color: var(--q-green); }
+  .code-block .dim { color: var(--q-text-dim); }
+
+  /* ── Compose slide ── */
+  .compose-flow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 16px;
+    align-items: start;
+    margin-top: 12px;
+  }
+
+  .compose-col { min-width: 0; }
+
+  .compose-col .col-label {
+    font-size: 0.6em;
+    font-weight: 600;
+    color: var(--q-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .compose-col .col-label .label-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    background: rgba(70,149,235,0.1);
+    border: 1px solid rgba(70,149,235,0.25);
+    border-radius: 4px;
+    padding: 2px 8px;
+    color: var(--q-blue);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .compose-col .code-block {
+    font-size: 0.48em;
+    line-height: 1.45;
+    padding: 12px 14px;
+    margin-top: 0;
+  }
+
+  .compose-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding-top: 30px;
+    color: var(--q-blue);
+    font-size: 0.55em;
+  }
+
+  .compose-arrow .arrow-icon {
+    font-size: 2.2em;
+    line-height: 1;
+  }
+
+  .compose-arrow .arrow-label {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--q-text-dim);
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .compose-col.output .code-block {
+    border-color: rgba(70,149,235,0.3);
+    box-shadow: 0 0 20px rgba(70,149,235,0.08);
+  }
+
+  .file-path {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.5em;
+    color: var(--q-text-dim);
+    background: rgba(255,255,255,0.04);
+    border-radius: 4px;
+    padding: 3px 8px;
+    margin-bottom: 6px;
+    display: inline-block;
+  }
+
+  /* ── Pipeline diagram ── */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+    font-size: 0.6em;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .pipe-node {
+    background: var(--q-surface);
+    border: 1px solid var(--q-border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    text-align: center;
+    min-width: 100px;
+  }
+
+  .pipe-node strong { color: #fff; display: block; margin-bottom: 4px; }
+
+  .pipe-node.highlight {
+    border-color: var(--q-blue);
+    background: rgba(70,149,235,0.08);
+  }
+
+  .pipe-arrow {
+    color: var(--q-blue);
+    font-size: 1.5em;
+    flex-shrink: 0;
+  }
+
+  /* ── Proxy diagram ── */
+  .proxy-flow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 24px;
+    justify-content: center;
+    font-size: 0.7em;
+  }
+
+  .proxy-box {
+    background: var(--q-surface);
+    border: 1px solid var(--q-border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    text-align: center;
+    min-width: 140px;
+  }
+
+  .proxy-box.active {
+    border-color: var(--q-blue);
+    box-shadow: var(--q-glow-blue);
+  }
+
+  .proxy-box strong { color: #fff; display: block; margin-bottom: 6px; }
+
+  .proxy-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    color: var(--q-text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75em;
+  }
+
+  .proxy-connector .arrow {
+    color: var(--q-blue);
+    font-size: 1.4em;
+  }
+
+  /* ── Design cards ── */
+  .design-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 14px;
+    font-size: 0.58em;
+  }
+
+  .design-card {
+    background: var(--q-surface);
+    border: 1px solid var(--q-border);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .design-card .icon { font-size: 1.6em; margin-bottom: 6px; }
+  .design-card strong { color: #fff; display: block; margin-bottom: 6px; font-weight: 600; }
+  .design-card p { margin: 0; color: var(--q-text-dim); line-height: 1.4; }
+
+  /* ── Title slide ── */
+  .title-slide {
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .title-slide .logo-container {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 16px;
+  }
+
+  .title-slide .logo-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+  }
+
+  .title-slide h1 {
+    font-size: 2.8em;
+    margin-bottom: 0.05em;
+    background: linear-gradient(135deg, #fff 0%, var(--q-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .title-slide .subtitle {
+    font-size: 1.15em;
+    color: var(--q-blue);
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+
+  .title-slide .tagline {
+    font-size: 0.75em;
+    color: var(--q-text-dim);
+    max-width: 640px;
+    line-height: 1.4;
+  }
+
+  .title-slide .agents {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* ── Demo slide ── */
+  .demo-slide {
+    text-align: center !important;
+  }
+
+  .demo-slide h2 {
+    font-size: 3em;
+    background: linear-gradient(135deg, var(--q-blue), var(--q-red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .demo-bullets {
+    display: inline-block;
+    text-align: left;
+    margin-top: 30px;
+    font-size: 0.8em;
+  }
+
+  .demo-bullets li {
+    list-style: none;
+    padding: 8px 0;
+    color: var(--q-text);
+  }
+
+  .demo-bullets li::before {
+    content: "\25B8";
+    color: var(--q-blue);
+    margin-right: 12px;
+  }
+
+  /* ── End slide ── */
+  .end-slide {
+    text-align: center !important;
+  }
+
+  .end-slide h2 {
+    font-size: 2.6em;
+    margin-bottom: 30px;
+  }
+
+  .end-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+    font-size: 0.7em;
+  }
+
+  .end-link {
+    background: var(--q-surface);
+    border: 1px solid var(--q-border);
+    border-radius: 10px;
+    padding: 16px 24px;
+    color: var(--q-text);
+    text-decoration: none;
+  }
+
+  .end-link strong { color: var(--q-blue); display: block; margin-bottom: 4px; }
+
+  /* ── Doc search feature list ── */
+  .feature-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 8px 0;
+    font-size: 0.7em;
+  }
+
+  .feature-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(70,149,235,0.1);
+    border: 1px solid rgba(70,149,235,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1em;
+    flex-shrink: 0;
+  }
+
+  /* ── Dev tools grid ── */
+  .devtools-examples {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+
+  .devtool-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6em;
+    background: rgba(70,149,235,0.08);
+    border: 1px solid rgba(70,149,235,0.2);
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: var(--q-text);
+  }
+
+  /* ── Animations ── */
+  .reveal .slides section .fragment.fade-up {
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.4s ease;
+  }
+
+  .reveal .slides section .fragment.fade-up.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ============================================ -->
+<!-- PART 1: DEVSTAR                             -->
+<!-- ============================================ -->
+
+<!-- ============================================ -->
+<!-- SLIDE 1: DevStar Title -->
+<!-- ============================================ -->
+<section class="title-slide">
+  <h1 style="font-size:3.2em;">Dev<span style="-webkit-text-fill-color: var(--q-red);">Star</span></h1>
+  <div class="subtitle">Quarkus Coding Agent Tooling Workgroup</div>
+  <div class="tagline">
+    Rethinking how AI coding agents interact with Quarkus at dev time
+  </div>
+  <div class="agents" style="margin-top:24px;">
+    <span class="tag">Dev UI</span>
+    <span class="tag">Dev MCP</span>
+    <span class="tag">Dev Shell</span>
+    <span class="tag">Dev Assistant</span>
+    <span class="tag">Continuous Testing</span>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 2: Dev UI Architecture -->
+<!-- ============================================ -->
+<section>
+  <h2 style="border-left: 4px solid var(--q-red); padding-left: 20px;">Dev UI &mdash; The Foundation</h2>
+  <p style="font-size:0.7em; color:var(--q-text-dim); margin-bottom: 10px;">
+    Extensions expose functionality via JsonRPC services. Dev UI renders them in the browser.
+  </p>
+  <div class="arch-diagram">
+    <div class="arch-box agent" style="min-width:200px;">
+      <strong style="color:#fff; font-size:1.1em;">Dev UI</strong>
+      <div style="color:var(--q-text-dim); margin-top:4px;">Browser</div>
+    </div>
+
+    <div class="arch-connector bidi"></div>
+    <div class="arch-label">WebSocket</div>
+    <div class="arch-connector"></div>
+
+    <div class="arch-box mcp" style="min-width:600px;">
+      <strong style="color:#fff; font-size:1.1em;">Dev UI Runtime</strong>
+      <div style="display:flex; gap:20px; justify-content:center; margin-top:14px;">
+        <div class="arch-module" style="padding:10px 18px;">JsonRPCRouter</div>
+        <div style="color:var(--q-text-dim); display:flex; align-items:center; font-size:0.9em;">&rarr;</div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div class="arch-module">JsonRPCService <span style="color:var(--q-text-dim); font-size:0.85em;">(runtime)</span></div>
+          <div class="arch-module">BuildTimeAction <span style="color:var(--q-text-dim); font-size:0.85em;">(deployment)</span></div>
+        </div>
+      </div>
+      <div style="color:var(--q-text-dim); font-size:0.8em; margin-top:12px;">
+        Every extension can contribute pages, actions, and data to Dev UI
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 3: Dev MCP -->
+<!-- ============================================ -->
+<section>
+  <h2 style="border-left: 4px solid var(--q-red); padding-left: 20px;">Dev MCP &mdash; Adding AI Agents</h2>
+  <p style="font-size:0.7em; color:var(--q-text-dim); margin-bottom: 10px;">
+    AI agents connect to the same JsonRPC backend via streamable HTTP &mdash; same tools, new consumer.
+  </p>
+  <div class="arch-diagram">
+    <div style="display:flex; gap:40px; justify-content:center;">
+      <div class="arch-bottom-item">
+        <div class="arch-box agent" style="min-width:160px;">
+          <strong style="color:#fff; font-size:1em;">Dev UI</strong>
+          <div style="color:var(--q-text-dim); font-size:0.85em;">Browser</div>
+        </div>
+        <div class="arch-connector"></div>
+        <div class="arch-label">WebSocket</div>
+      </div>
+      <div class="arch-bottom-item">
+        <div class="arch-box agent" style="min-width:160px;">
+          <strong style="color:#fff; font-size:1em;">AI Agent</strong>
+          <div style="color:var(--q-text-dim); font-size:0.85em;">Claude, Copilot, ...</div>
+        </div>
+        <div class="arch-connector"></div>
+        <div class="arch-label">Streamable HTTP</div>
+      </div>
+    </div>
+
+    <div class="arch-connector"></div>
+
+    <div class="arch-box mcp" style="min-width:600px;">
+      <strong style="color:#fff; font-size:1.1em;">Dev UI Runtime + Dev MCP</strong>
+      <div style="display:flex; gap:20px; justify-content:center; margin-top:14px;">
+        <div class="arch-module" style="padding:10px 18px;">JsonRPCRouter</div>
+        <div style="color:var(--q-text-dim); display:flex; align-items:center; font-size:0.9em;">&rarr;</div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div class="arch-module">JsonRPCService</div>
+          <div class="arch-module">BuildTimeAction</div>
+        </div>
+      </div>
+      <div style="color:var(--q-text-dim); font-size:0.8em; margin-top:12px;">
+        All running <em>inside</em> the Quarkus process
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 4: DevStar Workgroup -->
+<!-- ============================================ -->
+<section class="section-title">
+  <h2>Two Tracks of Work</h2>
+  <p style="font-size:0.7em; color:var(--q-text-dim); margin-bottom: 12px;">
+    The DevStar workgroup is tackling this from two directions
+  </p>
+  <div class="solution-grid">
+    <div class="solution-card fragment fade-up" style="border-left-color: var(--q-text-dim);">
+      <span class="icon">&#x1F527;</span>
+      <strong>Quarkus 4 &mdash; Dev UI refactor</strong>
+      Break Dev UI into smaller components so the JsonRPC backend can be reused independently.
+      Dev MCP and Dev Shell can run <em>without</em> Dev UI.
+      <div style="margin-top:8px;">
+        <span class="tag red" style="font-size:0.95em;">Breaking for extensions</span>
+        <span class="tag" style="font-size:0.95em;">Not yet started</span>
+      </div>
+    </div>
+    <div class="solution-card fragment fade-up">
+      <span class="icon">&#x1F680;</span>
+      <strong>Agent MCP &mdash; standalone server</strong>
+      A separate MCP server that runs outside the Quarkus process. Manages lifecycle, skills, docs, and proxies to Dev MCP.
+      <div style="margin-top:8px;">
+        <span class="tag green" style="font-size:0.95em;">Nearly ready</span>
+        <span class="tag" style="font-size:0.95em;">Quarkus 3.35+</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 5: Current State -->
+<!-- ============================================ -->
+<section>
+  <h2 style="border-left: 4px solid var(--q-red); padding-left: 20px;">Current State</h2>
+  <p style="font-size:0.65em; color:var(--q-text-dim); margin-bottom: 8px;">
+    Everything lives inside the running Quarkus process &mdash; tightly coupled to Dev UI Runtime
+  </p>
+  <div class="arch-diagram" style="font-size:0.6em;">
+    <!-- Clients row -->
+    <div style="display:flex; gap:24px; justify-content:center;">
+      <div class="arch-box external" style="min-width:120px; padding:10px 16px;">
+        <strong style="color:#fff;">Dev UI</strong>
+        <div style="color:var(--q-text-dim); font-size:0.85em;">Browser</div>
+      </div>
+      <div class="arch-box external" style="min-width:120px; padding:10px 16px;">
+        <strong style="color:#fff;">AI Agent</strong>
+        <div style="color:var(--q-text-dim); font-size:0.85em;">Claude, Copilot</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:80px; justify-content:center;">
+      <div class="arch-bottom-item">
+        <div class="arch-connector"></div>
+        <div class="arch-label">WebSocket</div>
+      </div>
+      <div class="arch-bottom-item">
+        <div class="arch-connector"></div>
+        <div class="arch-label">Streamable HTTP</div>
+      </div>
+    </div>
+
+    <!-- The big coupled box -->
+    <div class="arch-box mcp" style="min-width:650px; border-color: var(--q-red);">
+      <strong style="color:#fff; font-size:1.1em;">Quarkus Process</strong>
+      <div style="color:var(--q-text-dim); font-size:0.85em; margin-bottom:10px;">All components tightly coupled to Dev UI Runtime</div>
+      <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+        <div class="arch-module">Dev UI Runtime</div>
+        <div class="arch-module">Dev MCP</div>
+        <div class="arch-module">JsonRPCRouter</div>
+      </div>
+      <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:6px;">
+        <div class="arch-module">Dev Shell</div>
+        <div class="arch-module">Dev Assistant</div>
+        <div class="arch-module">Quarkus Docs</div>
+      </div>
+      <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:6px;">
+        <div class="arch-module">Extension JsonRPCService</div>
+        <div class="arch-module">Extension BuildTimeAction</div>
+      </div>
+    </div>
+
+    <div style="color:var(--q-red); font-size:0.85em; margin-top:12px; text-align:center;">
+      &#x26A0; App not running = no tools, no docs, no shell
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 6: Planned Refactor (Quarkus 4) -->
+<!-- ============================================ -->
+<section>
+  <h2 style="border-left: 4px solid var(--q-red); padding-left: 20px;">Quarkus 4 &mdash; Planned Refactor</h2>
+  <p style="font-size:0.65em; color:var(--q-text-dim); margin-bottom: 8px;">
+    Break apart into independent runtimes, each with its own transport &mdash; connected via CDI
+  </p>
+  <div class="arch-diagram" style="font-size:0.6em;">
+    <!-- Clients row -->
+    <div style="display:flex; gap:20px; justify-content:center;">
+      <div class="arch-box external" style="min-width:110px; padding:8px 14px;">
+        <strong style="color:#fff;">Dev UI</strong>
+        <div style="color:var(--q-text-dim); font-size:0.85em;">Browser</div>
+      </div>
+      <div class="arch-box external" style="min-width:110px; padding:8px 14px;">
+        <strong style="color:#fff;">AI Agent</strong>
+        <div style="color:var(--q-text-dim); font-size:0.85em;">Claude, Copilot</div>
+      </div>
+      <div class="arch-box external" style="min-width:110px; padding:8px 14px;">
+        <strong style="color:#fff;">Dev Shell</strong>
+        <div style="color:var(--q-text-dim); font-size:0.85em;">Terminal</div>
+      </div>
+      <div class="arch-box external" style="min-width:110px; padding:8px 14px; border-color:var(--q-red); box-shadow:var(--q-glow-red);">
+        <strong style="color:#fff;">Agent MCP</strong>
+        <div style="color:var(--q-text-dim); font-size:0.85em;">stdio</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:40px; justify-content:center;">
+      <div class="arch-label">WebSocket</div>
+      <div class="arch-label">Streamable HTTP</div>
+      <div class="arch-label">CDI</div>
+      <div class="arch-label">stdio</div>
+    </div>
+
+    <div class="arch-connector"></div>
+
+    <!-- Separated runtimes -->
+    <div style="display:flex; gap:10px; justify-content:center;">
+      <div class="arch-box" style="min-width:130px; padding:10px 14px; border-color:var(--q-blue); background:rgba(70,149,235,0.06);">
+        <strong style="color:#fff; font-size:0.95em;">Dev UI<br>Runtime</strong>
+        <div style="color:var(--q-text-dim); font-size:0.8em; margin-top:4px;">WebSocket</div>
+      </div>
+      <div class="arch-box" style="min-width:130px; padding:10px 14px; border-color:var(--q-blue); background:rgba(70,149,235,0.06);">
+        <strong style="color:#fff; font-size:0.95em;">Dev MCP<br>Runtime</strong>
+        <div style="color:var(--q-text-dim); font-size:0.8em; margin-top:4px;">Streamable HTTP</div>
+      </div>
+      <div class="arch-box" style="min-width:130px; padding:10px 14px; border-color:var(--q-blue); background:rgba(70,149,235,0.06);">
+        <strong style="color:#fff; font-size:0.95em;">Dev Shell<br>Runtime</strong>
+        <div style="color:var(--q-text-dim); font-size:0.8em; margin-top:4px;">CDI</div>
+      </div>
+    </div>
+
+    <div class="arch-connector bidi"></div>
+    <div class="arch-label">CDI</div>
+    <div class="arch-connector"></div>
+
+    <!-- Shared backend -->
+    <div class="arch-box mcp" style="min-width:550px;">
+      <strong style="color:#fff; font-size:1em;">Dev JsonRPC Runtime</strong>
+      <div style="display:flex; gap:8px; justify-content:center; margin-top:10px;">
+        <div class="arch-module">JsonRPCRouter</div>
+        <div class="arch-module">Extension Services</div>
+        <div class="arch-module">Quarkus Docs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- PART 2: AGENT MCP                           -->
+<!-- ============================================ -->
+
+<!-- ============================================ -->
+<!-- SLIDE 5: Agent MCP Title -->
+<!-- ============================================ -->
+<section class="title-slide">
+  <div class="logo-container">
+    <img src="../logo.svg" alt="Agent Q" />
+  </div>
+  <h1>Quarkus Agent MCP</h1>
+  <div class="subtitle">AI-Powered Quarkus Development</div>
+  <div class="tagline">
+    An MCP server that lets AI coding agents create, manage,
+    and develop Quarkus applications
+  </div>
+  <div class="agents">
+    <span class="tag">Claude Code</span>
+    <span class="tag">GitHub Copilot</span>
+    <span class="tag">Cursor</span>
+    <span class="tag">Windsurf</span>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 6: The Problem -->
+<!-- ============================================ -->
+<section class="section-title">
+  <h2>Dev MCP &mdash; Not Enough</h2>
+  <p style="font-size:0.7em; color:var(--q-text-dim); margin-bottom: 4px;">
+    Quarkus ships a Dev MCP server at <span style="font-family:'JetBrains Mono',monospace; color:var(--q-blue);">/q/dev-mcp</span> &mdash; but it has significant limitations
+  </p>
+  <div class="problem-grid">
+    <div class="problem-card fragment fade-up">
+      <span class="icon">&#x1F6AB;</span>
+      <strong>Only when the app is running</strong>
+      Dev MCP lives inside the Quarkus process &mdash; no app, no tools. Can't scaffold, can't recover from crashes.
+    </div>
+    <div class="problem-card fragment fade-up">
+      <span class="icon">&#x1F4A5;</span>
+      <strong>Too many tools at once</strong>
+      Exposes every Dev UI method as a tool. Agents get overwhelmed by a flat list of 50+ tools with no context.
+    </div>
+    <div class="problem-card fragment fade-up">
+      <span class="icon">&#x1F9E0;</span>
+      <strong>Tools without knowledge</strong>
+      Agents can call tools but don't know <em>when</em> or <em>why</em>. No skills, no patterns, no best practices.
+    </div>
+    <div class="problem-card fragment fade-up">
+      <span class="icon">&#x1F4D6;</span>
+      <strong>No documentation access</strong>
+      Agents can't search Quarkus guides or API docs &mdash; they rely on stale training data instead.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 3: The Solution -->
+<!-- ============================================ -->
+<section class="section-title">
+  <h2>The Solution</h2>
+  <div class="solution-grid">
+    <div class="solution-card fragment fade-up">
+      <span class="icon">&#x1F9E0;</span>
+      <strong>Purpose-built MCP server</strong>
+      Tools, skills, and docs designed specifically for Quarkus development
+    </div>
+    <div class="solution-card fragment fade-up">
+      <span class="icon">&#x1F6E1;</span>
+      <strong>Standalone process</strong>
+      Runs separately from the app &mdash; survives crashes, manages lifecycle
+    </div>
+    <div class="solution-card fragment fade-up">
+      <span class="icon">&#x1F517;</span>
+      <strong>Agent-agnostic</strong>
+      Works with any MCP-compatible agent via stdio protocol
+    </div>
+    <div class="solution-card fragment fade-up">
+      <span class="icon">&#x1F4DA;</span>
+      <strong>Extension skills + semantic docs</strong>
+      Teaches agents the right patterns, with version-aware documentation search
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 4: Architecture -->
+<!-- ============================================ -->
+<section>
+  <h2 style="border-left: 4px solid var(--q-red); padding-left: 20px;">Architecture</h2>
+  <div class="arch-diagram">
+    <div class="arch-box agent">
+      <strong style="color:#fff; font-size:1.1em;">AI Agent</strong>
+      <div style="color:var(--q-text-dim); margin-top:4px;">Claude Code &middot; Copilot &middot; Cursor &middot; Windsurf</div>
+    </div>
+
+    <div class="arch-connector bidi"></div>
+    <div class="arch-label">MCP (stdio)</div>
+    <div class="arch-connector"></div>
+
+    <div class="arch-box mcp">
+      <strong style="color:#fff; font-size:1.15em;">Quarkus Agent MCP</strong>
+      <div style="color:var(--q-text-dim); margin-top:2px; font-size:0.85em;">Standalone process &mdash; always running</div>
+      <div class="arch-modules">
+        <span class="arch-module">Create</span>
+        <span class="arch-module">Lifecycle</span>
+        <span class="arch-module">Skills</span>
+        <span class="arch-module">Docs</span>
+        <span class="arch-module">Proxy</span>
+        <span class="arch-module">Update</span>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:80px; margin-top:0;">
+      <div class="arch-bottom-item">
+        <div class="arch-connector"></div>
+        <div class="arch-label">HTTP &middot; JSON-RPC</div>
+        <div class="arch-connector"></div>
+        <div class="arch-box external">
+          <strong style="color:#fff;">Dev MCP</strong>
+          <div style="color:var(--q-text-dim);">Running Quarkus app<br><span class="tag" style="font-size:0.85em; margin-top:4px;">/q/dev-mcp</span></div>
+        </div>
+      </div>
+      <div class="arch-bottom-item">
+        <div class="arch-connector"></div>
+        <div class="arch-label">JDBC &middot; pgvector</div>
+        <div class="arch-connector"></div>
+        <div class="arch-box external">
+          <strong style="color:#fff;">Doc Search</strong>
+          <div style="color:var(--q-text-dim);">pgvector container<br><span class="tag" style="font-size:0.85em; margin-top:4px;">BGE embeddings</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 5: The Tools -->
+<!-- ============================================ -->
+<section>
+  <h2 style="border-left: 4px solid var(--q-red); padding-left: 20px;">The Tools</h2>
+  <div class="tools-grid">
+    <div class="tool-group fragment fade-up">
+      <h3>&#x1F3D7; Scaffolding</h3>
+      <div class="tool-name">quarkus/create <span>scaffold &amp; auto-start</span></div>
+    </div>
+    <div class="tool-group fragment fade-up">
+      <h3>&#x1F504; Lifecycle</h3>
+      <div class="tool-name">quarkus/start <span>dev mode</span></div>
+      <div class="tool-name">quarkus/stop <span>graceful shutdown</span></div>
+      <div class="tool-name">quarkus/restart <span>force restart</span></div>
+      <div class="tool-name">quarkus/status <span>instance state</span></div>
+      <div class="tool-name">quarkus/logs <span>recent output</span></div>
+      <div class="tool-name">quarkus/list <span>all instances</span></div>
+    </div>
+    <div class="tool-group fragment fade-up">
+      <h3>&#x1F9E0; Intelligence</h3>
+      <div class="tool-name">quarkus/skills <span>extension patterns</span></div>
+      <div class="tool-name">quarkus/updateSkill <span>customize skills</span></div>
+      <div class="tool-name">quarkus/searchDocs <span>semantic doc search</span></div>
+    </div>
+    <div class="tool-group fragment fade-up">
+      <h3>&#x1F527; Dev Integration</h3>
+      <div class="tool-name">quarkus/searchTools <span>discover dev tools</span></div>
+      <div class="tool-name">quarkus/callTool <span>invoke dev tools</span></div>
+      <div class="tool-name" style="margin-top:10px; border-top: 1px solid var(--q-border); padding-top: 10px;">quarkus/update <span>version check</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 6: Workflow — New Project -->
+<!-- ============================================ -->
+<section>
+  <h2 style="border-left: 4px solid var(--q-red); padding-left: 20px;">Workflow &mdash; New Project</h2>
+  <div class="workflow">
+    <div class="workflow-step fragment fade-up">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <span class="step-tool">quarkus/create</span>
+        <span class="step-arrow">&rarr;</span>
+        <span class="step-desc">Scaffolds project &amp; auto-starts in dev mode</span>
+      </div>
+    </div>
+    <div class="workflow-line"></div>
+    <div class="workflow-step fragment fade-up">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <span class="step-tool">quarkus/skills</span>
+        <span class="step-arrow">&rarr;</span>
+        <span class="step-desc">Load extension-specific patterns &amp; pitfalls</span>
+      </div>
+    </div>
+    <div class="workflow-line"></div>
+    <div class="workflow-step fragment fade-up">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <span class="step-tool">quarkus/searchDocs</span>
+        <span class="step-arrow">&rarr;</span>
+        <span class="step-desc">Look up APIs, config, and best practices</span>
+      </div>
+    </div>
+    <div class="workflow-line"></div>
+    <div class="workflow-step fragment fade-up">
+      <div class="step-num" style="background: var(--q-red);">4</div>
+      <div class="step-content">
+        <span class="step-desc" style="font-weight:600; color:#fff;">Write code + tests</span>
+      </div>
+    </div>
+    <div class="workflow-line"></div>
+    <div class="workflow-step fragment fade-up">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <span class="step-tool">quarkus/callTool</span>
+        <span class="step-arrow">&rarr;</span>
+        <span class="step-desc">Run tests, reload, add extensions</span>
+      </div>
+    </div>
+    <div class="workflow-line"></div>
+    <div class="workflow-step fragment fade-up">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <span class="step-desc">Update <span style="font-family:'JetBrains Mono',monospace; color:var(--q-blue);">README.md</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 7: Workflow — Existing Project -->
+<!-- ============================================ -->
+<section>
+  <h2 style="border-left: 4px solid var(--q-red); padding-left: 20px;">Workflow &mdash; Existing Project</h2>
+  <div class="workflow">
+    <div class="workflow-step fragment fade-up">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <span class="step-tool">quarkus/update</span>
+        <span class="step-arrow">&rarr;</span>
+        <span class="step-desc">Check version &amp; suggest upgrades <span class="tag" style="font-size:0.85em;">via subagent</span></span>
+      </div>
+    </div>
+    <div class="workflow-line"></div>
+    <div class="workflow-step fragment fade-up">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <span class="step-tool">quarkus/start</span>
+        <span class="step-arrow">&rarr;</span>
+        <span class="step-desc">Start in dev mode if not running</span>
+      </div>
+    </div>
+    <div class="workflow-line"></div>
+    <div class="workflow-step fragment fade-up">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <span class="step-tool">quarkus/skills</span>
+        <span class="step-arrow">&rarr;</span>
+        <span class="step-desc">Load extension patterns before coding</span>
+      </div>
+    </div>
+    <div class="workflow-line"></div>
+    <div class="workflow-step fragment fade-up">
+      <div class="step-num" style="background: var(--q-red);">4</div>
+      <div class="step-content">
+        <span class="step-desc" style="font-weight:600; color:#fff;">Write code + tests</span>
+      </div>
+    </div>
+    <div class="workflow-line"></div>
+    <div class="workflow-step fragment fade-up">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <span class="step-tool">quarkus/callTool</span>
+        <span class="step-arrow">&rarr;</span>
+        <span class="step-desc">Test &amp; reload</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 8: How Skills Work -->
+<!-- ============================================ -->
+<section>
+  <h2 style="border-left: 4px solid var(--q-red); padding-left: 20px;">How Skills Work</h2>
+  <p style="font-size:0.7em; color:var(--q-text-dim); margin-bottom: 8px;">
+    Three-layer chain &mdash; each layer can <strong>enhance</strong> (append) or <strong>override</strong> (replace) the previous
+  </p>
+  <div class="skills-stack">
+    <div class="skill-layer project fragment fade-up">
+      <strong>Project-level skills</strong>
+      <div class="path">.quarkus/skills/{ext}/SKILL.md</div>
+      <div style="color:var(--q-text-dim); font-size:0.9em; margin-top:4px;">Team conventions &amp; project-specific patterns</div>
+      <span class="skill-badge wins">ENHANCE / OVERRIDE</span>
+    </div>
+    <div class="skill-layer user fragment fade-up">
+      <strong>User-level skills</strong>
+      <div class="path">~/.quarkus/skills/{ext}/SKILL.md</div>
+      <div style="color:var(--q-text-dim); font-size:0.9em; margin-top:4px;">Personal customizations &amp; extension dev testing</div>
+      <span class="skill-badge override">ENHANCE / OVERRIDE</span>
+    </div>
+    <div class="skill-layer jar fragment fade-up">
+      <strong>JAR skills (baseline)</strong>
+      <div class="path">quarkus-extension-skills artifact from Maven Central</div>
+      <div style="color:var(--q-text-dim); font-size:0.9em; margin-top:4px;">Ships with Quarkus &mdash; curated by extension authors</div>
+      <span class="skill-badge baseline">BASELINE</span>
+    </div>
+  </div>
+  <p class="fragment fade-up" style="font-size:0.6em; color:var(--q-text-dim); margin-top: 12px;">
+    Default is <strong>enhance</strong> &mdash; add project rules without losing built-in guidance. Use <code>mode: override</code> for full replacement.
+    <br>Agents can use <code>quarkus/updateSkill</code> to create customizations interactively.
+  </p>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 9: Skill Anatomy — Composition -->
+<!-- ============================================ -->
+<section>
+  <h2 style="border-left: 4px solid var(--q-red); padding-left: 20px;">Skill Anatomy</h2>
+  <p style="font-size:0.6em; color:var(--q-text-dim); margin-bottom: 4px;">
+    Extension developers write plain Markdown. The build composes it with metadata into a full skill.
+  </p>
+  <div class="compose-flow">
+    <!-- LEFT: What the extension dev writes -->
+    <div class="compose-col fragment fade-up">
+      <div class="col-label">Extension developer writes</div>
+      <div class="file-path">deployment/.../META-INF/quarkus-skill.md</div>
+      <div class="code-block">
+        <span class="comment">&lt;!-- Just plain Markdown, no frontmatter --&gt;</span><br><br>
+        <span class="heading">### REST Endpoints</span><br>
+        <span class="bullet">-</span> Annotate with <span class="string">@Path</span>, <span class="string">@GET</span>, <span class="string">@POST</span><br>
+        <span class="bullet">-</span> Return <span class="string">RestResponse&lt;T&gt;</span> for type-safe responses<br><br>
+        <span class="heading">### Testing</span><br>
+        <span class="bullet">-</span> Use <span class="string">@QuarkusTest</span> + REST Assured<br><br>
+        <span class="heading">### Common Pitfalls</span><br>
+        <span class="bullet">-</span> Resources default to <span class="string">@Singleton</span>
+      </div>
+      <div style="margin-top:6px;">
+        <div class="file-path">runtime/.../quarkus-extension.yaml</div>
+        <div class="code-block">
+          <span class="key">name:</span> <span class="string">"REST"</span><br>
+          <span class="key">description:</span> <span class="string">"Build RESTful web services..."</span><br>
+          <span class="key">metadata:</span><br>
+          &nbsp;&nbsp;<span class="key">guide:</span> <span class="string">"https://quarkus.io/guides/rest"</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MIDDLE: Arrow -->
+    <div class="compose-arrow fragment fade-up">
+      <div class="arrow-icon">&rarr;</div>
+      <div class="arrow-label">aggregate<br>-skills</div>
+    </div>
+
+    <!-- RIGHT: Composed output -->
+    <div class="compose-col output fragment fade-up">
+      <div class="col-label">Composed output <span class="label-tag">SKILL.md</span></div>
+      <div class="file-path">META-INF/skills/quarkus-rest/SKILL.md</div>
+      <div class="code-block">
+        <span class="dim">---</span> <span class="comment">&nbsp;&larr; YAML frontmatter added by build</span><br>
+        <span class="key">name:</span> <span class="string">"quarkus-rest"</span><br>
+        <span class="key">description:</span> <span class="string">"Build RESTful web services..."</span><br>
+        <span class="key">license:</span> <span class="string">"Apache-2.0"</span><br>
+        <span class="key">metadata:</span><br>
+        &nbsp;&nbsp;<span class="key">guide:</span> <span class="string">"https://quarkus.io/guides/rest"</span><br>
+        <span class="dim">---</span><br><br>
+        <span class="heading">### REST Endpoints</span><br>
+        <span class="bullet">-</span> Annotate with <span class="string">@Path</span>, <span class="string">@GET</span>, <span class="string">@POST</span><br>
+        <span class="bullet">-</span> Return <span class="string">RestResponse&lt;T&gt;</span> for type-safe responses<br><br>
+        <span class="heading">### Testing</span><br>
+        <span class="bullet">-</span> Use <span class="string">@QuarkusTest</span> + REST Assured<br><br>
+        <span class="heading">### Common Pitfalls</span><br>
+        <span class="bullet">-</span> Resources default to <span class="string">@Singleton</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 10: Doc Search -->
+<!-- ============================================ -->
+<section>
+  <h2 style="border-left: 4px solid var(--q-red); padding-left: 20px;">Doc Search &mdash; Semantic Search</h2>
+  <div class="pipeline fragment fade-up">
+    <div class="pipe-node">
+      <strong>Query</strong>
+      "how to add REST endpoint"
+    </div>
+    <div class="pipe-arrow">&rarr;</div>
+    <div class="pipe-node highlight">
+      <strong>BGE Embeddings</strong>
+      384-dim vectors
+    </div>
+    <div class="pipe-arrow">&rarr;</div>
+    <div class="pipe-node highlight">
+      <strong>pgvector</strong>
+      Similarity search
+    </div>
+    <div class="pipe-arrow">&rarr;</div>
+    <div class="pipe-node">
+      <strong>Results</strong>
+      Ranked docs
+    </div>
+  </div>
+  <div style="margin-top: 30px;">
+    <div class="feature-row fragment fade-up">
+      <div class="feature-icon">&#x1F4E6;</div>
+      <div><strong style="color:#fff;">Pre-indexed docs</strong> &mdash; Quarkus documentation in a Docker container, ready to search</div>
+    </div>
+    <div class="feature-row fragment fade-up">
+      <div class="feature-icon">&#x1F3AF;</div>
+      <div><strong style="color:#fff;">Version-aware</strong> &mdash; Matches container image to your project's Quarkus version</div>
+    </div>
+    <div class="feature-row fragment fade-up">
+      <div class="feature-icon">&#x1F50D;</div>
+      <div><strong style="color:#fff;">Synonym expansion</strong> &mdash; 28 mappings: <span class="tag" style="font-size:0.9em;">db &rarr; datasource</span> <span class="tag" style="font-size:0.9em;">auth &rarr; authentication</span> <span class="tag" style="font-size:0.9em;">orm &rarr; hibernate</span></div>
+    </div>
+    <div class="feature-row fragment fade-up">
+      <div class="feature-icon">&#x2B06;</div>
+      <div><strong style="color:#fff;">Metadata boosting</strong> &mdash; Re-ranks results by title and path relevance</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 11: Dev MCP Proxy -->
+<!-- ============================================ -->
+<section>
+  <h2 style="border-left: 4px solid var(--q-red); padding-left: 20px;">Dev MCP Proxy</h2>
+  <p style="font-size:0.7em; color:var(--q-text-dim);">
+    Agent MCP proxies to the running Quarkus app's built-in Dev MCP server
+  </p>
+  <div class="proxy-flow fragment fade-up">
+    <div class="proxy-box active">
+      <strong>AI Agent</strong>
+      quarkus/searchTools<br>
+      quarkus/callTool
+    </div>
+    <div class="proxy-connector">
+      <span class="arrow">&rarr;</span>
+      MCP stdio
+    </div>
+    <div class="proxy-box active">
+      <strong>Agent MCP</strong>
+      Discovers &amp; proxies<br>
+      tool invocations
+    </div>
+    <div class="proxy-connector">
+      <span class="arrow">&rarr;</span>
+      JSON-RPC
+    </div>
+    <div class="proxy-box">
+      <strong>Running App</strong>
+      <span class="tag" style="font-size:0.9em;">/q/dev-mcp</span>
+    </div>
+  </div>
+  <div style="margin-top: 28px;" class="fragment fade-up">
+    <h3 style="font-size:0.9em; margin-bottom:12px;">Example Dev Tools</h3>
+    <div class="devtools-examples">
+      <span class="devtool-tag">devui-testing_runTests</span>
+      <span class="devtool-tag">devui-testing_runTest</span>
+      <span class="devtool-tag">devui-extensions_add</span>
+      <span class="devtool-tag">devui-config_getAll</span>
+      <span class="devtool-tag">devui-exceptions_getLastException</span>
+      <span class="devtool-tag">devui-logstream_forceRestart</span>
+    </div>
+    <p style="font-size:0.65em; color:var(--q-text-dim); margin-top:14px;">
+      Filter by query: <span class="tag" style="font-size:0.95em;">testing</span>
+      <span class="tag" style="font-size:0.95em;">extension</span>
+      <span class="tag" style="font-size:0.95em;">config</span>
+      <span class="tag" style="font-size:0.95em;">exception</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 12: Key Design Decisions -->
+<!-- ============================================ -->
+<section>
+  <h2 style="border-left: 4px solid var(--q-red); padding-left: 20px;">Key Design Decisions</h2>
+  <div class="design-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+    <div class="design-card fragment fade-up">
+      <div class="icon">&#x1F6E1;</div>
+      <strong>Standalone Process</strong>
+      <p>Survives app crashes. Agent MCP keeps running even when the Quarkus app fails.</p>
+    </div>
+    <div class="design-card fragment fade-up">
+      <div class="icon">&#x23F3;</div>
+      <strong>Lazy Initialization</strong>
+      <p>pgvector container starts on first doc search. No upfront cost if not needed.</p>
+    </div>
+    <div class="design-card fragment fade-up">
+      <div class="icon">&#x1F3AF;</div>
+      <strong>Version-First</strong>
+      <p>Docs, skills, and containers are all version-aware. Matches your project exactly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 13: Extension Developer Guide -->
+<!-- ============================================ -->
+<section>
+  <h2 style="border-left: 4px solid var(--q-red); padding-left: 20px;">For Extension Developers</h2>
+  <p style="font-size:0.7em; color:var(--q-text-dim); margin-bottom: 8px;">
+    How to make your extension work great with AI agents
+  </p>
+  <div class="workflow">
+    <div class="workflow-step fragment fade-up">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <span class="step-desc"><strong style="color:#fff;">Build a Quarkus app</strong> using Agent MCP with your extension</span>
+      </div>
+    </div>
+    <div class="workflow-line"></div>
+    <div class="workflow-step fragment fade-up">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <span class="step-desc"><strong style="color:#fff;">Use a small model</strong> &mdash; if it works with a budget LLM, it works everywhere</span>
+        <span class="tag" style="font-size:0.85em;">Haiku</span>
+        <span class="tag" style="font-size:0.85em;">GPT-4o mini</span>
+      </div>
+    </div>
+    <div class="workflow-line"></div>
+    <div class="workflow-step fragment fade-up">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <span class="step-desc"><strong style="color:#fff;">Note what the agent gets wrong</strong> &mdash; wrong patterns, missed conventions, bad defaults</span>
+      </div>
+    </div>
+    <div class="workflow-line"></div>
+    <div class="workflow-step fragment fade-up">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <span class="step-tool">SKILL.md</span>
+        <span class="step-arrow">&rarr;</span>
+        <span class="step-desc"><strong style="color:#fff;">Enhance the skill</strong> to fix those mistakes. Ask the agent to use <code>quarkus/updateSkill</code> &mdash; it adds your rules on top of the base skill.</span>
+      </div>
+    </div>
+    <div class="workflow-line"></div>
+    <div class="workflow-step fragment fade-up">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <span class="step-tool">Dev MCP</span>
+        <span class="step-arrow">&rarr;</span>
+        <span class="step-desc"><strong style="color:#fff;">Check Dev MCP tools</strong> &mdash; does the agent use them? What's missing or needs changing?</span>
+      </div>
+    </div>
+    <div class="workflow-line"></div>
+    <div class="workflow-step fragment fade-up">
+      <div class="step-num" style="background: var(--q-green); color: #0a0e17;">6</div>
+      <div class="step-content">
+        <span class="step-desc"><strong style="color:#fff;">PR against Quarkus</strong> &mdash; add the skill + Dev MCP changes upstream</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 14: Demo -->
+<!-- ============================================ -->
+<section class="demo-slide">
+  <h2>Demo Time</h2>
+  <p style="font-size:1em; color:var(--q-text-dim); margin-bottom:20px;">Let's see it in action</p>
+  <ul class="demo-bullets">
+    <li>Create a new Quarkus app from a natural language prompt</li>
+    <li>Watch skills guide the agent through extension-first development</li>
+    <li>See semantic doc search find relevant Quarkus guides</li>
+    <li>Run tests via Dev MCP proxy without leaving the conversation</li>
+    <li>Hot reload and iterate in real time</li>
+  </ul>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 14: Thank You -->
+<!-- ============================================ -->
+<section class="end-slide">
+  <h2>Thank You</h2>
+  <p style="font-size:1em; color:var(--q-text-dim);">Questions?</p>
+  <div class="end-links">
+    <div class="end-link">
+      <strong>GitHub</strong>
+      quarkusio/quarkus-agent-mcp
+    </div>
+    <div class="end-link">
+      <strong>Working Group</strong>
+      Quarkus DevStar
+    </div>
+    <div class="end-link">
+      <strong>Install</strong>
+      jbang quarkus-agent-mcp@quarkusio
+    </div>
+  </div>
+</section>
+
+</div><!-- /slides -->
+</div><!-- /reveal -->
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'fade',
+  transitionSpeed: 'default',
+  backgroundTransition: 'fade',
+  center: true,
+  width: 1200,
+  height: 700,
+  margin: 0.04,
+});
+</script>
+</body>
+</html>

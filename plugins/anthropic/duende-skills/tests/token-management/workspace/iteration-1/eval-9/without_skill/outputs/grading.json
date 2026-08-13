@@ -1,0 +1,25 @@
+{
+  "model": "claude-opus-4-20250514",
+  "eval_id": 9,
+  "mode": "without_skill",
+  "assertions": [
+    {
+      "assertion": "Explains that HttpContext is not available in Blazor Server circuits after the initial HTTP request",
+      "passed": true
+    },
+    {
+      "assertion": "Calls AddBlazorServerAccessTokenManagement<T>() with a custom IUserTokenStore implementation",
+      "passed": false
+    },
+    {
+      "assertion": "The custom IUserTokenStore implements GetTokenAsync, StoreTokenAsync, and ClearTokenAsync methods",
+      "passed": true
+    },
+    {
+      "assertion": "Shows capturing tokens during the OnTokenValidated OIDC event to persist them to the custom store",
+      "passed": true
+    }
+  ],
+  "passed": 3,
+  "total": 4
+}

@@ -1,0 +1,233 @@
+# CLAUDE.md — lumen
+
+Lumen is a code search and indexing tool designed for integration with the
+Claude Code plugin system. It provides fast, semantic search capabilities over
+codebases by leveraging vector embeddings and a Merkle tree structure to
+efficiently detect changes and minimize re-indexing.
+
+This repository keeps all agent integration surfaces at the repo root:
+
+- Claude Code plugin files under `.claude-plugin/`
+- Codex install docs under `.codex/` and isolated native package under
+  `plugins/lumen/`
+- Cursor plugin files under `.cursor-plugin/`
+- OpenCode plugin files under `.opencode/`
+- Shared hooks, skills, MCP wiring, and launchers under `hooks/`, `skills/`,
+  `.cursor/mcp.json`, and `scripts/`
+
+Do not add a repo-root `.mcp.json` or repo-root `.codex-plugin/`. Claude Code
+reads repo-root `.mcp.json` as project-scoped MCP config, which would change
+runtime behavior for this repository outside the Claude plugin install path.
+
+## Go Standards
+
+- **Version**: Go 1.25+
+- **Build**: `make build-local` (CGO_ENABLED=1, sqlite-vec requires CGO)
+- **Format**: `goimports` (enforced in CI)
+- **Lint**: `golangci-lint run` (zero issues, see `.golangci.yml`)
+- **Vet**: `go vet ./...` (external dependency warnings OK)
+
+## Code Quality Rules
+
+### Testing
+
+- **Unit + integration**: `go test ./...`
+- **E2E tests**: `go test -tags e2e ./...` (requires Ollama/LM Studio running)
+- **All tests must pass before commit**
+- Coverage tracked but not enforced
+- **TDD required**: All features and bug fixes must follow red/green TDD — write
+  a failing test that demonstrates the bug or specifies the feature first, then
+  make it pass with the implementation.
+
+### Linting & Errors
+
+- **golangci-lint**: Must pass with zero issues before any PR
+- **Error handling**: Explicit blank assignment `_ = err` when intentionally
+  ignoring errors
+- **Defer cleanup**: Always defer resource cleanup (defer Close() on
+  database/file handles)
+- **Panics**: Only during package initialization, never in business logic
+- **No "not found" confusion**: Distinguish between "resource not found" and
+  actual database errors
+
+### Git Conventional Commits
+
+- **Format**: Follow
+  [Conventional Commits](https://www.conventionalcommits.org/) specification
+- **Types**: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`,
+  `chore`, `ci`
+- **Scope**: Optional, package or component name (e.g., `fix(chunker): ...`,
+  `feat(store): ...`)
+- **Breaking changes**: Add `!` after type/scope (e.g., `feat!: ...`) or
+  `BREAKING CHANGE:` footer
+- **Examples**:
+  - `fix: handle nil pointers in search results`
+  - `feat(store): add batch upsert for chunks`
+  - `docs: update README with new API examples`
+  - `refactor: simplify merkle tree comparison`
+
+### Idiomatic Go Patterns
+
+- **Interface satisfaction**: Implicit, verified by compilation (no "implements"
+  comments)
+- **Error as value**: Return error as final argument, check immediately
+- **Context passing**: Thread context through all async operations
+- **defer for cleanup**: Prefer defer over manual cleanup
+- **Table-driven tests**: Use for multiple test cases
+- **Unexported helpers**: Package-local utilities as unexported functions
+- **No generic error strings**: Use proper error types/wrapping
+
+## Core Technologies
+
+| Tech                         | Purpose                             | Notes                           |
+| ---------------------------- | ----------------------------------- | ------------------------------- |
+| SQLite                       | Vector storage + schema persistence | Uses sqlite-vec for KNN search  |
+| MCP (Model Context Protocol) | Agent integration                   | stdio transport                 |
+| Ollama/LM Studio             | Embeddings generation               | Local models, configurable      |
+| Go AST                       | Code parsing into semantic chunks   | Functions, types, methods, etc. |
+| Cobra                        | CLI framework                       | Subcommands: index, stdio       |
+
+## Commands Reference
+
+See `Makefile` for all commands:
+
+```bash
+make build        # Cross-compile via Docker/xgoreleaser
+make build-local  # Build binary to bin/ (CGO_ENABLED=1)
+make test         # Run unit + integration tests
+make e2e          # Run E2E tests (requires Ollama/LM Studio)
+make lint         # Run golangci-lint
+make vet          # Run go vet
+make format       # Format code & markdown
+make tidy         # Update go.mod
+make clean        # Remove bin/ and dist/
+make plugin-dev   # Build + print plugin-dir usage
+```
+
+## Plugin Development
+
+```bash
+make build-local
+claude --plugin-dir .
+```
+
+This loads lumen as a Claude Code plugin directly from the repo. The plugin
+system handles MCP registration, hooks, and skills declaratively via:
+
+- `.claude-plugin/plugin.json` — plugin manifest
+- `hooks/hooks.json` — SessionStart + PreToolUse hooks
+- `skills/` — `/lumen:doctor` and `/lumen:reindex` skills
+
+Cursor and OpenCode reuse the repo-root `skills/`, `hooks/`, and `scripts/`
+surfaces. Codex installs the isolated Agent Plugins v1 package under
+`plugins/lumen/`; its copied launchers and skills must remain byte-identical to
+their repo-root counterparts. Install-specific entrypoints live in `.codex/`,
+`.cursor-plugin/`, `.cursor/mcp.json`, and `.opencode/`.
+
+## Environment Variables
+
+| Variable                 | Default                  | Description                                |
+| ------------------------ | ------------------------ | ------------------------------------------ |
+| `LUMEN_BACKEND`          | `ollama`                 | Embedding backend (`ollama` or `lmstudio`) |
+| `LUMEN_EMBED_MODEL`      | see note ¹               | Embedding model (must be in registry)      |
+| `OLLAMA_HOST`            | `http://localhost:11434` | Ollama server URL                          |
+| `LM_STUDIO_HOST`         | `http://localhost:1234`  | LM Studio server URL                       |
+| `LUMEN_MAX_CHUNK_TOKENS` | `512`                    | Max tokens per chunk before splitting      |
+| `LUMEN_VECTOR_STORAGE`   | `int8`                   | Vector precision (`int8` or `float32`)     |
+
+¹ `ordis/jina-embeddings-v2-base-code` (Ollama),
+`nomic-ai/nomic-embed-code-GGUF` (LM Studio)
+
+## Project Structure
+
+```
+.
+├── main.go              # 3-line entrypoint
+├── .claude-plugin/      # Claude Code plugin manifest
+├── .codex/             # Codex installation docs
+├── .agents/            # Repo-local Codex marketplace for development
+├── .cursor-plugin/     # Cursor plugin manifest
+├── .cursor/            # Cursor MCP wiring
+├── .opencode/          # OpenCode install docs and plugin entrypoint
+├── plugins/lumen/      # Isolated native Codex/Agent Plugins package
+├── hooks/              # Claude + Cursor hook declarations
+├── skills/             # Shared skill definitions
+├── package.json        # @ory/lumen-opencode npm package metadata
+├── scripts/            # Shared launchers and platform wrappers
+├── cmd/
+│   ├── root.go         # Cobra root command
+│   ├── stdio.go        # MCP server
+│   ├── hook.go         # Hook handlers
+│   ├── clean.go        # Age-based index data cleanup
+│   └── index.go        # CLI indexing
+├── internal/
+│   ├── config/         # Config loading & paths
+│   ├── index/          # Orchestration (Merkle + embedding + chunking)
+│   ├── store/          # Shared SQLite collection + sqlite-vec operations
+│   ├── sqlitevec/      # Vendored sqlite-vec v0.1.9 wrapper and sources
+│   ├── chunker/        # Go AST parsing → chunks
+│   ├── embedder/       # Ollama/LM Studio HTTP client
+│   └── merkle/         # Change detection (SHA-256 tree)
+└── testdata/           # Fixtures for E2E tests
+```
+
+## Output & Logging
+
+Lumen has two execution contexts with distinct output strategies:
+
+**Interactive** (`lumen index`, `lumen clean`, `lumen search`):
+- Progress and status → `tui.Progress` (pterm) on **stderr**
+- Completion summaries → `fmt.Printf` on **stdout**
+- Errors → `fmt.Fprintf(os.Stderr, ...)`
+
+**Background / MCP** (`lumen stdio` MCP server, background indexer spawned by
+SessionStart hook):
+- All output → `slog` (JSON) → `~/.local/share/lumen/debug.log`
+- Use `newDebugLogger()` from `cmd/log.go` — opens the log file; falls back to
+  stderr only if the file cannot be created
+- stderr of the background indexer process is set to `nil` (discarded) so that
+  pterm output never pollutes the log file
+
+**Rule**: never mix these. Interactive commands use tui/fmt; background/MCP code
+uses slog. If a command can run in both modes (e.g. `lumen index`), add slog for
+the background path and keep tui/fmt for the interactive path — they coexist
+because slog writes to the log file while tui writes to the process stderr.
+
+## Key Design Decisions
+
+- **Merkle tree for diffs**: Avoid re-indexing unchanged code
+- **Repository collection profile in DB path**: Git common directory, indexed
+  scope, model, dimensions, vector precision, chunking profile, and
+  `IndexVersion` select a shared content-addressed collection.
+  `IndexVersion` is a hardcoded constant in `internal/config/version.go` —
+  increment it (and document why in the commit message) whenever a chunker,
+  embedder, or index-format change would make existing indexes incompatible. Do
+  **not** use the git commit hash; that forced a full re-index on every release.
+- **6-layer file filtering**: SkipDirs → SkipFiles → .gitignore → .lumenignore →
+  .gitattributes → extension
+- **Chunk splitting at line boundaries**: Oversized chunks split at
+  `LUMEN_MAX_CHUNK_TOKENS` (512 default)
+- **256-batch embedding**: Only exact embedding inputs missing from the shared
+  vector table are sent to the backend
+- **Cosine distance KNN**: Normalized for semantic similarity
+- **Vendored sqlite-vec**: v0.1.9 is compiled behind `internal/sqlitevec` so
+  collection deletion and vector behavior do not drift with system packages
+- **Plugin system**: Declarative Claude and Cursor packaging at the repo root,
+  an isolated Codex package with parity-tested copies, and an OpenCode install
+  surface that reuses the shared skills and launcher
+- **No repo-root `.mcp.json` or `.codex-plugin/`**: Use `.cursor/mcp.json` for
+  Cursor and `plugins/lumen/` for Codex so project behavior never changes
+  implicitly
+
+See [docs/INDEX_STORAGE.md](docs/INDEX_STORAGE.md) for collection identity,
+deduplication, vector precision, migration, cleanup, and status-field semantics.
+
+## Claude Integration Notes
+
+When planning any work related to claude code plugin, marketplace, hooks,
+ensuring tool use, and other areas around the claude integration you MUST base
+your thinking on the following AUTHORATIVE reference docs:
+
+- Marketplace Plugin:
+  https://code.claude.com/docs/en/plugin-marketplaces#marketplace-schema
+- Plugin Reference: https://code.claude.com/docs/en/plugins-reference

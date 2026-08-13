@@ -1,0 +1,19 @@
+{
+  "name": "carta-cap-table",
+  "version": "6.43.0",
+  "description": "Carta Cap Table plugin — skills and hooks for querying cap tables, grants, SAFEs, 409A valuations, waterfall scenarios, and more",
+  "problem": "Answering cap table questions — grants, stakeholders, SAFEs, 409A expiry, waterfall scenarios — means clicking through Carta's web reports one screen at a time and re-assembling the data by hand.",
+  "author": {
+    "name": "Carta",
+    "email": "engineering@carta.com"
+  },
+  "homepage": "https://github.com/carta/plugins",
+  "repository": "https://github.com/carta/plugins",
+  "keywords": [
+    "cap_table",
+    "mcp",
+    "carta",
+    "equity",
+    "grants"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-nozomio-labs-nia-skill",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from nozomio-labs/nia-skill.",
+  "author": {
+    "name": "nozomio-labs/nia-skill"
+  }
+}

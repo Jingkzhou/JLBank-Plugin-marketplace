@@ -1,0 +1,64 @@
+---
+source: src/upload/upload_metadata.rs
+expression: upload_metadata
+---
+{
+  "repositoryProvider": "GITHUB",
+  "version": 10,
+  "tokenless": true,
+  "profileMd5": "jp/k05RKuqP3ERQuIIvx4Q==",
+  "profileEncoding": "gzip",
+  "runner": {
+    "name": "codspeed-runner",
+    "version": "2.1.0",
+    "instruments": [
+      "MongoDB"
+    ],
+    "executor": "valgrind",
+    "os": "ubuntu",
+    "osVersion": "20.04",
+    "arch": "x86_64",
+    "host": "host",
+    "user": "user",
+    "cpuBrand": "Intel(R) Xeon(R) CPU E5-2686 v4 @ 2.30GHz",
+    "cpuName": "cpu0",
+    "cpuVendorId": "GenuineIntel",
+    "cpuCores": 2,
+    "totalMemoryGb": 8,
+    "cpuFlags": [
+      "sse2",
+      "avx",
+      "avx2",
+      "erms"
+    ]
+  },
+  "runEnvironment": "GITHUB_ACTIONS",
+  "runPart": {
+    "runId": "7044765741",
+    "runPartId": "benchmarks_3.2.2",
+    "jobName": "codspeed",
+    "metadata": {
+      "anotherKey": "anotherValue",
+      "someKey": "someValue"
+    }
+  },
+  "commitHash": "5bd77cb0da72bef094893ed45fb793ff16ecfbe3",
+  "allowEmpty": false,
+  "ref": "refs/pull/29/merge",
+  "headRef": "chore/native-action-runner",
+  "baseRef": "main",
+  "owner": "CodSpeedHQ",
+  "repository": "codspeed-node",
+  "event": "pull_request",
+  "sender": {
+    "id": "19605940",
+    "login": "adriencaccia"
+  },
+  "ghData": {
+    "runId": "7044765741",
+    "job": "codspeed"
+  },
+  "glData": null,
+  "localData": null,
+  "repositoryRootPath": "/home/runner/work/codspeed-node/codspeed-node/"
+}

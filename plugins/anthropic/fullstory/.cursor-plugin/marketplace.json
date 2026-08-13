@@ -1,0 +1,17 @@
+{
+  "name": "fullstory",
+  "owner": {
+    "name": "Fullstory Inc"
+  },
+  "metadata": {
+    "description": "Connect Cursor to Fullstory to query behavioral analytics, session replays, and customer experience insights.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "fullstory",
+      "source": "./",
+      "description": "Connect Cursor to Fullstory to query behavioral analytics, session replays, and customer experience insights."
+    }
+  ]
+}

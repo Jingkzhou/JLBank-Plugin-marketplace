@@ -1,0 +1,25 @@
+{
+  "model": "claude-opus-4-20250514",
+  "eval_id": 11,
+  "mode": "with_skill",
+  "assertions": [
+    {
+      "assertion": "Implements ITokenRequestCustomizer interface with a Customize method",
+      "passed": true
+    },
+    {
+      "assertion": "The Customize method accepts HttpRequestMessage, TokenRequestParameters, and CancellationToken",
+      "passed": true
+    },
+    {
+      "assertion": "Uses the 'with' expression or equivalent to create modified TokenRequestParameters (e.g., setting Resource or Scope per tenant)",
+      "passed": true
+    },
+    {
+      "assertion": "Passes the customizer instance to AddClientCredentialsTokenHandler or AddUserAccessTokenHandler",
+      "passed": true
+    }
+  ],
+  "passed": 4,
+  "total": 4
+}

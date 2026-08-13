@@ -1,0 +1,285 @@
+{
+  "metadata": {
+    "skill_name": "token-management",
+    "iteration": 1,
+    "model": "claude-opus-4-20250514",
+    "date": "2026-03-26"
+  },
+  "summary": {
+    "with_skill": {
+      "total_assertions": 57,
+      "passed": 57,
+      "failed": 0,
+      "pass_rate": 100.0
+    },
+    "without_skill": {
+      "total_assertions": 57,
+      "passed": 42,
+      "failed": 15,
+      "pass_rate": 73.7
+    },
+    "delta": {
+      "assertions_improved": 15,
+      "delta_pass_rate": 26.3
+    }
+  },
+  "evals": [
+    {
+      "eval_id": 1,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 4,
+        "failed": 1,
+        "total": 5,
+        "pass_rate": 0.8
+      },
+      "delta": 0.2,
+      "without_skill_failures": [
+        "Output uses v4 strongly-typed ClientCredentialsClientName.Parse() for the client name (not a raw string)"
+      ]
+    },
+    {
+      "eval_id": 2,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 4,
+        "failed": 1,
+        "total": 5,
+        "pass_rate": 0.8
+      },
+      "delta": 0.2,
+      "without_skill_failures": [
+        "Output wires up RevokeRefreshTokenAsync() in the cookie OnSigningOut event handler"
+      ]
+    },
+    {
+      "eval_id": 3,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 0,
+        "failed": 5,
+        "total": 5,
+        "pass_rate": 0.0
+      },
+      "delta": 1.0,
+      "without_skill_failures": [
+        "Output replaces IClientCredentialsTokenManagementService with IClientCredentialsTokenManager",
+        "Output uses ClientCredentialsClientName.Parse() for the client name argument instead of a raw string",
+        "Output checks tokenResult.Succeeded before calling .GetToken() instead of directly accessing .Value",
+        "Output removes or notes that AddDistributedMemoryCache() is no longer required because v4 uses HybridCache automatically",
+        "Output uses strongly-typed property setters like ClientId.Parse(), ClientSecret.Parse(), and Scope.Parse()"
+      ]
+    },
+    {
+      "eval_id": 4,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "delta": 0.0,
+      "without_skill_failures": []
+    },
+    {
+      "eval_id": 5,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "delta": 0.0,
+      "without_skill_failures": []
+    },
+    {
+      "eval_id": 6,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 2,
+        "failed": 3,
+        "total": 5,
+        "pass_rate": 0.4
+      },
+      "delta": 0.6,
+      "without_skill_failures": [
+        "Output implements IHybridCacheSerializer<ClientCredentialsToken> using IDataProtector for encryption",
+        "Output registers the custom serializer via AddHybridCache().AddSerializer<ClientCredentialsToken, ...>()",
+        "Output calls AddDataProtection() to enable the data protection provider"
+      ]
+    },
+    {
+      "eval_id": 7,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 4,
+        "failed": 1,
+        "total": 5,
+        "pass_rate": 0.8
+      },
+      "delta": 0.2,
+      "without_skill_failures": [
+        "Output identifies that AddClientCredentialsTokenHandler is used without AddDefaultAccessTokenResiliency(), meaning 401 responses won't be retried"
+      ]
+    },
+    {
+      "eval_id": 8,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "pass_rate": 1.0
+      },
+      "delta": 0.0,
+      "without_skill_failures": []
+    },
+    {
+      "eval_id": 9,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "pass_rate": 0.75
+      },
+      "delta": 0.25,
+      "without_skill_failures": [
+        "Calls AddBlazorServerAccessTokenManagement<T>() with a custom IUserTokenStore implementation"
+      ]
+    },
+    {
+      "eval_id": 10,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 3,
+        "failed": 2,
+        "total": 5,
+        "pass_rate": 0.6
+      },
+      "delta": 0.4,
+      "without_skill_failures": [
+        "Sets the JWT Audience to the authorization server's issuer URL, NOT the token endpoint URL",
+        "Warns about CVE-2025-27370 or CVE-2025-27371 related to incorrect audience values"
+      ]
+    },
+    {
+      "eval_id": 11,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "pass_rate": 0.75
+      },
+      "delta": 0.25,
+      "without_skill_failures": [
+        "Passes the customizer instance to AddClientCredentialsTokenHandler or AddUserAccessTokenHandler"
+      ]
+    },
+    {
+      "eval_id": 12,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "delta": 0.0,
+      "without_skill_failures": []
+    },
+    {
+      "eval_id": 13,
+      "prompt_summary": null,
+      "with_skill": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "without_skill": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "delta": 0.0,
+      "without_skill_failures": []
+    }
+  ]
+}

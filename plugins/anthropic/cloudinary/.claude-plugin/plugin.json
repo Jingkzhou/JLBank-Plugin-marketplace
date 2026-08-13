@@ -1,0 +1,24 @@
+{
+  "name": "cloudinary",
+  "version": "1.1.2",
+  "description": "Use Cloudinary directly in Claude. Upload, manage, optimize, and transform images and videos at scale using natural language.",
+  "author": {
+    "name": "Cloudinary",
+    "email": "support@cloudinary.com"
+  },
+  "homepage": "https://cloudinary.com",
+  "repository": "https://github.com/cloudinary-devs/cloudinary-plugin",
+  "license": "MIT",
+  "keywords": [
+    "cloudinary",
+    "media",
+    "images",
+    "video",
+    "transformations",
+    "asset-management",
+    "optimization",
+    "mcp"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./mcp.json"
+}

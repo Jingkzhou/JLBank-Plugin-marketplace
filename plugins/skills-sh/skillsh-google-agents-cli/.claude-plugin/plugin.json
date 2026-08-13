@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-google-agents-cli",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from google/agents-cli.",
+  "author": {
+    "name": "google/agents-cli"
+  }
+}

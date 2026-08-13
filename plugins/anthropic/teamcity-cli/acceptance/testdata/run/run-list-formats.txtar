@@ -1,0 +1,35 @@
+# Test run list output formats.
+
+exec teamcity run list --limit 5 --no-input
+stdout 'STATUS'
+stdout 'RUN'
+stdout 'JOB'
+! stderr 'Error'
+
+exec teamcity run list --limit 2 --json --no-input
+stdout '"count"'
+! stderr 'Error'
+
+exec teamcity run list --limit 1 --json --no-input
+stdout '"id"'
+stdout '"state"'
+! stderr 'Error'
+
+exec teamcity run list --limit 3 --json=id,state,webUrl --no-input
+stdout '"id"'
+stdout '"state"'
+stdout '"webUrl"'
+! stderr 'Error'
+
+exec teamcity run list --limit 3 --plain --no-input
+stdout 'STATUS'
+! stderr 'Error'
+
+exec teamcity run list --limit 3 --plain --no-header --no-input
+! stderr 'Error'
+
+exec teamcity --quiet run list --limit 2 --no-input
+! stderr 'Error'
+
+exec teamcity --verbose run list --limit 1 --no-input
+! stderr 'Error'

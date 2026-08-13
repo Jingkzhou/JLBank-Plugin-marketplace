@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-googleworkspace-cli",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from googleworkspace/cli.",
+  "author": {
+    "name": "googleworkspace/cli"
+  }
+}

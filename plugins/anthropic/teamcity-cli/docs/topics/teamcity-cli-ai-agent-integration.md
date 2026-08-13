@@ -1,0 +1,170 @@
+[//]: # (title: AI Agent Skill)
+
+<show-structure for="chapter" depth="2"/>
+
+TeamCity CLI includes a built-in skill that teaches AI coding agents how to use `teamcity` commands for common TeamCity workflows. The skill follows the [Agent Skills specification](https://agentskills.io), so it works with any compatible agent (for example, Claude Code, Cursor, and others).
+
+<tip>
+
+You can also integrate TeamCity with AI agents via the [MCP server](ai-agent-integration.md#TeamCity+MCP).
+
+</tip>
+
+## Listing skills
+
+List the skills bundled with your `teamcity` release, with each one's version and which is installed by default:
+
+```Shell
+teamcity skill list
+```
+
+## Installing the skill
+
+Install the skill for all detected AI agents:
+
+```Shell
+teamcity skill install
+```
+
+The command auto-detects which AI coding agents are installed on your system and configures the skill for each one. If your agent is not auto-detected, pass `--agent` to target it explicitly.
+
+<img src="skill-install.gif" alt="Installing the AI agent skill" border-effect="rounded"/>
+
+### Install for specific agents
+
+Target one or more specific agents:
+
+```Shell
+teamcity skill install --agent claude-code
+teamcity skill install --agent claude-code --agent cursor
+```
+
+### Project-level installation
+
+Install the skill for the current project only, rather than globally:
+
+```Shell
+teamcity skill install --project
+```
+
+## Updating the skill
+
+Update the skill to the latest version bundled with your current `teamcity` release:
+
+```Shell
+teamcity skill update
+```
+
+The command skips the update if the installed version already matches the bundled version.
+
+Target specific agents or install at the project level:
+
+```Shell
+teamcity skill update --agent claude-code
+teamcity skill update --project
+```
+
+## Removing the skill
+
+Remove the skill from AI coding agents:
+
+```Shell
+teamcity skill remove
+```
+
+Target specific agents or remove from the project level:
+
+```Shell
+teamcity skill remove --agent claude-code
+teamcity skill remove --project
+```
+
+## skill flags
+
+These flags are shared across `skill install`, `skill update`, and `skill remove`:
+
+<table>
+<tr>
+<td>
+
+Flag
+
+</td>
+<td>
+
+Description
+
+</td>
+</tr>
+<tr>
+<td>
+
+`-a`, `--agent`
+
+</td>
+<td>
+
+Target agent(s). Can be repeated. Auto-detects installed agents if omitted.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`--project`
+
+</td>
+<td>
+
+Install to the current project instead of globally
+
+</td>
+</tr>
+<tr>
+<td>
+
+`--all`
+
+</td>
+<td>
+
+Apply to every bundled skill instead of only the default
+
+</td>
+</tr>
+</table>
+
+## Read-only mode for AI agents
+
+When giving AI agents access to TeamCity, you may want to prevent them from triggering builds, canceling runs, or modifying configuration. Set `TEAMCITY_RO=1` to restrict the CLI to read-only operations:
+
+```Shell
+export TEAMCITY_RO=1
+teamcity skill install --agent claude-code
+```
+
+In read-only mode, the agent can list builds, view logs, inspect failures, and query the API, but any command that would modify data is blocked. You can also set `ro: true` per server in the [configuration file](teamcity-cli-configuration.md#Configuration+file).
+
+## Sandbox compatibility
+
+The CLI works inside sandboxed agent environments (for example, Claude Code `/sandbox`) out of the box. The CLI loads TLS root certificates from PEM bundle files and respects HTTP proxy settings, which allows it to function when platform certificate stores and direct network access are restricted.
+
+If the sandbox blocks outbound requests to your TeamCity server, add the server domain to the sandbox's network allowlist.
+
+## Alternative installation for Claude Code
+
+If you use Claude Code, you can also install the TeamCity skill directly through the plugin system:
+
+```Shell
+/plugin marketplace add JetBrains/teamcity-cli
+/plugin install teamcity-cli@teamcity-cli
+```
+
+<seealso>
+    <category ref="reference">
+        <a href="teamcity-cli-commands.md">Command reference</a>
+    </category>
+    <category ref="installation">
+        <a href="teamcity-cli-get-started.md">Getting started with TeamCity CLI</a>
+    </category>
+</seealso>

@@ -1,0 +1,29 @@
+{
+  "eval_id": 2,
+  "variant": "without_skill",
+  "assertions": [
+    {
+      "assertion": "Identifies MapInboundClaims as the root cause \u2014 the JWT bearer handler renames 'sub' to the long Microsoft XML namespace URI",
+      "pass": true,
+      "rationale": "Correctly identifies MapInboundClaims as the cause and mentions the long URI"
+    },
+    {
+      "assertion": "Shows setting options.MapInboundClaims = false on the JWT bearer handler",
+      "pass": true,
+      "rationale": "options.MapInboundClaims = false is shown"
+    },
+    {
+      "assertion": "Mentions JwtClaimTypes.Subject or the short name 'sub' vs the long http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier URI",
+      "pass": true,
+      "rationale": "Both 'sub' and the long nameidentifier URI are mentioned"
+    },
+    {
+      "assertion": "Does NOT suggest the claim is missing from the token itself",
+      "pass": true,
+      "rationale": "Correctly explains the claim is remapped, not missing"
+    }
+  ],
+  "pass_count": 4,
+  "total_count": 4,
+  "score": 1.0
+}

@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-pexoai-pexo-skills",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from pexoai/pexo-skills.",
+  "author": {
+    "name": "pexoai/pexo-skills"
+  }
+}

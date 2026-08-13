@@ -1,0 +1,59 @@
+{
+  "name": "twg",
+  "version": "1.0.3",
+  "description": "Teamwork Graph CLI is Atlassian's agent-first interface to your entire work context: Jira issues, Confluence pages, Bitbucket PRs, along with your connected third-party data sources. Purpose-built for coding agents like ChatGPT Work & Codex (terminal or desktop), and powered by Atlassian's context graph. Try: \"draft a Jira issue from this PR and link it to the epic.\" Using ChatGPT in the browser? Install the Atlassian Rovo MCP plugin instead. Run /twg-setup after install to connect Atlassian Teamwork Graph CLI to ChatGPT Work or Codex.",
+  "author": {
+    "name": "Atlassian",
+    "url": "https://www.atlassian.com"
+  },
+  "homepage": "https://developer.atlassian.com/cloud/twg-cli/",
+  "repository": "https://github.com/atlassian-labs/twg-plugins",
+  "license": "Apache-2.0",
+  "keywords": [
+    "atlassian",
+    "twg",
+    "teamwork graph",
+    "teamwork graph cli",
+    "jira",
+    "confluence",
+    "bitbucket",
+    "jsm",
+    "jira service management",
+    "assets",
+    "teams",
+    "goals",
+    "projects",
+    "jira align",
+    "loom",
+    "trello",
+    "rovo",
+    "cli",
+    "atlassian context"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Atlassian Teamwork Graph CLI",
+    "logo": "./assets/twg-logo.png",
+    "logoDark": "./assets/twg-logo-dark.png",
+    "composerIcon": "./assets/twg-logo.png",
+    "shortDescription": "Atlassian Context Graph as CLI",
+    "longDescription": "Teamwork Graph CLI is Atlassian's agent-first interface to your entire work context: Jira issues, Confluence pages, Bitbucket PRs, along with your connected third-party data sources. Purpose-built for coding agents like ChatGPT Work & Codex (terminal or desktop), and powered by Atlassian's context graph. Try: \"draft a Jira issue from this PR and link it to the epic.\" Using ChatGPT in the browser? Install the Atlassian Rovo MCP plugin instead. Run /twg-setup after install to connect Atlassian Teamwork Graph CLI to ChatGPT Work or Codex.",
+    "developerName": "Atlassian",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://developer.atlassian.com/cloud/twg-cli/",
+    "privacyPolicyURL": "https://www.atlassian.com/legal/privacy-policy",
+    "termsOfServiceURL": "https://www.atlassian.com/legal/cloud-terms-of-service",
+    "defaultPrompt": [
+      "Set up TWG CLI",
+      "Summarize my work during the past month.",
+      "What PRs are waiting on me, and which reviews are stale?"
+    ],
+    "brandColor": "#0052CC",
+    "screenshots": []
+  }
+}

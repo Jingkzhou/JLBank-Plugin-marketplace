@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "zscaler-mcp-server": {
+      "command": "uvx",
+      "args": [
+        "--env-file",
+        "${CLAUDE_PLUGIN_ROOT}/.env",
+        "zscaler-mcp@0.15.0"
+      ]
+    }
+  }
+}

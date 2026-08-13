@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-stablyai-orca",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from stablyai/orca.",
+  "author": {
+    "name": "stablyai/orca"
+  }
+}

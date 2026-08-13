@@ -1,0 +1,29 @@
+{
+  "model": "claude-opus-4-20250514",
+  "eval_id": 10,
+  "mode": "with_skill",
+  "assertions": [
+    {
+      "assertion": "Implements IClientAssertionService with a GetClientAssertionAsync method",
+      "passed": true
+    },
+    {
+      "assertion": "Sets the JWT Audience to the authorization server's issuer URL, NOT the token endpoint URL",
+      "passed": true
+    },
+    {
+      "assertion": "Warns about CVE-2025-27370 or CVE-2025-27371 related to incorrect audience values",
+      "passed": true
+    },
+    {
+      "assertion": "Returns a ClientAssertion with Type set to OidcConstants.ClientAssertionTypes.JwtBearer (or the equivalent string 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer')",
+      "passed": true
+    },
+    {
+      "assertion": "Registers the IClientAssertionService implementation with DI (e.g., AddSingleton or AddTransient)",
+      "passed": true
+    }
+  ],
+  "passed": 5,
+  "total": 5
+}

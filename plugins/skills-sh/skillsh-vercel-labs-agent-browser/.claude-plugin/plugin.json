@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-vercel-labs-agent-browser",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from vercel-labs/agent-browser.",
+  "author": {
+    "name": "vercel-labs/agent-browser"
+  }
+}

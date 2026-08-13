@@ -1,0 +1,105 @@
+import type { ExportResults, Parser } from '@sap/ux-specification';
+import { type TreeNode, type PropertyPath, getTree } from './tree/index.js';
+import { SapuxFtfsFileIO } from './sapuxFtfsFileIO.js';
+import type { AppData } from './sapuxFtfsFileIO.js';
+import type { ApplicationAccess } from '@sap-ux/project-access';
+import { updateProperty } from './json-helper.js';
+
+/**
+ * Class representing the Page Editor API
+ */
+export class PageEditorApi {
+    private readonly ftfsIO;
+    private readonly appModel?: Parser.ApplicationModel;
+
+    /**
+     * Creates an instance of PageEditorApi.
+     *
+     * @param appAccess - The application access object
+     * @param appModel - Optional application model  from specification.
+     * @param pageId - Optional page identifier
+     */
+    constructor(
+        public appAccess: ApplicationAccess,
+        appModel?: Parser.ApplicationModel,
+        public pageId?: string
+    ) {
+        this.ftfsIO = new SapuxFtfsFileIO(appAccess);
+        this.appModel = appModel;
+    }
+
+    /**
+     * Retrieves the page tree structure.
+     *
+     * @returns Promise resolving to the TreeNode structure
+     */
+    public async getPageTree(): Promise<TreeNode> {
+        let tree: TreeNode = {
+            children: [],
+            path: [],
+            properties: [],
+            text: '',
+            schema: {}
+        };
+        if (this.appModel) {
+            if (this.pageId) {
+                const pageModel = this.appModel.pages[this.pageId].model;
+                if (pageModel) {
+                    tree = getTree(pageModel);
+                }
+            } else {
+                const appModel = this.appModel.model;
+                if (appModel) {
+                    // Mark settings as view node to parse it as tree node - in future should be adjusted in specification
+                    const appSettings = appModel.root.aggregations.settings as { isViewNode?: boolean };
+                    if (appSettings) {
+                        appSettings.isViewNode = true;
+                    }
+                    tree = getTree(appModel);
+                }
+            }
+        }
+
+        return tree;
+    }
+
+    /**
+     * Changes a property in the page or application configuration.
+     *
+     * @param path - The property path to change
+     * @param value - The new value for the property
+     * @returns Promise resolving to ExportResults or undefined
+     */
+    public async changeProperty(path: PropertyPath, value: unknown): Promise<ExportResults | undefined> {
+        if (this.pageId) {
+            const pageData = await this.ftfsIO.readPageData(this.pageId);
+            if (pageData) {
+                updateProperty(pageData.config, path, value);
+                return this.ftfsIO.writePage(pageData);
+            }
+        } else {
+            const appData = await this.ftfsIO.readAppData();
+            updateProperty(appData.config, path, value);
+            return this.ftfsIO.writeApp(appData);
+        }
+    }
+
+    /**
+     * Retrieves the application data.
+     *
+     * @returns Promise resolving to application data
+     */
+    public async getApplication(): Promise<AppData> {
+        return this.ftfsIO.readAppData();
+    }
+
+    /**
+     * Updates the application data.
+     *
+     * @param appData - The new application data
+     * @returns Promise resolving when the update is complete
+     */
+    public async updateApplication(appData: AppData): Promise<void> {
+        await this.ftfsIO.writeApp(appData);
+    }
+}

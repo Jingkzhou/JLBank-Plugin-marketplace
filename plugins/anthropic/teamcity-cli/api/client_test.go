@@ -1,0 +1,1093 @@
+package api
+
+import (
+	"bytes"
+	"context"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+	"net/http"
+	"net/http/httptest"
+	"strconv"
+	"testing"
+	"time"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+)
+
+// setupTestServer creates a test HTTP server and returns a client configured to use it.
+func setupTestServer(t *testing.T, handler http.HandlerFunc) *Client {
+	t.Helper()
+	server := httptest.NewServer(handler)
+	t.Cleanup(server.Close)
+	return NewClient(server.URL, "test-token")
+}
+
+func TestNewClient(T *testing.T) {
+	T.Parallel()
+
+	tests := []struct {
+		name        string
+		baseURL     string
+		token       string
+		wantBaseURL string
+	}{
+		{
+			name:        "standard URL",
+			baseURL:     "https://example.com",
+			token:       "test-token",
+			wantBaseURL: "https://example.com",
+		},
+		{
+			name:        "URL with trailing slash",
+			baseURL:     "https://example.com/",
+			token:       "test-token",
+			wantBaseURL: "https://example.com",
+		},
+	}
+
+	for _, tc := range tests {
+		T.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			client := NewClient(tc.baseURL, tc.token)
+			assert.Equal(t, tc.wantBaseURL, client.BaseURL)
+			assert.Equal(t, tc.token, client.Token)
+		})
+	}
+}
+
+func TestNewClientWithBasicAuth(T *testing.T) {
+	T.Parallel()
+
+	client := NewClientWithBasicAuth("https://example.com", "user", "pass")
+	assert.Equal(T, "https://example.com", client.BaseURL)
+	assert.Empty(T, client.Token)
+}
+
+func TestBasicAuthSendsCorrectHeaders(T *testing.T) {
+	T.Parallel()
+
+	var receivedUser, receivedPass string
+	var authHeaderPresent bool
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		receivedUser, receivedPass, authHeaderPresent = r.BasicAuth()
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(User{ID: 1, Username: receivedUser, Name: "Test"})
+	}))
+	T.Cleanup(server.Close)
+
+	client := NewClientWithBasicAuth(server.URL, "buildUser", "buildPass")
+	_, err := client.GetCurrentUser()
+
+	require.NoError(T, err)
+	assert.True(T, authHeaderPresent, "basic auth header should be present")
+	assert.Equal(T, "buildUser", receivedUser)
+	assert.Equal(T, "buildPass", receivedPass)
+}
+
+func TestBasicAuthWorksForAPIRequests(T *testing.T) {
+	T.Parallel()
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		user, pass, ok := r.BasicAuth()
+		if !ok || user != "testuser" || pass != "testpass" {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(ProjectList{
+			Count:    1,
+			Projects: []Project{{ID: "Test", Name: "Test Project"}},
+		})
+	}))
+	T.Cleanup(server.Close)
+
+	client := NewClientWithBasicAuth(server.URL, "testuser", "testpass")
+	projects, _, err := client.GetProjects(ProjectsOptions{})
+
+	require.NoError(T, err)
+	assert.Equal(T, 1, projects.Count)
+	assert.Equal(T, "Test", projects.Projects[0].ID)
+}
+
+func TestBasicAuthRejectsInvalidCredentials(T *testing.T) {
+	T.Parallel()
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		user, pass, ok := r.BasicAuth()
+		if !ok || user != "validuser" || pass != "validpass" {
+			w.WriteHeader(http.StatusUnauthorized)
+			w.Write([]byte("Unauthorized"))
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(User{ID: 1})
+	}))
+	T.Cleanup(server.Close)
+
+	client := NewClientWithBasicAuth(server.URL, "wronguser", "wrongpass")
+	_, err := client.GetCurrentUser()
+
+	assert.Error(T, err)
+}
+
+func TestAPIPath(T *testing.T) {
+	T.Parallel()
+
+	tests := []struct {
+		name       string
+		apiVersion string
+		path       string
+		want       string
+	}{
+		{"no version", "", "/app/rest/builds", "/app/rest/builds"},
+		{"with version", "2023.1", "/app/rest/builds", "/app/rest/2023.1/builds"},
+		{"non-rest path unchanged", "2023.1", "/downloadBuildLog.html", "/downloadBuildLog.html"},
+		{"missing leading slash", "", "app/rest/builds", "/app/rest/builds"},
+		{"missing leading slash with version", "2023.1", "app/rest/builds", "/app/rest/2023.1/builds"},
+	}
+
+	for _, tc := range tests {
+		T.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			client := NewClient("https://example.com", "token")
+			client.APIVersion = tc.apiVersion
+			got := client.apiPath(tc.path)
+			assert.Equal(t, tc.want, got)
+		})
+	}
+}
+
+func TestClientOptions(T *testing.T) {
+	T.Parallel()
+
+	client := NewClient("https://example.com", "token", WithAPIVersion("2023.1"), WithTimeout(60*time.Second))
+
+	assert.Equal(T, "2023.1", client.APIVersion)
+	assert.Equal(T, 60*time.Second, client.HTTPClient.Timeout)
+}
+
+func TestDefaultHTTPClientHasNoWallClockTimeout(T *testing.T) {
+	T.Parallel()
+
+	client := NewClient("https://example.com", "token")
+	assert.Zero(T, client.HTTPClient.Timeout, "no request timeout; ctx cancels instead")
+}
+
+func TestDefaultTransportBoundsConnectionNotResponse(T *testing.T) {
+	T.Parallel()
+
+	rt := defaultTransport()
+	var tr *http.Transport
+	switch v := rt.(type) {
+	case *http.Transport:
+		tr = v
+	case *pemFallbackTransport:
+		tr = v.platform.(*http.Transport)
+	default:
+		T.Fatalf("unexpected transport type %T", rt)
+	}
+	assert.Zero(T, tr.ResponseHeaderTimeout, "no response-header timeout; scans can take tens of seconds")
+	assert.Positive(T, tr.TLSHandshakeTimeout, "connection setup stays bounded")
+}
+
+func TestCheckVersion(T *testing.T) {
+	T.Parallel()
+
+	tests := []struct {
+		name         string
+		versionMajor int
+		wantErr      bool
+	}{
+		{"current version", 2024, false},
+		{"old version", 2019, true},
+	}
+
+	for _, tc := range tests {
+		T.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+				w.Header().Set("Content-Type", "application/json")
+				json.NewEncoder(w).Encode(Server{
+					Version:      "test",
+					VersionMajor: tc.versionMajor,
+					VersionMinor: 1,
+				})
+			})
+
+			err := client.CheckVersion()
+			if tc.wantErr {
+				assert.Error(t, err)
+			} else {
+				assert.NoError(t, err)
+			}
+		})
+	}
+}
+
+func TestSupportsFeature(T *testing.T) {
+	T.Parallel()
+
+	tests := []struct {
+		name         string
+		versionMajor int
+		versionMinor int
+		feature      string
+		want         bool
+	}{
+		{"csrf_token supported", 2024, 1, "csrf_token", true},
+		{"csrf_token not supported old version", 2017, 1, "csrf_token", false},
+	}
+
+	for _, tc := range tests {
+		T.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+				w.Header().Set("Content-Type", "application/json")
+				json.NewEncoder(w).Encode(Server{VersionMajor: tc.versionMajor, VersionMinor: tc.versionMinor})
+			})
+
+			got := client.SupportsFeature(tc.feature)
+			assert.Equal(t, tc.want, got)
+		})
+	}
+}
+
+func TestHandleErrorResponse(T *testing.T) {
+	T.Parallel()
+
+	tests := []struct {
+		name       string
+		statusCode int
+		body       string
+	}{
+		{"unauthorized", http.StatusUnauthorized, "error message"},
+		{"forbidden", http.StatusForbidden, "error message"},
+		{"not found plain text", http.StatusNotFound, "error message"},
+		{"not found TeamCity format", http.StatusNotFound, `{"errors":[{"message":"No build found by locator '999'."}]}`},
+		{"internal server error", http.StatusInternalServerError, "Internal Server Error"},
+	}
+
+	for _, tc := range tests {
+		T.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+				w.WriteHeader(tc.statusCode)
+				w.Write([]byte(tc.body))
+			})
+
+			_, err := client.GetBuild(T.Context(), "123")
+			assert.Error(t, err)
+		})
+	}
+}
+
+func TestHandleErrorResponseWithStructuredError(T *testing.T) {
+	T.Parallel()
+
+	client := setupTestServer(T, func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(`{"errors":[{"message":"Invalid parameter value"}]}`))
+	})
+
+	_, err := client.GetBuild(T.Context(), "invalid")
+	require.Error(T, err)
+	assert.Contains(T, err.Error(), "Invalid parameter value")
+}
+
+func TestRemoveBuildTag(T *testing.T) {
+	T.Parallel()
+
+	callCount := 0
+	client := setupTestServer(T, func(w http.ResponseWriter, r *http.Request) {
+		callCount++
+		if callCount == 1 {
+			assert.Equal(T, "GET", r.Method)
+			w.Header().Set("Content-Type", "application/json")
+			w.Write([]byte(`{"count":2,"tag":[{"name":"mytag"},{"name":"othertag"}]}`))
+		} else {
+			assert.Equal(T, "PUT", r.Method)
+			w.WriteHeader(http.StatusOK)
+		}
+	})
+
+	err := client.RemoveBuildTag("123", "mytag")
+	require.NoError(T, err)
+}
+
+func TestRemoveBuildTagNotFound(T *testing.T) {
+	T.Parallel()
+
+	client := setupTestServer(T, func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(`{"count":1,"tag":[{"name":"othertag"}]}`))
+	})
+
+	err := client.RemoveBuildTag("123", "nonexistent")
+	assert.Error(T, err)
+}
+
+func TestParseTeamCityTime(T *testing.T) {
+	T.Parallel()
+
+	tests := []struct {
+		input   string
+		want    time.Time
+		wantErr bool
+	}{
+		{"20250710T080607+0000", time.Date(2025, 7, 10, 8, 6, 7, 0, time.UTC), false},
+		{"20240115T143022+0000", time.Date(2024, 1, 15, 14, 30, 22, 0, time.UTC), false},
+		{"", time.Time{}, true},
+	}
+
+	for _, tc := range tests {
+		T.Run(tc.input, func(t *testing.T) {
+			t.Parallel()
+
+			got, err := ParseTeamCityTime(tc.input)
+			if tc.wantErr {
+				assert.Error(t, err)
+				assert.True(t, got.IsZero())
+				return
+			}
+			require.NoError(t, err)
+			assert.True(t, got.Equal(tc.want))
+		})
+	}
+}
+
+func TestExtractErrorMessage(T *testing.T) {
+	T.Parallel()
+
+	tests := []struct {
+		name string
+		body string
+		want string
+	}{
+		{"valid error response", `{"errors":[{"message":"No build types found by locator 'Test'."}]}`, "No build types found by locator 'Test'."},
+		{"empty errors array", `{"errors":[]}`, ""},
+		{"malformed JSON", `not json`, "not json"},
+		{"empty body", ``, ""},
+		{"missing errors field", `{"other":"field"}`, ""},
+		{"XML error response", `<errors><error><message>Field 'snapshot-dependencies' is not supported. Supported are: number, status, statusText, id.</message></error></errors>`, "Field 'snapshot-dependencies' is not supported. Supported are: number, status, statusText, id."},
+		{"XML error with declaration", `<?xml version="1.0" encoding="UTF-8"?><errors><error><message>Not found</message></error></errors>`, "Not found"},
+		{"XML non-error element", `<server><version>2025.7</version></server>`, ""},
+	}
+
+	for _, tc := range tests {
+		T.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			got := ExtractErrorMessage([]byte(tc.body))
+			assert.Equal(t, tc.want, got)
+		})
+	}
+}
+
+func TestResolveBuildID(T *testing.T) {
+	T.Parallel()
+
+	T.Run("passthrough IDs", func(t *testing.T) {
+		t.Parallel()
+
+		tests := []struct {
+			name  string
+			input string
+			want  string
+		}{
+			{"plain numeric ID", "12345", "12345"},
+			{"ID with letters", "abc123", "abc123"},
+			{"empty string", "", ""},
+		}
+
+		client := NewClient("https://example.com", "token")
+		for _, tc := range tests {
+			t.Run(tc.name, func(t *testing.T) {
+				t.Parallel()
+
+				got, err := client.ResolveBuildID(T.Context(), tc.input)
+				require.NoError(t, err)
+				assert.Equal(t, tc.want, got)
+			})
+		}
+	})
+
+	T.Run("hash prefix resolution", func(t *testing.T) {
+		t.Parallel()
+
+		client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+			assert.Contains(t, r.URL.RawQuery, "number")
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(BuildList{
+				Count:  1,
+				Builds: []Build{{ID: 99999, Number: "42"}},
+			})
+		})
+
+		got, err := client.ResolveBuildID(T.Context(), "#42")
+		require.NoError(t, err)
+		assert.Equal(t, "99999", got)
+	})
+
+	T.Run("not found", func(t *testing.T) {
+		t.Parallel()
+
+		client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(BuildList{Count: 0, Builds: []Build{}})
+		})
+
+		_, err := client.ResolveBuildID(T.Context(), "#999999")
+		assert.Error(t, err)
+	})
+
+	T.Run("server error", func(t *testing.T) {
+		t.Parallel()
+
+		client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+			w.WriteHeader(http.StatusInternalServerError)
+		})
+
+		_, err := client.ResolveBuildID(T.Context(), "#42")
+		assert.Error(t, err)
+	})
+}
+
+func TestCleanupBuildTriggered(T *testing.T) {
+	T.Parallel()
+
+	T.Run("nil triggered", func(t *testing.T) {
+		t.Parallel()
+
+		build := Build{}
+		cleanupBuildTriggered(&build)
+		assert.Nil(t, build.Triggered)
+	})
+
+	T.Run("nil user", func(t *testing.T) {
+		t.Parallel()
+
+		build := Build{Triggered: &Triggered{Type: "vcs"}}
+		cleanupBuildTriggered(&build)
+		assert.Nil(t, build.Triggered.User)
+	})
+
+	T.Run("empty user struct removed", func(t *testing.T) {
+		t.Parallel()
+
+		build := Build{
+			Triggered: &Triggered{
+				Type: "user",
+				User: &User{}, // Empty user
+			},
+		}
+		cleanupBuildTriggered(&build)
+		assert.Nil(t, build.Triggered.User, "empty user should be nil")
+	})
+
+	T.Run("valid user preserved", func(t *testing.T) {
+		t.Parallel()
+
+		build := Build{
+			Triggered: &Triggered{
+				Type: "user",
+				User: &User{ID: 1, Username: "admin", Name: "Admin"},
+			},
+		}
+		cleanupBuildTriggered(&build)
+		assert.NotNil(t, build.Triggered.User, "valid user should be preserved")
+		assert.Equal(t, "admin", build.Triggered.User.Username)
+	})
+
+	T.Run("user with only username preserved", func(t *testing.T) {
+		t.Parallel()
+
+		build := Build{
+			Triggered: &Triggered{
+				Type: "user",
+				User: &User{Username: "testuser"},
+			},
+		}
+		cleanupBuildTriggered(&build)
+		assert.NotNil(t, build.Triggered.User, "user with username should be preserved")
+	})
+}
+
+func TestDownloadArtifactTo(T *testing.T) {
+	T.Parallel()
+
+	T.Run("successful download", func(t *testing.T) {
+		t.Parallel()
+
+		content := []byte("test artifact content 12345")
+		client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+			assert.Contains(t, r.URL.Path, "/artifacts/content/")
+			w.Header().Set("Content-Length", strconv.Itoa(len(content)))
+			w.WriteHeader(http.StatusOK)
+			_, _ = w.Write(content)
+		})
+
+		var buf bytes.Buffer
+		written, err := client.DownloadArtifactTo(T.Context(), "123", "test.txt", &buf)
+
+		require.NoError(t, err)
+		assert.Equal(t, int64(len(content)), written)
+		assert.Equal(t, content, buf.Bytes())
+	})
+
+	T.Run("URL encodes artifact path", func(t *testing.T) {
+		t.Parallel()
+
+		var escapedPath string
+		client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+			escapedPath = r.URL.EscapedPath()
+			w.WriteHeader(http.StatusOK)
+		})
+
+		var buf bytes.Buffer
+		_, _ = client.DownloadArtifactTo(T.Context(), "123", "file with spaces#1.txt", &buf)
+
+		assert.Contains(t, escapedPath, "file%20with%20spaces%231.txt")
+	})
+
+	T.Run("returns error on non-200 status", func(t *testing.T) {
+		t.Parallel()
+
+		client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+			w.WriteHeader(http.StatusNotFound)
+		})
+
+		var buf bytes.Buffer
+		_, err := client.DownloadArtifactTo(T.Context(), "123", "missing.txt", &buf)
+
+		assert.Error(t, err)
+		assert.Contains(t, err.Error(), "not found")
+	})
+
+	T.Run("uses correct auth header", func(t *testing.T) {
+		t.Parallel()
+
+		var authHeader string
+		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			authHeader = r.Header.Get("Authorization")
+			w.WriteHeader(http.StatusOK)
+		}))
+		t.Cleanup(server.Close)
+
+		client := NewClient(server.URL, "my-secret-token")
+		var buf bytes.Buffer
+		_, _ = client.DownloadArtifactTo(T.Context(), "123", "test.txt", &buf)
+
+		assert.Equal(t, "Bearer my-secret-token", authHeader)
+	})
+
+	T.Run("uses basic auth when configured", func(t *testing.T) {
+		t.Parallel()
+
+		var user, pass string
+		var hasBasicAuth bool
+		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			user, pass, hasBasicAuth = r.BasicAuth()
+			w.WriteHeader(http.StatusOK)
+		}))
+		t.Cleanup(server.Close)
+
+		client := NewClientWithBasicAuth(server.URL, "myuser", "mypass")
+		var buf bytes.Buffer
+		_, _ = client.DownloadArtifactTo(T.Context(), "123", "test.txt", &buf)
+
+		assert.True(t, hasBasicAuth)
+		assert.Equal(t, "myuser", user)
+		assert.Equal(t, "mypass", pass)
+	})
+}
+
+func TestDebugLogging(T *testing.T) {
+	T.Parallel()
+
+	T.Run("logs request/response with redacted auth when DebugFunc set", func(t *testing.T) {
+		t.Parallel()
+
+		var buf bytes.Buffer
+		client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte(`{}`))
+		})
+		client.DebugFunc = func(format string, args ...any) {
+			fmt.Fprintf(&buf, format+"\n", args...)
+		}
+
+		_, _ = client.RawRequest(T.Context(), "GET", "/api/test", nil, nil)
+
+		captured := buf.String()
+		assert.Contains(t, captured, "> GET")
+		assert.Contains(t, captured, "/api/test")
+		assert.Contains(t, captured, "> Authorization: [REDACTED]")
+		assert.Contains(t, captured, "< HTTP/1.1 200 OK")
+		assert.NotContains(t, captured, "test-token")
+		assert.NotContains(t, captured, "> Content-Length", "no request Content-Length on body-less GET")
+	})
+
+	T.Run("logs Content-Length when request has a body", func(t *testing.T) {
+		t.Parallel()
+
+		var buf bytes.Buffer
+		client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+			w.WriteHeader(http.StatusOK)
+		})
+		client.DebugFunc = func(format string, args ...any) {
+			fmt.Fprintf(&buf, format+"\n", args...)
+		}
+
+		_, _ = client.RawRequest(T.Context(), "PUT", "/api/test",
+			bytes.NewReader([]byte("hello world")), nil)
+
+		assert.Contains(t, buf.String(), "> Content-Length: 11")
+	})
+
+	T.Run("silent when DebugFunc not set", func(t *testing.T) {
+		t.Parallel()
+
+		client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+			w.WriteHeader(http.StatusOK)
+		})
+		// No DebugFunc set — should not panic or produce output
+
+		_, _ = client.RawRequest(T.Context(), "GET", "/api/test", nil, nil)
+	})
+}
+
+func TestRawRequestAcceptDefaultForNonJSONBody(T *testing.T) {
+	T.Parallel()
+
+	tests := []struct {
+		name       string
+		method     string
+		body       io.Reader
+		headers    map[string]string
+		wantAccept string
+	}{
+		{"PUT with text/plain body → */*", "PUT", bytes.NewReader([]byte("x")), map[string]string{"Content-Type": "text/plain"}, "*/*"},
+		{"POST with XML body → */*", "POST", bytes.NewReader([]byte("<x/>")), map[string]string{"Content-Type": "application/xml"}, "*/*"},
+		{"PUT with JSON body keeps application/json", "PUT", bytes.NewReader([]byte("{}")), map[string]string{"Content-Type": "application/json"}, "application/json"},
+		{"PUT with JSON body + charset param keeps application/json", "PUT", bytes.NewReader([]byte("{}")), map[string]string{"Content-Type": "application/json; charset=utf-8"}, "application/json"},
+		{"user-set Accept wins over default", "PUT", bytes.NewReader([]byte("x")), map[string]string{"Content-Type": "text/plain", "Accept": "application/xml"}, "application/xml"},
+		{"user-set Accept wins (lowercase key)", "PUT", bytes.NewReader([]byte("x")), map[string]string{"Content-Type": "text/plain", "accept": "application/xml"}, "application/xml"},
+		{"GET (no body) keeps application/json default", "GET", nil, nil, "application/json"},
+	}
+
+	for _, tc := range tests {
+		T.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			var gotAccept string
+			client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+				gotAccept = r.Header.Get("Accept")
+				w.WriteHeader(http.StatusOK)
+			})
+
+			_, err := client.RawRequest(T.Context(), tc.method, "/app/rest/x", tc.body, tc.headers)
+			require.NoError(t, err)
+			assert.Equal(t, tc.wantAccept, gotAccept)
+		})
+	}
+}
+
+func TestRawRequestNoRetryOn406WithBody(T *testing.T) {
+	T.Parallel()
+
+	var attempts int
+	var receivedBody string
+	client := setupTestServer(T, func(w http.ResponseWriter, r *http.Request) {
+		attempts++
+		buf, _ := io.ReadAll(r.Body)
+		receivedBody = string(buf)
+		w.WriteHeader(http.StatusNotAcceptable)
+	})
+
+	resp, err := client.RawRequest(T.Context(), "PUT", "/app/rest/x",
+		bytes.NewReader([]byte("hello world")),
+		map[string]string{"Content-Type": "text/plain"})
+	require.NoError(T, err)
+	assert.Equal(T, 1, attempts, "body-bearing 406 must not retry — second attempt would send empty body")
+	assert.Equal(T, "hello world", receivedBody, "first attempt must carry the body")
+	assert.Equal(T, http.StatusNotAcceptable, resp.StatusCode, "406 should propagate")
+}
+
+func TestApproveQueuedBuild(T *testing.T) {
+	T.Parallel()
+
+	T.Run("success", func(t *testing.T) {
+		t.Parallel()
+
+		client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+			assert.Equal(t, "POST", r.Method)
+			assert.Equal(t, "/app/rest/buildQueue/id:456/approve", r.URL.Path)
+
+			w.WriteHeader(http.StatusOK)
+		})
+
+		err := client.ApproveQueuedBuild("456")
+		assert.NoError(t, err)
+	})
+
+	T.Run("error not found", func(t *testing.T) {
+		t.Parallel()
+
+		client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+			w.WriteHeader(http.StatusNotFound)
+			w.Write([]byte(`{"errors":[{"message":"No build found by locator '999'."}]}`))
+		})
+
+		err := client.ApproveQueuedBuild("999")
+		assert.Error(t, err)
+	})
+}
+
+func TestRebootAgentHTTPErrors(T *testing.T) {
+	T.Parallel()
+
+	tests := []struct {
+		name       string
+		statusCode int
+		wantErr    string
+	}{
+		{
+			name:       "401 Unauthorized",
+			statusCode: http.StatusUnauthorized,
+			wantErr:    "authentication failed",
+		},
+		{
+			name:       "403 Forbidden",
+			statusCode: http.StatusForbidden,
+			wantErr:    "permission denied",
+		},
+		{
+			name:       "404 Not Found",
+			statusCode: http.StatusNotFound,
+			wantErr:    "not found",
+		},
+	}
+
+	for _, tc := range tests {
+		T.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+				assert.Equal(t, "POST", r.Method)
+				assert.Equal(t, "/remoteAccess/reboot.html", r.URL.Path)
+				w.WriteHeader(tc.statusCode)
+			})
+
+			err := client.RebootAgent(T.Context(), 42, false)
+			require.Error(t, err)
+			assert.Contains(t, err.Error(), tc.wantErr)
+		})
+	}
+}
+
+func TestGetBuildCommentServerError(T *testing.T) {
+	T.Parallel()
+
+	client := setupTestServer(T, func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Internal Server Error"))
+	})
+
+	_, err := client.GetBuildComment("123")
+	assert.Error(T, err)
+}
+
+func TestUploadDiffChangesServerError(T *testing.T) {
+	T.Parallel()
+
+	client := setupTestServer(T, func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(T, "POST", r.Method)
+		assert.Contains(T, r.URL.Path, "/uploadDiffChanges.html")
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Internal Server Error"))
+	})
+
+	_, err := client.UploadDiffChanges([]byte("diff content"), "test change")
+	require.Error(T, err)
+	assert.Contains(T, err.Error(), "Internal Server Error")
+}
+
+func TestCreateProjectServerError(T *testing.T) {
+	T.Parallel()
+
+	client := setupTestServer(T, func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(T, "POST", r.Method)
+		assert.Equal(T, "/app/rest/projects", r.URL.Path)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Internal Server Error"))
+	})
+
+	_, err := client.CreateProject(CreateProjectRequest{Name: "TestProject"})
+	assert.Error(T, err)
+}
+
+func TestCreateUserServerError(T *testing.T) {
+	T.Parallel()
+
+	client := setupTestServer(T, func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(T, "POST", r.Method)
+		assert.Equal(T, "/app/rest/users", r.URL.Path)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Internal Server Error"))
+	})
+
+	_, err := client.CreateUser(CreateUserRequest{Username: "newuser", Password: "pass"})
+	assert.Error(T, err)
+}
+
+func TestGetServerError(T *testing.T) {
+	T.Parallel()
+
+	client := setupTestServer(T, func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(T, "GET", r.Method)
+		assert.Equal(T, "/app/rest/server", r.URL.Path)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Internal Server Error"))
+	})
+
+	_, err := client.GetServer()
+	assert.Error(T, err)
+}
+
+func TestNewGuestClient(T *testing.T) {
+	T.Parallel()
+
+	client := NewGuestClient("https://example.com/")
+	assert.Equal(T, "https://example.com", client.BaseURL)
+	assert.Empty(T, client.Token)
+	assert.True(T, client.guestAuth)
+}
+
+func TestGuestClientNoAuthHeader(T *testing.T) {
+	T.Parallel()
+
+	var authHeader string
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		authHeader = r.Header.Get("Authorization")
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(Server{VersionMajor: 2024, VersionMinor: 12, BuildNumber: "176523"})
+	}))
+	T.Cleanup(server.Close)
+
+	client := NewGuestClient(server.URL)
+	_, err := client.GetServer()
+
+	require.NoError(T, err)
+	assert.Empty(T, authHeader, "guest client should not send Authorization header")
+}
+
+func TestGuestClientAPIPath(T *testing.T) {
+	T.Parallel()
+
+	tests := []struct {
+		name string
+		path string
+		want string
+	}{
+		{"rest path", "/app/rest/server", "/guestAuth/app/rest/server"},
+		{"rest path with version", "/app/rest/builds", "/guestAuth/app/rest/builds"},
+		{"non-rest path", "/downloadBuildLog.html", "/guestAuth/downloadBuildLog.html"},
+		{"already prefixed", "/guestAuth/app/rest/server", "/guestAuth/app/rest/server"},
+		{"missing leading slash", "app/rest/server", "/guestAuth/app/rest/server"},
+	}
+
+	for _, tc := range tests {
+		T.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			client := NewGuestClient("https://example.com")
+			got := client.apiPath(tc.path)
+			assert.Equal(t, tc.want, got)
+		})
+	}
+}
+
+func TestGuestClientAPIPathWithVersion(T *testing.T) {
+	T.Parallel()
+
+	client := NewGuestClient("https://example.com", WithAPIVersion("2023.1"))
+	got := client.apiPath("/app/rest/builds")
+	assert.Equal(T, "/guestAuth/app/rest/2023.1/builds", got)
+}
+
+func TestGuestClientUsesGuestAuthPrefix(T *testing.T) {
+	T.Parallel()
+
+	var requestPath string
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		requestPath = r.URL.Path
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(Server{VersionMajor: 2024, VersionMinor: 12})
+	}))
+	T.Cleanup(server.Close)
+
+	client := NewGuestClient(server.URL)
+	_, _ = client.GetServer()
+
+	assert.Equal(T, "/guestAuth/app/rest/server", requestPath)
+}
+
+func TestWaitForBuild(T *testing.T) {
+	T.Parallel()
+
+	T.Run("polls with lightweight fields then fetches full build", func(t *testing.T) {
+		t.Parallel()
+
+		pollCount := 0
+		var progressCalls []int
+		client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Content-Type", "application/json")
+
+			if r.URL.Query().Get("fields") == "state,status,percentageComplete" {
+				pollCount++
+				state := buildState{State: "running", PercentageComplete: pollCount * 30}
+				if pollCount >= 3 {
+					state = buildState{State: "finished", Status: "SUCCESS"}
+				}
+				json.NewEncoder(w).Encode(state)
+				return
+			}
+
+			json.NewEncoder(w).Encode(Build{
+				ID:          42,
+				Number:      "7",
+				BuildTypeID: "MyJob",
+				State:       "finished",
+				Status:      "SUCCESS",
+				WebURL:      "https://tc.example.com/build/42",
+			})
+		})
+
+		build, err := client.WaitForBuild(T.Context(), "42", WaitForBuildOptions{
+			Interval: 10 * time.Millisecond,
+			OnProgress: func(state, status string, percent int) error {
+				progressCalls = append(progressCalls, percent)
+				return nil
+			},
+		})
+
+		require.NoError(t, err)
+		assert.Equal(t, 42, build.ID)
+		assert.Equal(t, "SUCCESS", build.Status)
+		assert.GreaterOrEqual(t, pollCount, 3)
+		assert.NotEmpty(t, progressCalls)
+	})
+
+	T.Run("retries when finished status is UNKNOWN", func(t *testing.T) {
+		t.Parallel()
+
+		fetchCount := 0
+		client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Content-Type", "application/json")
+
+			if r.URL.Query().Get("fields") == "state,status,percentageComplete" {
+				json.NewEncoder(w).Encode(buildState{State: "finished", Status: "UNKNOWN"})
+				return
+			}
+
+			// Full build fetch — first two return UNKNOWN, third returns SUCCESS
+			fetchCount++
+			status := "UNKNOWN"
+			if fetchCount >= 3 {
+				status = "SUCCESS"
+			}
+			json.NewEncoder(w).Encode(Build{
+				ID:     42,
+				Number: "7",
+				State:  "finished",
+				Status: status,
+			})
+		})
+
+		build, err := client.WaitForBuild(T.Context(), "42", WaitForBuildOptions{
+			Interval: 10 * time.Millisecond,
+		})
+
+		require.NoError(t, err)
+		assert.Equal(t, "SUCCESS", build.Status, "should retry until status settles")
+		assert.GreaterOrEqual(t, fetchCount, 3)
+	})
+
+	T.Run("respects context cancellation", func(t *testing.T) {
+		t.Parallel()
+
+		client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(buildState{State: "running"})
+		})
+
+		ctx, cancel := context.WithTimeout(T.Context(), 50*time.Millisecond)
+		defer cancel()
+
+		_, err := client.WaitForBuild(ctx, "1", WaitForBuildOptions{
+			Interval: 10 * time.Millisecond,
+		})
+
+		assert.ErrorIs(t, err, context.DeadlineExceeded)
+	})
+}
+
+func TestReadOnlyMode(T *testing.T) {
+	T.Parallel()
+
+	T.Run("blocks non-GET requests", func(t *testing.T) {
+		t.Parallel()
+
+		client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+			t.Fatal("request should not reach server in read-only mode")
+		})
+		client.ReadOnly = true
+
+		// POST via typed method
+		_, err := client.RunBuild("SomeJob", RunBuildOptions{})
+		require.ErrorIs(t, err, ErrReadOnly)
+		_, ok := errors.AsType[*NetworkError](err)
+		require.False(t, ok, "ErrReadOnly must not be wrapped in NetworkError; got: %v", err)
+		ue, ok := errors.AsType[UserError](err)
+		require.True(t, ok)
+		require.Equal(t, CatReadOnly, ue.Category())
+
+		// PUT via RawRequest
+		_, err = client.RawRequest(T.Context(), "PUT", "/app/rest/something", nil, nil)
+		require.ErrorIs(t, err, ErrReadOnly)
+		_, ok = errors.AsType[*NetworkError](err)
+		require.False(t, ok, "ErrReadOnly must not be wrapped in NetworkError; got: %v", err)
+	})
+
+	T.Run("allows GET requests", func(t *testing.T) {
+		t.Parallel()
+
+		client := setupTestServer(t, func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(Server{VersionMajor: 2024, VersionMinor: 12})
+		})
+		client.ReadOnly = true
+
+		server, err := client.GetServer()
+		require.NoError(t, err)
+		assert.Equal(t, 2024, server.VersionMajor)
+	})
+
+	T.Run("WithReadOnly option", func(t *testing.T) {
+		t.Parallel()
+
+		client := NewClient("https://example.com", "token", WithReadOnly(true))
+		assert.True(t, client.ReadOnly)
+	})
+}

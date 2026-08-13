@@ -1,0 +1,190 @@
+package job
+
+import (
+	"slices"
+	"strings"
+
+	"github.com/JetBrains/teamcity-cli/api"
+	"github.com/JetBrains/teamcity-cli/internal/cmdutil"
+	"github.com/JetBrains/teamcity-cli/internal/completion"
+	"github.com/JetBrains/teamcity-cli/internal/output"
+	"github.com/spf13/cobra"
+)
+
+type jobListOptions struct {
+	project string
+	all     bool
+	cmdutil.ListFlags
+}
+
+func newJobListCmd(f *cmdutil.Factory) *cobra.Command {
+	opts := &jobListOptions{}
+
+	cmd := &cobra.Command{
+		Use:   "list",
+		Short: "List jobs",
+		Long: `List jobs across all projects or in a specific project.
+
+Jobs backed by pipelines are hidden by default; pass --all to include
+them alongside classic build configurations.`,
+		Aliases: []string{"ls"},
+		Example: `  teamcity job list
+  teamcity job list --project Falcon
+  teamcity job list --json
+  teamcity job list --json=id,name,webUrl
+  teamcity job list --plain
+  teamcity job list --plain --no-header`,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			opts.project = f.ResolveProject(opts.project)
+			return cmdutil.RunList(f, cmd, &opts.ListFlags, &api.BuildTypeFields, opts.fetch)
+		},
+	}
+
+	cmd.Flags().StringVarP(&opts.project, "project", "p", "", "Filter by project ID")
+	cmd.Flags().BoolVar(&opts.all, "all", false, "Include pipelines")
+	cmdutil.AddListFlags(cmd, &opts.ListFlags, 30)
+
+	_ = cmd.RegisterFlagCompletionFunc("project", completion.LinkedProjects())
+
+	return cmd
+}
+
+func (opts *jobListOptions) fetch(client api.ClientInterface, fields []string) (*cmdutil.ListResult, error) {
+	pipelineProjectIDs := map[string]bool{}
+	if !opts.all && client.SupportsFeature("pipelines") {
+		if pipelines, _, err := client.GetPipelines(api.PipelinesOptions{Limit: 10000}); err == nil {
+			for _, p := range pipelines.Pipelines {
+				pipelineProjectIDs[p.ID] = true
+			}
+		}
+	}
+
+	limit := opts.Limit
+	if len(pipelineProjectIDs) > 0 {
+		limit += limit
+	}
+
+	fetchFields := fields
+	if len(pipelineProjectIDs) > 0 && len(fields) > 0 && !slices.Contains(fields, "projectId") {
+		fetchFields = append(slices.Clone(fields), "projectId")
+	}
+
+	jobs, truncated, err := client.GetBuildTypes(api.BuildTypesOptions{
+		Project: opts.project,
+		Limit:   limit,
+		Fields:  fetchFields,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	if len(pipelineProjectIDs) > 0 {
+		filtered := jobs.BuildTypes[:0]
+		for _, j := range jobs.BuildTypes {
+			if !isPipelineOwned(j.ProjectID, pipelineProjectIDs) {
+				filtered = append(filtered, j)
+			}
+		}
+		jobs.BuildTypes = filtered
+		jobs.Count = len(filtered)
+	}
+	if opts.Limit > 0 && len(jobs.BuildTypes) > opts.Limit {
+		jobs.BuildTypes = jobs.BuildTypes[:opts.Limit]
+		jobs.Count = opts.Limit
+		truncated = true
+	}
+
+	headers := []string{"ID", "NAME", "PROJECT", "STATUS"}
+	var rows [][]string
+
+	for _, j := range jobs.BuildTypes {
+		status := output.Green("Active")
+		if j.Paused {
+			status = output.Faint("Paused")
+		}
+
+		rows = append(rows, []string{
+			j.ID,
+			j.Name,
+			j.ProjectName,
+			status,
+		})
+	}
+
+	return &cmdutil.ListResult{
+		JSON:      jobs,
+		Table:     cmdutil.ListTable{Headers: headers, Rows: rows, FlexCols: []int{0, 1, 2}},
+		EmptyMsg:  "No jobs found",
+		EmptyTip:  output.TipNoJobs,
+		Truncated: truncated,
+	}, nil
+}
+
+func newJobViewCmd(f *cmdutil.Factory) *cobra.Command {
+	opts := &cmdutil.ViewOptions{}
+	cmd := &cobra.Command{
+		Use:               "view [job-id]",
+		Short:             "View job details",
+		Long:              "View details of a TeamCity build configuration. With no argument, uses the linked default job from teamcity.toml.",
+		Aliases:           []string{"show"},
+		Args:              cobra.MaximumNArgs(1),
+		ValidArgsFunction: completion.LinkedJobs(),
+		Example: `  teamcity job view Falcon_Build
+  teamcity job view Falcon_Build --web
+  teamcity job view              # uses linked default job (see 'teamcity link')`,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			jobID, _, err := cmdutil.ResolveOwnerID("job", args, 0, f.ResolveDefaultJob)
+			if err != nil {
+				return err
+			}
+			return runJobView(f, jobID, opts)
+		},
+	}
+	cmdutil.AddViewFlags(cmd, opts)
+	return cmd
+}
+
+func runJobView(f *cmdutil.Factory, jobID string, opts *cmdutil.ViewOptions) error {
+	client, err := f.Client()
+	if err != nil {
+		return err
+	}
+
+	buildType, err := client.GetBuildType(jobID)
+	if err != nil {
+		return err
+	}
+
+	if done, err := opts.EmitWebURL(f.Printer, buildType.WebURL); done {
+		return err
+	}
+
+	if opts.JSON {
+		return f.Printer.PrintJSON(buildType)
+	}
+
+	f.Printer.PrintViewHeader(buildType.Name, buildType.WebURL, func() {
+		f.Printer.PrintField("ID", buildType.ID)
+		f.Printer.PrintField("Project", buildType.ProjectName+" ("+buildType.ProjectID+")")
+
+		status := output.Green("Active")
+		if buildType.Paused {
+			status = output.Faint("Paused")
+		}
+		f.Printer.PrintField("Status", status)
+	})
+
+	return nil
+}
+
+func isPipelineOwned(projectID string, pipelineProjectIDs map[string]bool) bool {
+	if pipelineProjectIDs[projectID] {
+		return true
+	}
+	for pid := range pipelineProjectIDs {
+		if strings.HasPrefix(projectID, pid+"_") {
+			return true
+		}
+	}
+	return false
+}

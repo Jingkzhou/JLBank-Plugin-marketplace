@@ -1,0 +1,751 @@
+package project
+
+import (
+	"cmp"
+	"errors"
+	"fmt"
+	"io"
+	"strings"
+
+	"github.com/JetBrains/teamcity-cli/api"
+	"github.com/JetBrains/teamcity-cli/internal/cmdutil"
+	"github.com/JetBrains/teamcity-cli/internal/completion"
+	"github.com/JetBrains/teamcity-cli/internal/config"
+	"github.com/JetBrains/teamcity-cli/internal/git"
+	"github.com/JetBrains/teamcity-cli/internal/output"
+	"github.com/charmbracelet/huh"
+	"github.com/spf13/cobra"
+)
+
+func newVcsCmd(f *cmdutil.Factory) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "vcs",
+		Short: "Manage VCS roots",
+		Long: `List, view, create, test, and delete VCS roots in a project.
+
+A VCS root defines how TeamCity connects to a version control
+repository (Git, Mercurial, Perforce, SVN, ...) so that jobs can
+check out sources and react to changes.
+
+See: https://www.jetbrains.com/help/teamcity/vcs-root.html`,
+		Args: cobra.NoArgs,
+		RunE: cmdutil.SubcommandRequired,
+	}
+
+	cmd.AddCommand(newVcsListCmd(f))
+	cmd.AddCommand(newVcsViewCmd(f))
+	cmd.AddCommand(newVcsCreateCmd(f))
+	cmd.AddCommand(newVcsTestCmd(f))
+	cmd.AddCommand(newVcsDeleteCmd(f))
+
+	return cmd
+}
+
+type vcsListOptions struct {
+	project string
+	cmdutil.ListFlags
+	cmdutil.ViewOptions
+}
+
+func newVcsListCmd(f *cmdutil.Factory) *cobra.Command {
+	opts := &vcsListOptions{}
+
+	cmd := &cobra.Command{
+		Use:     "list",
+		Short:   "List VCS roots",
+		Long:    `List VCS roots visible to a project, including inherited from parent projects.`,
+		Aliases: []string{"ls"},
+		Example: `  teamcity project vcs list
+  teamcity project vcs list --project MyProject
+  teamcity project vcs list --project MyProject --json
+  teamcity project vcs list --plain
+  teamcity project vcs list --project MyProject --web`,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			if opts.Web {
+				if err := cmdutil.ValidateLimit(opts.Limit); err != nil {
+					return err
+				}
+			}
+			path := "/admin/editProject.html?projectId=" + cmp.Or(opts.project, "_Root") + "&tab=projectVcsRoots"
+			if done, err := opts.EmitListWebURL(f.Printer, config.ResolveServerURL(), path); done {
+				return err
+			}
+			return cmdutil.RunList(f, cmd, &opts.ListFlags, &api.VcsRootFields, opts.fetch)
+		},
+	}
+
+	cmd.Flags().StringVarP(&opts.project, "project", "p", "", "Project ID (default: _Root)")
+	cmdutil.AddListFlags(cmd, &opts.ListFlags, 100)
+	cmdutil.AddWebFlags(cmd, &opts.ViewOptions)
+
+	_ = cmd.RegisterFlagCompletionFunc("project", completion.LinkedProjects())
+
+	return cmd
+}
+
+func (opts *vcsListOptions) fetch(client api.ClientInterface, fields []string) (*cmdutil.ListResult, error) {
+	roots, truncated, err := client.GetVcsRoots(api.VcsRootsOptions{
+		Project: cmp.Or(opts.project, "_Root"),
+		Limit:   opts.Limit,
+		Fields:  fields,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	headers := []string{"ID", "NAME", "TYPE", "PROJECT"}
+	var rows [][]string
+
+	for _, r := range roots.VcsRoot {
+		projectID := ""
+		if r.Project != nil {
+			projectID = r.Project.ID
+		}
+
+		rows = append(rows, []string{
+			r.ID,
+			r.Name,
+			vcsTypeName(r.VcsName),
+			projectID,
+		})
+	}
+
+	return &cmdutil.ListResult{
+		JSON:      roots,
+		Table:     cmdutil.ListTable{Headers: headers, Rows: rows, FlexCols: []int{0, 1, 2, 3}},
+		EmptyMsg:  "No VCS roots found",
+		Truncated: truncated,
+	}, nil
+}
+
+func newVcsViewCmd(f *cmdutil.Factory) *cobra.Command {
+	opts := &cmdutil.ViewOptions{}
+
+	cmd := &cobra.Command{
+		Use:     "view <vcs-root-id>",
+		Short:   "View VCS root details",
+		Aliases: []string{"show"},
+		Args:    cobra.ExactArgs(1),
+		Example: `  teamcity project vcs view MyProject_GitHubRepo
+  teamcity project vcs view MyProject_GitHubRepo --json
+  teamcity project vcs view MyProject_GitHubRepo --web`,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return runVcsView(f, args[0], opts)
+		},
+	}
+
+	cmdutil.AddViewFlags(cmd, opts)
+
+	return cmd
+}
+
+var vcsTypeNames = map[string]string{
+	"jetbrains.git": "Git",
+	"perforce":      "Perforce Helix Core",
+	"svn":           "Subversion",
+	"mercurial":     "Mercurial",
+	"tfs":           "Team Foundation Version Control",
+}
+
+func vcsTypeName(vcsName string) string {
+	if name, ok := vcsTypeNames[vcsName]; ok {
+		return name
+	}
+	return vcsName
+}
+
+var vcsPropertyLabels = map[string]string{
+	"url":                   "URL",
+	"branch":                "Branch",
+	"teamcity:branchSpec":   "Branch Spec",
+	"authMethod":            "Auth Method",
+	"username":              "Username",
+	"secure:password":       "Password",
+	"secure:passphrase":     "Passphrase",
+	"submoduleCheckout":     "Submodule Checkout",
+	"agentCleanPolicy":      "Agent Clean Policy",
+	"agentCleanFilesPolicy": "Agent Clean Files Policy",
+	"ignoreKnownHosts":      "Ignore Known Hosts",
+	"useAlternates":         "Use Alternates",
+	"usernameStyle":         "Username Style",
+	"reportTagRevisions":    "Report Tag Revisions",
+	"tokenId":               "Token ID",
+	"teamcitySshKey":        "SSH Key",
+	"privateKeyPath":        "Private Key Path",
+}
+
+func runVcsView(f *cmdutil.Factory, id string, opts *cmdutil.ViewOptions) error {
+	client, err := f.Client()
+	if err != nil {
+		return err
+	}
+
+	root, err := client.GetVcsRoot(id)
+	if err != nil {
+		return err
+	}
+
+	if done, err := opts.EmitWebURL(f.Printer, vcsRootEditURL(root.ID)); done {
+		return err
+	}
+
+	if opts.JSON {
+		return f.Printer.PrintJSON(root)
+	}
+
+	webURL := vcsRootEditURL(root.ID)
+	f.Printer.PrintViewHeader(root.Name, webURL, func() {
+		f.Printer.PrintField("ID", root.ID)
+		f.Printer.PrintField("Type", vcsTypeName(root.VcsName))
+		if root.Project != nil {
+			f.Printer.PrintField("Project", root.Project.ID)
+		}
+		if root.Properties != nil {
+			for _, p := range root.Properties.Property {
+				label := vcsPropertyLabel(p.Name)
+				value := p.Value
+				if strings.HasPrefix(p.Name, "secure:") {
+					value = "********"
+				}
+				f.Printer.PrintField(label, value)
+			}
+		}
+	})
+
+	return nil
+}
+
+func vcsPropertyLabel(name string) string {
+	if label, ok := vcsPropertyLabels[name]; ok {
+		return label
+	}
+	return name
+}
+
+func vcsRootEditURL(id string) string {
+	return fmt.Sprintf("%s/admin/editVcsRoot.html?vcsRootId=%s", config.ResolveServerURL(), id)
+}
+
+const (
+	authPassword  = "password"
+	authSSHKey    = "ssh-key"
+	authSSHAgent  = "ssh-agent"
+	authSSHFile   = "ssh-file"
+	authToken     = "token"
+	authAnonymous = "anonymous"
+)
+
+var authMethodLabels = []string{
+	"Password / Personal Access Token",
+	"SSH Key (uploaded to TeamCity)",
+	"SSH Key (default on build agent)",
+	"SSH Key (custom path on agent)",
+	"Access Token (via project connection)",
+	"Anonymous",
+}
+
+var authMethodValues = []string{
+	authPassword,
+	authSSHKey,
+	authSSHAgent,
+	authSSHFile,
+	authToken,
+	authAnonymous,
+}
+
+type vcsCreateOptions struct {
+	project      string
+	repoURL      string
+	name         string
+	branch       string
+	branchSpec   string
+	auth         string
+	username     string
+	password     string
+	stdin        bool
+	sshKeyName   string
+	keyPath      string
+	passphrase   string
+	connectionID string
+	noTest       bool
+}
+
+func newVcsCreateCmd(f *cmdutil.Factory) *cobra.Command {
+	opts := &vcsCreateOptions{}
+
+	cmd := &cobra.Command{
+		Use:   "create",
+		Short: "Create a VCS root",
+		Long: `Create a new Git VCS root in a project.
+
+In interactive mode, guides you through URL, name, and authentication setup.
+Tests the connection before creating unless --no-test is specified.`,
+		Example: `  # Interactive wizard
+  teamcity project vcs create
+
+  # Non-interactive with password/PAT
+  teamcity project vcs create --url https://github.com/org/repo.git --auth password --username oauth2 --password ghp_xxx
+
+  # Non-interactive with SSH key uploaded to TeamCity
+  teamcity project vcs create --url git@github.com:org/repo.git --auth ssh-key --ssh-key-name my-key
+
+  # Non-interactive with anonymous access
+  teamcity project vcs create --url https://github.com/org/repo.git --auth anonymous
+
+  # Skip connection test
+  teamcity project vcs create --url https://github.com/org/repo.git --auth anonymous --no-test`,
+		Args: cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return runVcsCreate(f, opts)
+		},
+	}
+
+	cmd.Flags().StringVarP(&opts.project, "project", "p", "", "Project ID")
+	cmd.Flags().StringVar(&opts.repoURL, "url", "", "Repository URL")
+	cmd.Flags().StringVar(&opts.name, "name", "", "Display name (auto-generated from URL if omitted)")
+	cmd.Flags().StringVar(&opts.branch, "branch", "refs/heads/main", "Default branch")
+	cmd.Flags().StringVar(&opts.branchSpec, "branch-spec", "", "Branch specification")
+	cmd.Flags().StringVar(&opts.auth, "auth", "", "Auth method: password|ssh-key|ssh-agent|ssh-file|token|anonymous")
+	cmd.Flags().StringVar(&opts.username, "username", "", "Username")
+	cmd.Flags().StringVar(&opts.password, "password", "", "Password or personal access token")
+	cmd.Flags().BoolVar(&opts.stdin, "stdin", false, "Read password from stdin")
+	cmd.Flags().StringVar(&opts.sshKeyName, "ssh-key-name", "", "Name of SSH key uploaded to TeamCity")
+	cmd.Flags().StringVar(&opts.keyPath, "key-path", "", "Path to SSH key file on agent")
+	cmd.Flags().StringVar(&opts.passphrase, "passphrase", "", "SSH key passphrase")
+	cmd.Flags().StringVar(&opts.connectionID, "connection-id", "", "OAuth connection ID")
+	cmd.Flags().BoolVar(&opts.noTest, "no-test", false, "Skip connection test before creating")
+
+	_ = cmd.RegisterFlagCompletionFunc("auth", completion.VCSAuthMethods())
+	_ = cmd.RegisterFlagCompletionFunc("project", completion.LinkedProjects())
+
+	return cmd
+}
+
+func runVcsCreate(f *cmdutil.Factory, opts *vcsCreateOptions) error {
+	client, err := f.Client()
+	if err != nil {
+		return err
+	}
+
+	interactive := f.IsInteractive()
+
+	if interactive {
+		if err := runInteractiveForm(f, &opts.project, api.PermissionEditProject, formField{title: "Repository URL", value: &opts.repoURL}); err != nil {
+			return err
+		}
+	}
+	if opts.project == "" {
+		return api.RequiredFlag("project")
+	}
+	if opts.repoURL == "" {
+		return api.RequiredFlag("url")
+	}
+
+	projectID := opts.project
+	repoURL := opts.repoURL
+
+	name := opts.name
+	if name == "" {
+		name = cmp.Or(git.RepoPath(repoURL), repoURL)
+	}
+
+	authMethod := opts.auth
+	if authMethod == "" && opts.connectionID != "" {
+		authMethod = authToken
+	}
+	if authMethod == "" {
+		if !interactive {
+			authMethod = inferAuthFromURL(repoURL)
+		} else {
+			authMethod = inferAuthFromURL(repoURL)
+			options := make([]huh.Option[string], len(authMethodValues))
+			for i, v := range authMethodValues {
+				options[i] = huh.NewOption(authMethodLabels[i], v)
+			}
+			if err := cmdutil.Select(f.Printer, "Authentication method", options, &authMethod); err != nil {
+				return err
+			}
+		}
+	}
+	if opts.connectionID != "" && authMethod != authToken {
+		return api.Validation(
+			"--connection-id requires --auth token",
+			fmt.Sprintf("Drop --connection-id, or use --auth token (got --auth %s)", authMethod),
+		)
+	}
+
+	props, testReq, err := resolveAuth(f, client, projectID, authMethod, opts, interactive)
+	if err != nil {
+		return err
+	}
+
+	props = append(props,
+		api.Property{Name: "url", Value: repoURL},
+		api.Property{Name: "branch", Value: opts.branch},
+	)
+	if opts.branchSpec != "" {
+		props = append(props, api.Property{Name: "teamcity:branchSpec", Value: opts.branchSpec})
+	}
+
+	testReq.URL = repoURL
+	testReq.VcsName = "jetbrains.git"
+
+	if !opts.noTest && client.SupportsFeature("vcs_test_connection") {
+		if err := runConnectionTest(f, client, testReq, projectID); err != nil {
+			return err
+		}
+	}
+
+	root := api.VcsRoot{
+		Name:         name,
+		VcsName:      "jetbrains.git",
+		Project:      &api.Project{ID: projectID},
+		ConnectionID: testReq.ConnectionID,
+		Properties: &api.PropertyList{
+			Property: props,
+		},
+	}
+
+	created, err := client.CreateVcsRoot(root)
+	if err != nil {
+		return fmt.Errorf("failed to create VCS root: %w", err)
+	}
+
+	f.Printer.Success("Created VCS root %q (%s) in project %s", created.Name, created.ID, projectID)
+	return nil
+}
+
+func resolveAuth(f *cmdutil.Factory, client api.ClientInterface, projectID, authMethod string, opts *vcsCreateOptions, interactive bool) ([]api.Property, api.TestConnectionRequest, error) {
+	var props []api.Property
+	var testReq api.TestConnectionRequest
+
+	switch authMethod {
+	case authPassword:
+		username := cmp.Or(opts.username, "oauth2")
+		password := opts.password
+
+		if interactive {
+			if err := cmdutil.PromptString(f.Printer, "Username", "", &username); err != nil {
+				return nil, testReq, err
+			}
+			if password == "" && !opts.stdin {
+				if err := cmdutil.PromptSecret("Password / Token", &password); err != nil {
+					return nil, testReq, err
+				}
+			}
+		}
+		if password == "" && opts.stdin {
+			data, err := readStdin(f)
+			if err != nil {
+				return nil, testReq, err
+			}
+			password = data
+		}
+		if password == "" {
+			return nil, testReq, api.Validation(
+				"password is required for password auth",
+				"Use --password, --stdin, or run interactively",
+			)
+		}
+
+		props = append(props,
+			api.Property{Name: "authMethod", Value: "PASSWORD"},
+			api.Property{Name: "username", Value: username},
+			api.Property{Name: "secure:password", Value: password},
+		)
+		testReq.Username = username
+		testReq.Password = password
+
+	case authSSHKey:
+		keyName := opts.sshKeyName
+		if keyName == "" {
+			if !interactive {
+				return nil, testReq, api.RequiredFlag("ssh-key-name")
+			}
+			names, err := sshKeyNames(client, projectID)
+			if err != nil {
+				return nil, testReq, fmt.Errorf("failed to list SSH keys: %w", err)
+			}
+			if len(names) == 0 {
+				return nil, testReq, fmt.Errorf("no SSH keys uploaded to project %s - upload one with: teamcity project ssh upload", projectID)
+			}
+			options := make([]huh.Option[string], len(names))
+			for i, n := range names {
+				options[i] = huh.NewOption(n, n)
+			}
+			if err := cmdutil.Select(f.Printer, "SSH key", options, &keyName); err != nil {
+				return nil, testReq, err
+			}
+		}
+		props = append(props,
+			api.Property{Name: "authMethod", Value: "TEAMCITY_SSH_KEY"},
+			api.Property{Name: "teamcitySshKey", Value: keyName},
+			api.Property{Name: "username", Value: "git"},
+		)
+		testReq.SSHKey = &api.SSHKeyRef{Name: keyName}
+		testReq.IsPrivate = true
+
+	case authSSHAgent:
+		props = append(props,
+			api.Property{Name: "authMethod", Value: "PRIVATE_KEY_DEFAULT"},
+			api.Property{Name: "username", Value: "git"},
+		)
+		testReq.IsPrivate = true
+
+	case authSSHFile:
+		keyPath := opts.keyPath
+		if keyPath == "" {
+			if !interactive {
+				return nil, testReq, api.RequiredFlag("key-path")
+			}
+			if err := cmdutil.PromptString(f.Printer, "Path to SSH key on build agent", "", &keyPath); err != nil {
+				return nil, testReq, err
+			}
+		}
+		props = append(props,
+			api.Property{Name: "authMethod", Value: "PRIVATE_KEY_FILE"},
+			api.Property{Name: "privateKeyPath", Value: keyPath},
+			api.Property{Name: "username", Value: "git"},
+		)
+		if opts.passphrase != "" {
+			props = append(props, api.Property{Name: "secure:passphrase", Value: opts.passphrase})
+		}
+		testReq.IsPrivate = true
+
+	case authToken:
+		if opts.connectionID == "" {
+			if !interactive {
+				return nil, testReq, api.RequiredFlag("connection-id")
+			}
+			ids, labels, err := connectionOptions(client, projectID)
+			if err != nil {
+				return nil, testReq, fmt.Errorf("failed to list connections: %w", err)
+			}
+			if len(ids) == 0 {
+				return nil, testReq, fmt.Errorf("no VCS-capable connections found in project %s", projectID)
+			}
+			options := make([]huh.Option[string], len(ids))
+			for i, id := range ids {
+				options[i] = huh.NewOption(labels[i], id)
+			}
+			if err := cmdutil.Select(f.Printer, "Connection", options, &opts.connectionID); err != nil {
+				return nil, testReq, err
+			}
+		} else {
+			ptype, err := lookupConnectionProviderType(client, projectID, opts.connectionID)
+			if err != nil {
+				return nil, testReq, err
+			}
+			if !vcsCapableProviders[ptype] {
+				return nil, testReq, api.Validation(
+					fmt.Sprintf("connection %s (%s) cannot back a VCS root", opts.connectionID, ptype),
+					"Use a GitHub/GitLab/Bitbucket/Azure DevOps/Space connection",
+				)
+			}
+		}
+		testReq.ConnectionID = opts.connectionID
+
+	case authAnonymous:
+		props = append(props,
+			api.Property{Name: "authMethod", Value: "ANONYMOUS"},
+		)
+
+	default:
+		return nil, testReq, fmt.Errorf("unknown auth method: %s", authMethod)
+	}
+
+	return props, testReq, nil
+}
+
+func readStdin(f *cmdutil.Factory) (string, error) {
+	data, err := io.ReadAll(f.IOStreams.In)
+	if err != nil {
+		return "", fmt.Errorf("failed to read from stdin: %w", err)
+	}
+	return strings.TrimRight(string(data), "\r\n"), nil
+}
+
+func isSSHURL(repoURL string) bool {
+	if strings.HasPrefix(repoURL, "ssh://") {
+		return true
+	}
+	return strings.Contains(repoURL, "@") && !strings.Contains(repoURL, "://")
+}
+
+func inferAuthFromURL(repoURL string) string {
+	if isSSHURL(repoURL) {
+		return authSSHKey
+	}
+	return authAnonymous
+}
+
+func newVcsTestCmd(f *cmdutil.Factory) *cobra.Command {
+	var connectionID string
+	cmd := &cobra.Command{
+		Use:     "test <vcs-root-id>",
+		Short:   "Test a VCS root connection",
+		Long:    `Test the connection for an existing VCS root.`,
+		Args:    cobra.ExactArgs(1),
+		Example: `  teamcity project vcs test MyProject_GitHubRepo`,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return runVcsTest(f, args[0], connectionID)
+		},
+	}
+	cmd.Flags().StringVar(&connectionID, "connection-id", "", "Connection ID to test against (required for token-backed roots whose connection isn't returned by GET)")
+
+	return cmd
+}
+
+func runVcsTest(f *cmdutil.Factory, id, overrideConnID string) error {
+	client, err := f.Client()
+	if err != nil {
+		return err
+	}
+
+	if !client.SupportsFeature("vcs_test_connection") {
+		return errors.New("connection testing requires TeamCity 2024.12 or later")
+	}
+
+	root, err := client.GetVcsRoot(id)
+	if err != nil {
+		return err
+	}
+
+	projectID := "_Root"
+	if root.Project != nil {
+		projectID = root.Project.ID
+	}
+
+	req, missingConn := buildTestRequestFromRoot(root)
+	if overrideConnID != "" {
+		ptype, err := lookupConnectionProviderType(client, projectID, overrideConnID)
+		if err != nil {
+			return err
+		}
+		if !vcsCapableProviders[ptype] {
+			return api.Validation(
+				fmt.Sprintf("connection %s (%s) cannot back a VCS root", overrideConnID, ptype),
+				"Use a GitHub/GitLab/Bitbucket/Azure DevOps/Space connection",
+			)
+		}
+		req.ConnectionID = overrideConnID
+	} else if missingConn {
+		return api.Validation(
+			fmt.Sprintf("VCS root %s authenticates via a connection that the server doesn't return on GET", id),
+			"Pass --connection-id <id> to test, or test from the TeamCity UI",
+		)
+	}
+	if err := runConnectionTest(f, client, req, projectID); err != nil {
+		return err
+	}
+	f.Printer.Success("Connection to %q is working", root.Name)
+	return nil
+}
+
+func runConnectionTest(f *cmdutil.Factory, client api.ClientInterface, req api.TestConnectionRequest, projectID string) error {
+	_, _ = fmt.Fprint(f.Printer.ErrOut, "Testing connection... ")
+	result, err := client.TestVcsConnection(req, projectID)
+	if err != nil {
+		_, _ = fmt.Fprintln(f.Printer.ErrOut, output.Red(output.Sym().Cross))
+		return fmt.Errorf("connection test failed: %w", err)
+	}
+	if result.Status != "OK" {
+		_, _ = fmt.Fprintln(f.Printer.ErrOut, output.Red(output.Sym().Cross))
+		msg := "connection test failed"
+		if len(result.Errors) > 0 {
+			msg = result.Errors[0].Message
+		}
+		if req.ConnectionID != "" && strings.Contains(msg, "Malformed request") {
+			f.Printer.Tip("First-time use of this connection requires authorization. Run: %s",
+				output.Cyan(fmt.Sprintf("teamcity project connection authorize %s -p %s", req.ConnectionID, projectID)))
+		}
+		return fmt.Errorf("%s", msg)
+	}
+	_, _ = fmt.Fprintln(f.Printer.ErrOut, output.Green(output.Sym().Check))
+	return nil
+}
+
+// buildTestRequestFromRoot builds a TestConnectionRequest from a fetched VCS root.
+// missingConn is true when the root authenticates via ACCESS_TOKEN but the
+// server didn't return connectionId on GET, so the caller must supply it.
+func buildTestRequestFromRoot(root *api.VcsRoot) (req api.TestConnectionRequest, missingConn bool) {
+	req = api.TestConnectionRequest{
+		VcsName:      root.VcsName,
+		ConnectionID: root.ConnectionID,
+	}
+
+	if root.Properties == nil {
+		return req, false
+	}
+
+	var authMethod string
+	for _, p := range root.Properties.Property {
+		switch p.Name {
+		case "url":
+			req.URL = p.Value
+		case "authMethod":
+			authMethod = p.Value
+		case "username":
+			req.Username = p.Value
+		case "teamcitySshKey":
+			req.SSHKey = &api.SSHKeyRef{Name: p.Value}
+		}
+	}
+
+	switch authMethod {
+	case "TEAMCITY_SSH_KEY", "PRIVATE_KEY_DEFAULT", "PRIVATE_KEY_FILE":
+		req.IsPrivate = true
+	}
+
+	missingConn = authMethod == "ACCESS_TOKEN" && req.ConnectionID == ""
+	return req, missingConn
+}
+
+type vcsDeleteOptions struct {
+	yes bool
+}
+
+func newVcsDeleteCmd(f *cmdutil.Factory) *cobra.Command {
+	opts := &vcsDeleteOptions{}
+
+	cmd := &cobra.Command{
+		Use:     "delete <vcs-root-id>",
+		Short:   "Delete a VCS root",
+		Aliases: []string{"rm"},
+		Args:    cobra.ExactArgs(1),
+		Example: `  teamcity project vcs delete MyProject_GitHubRepo
+  teamcity project vcs delete MyProject_GitHubRepo --yes`,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return runVcsDelete(f, args[0], opts)
+		},
+	}
+
+	cmd.Flags().BoolVarP(&opts.yes, "yes", "y", false, "Skip confirmation prompt")
+
+	return cmd
+}
+
+func runVcsDelete(f *cmdutil.Factory, id string, opts *vcsDeleteOptions) error {
+	client, err := f.Client()
+	if err != nil {
+		return err
+	}
+
+	if !opts.yes && f.IsInteractive() {
+		var confirm bool
+		if err := cmdutil.Confirm(fmt.Sprintf("Delete VCS root %q?", id), &confirm); err != nil {
+			return err
+		}
+		if !confirm {
+			f.Printer.Info("Canceled")
+			return nil
+		}
+	}
+
+	if err := client.DeleteVcsRoot(id); err != nil {
+		return fmt.Errorf("failed to delete VCS root: %w", err)
+	}
+
+	f.Printer.Success("Deleted VCS root %s", id)
+	return nil
+}

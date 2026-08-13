@@ -1,0 +1,17 @@
+---
+source: crates/memtrack/tests/cpp_tests.rs
+expression: formatted_events
+---
+[
+    "Malloc { size: 44444 }",
+    "Free",
+    "Malloc { size: 8 }",
+    "Free",
+    "Malloc { size: 88888 }",
+    "Malloc { size: 32768 }",
+    "AlignedAlloc { size: 32768 }",
+    "Free",
+    "Malloc { size: 16384 }",
+    "AlignedAlloc { size: 16384 }",
+    "Free",
+]

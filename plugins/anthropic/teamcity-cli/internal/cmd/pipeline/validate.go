@@ -1,0 +1,258 @@
+package pipeline
+
+import (
+	"errors"
+	"fmt"
+	"os"
+	"strings"
+
+	"github.com/JetBrains/teamcity-cli/api"
+	"github.com/JetBrains/teamcity-cli/internal/analytics"
+	"github.com/JetBrains/teamcity-cli/internal/cmdutil"
+	"github.com/JetBrains/teamcity-cli/internal/output"
+	"github.com/JetBrains/teamcity-cli/internal/pipelineschema"
+	"github.com/santhosh-tekuri/jsonschema/v6"
+	"github.com/spf13/cobra"
+	"gopkg.in/yaml.v3"
+)
+
+type validateOptions struct {
+	schemaPath    string
+	refreshSchema bool
+}
+
+func newPipelineValidateCmd(f *cmdutil.Factory) *cobra.Command {
+	opts := &validateOptions{}
+
+	cmd := &cobra.Command{
+		Use:   "validate [file]",
+		Short: "Validate pipeline YAML against server schema",
+		Args:  cobra.MaximumNArgs(1),
+		ValidArgsFunction: func(*cobra.Command, []string, string) ([]string, cobra.ShellCompDirective) {
+			return []string{"yml", "yaml"}, cobra.ShellCompDirectiveFilterFileExt
+		},
+		Example: `  teamcity pipeline validate
+  teamcity pipeline validate .teamcity.yml
+  teamcity pipeline validate --schema custom-schema.json
+  teamcity pipeline validate --refresh-schema`,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			file := ".teamcity.yml"
+			if len(args) > 0 {
+				file = args[0]
+			}
+			return runPipelineValidate(f, file, opts)
+		},
+	}
+
+	cmd.Flags().StringVar(&opts.schemaPath, "schema", "", "Path to a local JSON schema file")
+	cmd.Flags().BoolVar(&opts.refreshSchema, "refresh-schema", false, "Force re-fetch schema from server")
+
+	_ = cmd.MarkFlagFilename("schema", "json")
+
+	return cmd
+}
+
+func runPipelineValidate(f *cmdutil.Factory, file string, opts *validateOptions) error {
+	data, err := os.ReadFile(file)
+	if err != nil {
+		return fmt.Errorf("failed to read %s: %w", file, err)
+	}
+
+	// Parse YAML into a node tree (preserves line numbers)
+	var rootNode yaml.Node
+	if err := yaml.Unmarshal(data, &rootNode); err != nil {
+		return fmt.Errorf("invalid YAML in %s: %w", file, err)
+	}
+
+	// Parse YAML into generic structure for JSON schema validation
+	var doc any
+	if err := yaml.Unmarshal(data, &doc); err != nil {
+		return fmt.Errorf("invalid YAML in %s: %w", file, err)
+	}
+
+	schemaData, usedCache, err := loadSchema(f, opts)
+	if err != nil {
+		return err
+	}
+
+	validationErrs, err := validateAgainstSchema(schemaData, doc)
+	if err != nil {
+		return fmt.Errorf("schema validation failed: %w", err)
+	}
+
+	f.Analytics.Track(analytics.GroupPipeline, analytics.EventValidated, map[string]any{
+		"error_count":        len(validationErrs),
+		"warning_count":      0,
+		"is_from_file":       true,
+		"used_cached_schema": usedCache,
+	})
+
+	if len(validationErrs) == 0 {
+		f.Printer.Success("%s is valid", file)
+		printJobNames(f, &rootNode)
+		return nil
+	}
+
+	_, _ = fmt.Fprintf(f.Printer.ErrOut, "%s %s has %d error(s)\n\n",
+		output.Red(output.Sym().Cross), file, len(validationErrs))
+
+	for _, ve := range validationErrs {
+		line := findLineNumber(&rootNode, ve.path)
+		if line > 0 {
+			_, _ = fmt.Fprintf(f.Printer.ErrOut, "  %s %s\n", output.Faint(fmt.Sprintf("Line %d:", line)), ve.path)
+		} else {
+			_, _ = fmt.Fprintf(f.Printer.ErrOut, "  %s\n", ve.path)
+		}
+		_, _ = fmt.Fprintf(f.Printer.ErrOut, "    %s\n\n", ve.message)
+	}
+
+	return &cmdutil.ExitError{Code: 1}
+}
+
+func loadSchema(f *cmdutil.Factory, opts *validateOptions) ([]byte, bool, error) {
+	if opts.schemaPath != "" {
+		data, err := os.ReadFile(opts.schemaPath)
+		return data, false, err
+	}
+
+	client, err := f.Client()
+	if err != nil {
+		// --refresh-schema explicitly asks for a server fetch, so don't mask the auth failure.
+		if opts.refreshSchema {
+			return nil, false, err
+		}
+		f.Printer.Warn("Not authenticated - validating against the embedded schema; run 'teamcity auth login' to use your server's schema")
+		return pipelineschema.Bytes, false, nil
+	}
+
+	c, ok := client.(*api.Client)
+	if !ok {
+		return nil, false, errors.New("schema caching requires a real API client")
+	}
+
+	data, fromCache, _, err := cmdutil.FetchOrCachePipelineSchema(c, opts.refreshSchema)
+	return data, fromCache, err
+}
+
+type validationError struct {
+	path    string
+	message string
+}
+
+func validateAgainstSchema(schemaData []byte, doc any) ([]validationError, error) {
+	schema, err := pipelineschema.Compile(schemaData)
+	if err != nil {
+		return nil, fmt.Errorf("failed to compile schema: %w", err)
+	}
+
+	err = schema.Validate(pipelineschema.ConvertYAMLToJSON(doc))
+	if err == nil {
+		return nil, nil
+	}
+
+	valErr, ok := errors.AsType[*jsonschema.ValidationError](err)
+	if !ok {
+		return nil, err
+	}
+
+	return flattenValidationErrors(valErr, ""), nil
+}
+
+func flattenValidationErrors(ve *jsonschema.ValidationError, prefix string) []validationError {
+	var result []validationError
+
+	path := prefix
+	if len(ve.InstanceLocation) > 0 {
+		path = "/" + strings.Join(ve.InstanceLocation, "/")
+	}
+
+	if len(ve.Causes) == 0 {
+		msg := ve.Error()
+		if idx := strings.LastIndex(msg, ": "); idx >= 0 {
+			msg = msg[idx+2:]
+		}
+		result = append(result, validationError{
+			path:    path,
+			message: msg,
+		})
+		return result
+	}
+
+	for _, cause := range ve.Causes {
+		result = append(result, flattenValidationErrors(cause, path)...)
+	}
+
+	return result
+}
+
+// findLineNumber walks the YAML node tree to find the line number for a JSON pointer path.
+func findLineNumber(root *yaml.Node, path string) int {
+	if path == "" || root == nil {
+		return 0
+	}
+
+	parts := strings.Split(strings.TrimPrefix(path, "/"), "/")
+	node := root
+
+	// Skip document node
+	if node.Kind == yaml.DocumentNode && len(node.Content) > 0 {
+		node = node.Content[0]
+	}
+
+	for _, part := range parts {
+		if part == "" {
+			continue
+		}
+
+		if node.Kind == yaml.MappingNode {
+			for i := 0; i+1 < len(node.Content); i += 2 {
+				if node.Content[i].Value == part {
+					node = node.Content[i+1]
+					break
+				}
+			}
+		} else if node.Kind == yaml.SequenceNode {
+			var idx int
+			if _, err := fmt.Sscanf(part, "%d", &idx); err == nil && idx < len(node.Content) {
+				node = node.Content[idx]
+			}
+		}
+	}
+
+	if node.Line > 0 {
+		return node.Line
+	}
+	return 0
+}
+
+// printJobNames extracts and prints job names from the YAML
+func printJobNames(f *cmdutil.Factory, root *yaml.Node) {
+	if root == nil {
+		return
+	}
+
+	node := root
+	if node.Kind == yaml.DocumentNode && len(node.Content) > 0 {
+		node = node.Content[0]
+	}
+
+	if node.Kind != yaml.MappingNode {
+		return
+	}
+
+	for i := 0; i+1 < len(node.Content); i += 2 {
+		if node.Content[i].Value == "jobs" {
+			jobsNode := node.Content[i+1]
+			if jobsNode.Kind == yaml.MappingNode {
+				var names []string
+				for j := 0; j+1 < len(jobsNode.Content); j += 2 {
+					names = append(names, jobsNode.Content[j].Value)
+				}
+				if len(names) > 0 {
+					_, _ = fmt.Fprintf(f.Printer.Out, "  Jobs: %s\n", strings.Join(names, ", "))
+				}
+			}
+			return
+		}
+	}
+}

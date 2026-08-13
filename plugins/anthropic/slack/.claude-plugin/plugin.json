@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "slack",
+  "description": "Bring Slack into your AI tools with a Slack MCP server and Slack skills",
+  "version": "1.2.0",
+  "author": {
+    "name": "Slack",
+    "url": "https://slack.com"
+  },
+  "homepage": "https://docs.slack.dev/ai/slack-skills-plugin",
+  "repository": "https://github.com/slackapi/slack-skills-plugin",
+  "license": "MIT"
+}

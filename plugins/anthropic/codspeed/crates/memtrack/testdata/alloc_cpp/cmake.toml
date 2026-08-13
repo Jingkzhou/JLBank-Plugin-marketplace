@@ -1,0 +1,157 @@
+[project]
+name = "alloc_cpp"
+version = "0.1.0"
+languages = ["CXX"]
+cmake-after = """
+# Find static libraries - CMake searches CMAKE_PREFIX_PATH (NixOS) and system paths (Ubuntu)
+find_library(MIMALLOC_STATIC_LIB
+    NAMES libmimalloc.a mimalloc-static
+    DOC "Static mimalloc library"
+)
+
+find_library(JEMALLOC_STATIC_LIB
+    NAMES libjemalloc.a jemalloc_pic
+    DOC "Static jemalloc library"
+)
+
+if(NOT MIMALLOC_STATIC_LIB)
+    message(STATUS "Static mimalloc not found, will fall back to dynamic linking")
+endif()
+
+if(NOT JEMALLOC_STATIC_LIB)
+    message(STATUS "Static jemalloc not found, will fall back to dynamic linking")
+endif()
+
+# TCMalloc support via system gperftools package
+# gperftools provides libtcmalloc on most Linux distributions
+# (Ubuntu: libtcmalloc-minimal4, Fedora: gperftools-libs, NixOS: gperftools)
+find_package(Threads REQUIRED)
+
+# Search in common paths including NixOS store
+file(GLOB TCMALLOC_NIX_PATHS "/nix/store/*gperftools*/lib")
+
+# Find static library
+set(_old_suffixes ${CMAKE_FIND_LIBRARY_SUFFIXES})
+set(CMAKE_FIND_LIBRARY_SUFFIXES .a)
+find_library(TCMALLOC_STATIC_LIB
+    NAMES libtcmalloc_minimal.a libtcmalloc.a tcmalloc_minimal tcmalloc
+    HINTS ${TCMALLOC_NIX_PATHS}
+    DOC "Static TCMalloc library (from gperftools)"
+)
+set(CMAKE_FIND_LIBRARY_SUFFIXES ${_old_suffixes})
+
+if(NOT TCMALLOC_STATIC_LIB)
+    message(STATUS "Static TCMalloc not found, will fall back to dynamic linking")
+endif()
+
+# Find dynamic library
+find_package(PkgConfig)
+if(PKG_CONFIG_FOUND)
+    pkg_check_modules(TCMALLOC QUIET libtcmalloc_minimal libtcmalloc)
+endif()
+
+if(NOT TCMALLOC_FOUND)
+    find_library(TCMALLOC_LIBRARY
+        NAMES tcmalloc_minimal tcmalloc
+        HINTS ${TCMALLOC_NIX_PATHS}
+        DOC "TCMalloc library (from gperftools)"
+    )
+    if(TCMALLOC_LIBRARY)
+        set(TCMALLOC_FOUND TRUE)
+        set(TCMALLOC_LIBRARIES ${TCMALLOC_LIBRARY})
+    endif()
+endif()
+
+if(TCMALLOC_FOUND OR TCMALLOC_STATIC_LIB)
+    message(STATUS "Found TCMalloc: static=${TCMALLOC_STATIC_LIB}, dynamic=${TCMALLOC_LIBRARIES}")
+    set(TCMALLOC_AVAILABLE ON)
+else()
+    message(STATUS "TCMalloc not found, tcmalloc test targets will not link correctly")
+endif()
+"""
+
+# System allocator (libc default malloc)
+[target.alloc_cpp_system]
+type = "executable"
+sources = ["src/main.cpp"]
+
+# Jemalloc - static linking
+[target.alloc_cpp_jemalloc_static]
+type = "executable"
+sources = ["src/main.cpp"]
+compile-definitions = ["USE_JEMALLOC=1"]
+cmake-after = """
+if(JEMALLOC_STATIC_LIB)
+    target_link_libraries(alloc_cpp_jemalloc_static PRIVATE ${JEMALLOC_STATIC_LIB})
+else()
+    # Fallback to dynamic linking
+    target_link_libraries(alloc_cpp_jemalloc_static PRIVATE jemalloc)
+endif()
+"""
+
+# Jemalloc - dynamic linking
+[target.alloc_cpp_jemalloc_dynamic]
+type = "executable"
+sources = ["src/main.cpp"]
+compile-definitions = ["USE_JEMALLOC=1"]
+link-libraries = ["jemalloc"]
+
+# Mimalloc - static linking
+[target.alloc_cpp_mimalloc_static]
+type = "executable"
+sources = ["src/main.cpp"]
+compile-definitions = ["USE_MIMALLOC=1"]
+cmake-after = """
+if(MIMALLOC_STATIC_LIB)
+    target_link_libraries(alloc_cpp_mimalloc_static PRIVATE ${MIMALLOC_STATIC_LIB})
+else()
+    # Fallback to dynamic linking
+    target_link_libraries(alloc_cpp_mimalloc_static PRIVATE mimalloc)
+endif()
+"""
+
+# Mimalloc - dynamic linking
+[target.alloc_cpp_mimalloc_dynamic]
+type = "executable"
+sources = ["src/main.cpp"]
+compile-definitions = ["USE_MIMALLOC=1"]
+link-libraries = ["mimalloc"]
+
+# TCMalloc (gperftools) - static linking
+# Uses system-installed libtcmalloc.a from gperftools package
+[target.alloc_cpp_tcmalloc_static]
+type = "executable"
+sources = ["src/main.cpp"]
+compile-definitions = ["USE_TCMALLOC=1"]
+cmake-after = """
+if(TCMALLOC_STATIC_LIB)
+    # Use --whole-archive to ensure malloc override symbols are included
+    target_link_options(alloc_cpp_tcmalloc_static PRIVATE "LINKER:--whole-archive")
+    target_link_libraries(alloc_cpp_tcmalloc_static PRIVATE ${TCMALLOC_STATIC_LIB})
+    target_link_options(alloc_cpp_tcmalloc_static PRIVATE "LINKER:--no-whole-archive")
+    target_link_libraries(alloc_cpp_tcmalloc_static PRIVATE Threads::Threads)
+elseif(TCMALLOC_LIBRARIES)
+    # Fallback to dynamic linking
+    target_link_libraries(alloc_cpp_tcmalloc_static PRIVATE ${TCMALLOC_LIBRARIES})
+else()
+    message(WARNING "TCMalloc not found, alloc_cpp_tcmalloc_static will not link correctly")
+endif()
+"""
+
+# TCMalloc (gperftools) - dynamic linking
+# Uses system-installed libtcmalloc from gperftools package
+# (Ubuntu: libtcmalloc-minimal4, Fedora: gperftools-libs)
+[target.alloc_cpp_tcmalloc_dynamic]
+type = "executable"
+sources = ["src/main.cpp"]
+compile-definitions = ["USE_TCMALLOC=1"]
+cmake-after = """
+if(TCMALLOC_AVAILABLE)
+    target_link_libraries(alloc_cpp_tcmalloc_dynamic PRIVATE ${TCMALLOC_LIBRARIES})
+    if(TCMALLOC_INCLUDE_DIRS)
+        target_include_directories(alloc_cpp_tcmalloc_dynamic PRIVATE ${TCMALLOC_INCLUDE_DIRS})
+    endif()
+else()
+    message(WARNING "TCMalloc not found, alloc_cpp_tcmalloc_dynamic will not link correctly")
+endif()
+"""

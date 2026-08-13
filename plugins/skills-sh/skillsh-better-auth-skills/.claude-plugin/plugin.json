@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-better-auth-skills",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from better-auth/skills.",
+  "author": {
+    "name": "better-auth/skills"
+  }
+}

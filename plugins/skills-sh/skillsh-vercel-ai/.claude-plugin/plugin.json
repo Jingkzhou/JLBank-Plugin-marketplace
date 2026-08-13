@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-vercel-ai",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from vercel/ai.",
+  "author": {
+    "name": "vercel/ai"
+  }
+}

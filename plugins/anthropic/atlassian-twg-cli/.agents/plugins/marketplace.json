@@ -1,0 +1,21 @@
+{
+  "name": "atlassian-twg-cli",
+  "interface": {
+    "displayName": "Atlassian Teamwork Graph Plugin Marketplace"
+  },
+  "plugins": [
+    {
+      "name": "atlassian-twg-cli",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/atlassian-labs/twg-plugins.git",
+        "ref": "main"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

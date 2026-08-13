@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-remotion-dev-skills",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from remotion-dev/skills.",
+  "author": {
+    "name": "remotion-dev/skills"
+  }
+}

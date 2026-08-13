@@ -1,0 +1,16 @@
+{
+  "skills_sh": {
+    "expected_skills": 600,
+    "expected_sources": 86
+  },
+  "started_at": "2026-08-12T18:20:20+00:00",
+  "failures": [],
+  "anthropic": {
+    "expected": 287,
+    "source_commit": "88a915cafc8ba54be9fc2cb0e2cff3ae0f41755f",
+    "source_date": "2026-08-12T18:16:42Z"
+  },
+  "finished_at": "2026-08-12T18:37:20+00:00",
+  "mirrored_records": 373,
+  "failed_records": 0
+}

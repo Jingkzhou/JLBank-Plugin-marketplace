@@ -1,0 +1,21 @@
+{
+  "model": "claude-opus-4-20250514",
+  "eval_id": 8,
+  "mode": "without_skill",
+  "assertions": [
+    {
+      "assertion": "Output uses AddGrpcClient<T>() to register the typed gRPC client with the downstream endpoint address",
+      "passed": true
+    },
+    {
+      "assertion": "Output chains .AddUserAccessTokenHandler() on the gRPC client registration to attach user tokens automatically",
+      "passed": true
+    },
+    {
+      "assertion": "Output includes or references AddOpenIdConnectAccessTokenManagement() as prerequisite for user token management",
+      "passed": true
+    }
+  ],
+  "passed": 3,
+  "total": 3
+}

@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-useosint-osint-skills",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from useosint/osint-skills.",
+  "author": {
+    "name": "useosint/osint-skills"
+  }
+}

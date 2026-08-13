@@ -1,0 +1,25 @@
+{
+  "model": "claude-opus-4-20250514",
+  "eval_id": 9,
+  "mode": "with_skill",
+  "assertions": [
+    {
+      "assertion": "Response shows configuring the license key via options.LicenseKey inside AddIdentityServer",
+      "passed": true
+    },
+    {
+      "assertion": "Response recommends loading the key from configuration, environment variables, or a secret manager rather than hardcoding",
+      "passed": true
+    },
+    {
+      "assertion": "Response warns against storing the license key in source-controlled files like appsettings.json",
+      "passed": true
+    },
+    {
+      "assertion": "Response explains that without a license key, IdentityServer runs in community or trial mode and logs a warning on startup",
+      "passed": true
+    }
+  ],
+  "passed": 4,
+  "total": 4
+}

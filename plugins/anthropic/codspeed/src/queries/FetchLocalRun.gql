@@ -1,0 +1,37 @@
+query FetchLocalRun($owner: String!, $name: String!, $runId: String!) {
+  repository(owner: $owner, name: $name) {
+    run(id: $runId) {
+      id
+      status
+      url
+      results {
+        benchmark {
+          name
+          executor
+        }
+        value
+        issues {
+          callgraphGenerationFailure
+        }
+        valgrind {
+          timeDistribution {
+            ir
+            l1m
+            llm
+            sys
+          }
+        }
+        walltime {
+          iterations
+          stdev
+          totalTime
+        }
+        memory {
+          peakMemory
+          totalAllocated
+          allocCalls
+        }
+      }
+    }
+  }
+}

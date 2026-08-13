@@ -1,0 +1,80 @@
+package pool
+
+import (
+	"fmt"
+
+	"github.com/JetBrains/teamcity-cli/api"
+	"github.com/JetBrains/teamcity-cli/internal/cmdutil"
+	"github.com/JetBrains/teamcity-cli/internal/completion"
+	"github.com/spf13/cobra"
+)
+
+type poolProjectAction struct {
+	use     string
+	short   string
+	long    string
+	verb    string
+	prep    string
+	execute func(api.ClientInterface, int, string) error
+}
+
+var poolProjectActions = map[string]poolProjectAction{
+	"link": {
+		use:   "link",
+		short: "Link a project to an agent pool",
+		long:  "Link a project to an agent pool, allowing the project's builds to run on agents in that pool.",
+		verb:  "Linked",
+		prep:  "to",
+		execute: func(c api.ClientInterface, poolID int, projectID string) error {
+			return c.AddProjectToPool(poolID, projectID)
+		},
+	},
+	"unlink": {
+		use:   "unlink",
+		short: "Unlink a project from an agent pool",
+		long:  "Unlink a project from an agent pool, removing the project's access to agents in that pool.",
+		verb:  "Unlinked",
+		prep:  "from",
+		execute: func(c api.ClientInterface, poolID int, projectID string) error {
+			return c.RemoveProjectFromPool(poolID, projectID)
+		},
+	},
+}
+
+func newPoolProjectCmd(f *cmdutil.Factory, a poolProjectAction) *cobra.Command {
+	return &cobra.Command{
+		Use:     a.use + " <pool-id> <project-id>",
+		Short:   a.short,
+		Long:    a.long,
+		Args:    cobra.ExactArgs(2),
+		Example: fmt.Sprintf("  teamcity pool %s 1 MyProject", a.use),
+		ValidArgsFunction: func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			if len(args) == 1 {
+				return completion.LinkedProjects()(cmd, args, toComplete)
+			}
+			return nil, cobra.ShellCompDirectiveNoFileComp
+		},
+		RunE: func(cmd *cobra.Command, args []string) error {
+			poolID, err := cmdutil.ParseID(args[0], "pool")
+			if err != nil {
+				return err
+			}
+			client, err := f.Client()
+			if err != nil {
+				return err
+			}
+			if err := a.execute(client, poolID, args[1]); err != nil {
+				return fmt.Errorf("failed to %s project: %w", a.use, err)
+			}
+			f.Printer.Success("%s project %s %s pool %d", a.verb, args[1], a.prep, poolID)
+			return nil
+		},
+	}
+}
+
+func newPoolLinkCmd(f *cmdutil.Factory) *cobra.Command {
+	return newPoolProjectCmd(f, poolProjectActions["link"])
+}
+func newPoolUnlinkCmd(f *cmdutil.Factory) *cobra.Command {
+	return newPoolProjectCmd(f, poolProjectActions["unlink"])
+}

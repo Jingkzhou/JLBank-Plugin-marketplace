@@ -1,0 +1,16 @@
+{
+  "name": "mergify",
+  "owner": {
+    "name": "Mergify"
+  },
+  "metadata": {
+    "description": "Mergify CLI skills for stacked PRs, merge queues, CI insights, scheduled freezes, and configuration management"
+  },
+  "plugins": [
+    {
+      "name": "mergify",
+      "source": "./",
+      "description": "Skills for the Mergify CLI: manage merge queues, stacked pull requests, Test Insights (flaky tests, quarantine), merge protections, and Mergify configuration directly from the terminal."
+    }
+  ]
+}

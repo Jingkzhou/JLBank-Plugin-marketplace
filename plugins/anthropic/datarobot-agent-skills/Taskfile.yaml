@@ -1,0 +1,94 @@
+---
+version: '3'
+
+tasks:
+  setup:
+    desc: Install local git hooks (pre-commit runs skill e2e tests on changed skills)
+    cmds:
+      - git config core.hooksPath .githooks
+      - echo "Git hooks installed. Pre-commit will evaluate skills touched by each commit and update tests/e2e/skill_hashes.json
+        automatically."
+
+  test:integration:
+    desc: Validate all DataRobot skills (naming, structure, frontmatter)
+    cmds:
+      - uv run --group integration pytest tests/integration/ -v --tb=short
+
+  ruff:check:
+    desc: Run ruff linter on all Python scripts
+    cmds:
+      - uv run --group dev ruff check .
+
+  ruff:format:
+    desc: Run ruff formatter on all Python scripts
+    cmds:
+      - uv run --group dev ruff format .
+
+  ruff:format:check:
+    desc: Check if Python scripts are formatted correctly (CI mode)
+    cmds:
+      - uv run --group dev ruff format --check .
+
+  shellcheck:
+    desc: Run shellcheck on all shell scripts
+    cmds:
+      - shellcheck skills/datarobot-app-framework-cicd/scripts/*.sh
+
+  yamlfmt:
+    desc: Format all YAML files with yamlfmt
+    cmds:
+      - yamlfmt .
+
+  yamlfmt:check:
+    desc: Check if YAML files are formatted correctly (CI mode)
+    cmds:
+      - yamlfmt -lint .
+
+  mypy:
+    desc: Run mypy type checker on Python scripts (override dir with DIR=<path>)
+    vars:
+      DIR: '{{.DIR | default "skills/"}}'
+    cmds:
+      - uv run --group dev mypy {{.DIR}}
+
+  license:check:
+    desc: Check copyright headers on all code files
+    cmds:
+      - license-eye header check
+
+  license:fix:
+    desc: Add missing copyright headers to code files
+    cmds:
+      - license-eye header fix
+
+  lint:
+    desc: Run all linting checks (validate skills + ruff + mypy + shellcheck + yamlfmt + license)
+    deps:
+      - test:integration
+      - ruff:check
+      - ruff:format:check
+      - mypy
+      - shellcheck
+      - yamlfmt:check
+      - license:check
+
+  format:
+    desc: Format all Python scripts and YAML files
+    cmds:
+      - task: ruff:format
+      - task: yamlfmt
+
+  test:e2e:
+    desc: Run skill quality e2e tests (LLM judge, hash-cached)
+    cmds:
+      - uv run --group e2e pytest tests/e2e/ -v --tb=short
+
+  test:e2e:force:
+    desc: Re-evaluate every skill regardless of hash cache
+    cmds:
+      - SKILLS_E2E_FORCE_ALL=1 uv run --group e2e pytest tests/e2e/ -v --tb=short
+
+  default:
+    desc: List all available tasks
+    cmds:
+      - task --list

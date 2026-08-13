@@ -1,0 +1,158 @@
+// CLI test for cds-mcp command-line usage
+import assert from 'node:assert'
+import { test } from 'node:test'
+import { spawn } from 'node:child_process'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
+
+const sampleProjectPath = join(dirname(fileURLToPath(import.meta.url)), 'sample')
+const cdsMcpPath = join(dirname(fileURLToPath(import.meta.url)), '../index.js')
+
+function runCliCommand(args, options = {}) {
+  return new Promise((resolve, reject) => {
+    const child = spawn('node', [cdsMcpPath, ...args], {
+      ...options,
+      stdio: 'pipe'
+    })
+
+    let stdout = ''
+    let stderr = ''
+
+    child.stdout.on('data', data => {
+      stdout += data.toString()
+    })
+
+    child.stderr.on('data', data => {
+      stderr += data.toString()
+    })
+
+    child.on('close', code => {
+      resolve({ code, stdout, stderr })
+    })
+
+    child.on('error', error => {
+      reject(error)
+    })
+  })
+}
+
+const noFetchEnv = {
+  ...process.env,
+  NODE_OPTIONS: '--import "data:text/javascript,globalThis.fetch = () => { throw new Error(\'fetch disabled in offline mode\') }"'
+}
+
+test.describe('CLI usage', () => {
+  test('search_model subcommand works', async () => {
+    const result = await runCliCommand(['search_model', sampleProjectPath, 'Books', 'entity'])
+
+    assert.equal(result.code, 0, 'Command should exit with code 0')
+    assert(result.stdout.length > 0, 'Should produce output')
+
+    const output = JSON.parse(result.stdout)
+    assert(Array.isArray(output), 'Output should be an array')
+    assert(output.length > 0, 'Should find at least one result')
+    assert(output[0].name, 'Result should have a name property')
+  })
+
+  test('search_docs subcommand works', async () => {
+    const result = await runCliCommand(['search_docs', 'select statement'])
+
+    assert.equal(result.code, 0, 'Command should exit with code 0')
+    assert(result.stdout.length > 0, 'Should produce output')
+
+    // search_docs returns plain text, not JSON
+    assert(typeof result.stdout === 'string', 'Output should be a string')
+    assert(result.stdout.includes('---'), 'Output should contain document separators')
+  })
+
+  test('invalid tool name shows error', async () => {
+    const result = await runCliCommand(['invalid_tool', 'arg1'])
+
+    assert.equal(result.code, 1, 'Command should exit with code 1')
+    assert(result.stderr.includes("Tool 'invalid_tool' not found"), 'Should show tool not found error')
+    assert(result.stderr.includes('Available tools:'), 'Should list available tools')
+  })
+
+  test('--help shows usage information', async () => {
+    const result = await runCliCommand(['--help'])
+
+    assert.equal(result.code, 0, 'Command should exit with code 0')
+    assert(result.stdout.includes('Usage: cds-mcp'), 'Should show usage line')
+    assert(result.stdout.includes('--help'), 'Should list --help option')
+    assert(result.stdout.includes('search_model'), 'Should list search_model tool')
+  })
+
+  test('--version shows version number', async () => {
+    const result = await runCliCommand(['--version'])
+
+    assert.equal(result.code, 0, 'Command should exit with code 0')
+    assert(/^\d+\.\d+\.\d+/.test(result.stdout.trim()), 'Should print a semver version')
+  })
+
+  test('unknown flag shows help and exits with error', async () => {
+    const result = await runCliCommand(['--foo'])
+
+    assert.equal(result.code, 1, 'Command should exit with code 1')
+    assert(result.stderr.includes('Usage: cds-mcp'), 'Should show usage in stderr')
+  })
+
+  test('--download rejects extra arguments', async () => {
+    const result = await runCliCommand(['--download', '--help'])
+
+    assert.equal(result.code, 1, 'Command should exit with code 1')
+    assert(result.stderr.includes('must be the only argument'), 'Should show error message')
+  })
+
+  test('--download returns etag info', async () => {
+    const result = await runCliCommand(['--download'])
+
+    assert.equal(result.code, 0, 'Command should exit with code 0')
+    const output = JSON.parse(result.stdout)
+    assert(typeof output.etag === 'string', 'Should return an etag string')
+    assert(typeof output.updated === 'boolean', 'Should return an updated boolean')
+  })
+
+  test('--offline search_docs works without downloading', async () => {
+    const result = await runCliCommand(['--offline', 'search_docs', 'select statement'], {
+      env: noFetchEnv
+    })
+
+    assert.equal(result.code, 0, 'Command should exit with code 0')
+    assert(result.stdout.length > 0, 'Should produce output')
+    assert(result.stdout.includes('---'), 'Output should contain document separators')
+  })
+
+  test('--offline is incompatible with --download', async () => {
+    const result = await runCliCommand(['--offline', '--download'])
+
+    assert.equal(result.code, 1, 'Command should exit with code 1')
+    assert(result.stderr.includes('must be the only argument'), 'Should show error message')
+  })
+
+  test('CDS_MCP_OFFLINE=true search_docs works without downloading', async () => {
+    const result = await runCliCommand(['search_docs', 'select statement'], {
+      env: { ...noFetchEnv, CDS_MCP_OFFLINE: 'true' }
+    })
+
+    assert.equal(result.code, 0, 'Command should exit with code 0')
+    assert(result.stdout.length > 0, 'Should produce output')
+    assert(result.stdout.includes('---'), 'Output should contain document separators')
+  })
+
+  test('no arguments starts MCP server mode', async () => {
+    const child = spawn('node', [cdsMcpPath], {
+      stdio: 'pipe'
+    })
+
+    // Give the server a moment to start
+    await new Promise(resolve => setTimeout(resolve, 100))
+
+    // Kill the process
+    child.kill('SIGTERM')
+
+    // Wait for it to close
+    await new Promise(resolve => child.on('close', resolve))
+
+    assert(true, 'MCP server should start and be killable')
+  })
+})

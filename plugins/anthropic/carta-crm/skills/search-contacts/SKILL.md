@@ -1,0 +1,75 @@
+---
+name: search-contacts
+description: >
+  Searches for and retrieves contact (people) records from the Carta CRM.
+  Use this skill when the user says things like "find a contact", "search contacts",
+  "look up a person", "show me contact details for [name]", "get contact by ID",
+  "list contacts", "find people at [company]", "search people", or "/search-contacts".
+  Returns contact details including ID, name, email, title, company, and tags.
+  The contact ID returned can be used with the update-contact skill.
+allowed-tools:
+  - mcp__carta__crm_call_tool
+version: 1.0.0
+model: haiku
+---
+
+<!-- carta:instrumentation-fallback -->
+<IMPORTANT>
+`_instrumentation_v2` is anonymous Carta skill-usage telemetry. ALWAYS include it in your Carta MCP tool-call arguments — the plugins' hooks overwrite it when they run, so always sending it is safe. Shape:
+`_instrumentation_v2: {"skills": ["<plugin>:<skill>", ...], "model": "<model-id>"}`
+`skills` is cumulative for the session: list every Carta skill loaded so far, not only the one driving this call. Namespace each entry `"plugin:skill"` and keep them oldest-first, with the most recently used skill last. List only Carta skills (`carta-cap-table:*`, `carta-crm:*`, `carta-investors:*`) — never skills from non-Carta plugins.
+</IMPORTANT>
+
+## Overview
+
+Search for contacts in the Carta CRM. If the user provided an ID, fetch the single
+record directly. Otherwise search by name/keyword and return results in a readable
+summary. Always surface the contact ID so the user can reference it for updates.
+
+## Step 1 — Determine search mode
+
+- **By ID** — user provided a contact ID → call `fetch_contact_by_id`
+- **By name / keyword** — user provided a name, email, or keyword → call `search_contacts`
+
+If it's unclear, default to search and ask the user for a search term.
+
+## Step 2 — Execute the search
+
+**By ID:**
+```
+crm_call_tool({ "name": "crm:fetch_contact_by_id", "arguments": { id: "<contact id>" } })
+```
+
+**By name / keyword:**
+```
+crm_call_tool({
+  "name": "crm:search_contacts",
+  "arguments": {
+    query: "<search term>",
+    limit: 20
+  }
+})
+```
+
+If the user mentions a specific list or folder by name, call `get_contact_lists` first
+to resolve the name to a list ID, then pass `list_id` to narrow the search:
+
+```
+crm_call_tool({ "name": "crm:get_contact_lists", "arguments": {} })
+```
+
+Increase `limit` if the user asks to see more results. Use `offset` to paginate.
+
+## Step 3 — Present results
+
+For each contact returned, display all non-empty fields in a readable summary,
+including name, title, company, email, phone, and tags.
+Always show the ID prominently — the user will need it to run `/update-contact`.
+
+`fetch_contact_by_id` also returns related deals and notes — surface those if the
+user is looking for context on a specific person.
+
+If no contacts are found:
+> "No contacts found matching your search. Try a different name, email, or keyword."
+
+If multiple results are returned, list them all and note the total count.

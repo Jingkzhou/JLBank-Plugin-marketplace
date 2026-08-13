@@ -1,0 +1,109 @@
+# $schema: https://raw.githubusercontent.com/semaphoreio/semaphore/98bb4752c79049d36324e8c76451cd704c7924f3/plumber/spec/priv/v1.0.yml
+# yaml-language-server: $schema=https://raw.githubusercontent.com/semaphoreio/semaphore/98bb4752c79049d36324e8c76451cd704c7924f3/plumber/spec/priv/v1.0.yml
+# This file is managed by ServiceBot plugin - Semaphore. The content in this file is created using a common
+# template and configurations in service.yml.
+# Any modifications made to version, name, agent and global_job_config will be overwritten by the generated
+# content in nightly runs. Code changes made to the remaining sections will not be affected.
+# For more information, please refer to the page:
+# https://confluentinc.atlassian.net/wiki/spaces/Foundations/pages/2871296194/Add+SemaphoreCI
+version: v1.0
+name: build-test-release
+agent:
+  machine:
+    type: s1-prod-ubuntu24-04-amd64-1
+
+auto_cancel:
+  running:
+    when: "branch != 'main'"
+
+execution_time_limit:
+  hours: 1
+
+queue:
+  - when: "branch != 'main'"
+    processing: parallel
+
+global_job_config:
+  prologue:
+    commands:
+      - checkout
+      - make show-args
+      - make init-ci
+  epilogue:
+    always:
+      commands:
+        - make epilogue-ci
+
+blocks:
+  - name: "Validate Skills"
+    run:
+      when: "change_in('/skills/', {default_branch: 'main'})"
+    task:
+      jobs:
+        - name: "Skill Validator"
+          commands:
+            - go install github.com/agent-ecosystem/skill-validator/cmd/skill-validator@v1.3.0
+            - skill-validator check skills || [ $? -eq 2 ]
+        # Authoritative broken-link gate: sweeps every Markdown file (incl.
+        # references/) for hard 404s AND docs.confluent.io soft-404s — coverage
+        # skill-validator lacks. No Go needed; pure bash + curl. Exits 1 on a
+        # broken link, failing the block.
+        - name: "Check Skill Links"
+          commands:
+            - ./tools/check-links.sh skills
+        # Scans skill files for embedded PII / secrets (real customer data,
+        # keys, card numbers) using the detector bundled with the
+        # confluent-skill-reviewer. Eval prompts, fixtures, and sample records
+        # are supposed to use synthetic data only — this catches real data
+        # before it lands on main.
+        - name: "Scan for PII"
+          commands:
+            - python3 skills/confluent-skill-reviewer/scripts/scan_pii.py skills/ --exclude '*/mock-skills/leaky-data/*'
+
+  - name: "Validate Plugin Versions"
+    run:
+      when: "change_in(['/.claude-plugin/plugin.json', '/.cursor-plugin/plugin.json'], {default_branch: 'main'})"
+    task:
+      jobs:
+        # Ensures the plugin-level version in .claude-plugin/plugin.json and
+        # .cursor-plugin/plugin.json stay in sync (see "Versioning" in
+        # CLAUDE.md) — a mismatch means one manifest was bumped without the other.
+        - name: "Check Plugin Versions"
+          commands:
+            - ./tools/check-plugin-versions.sh
+
+  - name: "Validate Plugin Version Changes On Skill Version Change"
+    run:
+      when: "tag !~ '.*' and branch != 'main'"
+    task:
+      jobs:
+        # If any commit on this branch introduces a new skill or changes an
+        # existing skill's metadata.version, both .claude-plugin/plugin.json
+        # and .cursor-plugin/plugin.json must be bumped too (see "Versioning"
+        # in CLAUDE.md). Fails if skills changed but the plugin version didn't.
+        - name: "Check Skill Version Bump"
+          commands:
+            - ./tools/validate-skill-version-bump.sh $SEMAPHORE_GIT_BRANCH
+
+  - name: "Tag Plugin Release"
+    run:
+      when: "tag !~ '.*' and branch = 'main'"
+    task:
+      jobs:
+        # Tags the repo v<plugin-version> (from .claude-plugin/plugin.json) if
+        # that tag doesn't already exist on origin, and cuts a GitHub Release.
+        # No-op on repeat runs where the tag already exists.
+        - name: "Tag and Release"
+          commands:
+            - ./tools/tag-and-release.sh
+
+  - name: "Validate Claude Plugin Manifest"
+    task:
+      jobs:
+        - name: "Claude Plugin Validation"
+          commands:
+            # Install Claude CLI in order to run manifest validation (doesn't call LLM)
+            - curl -fsSL https://claude.ai/install.sh | bash
+            # Fails on a non-zero exit AND on a zero exit that still reports
+            # "Found N warnings"
+            - ./tools/check-plugin-manifest.sh

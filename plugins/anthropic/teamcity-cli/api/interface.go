@@ -1,0 +1,155 @@
+package api
+
+import (
+	"context"
+	"io"
+)
+
+// ClientInterface defines the TeamCity API client interface.
+// Cmd package uses this interface for dependency injection in tests.
+type ClientInterface interface {
+	GetServer() (*Server, error)
+	ServerVersion() (*Server, error)
+	CheckVersion() error
+	SupportsFeature(feature string) bool
+
+	GetCurrentUser() (*User, error)
+	GetUser(username string) (*User, error)
+	UserExists(username string) bool
+	CreateUser(req CreateUserRequest) (*User, error)
+	CreateAPIToken(name string) (*Token, error)
+	DeleteAPIToken(name string) error
+
+	GetProjects(opts ProjectsOptions) (*ProjectList, bool, error)
+	GetProject(id string) (*Project, error)
+	CreateProject(req CreateProjectRequest) (*Project, error)
+	ProjectExists(id string) bool
+	CreateSecureToken(projectID, value string) (string, error)
+	GetSecureValue(projectID, token string) (string, error)
+	GetVersionedSettingsStatus(projectID string) (*VersionedSettingsStatus, error)
+	GetVersionedSettingsConfig(projectID string) (*VersionedSettingsConfig, error)
+	ExportProjectSettings(projectID, format string, useRelativeIds bool) ([]byte, error)
+
+	GetBuildTypes(opts BuildTypesOptions) (*BuildTypeList, bool, error)
+	GetBuildType(id string) (*BuildType, error)
+	SetBuildTypePaused(id string, paused bool) error
+	CreateBuildType(projectID string, req CreateBuildTypeRequest) (*BuildType, error)
+	BuildTypeExists(id string) bool
+	GetBuildSteps(buildTypeID string) (*BuildStepList, error)
+	GetBuildStep(buildTypeID, stepID string) (*BuildStep, error)
+	CreateBuildStep(buildTypeID string, step BuildStep) (*BuildStep, error)
+	DeleteBuildStep(buildTypeID, stepID string) error
+	GetSnapshotDependencies(buildTypeID string) (*SnapshotDependencyList, error)
+	GetDependentBuildTypes(buildTypeID string) (*BuildTypeList, error)
+	GetVcsRootEntries(buildTypeID string) (*VcsRootEntries, error)
+	SetBuildTypeSetting(buildTypeID, setting, value string) error
+	GetBuildTypeSettings(buildTypeID string) (*SettingsList, error)
+	GetBuildTypeSetting(buildTypeID, name string) (string, error)
+
+	GetBuilds(ctx context.Context, opts BuildsOptions) (*BuildList, bool, error)
+	GetBuild(ctx context.Context, ref string) (*Build, error)
+	GetBuildUsedByOtherBuilds(id string) (bool, error)
+	WaitForBuild(ctx context.Context, buildID string, opts WaitForBuildOptions) (*Build, error)
+	ResolveBuildID(ctx context.Context, ref string) (string, error)
+	RunBuild(buildTypeID string, opts RunBuildOptions) (*Build, error)
+	CancelBuild(buildID string, comment string) error
+	GetBuildLog(ctx context.Context, buildID string) (string, error)
+	GetBuildLogStream(ctx context.Context, buildID string) (io.ReadCloser, error)
+	GetBuildMessages(ctx context.Context, buildID string, opts BuildMessagesOptions) (*BuildMessagesResponse, error)
+	PinBuild(buildID string, comment string) error
+	UnpinBuild(buildID string) error
+	AddBuildTags(buildID string, tags []string) error
+	GetBuildTags(buildID string) (*TagList, error)
+	RemoveBuildTag(buildID string, tag string) error
+	SetBuildComment(buildID string, comment string) error
+	GetBuildComment(buildID string) (string, error)
+	DeleteBuildComment(buildID string) error
+	GetBuildSnapshotDependencies(buildID string) (*BuildList, error)
+	GetBuildChanges(ctx context.Context, buildID string) (*ChangeList, error)
+	ListTestOccurrences(ctx context.Context, q TestOccurrenceQuery) (*TestOccurrences, error)
+	GetBuildTests(ctx context.Context, buildID string, opts BuildTestsOptions) (*TestOccurrences, error)
+	GetBuildTestSummary(buildID string) (*TestOccurrences, error)
+	GetBuildProblems(buildID string) (*ProblemOccurrences, error)
+	GetBuildResultingProperties(buildID string) (*ParameterList, error)
+	UploadDiffChanges(patch []byte, description string) (string, error)
+
+	GetArtifacts(ctx context.Context, buildID string, path string) (*Artifacts, error)
+	DownloadArtifact(ctx context.Context, buildID, artifactPath string) ([]byte, error)
+	DownloadArtifactTo(ctx context.Context, buildID, artifactPath string, w io.Writer) (int64, error)
+
+	GetBuildQueue(opts QueueOptions) (*BuildQueue, bool, error)
+	RemoveFromQueue(id string) error
+	MoveQueuedBuildToTop(buildID string) error
+	ApproveQueuedBuild(buildID string) error
+	GetQueuedBuildApprovalInfo(buildID string) (*ApprovalInfo, error)
+
+	GetProjectParameters(projectID string) (*ParameterList, error)
+	GetProjectParameter(projectID, name string) (*Parameter, error)
+	SetProjectParameter(projectID, name, value string, secure bool) error
+	DeleteProjectParameter(projectID, name string) error
+	GetBuildTypeParameters(buildTypeID string) (*ParameterList, error)
+	GetBuildTypeParameter(buildTypeID, name string) (*Parameter, error)
+	SetBuildTypeParameter(buildTypeID, name, value string, secure bool) error
+	DeleteBuildTypeParameter(buildTypeID, name string) error
+	GetParameterValue(path string) (string, error)
+
+	GetAgents(opts AgentsOptions) (*AgentList, bool, error)
+	GetAgent(id int) (*Agent, error)
+	GetAgentByName(name string) (*Agent, error)
+	AuthorizeAgent(id int, authorized bool) error
+	EnableAgent(id int, enabled bool) error
+	RebootAgent(ctx context.Context, id int, afterBuild bool) error
+	GetAgentCompatibleBuildTypes(id int) (*BuildTypeList, error)
+	GetAgentIncompatibleBuildTypes(id int) (*CompatibilityList, error)
+	GetBuildCompatibleAgents(buildID int) (*AgentList, error)
+	GetBuildIncompatibleAgents(buildID int) (*AgentList, error)
+	GetAgentBuildTypeCompatibility(agentID int, buildTypeID string, maxScan int) (*Compatibility, error)
+
+	GetAgentPools(fields []string) (*PoolList, error)
+	GetAgentPool(id int) (*Pool, error)
+	AddProjectToPool(poolID int, projectID string) error
+	RemoveProjectFromPool(poolID int, projectID string) error
+	SetAgentPool(agentID int, poolID int) error
+
+	GetCloudProfiles(opts CloudProfilesOptions) (*CloudProfileList, bool, error)
+	GetCloudProfile(locator string) (*CloudProfile, error)
+	GetCloudImages(opts CloudImagesOptions) (*CloudImageList, bool, error)
+	GetCloudImage(locator string) (*CloudImage, error)
+	GetCloudInstances(opts CloudInstancesOptions) (*CloudInstanceList, bool, error)
+	GetCloudInstance(locator string) (*CloudInstance, error)
+	StartCloudInstance(imageID string) (*CloudInstance, error)
+	StopCloudInstance(locator string, force bool) error
+
+	GetBuildPipelineRun(buildID string) (*PipelineRun, error)
+	GetPipelines(opts PipelinesOptions) (*PipelineList, bool, error)
+	GetPipeline(id string) (*Pipeline, error)
+	GetPipelineYAML(id string) (string, error)
+	CreatePipeline(parentProjectID, name, yaml, vcsRootID string) (*Pipeline, error)
+	UpdatePipelineYAML(id string, yaml string) error
+	DeletePipeline(id string) error
+	GetPipelineSchema() ([]byte, error)
+
+	GetVcsRoots(opts VcsRootsOptions) (*VcsRootList, bool, error)
+	GetVcsRoot(id string) (*VcsRoot, error)
+	CreateVcsRoot(root VcsRoot) (*VcsRoot, error)
+	DeleteVcsRoot(id string) error
+	TestVcsConnection(req TestConnectionRequest, projectID string) (*TestConnectionResult, error)
+
+	GetSSHKeys(projectID string) (*SSHKeyList, error)
+	UploadSSHKey(projectID, name string, privateKey []byte) error
+	GenerateSSHKey(projectID, name, keyType string) (*SSHKey, error)
+	DeleteSSHKey(projectID, name string) error
+
+	GetProjectConnections(projectID string) (*ProjectFeatureList, error)
+	CreateProjectFeature(projectID string, feat ProjectFeature) (*ProjectFeature, error)
+	DeleteProjectFeature(projectID, featureID string) error
+
+	RawRequest(ctx context.Context, method, path string, body io.Reader, headers map[string]string) (*RawResponse, error)
+	NormalizePaginationPath(href string) string
+
+	SetCommandName(name string)
+	ServerURL() string
+}
+
+// Verify *Client implements ClientInterface at compile time
+var _ ClientInterface = (*Client)(nil)

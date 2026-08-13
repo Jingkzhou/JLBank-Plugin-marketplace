@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-agentix-cloud-skills",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from agentix-cloud/skills.",
+  "author": {
+    "name": "agentix-cloud/skills"
+  }
+}

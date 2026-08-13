@@ -1,0 +1,162 @@
+[project]
+name = "zscaler-mcp"
+version = "0.15.0"
+description = "Official Zscaler Integrations MCP Server"
+readme = "README.md"
+requires-python = ">=3.11,<4.0"
+license = "MIT"
+authors = [
+  { name = "Zscaler, Inc.", email = "devrel@zscaler.com" }
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+    # Transport / auth shim — UNCHANGED from v1. The SDK still does every
+    # API call, token exchange, pagination, and retry. v2 only changes the
+    # SHAPE of what the agent sees, not how we talk to Zscaler.
+    # Intentionally unconstrained so installs always pull the latest SDK
+    # (new Zscaler product/API support lands here first).
+    "zscaler-sdk-python",
+    # MCP server framework. `mcp` 2.x ships its own high-level server
+    # (`mcp.server.mcpserver.MCPServer`) with the ASGI app factories
+    # (streamable_http_app / sse_app) that the auth / hardening layer wraps as
+    # middleware. Standalone `fastmcp` is not a dependency of any auth mode: the
+    # OIDC mode is a resource server (RFC 9728), which `mcp` 2.x implements.
+    #
+    # The floor is 2.0.0 because that is where the `2026-07-28` revision lands:
+    # `InputRequiredResult` (SEP-2322's stateless form), `RequestStateSecurity`
+    # (its state protection), and `cache_hints` (SEP-2549) are all constructor-
+    # level features of `MCPServer`. `mcp` 1.x is maintenance-only upstream.
+    "mcp[cli]>=2.0.0,<3",
+    # Pydantic powers BOTH the input models and the output VIEWS. A view's
+    # model_json_schema() is the source of truth for the tool's outputSchema,
+    # so the curated view and the advertised schema can never drift.
+    "pydantic>=2.6.0",
+    "python-dotenv>=1.0.0",
+    # HTTP transport + auth middleware stack (parity with v1).
+    "uvicorn>=0.30.0",
+    "starlette>=0.40.0",
+    # JWT auth mode (external IdP via JWKS).
+    "PyJWT[crypto]>=2.8.0",
+    # Zscaler-mode credential validation against /oauth2/v1/token.
+    "requests>=2.31.0",
+    # Output sanitization (HTML / Markdown stripping).
+    "bleach>=6.2.0",
+    # Exact token accounting (o200k_base). Token usage is a NATIVE, always-on
+    # feature — the bridge logs a [TOKENS] line per call — so this is a runtime
+    # dependency, not dev-only. Without it the count degrades to a len/4 estimate.
+    "tiktoken>=0.7.0",
+    # Country-name/ISO-code → Zscaler COUNTRY_XX conversion (ZTW IP destination
+    # groups by-country, ZIA locations, …). Same dependency v1 uses.
+    "pycountry>=24.0.0",
+    "authlib>=1.7.2",
+    "cryptography>=50.0.0",
+    "fastapi>=0.141.1",
+    "huggingface-hub>=1.26.0",
+    "jiter>=0.16.0",
+    "langsmith>=0.10.15",
+    "openai>=2.53.0",
+    "posthog>=7.37.4",
+    "zstandard>=0.25.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.21.0",
+    "ruff>=0.6.0",
+]
+# GCP Secret Manager support (parity with v1's [gcp] extra; referenced by
+# the Dockerfile's final `uv sync --extra gcp`).
+gcp = [
+    "google-cloud-secret-manager>=2.18.0",
+]
+# AWS Secrets Manager support, used by `cloud/aws_secrets.py` on the Bedrock
+# AgentCore / ECS / EKS deployment paths. An extra rather than a base
+# dependency, matching [gcp]: a stdio user on a laptop should not install an
+# AWS SDK to talk to Zscaler. `boto3` is pure Python, so the arm64 image
+# AgentCore requires needs no compiled wheel for it.
+aws = [
+    "boto3>=1.34.0",
+]
+#
+# There is deliberately no extra for OIDC, and `fastmcp` is not declared anywhere.
+#
+# `ZSCALER_MCP_AUTH_MODE=oidc` makes this server an OAuth 2.0 *resource server*:
+# it publishes Protected Resource Metadata (RFC 9728) naming the IdP, and verifies
+# the IdP's tokens with `PyJWT` (already a dependency, shared with the `jwt` mode).
+# Both halves ship in `mcp` 2.x, so every auth mode installs from GA wheels and no
+# operator is ever asked to install a package by hand.
+#
+# The superseded approach was `fastmcp`'s `OIDCProxy`, which made the MCP server
+# impersonate an authorization server so a client could run Dynamic Client
+# Registration against it — a workaround for IdPs without open DCR. Besides
+# needing a package we don't otherwise want, `fastmcp` 4.x is still a prerelease
+# and depends on one transitively (`fastmcp-slim==4.0.0b1`), which only a blanket
+# `prerelease = "allow"` resolves; since `uv lock` resolves every extra, that
+# policy would govern the whole lockfile — including the automated
+# `sdk-auto-upgrade` job, which would then be free to pull prerelease builds of
+# the Zscaler SDK and pydantic. Pointing clients at the real IdP costs nothing and
+# avoids all of it.
+
+[project.scripts]
+zscaler-mcp = "zscaler_mcp.server:main"
+zscaler-mcp-tokens = "zscaler_mcp.common.token_comparison:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/zscaler_mcp"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+# local_dev/ is maintainer scratch material copied from the v1 tree; it is not
+# part of the v2 package and must never gate the v2 lint.
+extend-exclude = ["local_dev"]
+
+[tool.ruff.lint]
+# Pin the rule set EXPLICITLY. Ruff's default selection is not a stable API — it
+# widened in 0.16.0 (adding pyupgrade / flake8-simplify / tryceratops / … ), which
+# turned a routine lockfile refresh into ~1.8k new findings across untouched code
+# and broke CI with zero source changes. Naming the rules here means a ruff
+# upgrade can no longer move the goalposts on its own.
+#
+# This is the set the project has always enforced in practice:
+#   E4/E7/E9  pycodestyle errors (imports, statements, syntax)
+#   F         pyflakes (undefined names, unused imports/variables)
+#   I         isort (import ordering — also run standalone in CI)
+# Adopting a broader set (UP, SIM, …) is a deliberate, separate cleanup, not
+# something to inherit silently from a dependency bump.
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.ruff.format]
+# Do NOT reformat Python embedded in Markdown code fences (ruff does this by
+# default). Two reasons, both specific to this repo:
+#
+#   1. Several Markdown files carry docgen-owned regions (README.md's
+#      service-summary, docs/guides/toolsets.md's toolset-catalog). Those regions
+#      hold tables today, but the moment one contains a code fence the formatter
+#      and `--generate-docs` would each rewrite what the other produced, and
+#      `make check-docs` and `ruff format --check` could never both be green.
+#   2. Doc and skill examples are laid out for a reader, not for a parser —
+#      one-line calls with trailing explanatory comments, argument groupings that
+#      mirror the prose around them. Reflowing them costs clarity and buys nothing.
+#
+# Excluding them is what makes `ruff format --check .` a usable signal: it now
+# means "our Python is formatted" instead of reporting six files nobody intends
+# to change.
+exclude = ["*.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

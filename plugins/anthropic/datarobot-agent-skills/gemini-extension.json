@@ -1,0 +1,74 @@
+{
+  "name": "datarobot-skills",
+  "version": "1.5.0",
+  "description": "DataRobot Skills for AI/ML workflows including model training, deployment, predictions, feature engineering, monitoring, data preparation, and Workload API management",
+  "author": "DataRobot",
+  "skills": [
+    {
+      "name": "datarobot-model-training",
+      "description": "Comprehensive guidance for training models in DataRobot, including project creation, AutoML configuration, feature engineering, and model selection",
+      "path": "skills/datarobot-model-training/SKILL.md"
+    },
+    {
+      "name": "datarobot-model-deployment",
+      "description": "Tools and guidance for deploying DataRobot models, managing deployments, configuring prediction environments, and deployment operations",
+      "path": "skills/datarobot-model-deployment/SKILL.md"
+    },
+    {
+      "name": "datarobot-predictions",
+      "description": "Tools and guidance for making predictions with DataRobot models, including real-time predictions, batch scoring, and prediction dataset generation",
+      "path": "skills/datarobot-predictions/SKILL.md"
+    },
+    {
+      "name": "datarobot-feature-engineering",
+      "description": "Guidance for feature engineering, feature discovery, feature importance analysis, and understanding DataRobot's automated feature engineering capabilities",
+      "path": "skills/datarobot-feature-engineering/SKILL.md"
+    },
+    {
+      "name": "datarobot-model-monitoring",
+      "description": "Tools and guidance for monitoring model performance, tracking data drift, managing model health, and detecting prediction anomalies",
+      "path": "skills/datarobot-model-monitoring/SKILL.md"
+    },
+    {
+      "name": "datarobot-data-preparation",
+      "description": "Tools and guidance for data upload, dataset management, data validation, and preparing data for DataRobot projects",
+      "path": "skills/datarobot-data-preparation/SKILL.md"
+    },
+    {
+      "name": "datarobot-model-explainability",
+      "description": "Tools and guidance for model explainability, prediction explanations, SHAP values, SHAP distributions, anomaly assessment, and model diagnostics",
+      "path": "skills/datarobot-model-explainability/SKILL.md"
+    },
+    {
+      "name": "datarobot-app-framework-cicd",
+      "description": "Tools and guidance for setting up CI/CD pipelines for DataRobot application templates, including GitLab and GitHub Actions workflows",
+      "path": "skills/datarobot-app-framework-cicd/SKILL.md"
+    },
+    {
+      "name": "datarobot-external-agent-monitoring",
+      "description": "Instrument any external AI agent with OpenTelemetry to send traces, logs, and metrics to DataRobot for monitoring, observability, and governance",
+      "path": "skills/datarobot-external-agent-monitoring/SKILL.md"
+    },
+    {
+      "name": "datarobot-agent-assist",
+      "description": "Use when the user wants to design, build, code, simulate, or deploy an AI agent (not a predictive model) to DataRobot; mentions agent_spec.md, dr-assist, dress rehearsal, or the DataRobot agent template; wants to scaffold a LangGraph, CrewAI, LlamaIndex, NAT, or Base agent targeting DataRobot; or wants to add an MCP server, backend API, or React frontend to a DataRobot agent application.",
+      "path": "skills/datarobot-agent-assist/SKILL.md"
+    },
+    {
+      "name": "datarobot-setup",
+      "description": "Sets up DataRobot for local development including the Python SDK, dr-cli, and Agent Assist. Use when the user has not yet worked with DataRobot on this machine and they want to deploy agents to DataRobot, build an agent from scratch, or connect to DataRobot's APIs from a project.",
+      "path": "skills/datarobot-setup/SKILL.md"
+    },
+    {
+      "name": "datarobot-workload-api",
+      "description": "Create, configure, scale, debug, observe, and roll out container workloads on DataRobot's Workload API — covers deploying containers as managed services, replica/autoscaling settings, CPU/GPU compute bundles, DataRobot credential injection, diagnosing stuck or crash-looping workloads, pulling logs/traces/metrics/service stats, and zero-downtime artifact replacement",
+      "path": "skills/datarobot-workload-api/SKILL.md"
+    },
+    {
+      "name": "datarobot-discover",
+      "description": "Discover DataRobot resources — skills, MCP servers, agents, and platform tools — by fetching the live catalog from datarobot.com and the user's own DataRobot instance",
+      "path": "skills/datarobot-discover/SKILL.md"
+    }
+  ]
+}
+

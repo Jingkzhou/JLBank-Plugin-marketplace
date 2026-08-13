@@ -1,0 +1,25 @@
+{
+  "model": "claude-opus-4-20250514",
+  "eval_id": 6,
+  "mode": "without_skill",
+  "assertions": [
+    {
+      "assertion": "Response recommends removing AddDeveloperSigningCredential",
+      "passed": true
+    },
+    {
+      "assertion": "Response mentions Duende's automatic key management as the recommended replacement",
+      "passed": true
+    },
+    {
+      "assertion": "Response addresses the concern about existing tokens by suggesting a transitional period where the old key remains available for validation",
+      "passed": false
+    },
+    {
+      "assertion": "Response suggests that if all clients and APIs can be restarted, they will pick up the new key from the discovery document automatically",
+      "passed": true
+    }
+  ],
+  "passed": 3,
+  "total": 4
+}

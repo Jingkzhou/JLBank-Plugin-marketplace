@@ -1,0 +1,25 @@
+{
+  "model": "claude-opus-4-20250514",
+  "eval_id": 14,
+  "mode": "with_skill",
+  "assertions": [
+    {
+      "assertion": "Response warns that the issuer URI (iss claim) must remain the same after migration",
+      "passed": true
+    },
+    {
+      "assertion": "Response explains that changing the issuer breaks existing tokens and/or client trust relationships",
+      "passed": true
+    },
+    {
+      "assertion": "Response recommends setting options.IssuerUri explicitly in the Duende IdentityServer configuration",
+      "passed": true
+    },
+    {
+      "assertion": "Response suggests checking the current /.well-known/openid-configuration discovery document to find the existing issuer value",
+      "passed": true
+    }
+  ],
+  "passed": 4,
+  "total": 4
+}

@@ -1,0 +1,43 @@
+diff --git a/lib/grape/middleware/formatter.rb b/lib/grape/middleware/formatter.rb
+index f69ac356..65ffe537 100644
+--- a/lib/grape/middleware/formatter.rb
++++ b/lib/grape/middleware/formatter.rb
+@@ -7,6 +7,8 @@ module Grape
+         default_format: :txt
+       }.freeze
+ 
++      ALL_MEDIA_TYPES = '*/*'
++
+       def before
+         negotiate_content_type
+         read_body_input
+@@ -138,7 +140,7 @@ module Grape
+ 
+       def format_from_header
+         accept_header = env['HTTP_ACCEPT'].try(:scrub)
+-        return if accept_header.blank?
++        return if accept_header.blank? || accept_header == ALL_MEDIA_TYPES
+ 
+         media_type = Rack::Utils.best_q_match(accept_header, mime_types.keys)
+         mime_types[media_type] if media_type
+diff --git a/spec/grape/middleware/formatter_spec.rb b/spec/grape/middleware/formatter_spec.rb
+index cb353aa4..dda26044 100644
+--- a/spec/grape/middleware/formatter_spec.rb
++++ b/spec/grape/middleware/formatter_spec.rb
+@@ -22,10 +22,14 @@ describe Grape::Middleware::Formatter do
+     context 'default format' do
+       let(:body) { ['foo'] }
+       let(:env) do
+-        { Rack::PATH_INFO => '/somewhere', 'HTTP_ACCEPT' => 'application/json' }
++        { Rack::PATH_INFO => '/somewhere', 'HTTP_ACCEPT' => '*/*' }
+       end
+ 
+-      it 'calls #to_json since default format is json' do
++      before do
++        subject.options[:default_format] = :json
++      end
++
++      it 'returns JSON' do
+         body.instance_eval do
+           def to_json(*_args)
+             '"bar"'

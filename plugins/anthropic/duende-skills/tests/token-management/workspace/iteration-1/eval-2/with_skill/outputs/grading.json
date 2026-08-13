@@ -1,0 +1,29 @@
+{
+  "model": "claude-opus-4-20250514",
+  "eval_id": 2,
+  "mode": "with_skill",
+  "assertions": [
+    {
+      "assertion": "Output sets SaveTokens = true on the OpenIdConnect handler options",
+      "passed": true
+    },
+    {
+      "assertion": "Output includes 'offline_access' in the OIDC scope list to enable refresh tokens",
+      "passed": true
+    },
+    {
+      "assertion": "Output wires up RevokeRefreshTokenAsync() in the cookie OnSigningOut event handler",
+      "passed": true
+    },
+    {
+      "assertion": "Output calls AddOpenIdConnectAccessTokenManagement() to register user token management services",
+      "passed": true
+    },
+    {
+      "assertion": "Output registers a named HTTP client using AddUserAccessTokenHttpClient with the user's access token",
+      "passed": true
+    }
+  ],
+  "passed": 5,
+  "total": 5
+}

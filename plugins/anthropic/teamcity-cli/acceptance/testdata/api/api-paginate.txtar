@@ -1,0 +1,9 @@
+# Test API pagination.
+
+exec teamcity api '/app/rest/projects' --paginate --no-input
+stdout '"project"'
+! stderr 'Error'
+
+exec teamcity api '/app/rest/projects' --paginate --slurp --no-input
+stdout '\['
+! stderr 'Error'

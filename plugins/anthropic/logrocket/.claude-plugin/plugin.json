@@ -1,0 +1,10 @@
+{
+  "name": "logrocket",
+  "description": "Connect Claude Code to LogRocket to query session replays, metrics, issues, and user behavior using natural language.",
+  "author": {
+    "name": "LogRocket",
+    "email": "support@logrocket.com"
+  },
+  "license": "MIT",
+  "keywords": ["logrocket", "session-replay", "analytics", "mcp", "galileo"]
+}

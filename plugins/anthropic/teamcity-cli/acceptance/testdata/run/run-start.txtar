@@ -1,0 +1,45 @@
+# Test run start subcommand.
+[!has_token] skip 'requires authentication token'
+
+exec teamcity api '/app/rest/buildTypes?locator=count:1&fields=buildType(id)' --raw --no-input
+extract '"id":"([^"]+)"' JOB_ID
+
+exec teamcity run start $JOB_ID --json --no-input
+extract '"id":\s*(\d+)' BUILD_ID
+
+exec teamcity run cancel $BUILD_ID --yes --no-input
+stdout 'Cancel'
+
+exec teamcity run start $JOB_ID --json --no-input
+stdout '"id"'
+stdout '"state"'
+
+extract '"id":\s*(\d+)' BUILD_ID
+exec teamcity run cancel $BUILD_ID --yes --no-input
+
+exec teamcity run start $JOB_ID --branch main --json --no-input
+stdout '"branchName"'
+
+extract '"id":\s*(\d+)' BUILD_ID
+exec teamcity run cancel $BUILD_ID --yes --no-input
+
+# --dry-run (no cleanup needed)
+exec teamcity run start $JOB_ID --dry-run --no-input
+stdout 'dry-run'
+! stderr 'Error'
+
+# --settings (dry-run, shows the versioned-settings source)
+exec teamcity run start $JOB_ID --settings vcs --dry-run --no-input
+stdout 'Settings: from VCS'
+
+exec teamcity run start $JOB_ID --comment 'acceptance test' --tag acceptance-$RANDOM_STRING --json --no-input
+stdout '"id"'
+
+extract '"id":\s*(\d+)' BUILD_ID
+exec teamcity run cancel $BUILD_ID --yes --no-input
+
+# --reuse-deps (dry-run, non-existent id surfaces as "not found")
+exec teamcity run start $JOB_ID --reuse-deps 999999999 --dry-run --no-input
+stdout 'Snapshot dependencies:'
+stdout '999999999'
+stdout 'not found'

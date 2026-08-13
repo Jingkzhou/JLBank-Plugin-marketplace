@@ -1,0 +1,34 @@
+{
+  "eval_id": 2,
+  "variant": "without_skill",
+  "assertions": [
+    {
+      "assertion": "Program.cs or an authentication setup file registers an OpenIdConnect handler with scheme name 'AAD' and SignInScheme set to IdentityServerConstants.ExternalCookieAuthenticationScheme",
+      "pass": false,
+      "rationale": "Uses hardcoded string 'ExternalCookie' instead of IdentityServerConstants.ExternalCookieAuthenticationScheme."
+    },
+    {
+      "assertion": "The external login trigger calls Challenge with 'AAD' and stores returnUrl in AuthenticationProperties.Items",
+      "pass": true,
+      "rationale": "Challenge is called with 'AAD' and returnUrl is stored in Items."
+    },
+    {
+      "assertion": "The callback handler calls HttpContext.AuthenticateAsync with IdentityServerConstants.ExternalCookieAuthenticationScheme to read the external identity",
+      "pass": false,
+      "rationale": "Uses hardcoded string 'ExternalCookie' instead of IdentityServerConstants.ExternalCookieAuthenticationScheme."
+    },
+    {
+      "assertion": "The callback handler calls HttpContext.SignOutAsync with IdentityServerConstants.ExternalCookieAuthenticationScheme to clean up the temporary cookie",
+      "pass": false,
+      "rationale": "Uses hardcoded string 'ExternalCookie' instead of IdentityServerConstants.ExternalCookieAuthenticationScheme."
+    },
+    {
+      "assertion": "The callback handler creates an IdentityServerUser or ClaimsPrincipal with IdentityProvider set to the external scheme name",
+      "pass": false,
+      "rationale": "Creates a raw ClaimsPrincipal with an 'idp' claim, but does not use IdentityServerUser. While the idp claim is present, it's set via manual claims rather than the IdentityServerUser.IdentityProvider property."
+    }
+  ],
+  "pass_count": 1,
+  "total_count": 5,
+  "score": 0.2
+}

@@ -1,0 +1,30 @@
+{
+  "name": "runway-api",
+  "displayName": "Runway API",
+  "version": "2.1.0",
+  "description": "Video generation at scale. Generate videos, images, and audio with Runway's API — batch ad campaigns, product videos, multishot stories, and creative iteration. Supports seedance2, gen4.5, veo3, Nano, Banana Pro, and more.",
+  "author": {
+    "name": "Runway",
+    "email": "ops@runwayml.com"
+  },
+  "homepage": "https://docs.dev.runwayml.com/",
+  "repository": "https://github.com/runwayml/skills",
+  "license": "MIT",
+  "logo": "assets/logo.png",
+  "keywords": [
+    "runway",
+    "runwayml",
+    "video-generation",
+    "image-generation",
+    "audio-generation",
+    "ai-api",
+    "seedance2",
+    "gen4",
+    "veo3",
+    "media-generation",
+    "batch"
+  ],
+  "category": "ai-tools",
+  "tags": ["media-generation", "video", "image", "audio", "api-integration"],
+  "skills": "./skills/"
+}

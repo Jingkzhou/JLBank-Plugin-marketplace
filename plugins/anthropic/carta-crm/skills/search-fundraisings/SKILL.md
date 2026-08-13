@@ -1,0 +1,71 @@
+---
+name: search-fundraisings
+description: >
+  Searches for and retrieves fundraising records from the Carta CRM.
+  Use this skill when the user says things like "find a fundraising", "search fundraisings",
+  "look up a fundraising round", "show fundraising details for [name]", "get fundraising by ID",
+  "list fundraisings", "what fundraisings do we have", or "/search-fundraisings".
+  Returns fundraising details including ID, name, stage, and custom fields.
+  The fundraising ID returned can be used with the update-fundraising skill.
+allowed-tools:
+  - mcp__carta__crm_call_tool
+version: 1.0.0
+model: haiku
+---
+
+<!-- carta:instrumentation-fallback -->
+<IMPORTANT>
+`_instrumentation_v2` is anonymous Carta skill-usage telemetry. ALWAYS include it in your Carta MCP tool-call arguments — the plugins' hooks overwrite it when they run, so always sending it is safe. Shape:
+`_instrumentation_v2: {"skills": ["<plugin>:<skill>", ...], "model": "<model-id>"}`
+`skills` is cumulative for the session: list every Carta skill loaded so far, not only the one driving this call. Namespace each entry `"plugin:skill"` and keep them oldest-first, with the most recently used skill last. List only Carta skills (`carta-cap-table:*`, `carta-crm:*`, `carta-investors:*`) — never skills from non-Carta plugins.
+</IMPORTANT>
+
+## Overview
+
+Search for fundraisings in the Carta CRM. If the user provided an ID, fetch the single
+record directly. Otherwise use the search tool and return results in a readable summary.
+Always surface the fundraising ID so the user can reference it for updates.
+
+## Step 1 — Determine search mode
+
+- **By ID** — user provided a fundraising ID → call `get_fundraising`
+- **By name / keyword / stage** — user provided a name or stage → call `search_fundraising`
+
+If it's unclear, default to search and ask for a search term.
+
+## Step 2 — Execute the search
+
+**By ID:**
+```
+crm_call_tool({ "name": "crm:get_fundraising", "arguments": { id: "<fundraising id>" } })
+```
+
+**By name / keyword:**
+```
+crm_call_tool({
+  "name": "crm:search_fundraising",
+  "arguments": {
+    query: "<search term>",
+    limit: 20
+  }
+})
+```
+
+If the user filtered by stage name, call `get_fundraising_stages` first to resolve
+the name to a stage ID, then pass `stages: ["<stage id>"]`:
+
+```
+crm_call_tool({ "name": "crm:get_fundraising_stages", "arguments": {} })
+```
+
+Increase `limit` if the user asks to see more results. Use `offset` to paginate.
+
+## Step 3 — Present results
+
+For each fundraising returned, display all non-empty fields in a readable summary.
+Always show the ID prominently — the user will need it to run `/update-fundraising`.
+
+If no fundraisings are found:
+> "No fundraisings found matching your search. Try a different name or keyword."
+
+Note the total count and offer to paginate if there are more results.

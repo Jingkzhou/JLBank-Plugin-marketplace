@@ -1,0 +1,17 @@
+{
+  "metadata": {
+    "description": "Endor Labs Agent Kit plugin marketplace for Cursor."
+  },
+  "name": "endorlabs",
+  "owner": {
+    "email": "support@endor.ai",
+    "name": "Endor Labs"
+  },
+  "plugins": [
+    {
+      "description": "Endor Labs Agent Kit setup and security workflow agents and skills.",
+      "name": "endorlabs",
+      "source": "./plugins/cursor/endor-labs-agent-kit"
+    }
+  ]
+}

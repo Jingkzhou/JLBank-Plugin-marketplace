@@ -1,0 +1,3297 @@
+{
+  "generated_at": "2026-08-12T18:41:26+00:00",
+  "note": "Detected files are evidence only; UNKNOWN means no root license file was detected, not that the work has no license.",
+  "packages": [
+    {
+      "name": "42crunch-api-security-testing",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/42Crunch-AI/claude-plugins.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "adobe-for-creativity",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/adobe/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/adobe-for-creativity/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "agent-sdk-dev",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/agent-sdk-dev/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "agentforce-adlc",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/SalesforceAIResearch/agentforce-adlc.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/agentforce-adlc/THIRD_PARTY_LICENSES/LICENSE.txt"
+      ]
+    },
+    {
+      "name": "ai-plugins",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/endorlabs/ai-plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/ai-plugins/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "aikido",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/AikidoSec/aikido-claude-plugin.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "airtable",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/Airtable/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/airtable/THIRD_PARTY_LICENSES/LICENSE.md"
+      ]
+    },
+    {
+      "name": "airwallex-agentos",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/airwallex/airwallex-marketplace.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/airwallex-agentos/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "airwallex-dev",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/airwallex/airwallex-marketplace.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/airwallex-dev/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "aiven",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/aiven/aiven-ai-plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/aiven/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "alloydb",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/gemini-cli-extensions/alloydb.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/alloydb/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "alloydb-omni",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/gemini-cli-extensions/alloydb-omni.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/alloydb-omni/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "altimate-code",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/AltimateAI/altimate-claude-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/altimate-code/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "amazon-location-service",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/awslabs/agent-plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/amazon-location-service/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/amazon-location-service/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "amd-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/amd/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/amd-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "amplitude",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/amplitude/mcp-marketplace.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/amplitude/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "apollo",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/apolloio/apollo-mcp-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/apollo/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "apollo-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/apollographql/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/apollo-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "appwrite",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/appwrite/claude-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/appwrite/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "asana",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/asana/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "astronomer-data-agents",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/astronomer/agents.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/astronomer-data-agents/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "atlan",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/atlanhq/agent-toolkit.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/atlan/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "atlassian",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/atlassian/atlassian-mcp-server.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/atlassian/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "atlassian-twg-cli",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/atlassian-labs/twg-plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/atlassian-twg-cli/THIRD_PARTY_LICENSES/LICENSE.txt"
+      ]
+    },
+    {
+      "name": "atomic-agents",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/BrainBlend-AI/atomic-agents.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/atomic-agents/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "auth0",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/auth0/agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/auth0/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "aws-agents",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/aws/agent-toolkit-for-aws.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/aws-agents/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/aws-agents/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "aws-agents-for-devsecops",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/aws/agent-toolkit-for-aws.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/aws-agents-for-devsecops/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/aws-agents-for-devsecops/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "aws-amplify",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/awslabs/agent-plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/aws-amplify/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/aws-amplify/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "aws-core",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/aws/agent-toolkit-for-aws.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/aws-core/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/aws-core/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "aws-data-analytics",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/aws/agent-toolkit-for-aws.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/aws-data-analytics/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/aws-data-analytics/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "aws-dev-toolkit",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/aws-samples/sample-claude-code-plugins-for-startups.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/aws-dev-toolkit/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "aws-serverless",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/awslabs/agent-plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/aws-serverless/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/aws-serverless/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "aws-startup-advisor",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/awslabs/startups.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/aws-startup-advisor/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/aws-startup-advisor/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "aws-transform",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/awslabs/agent-plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/aws-transform/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/aws-transform/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "azure",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/microsoft/azure-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/azure/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "azure-cosmos-db-assistant",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/AzureCosmosDB/cosmosdb-claude-code-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/azure-cosmos-db-assistant/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "azure-sql-developer",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/microsoft/azure-sql-database-container.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/azure-sql-developer/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "base44",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/base44/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/base44/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "bigdata-com",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/Bigdata-com/bigdata-plugins-marketplace.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/bigdata-com/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "bigquery-data-analytics",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/gemini-cli-extensions/bigquery-data-analytics.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/bigquery-data-analytics/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "boltz",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/boltz-bio/boltz-api-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/boltz/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "box",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/box/box-for-ai.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/box/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "brightdata-plugin",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/brightdata/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/brightdata-plugin/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "browser-use",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/browser-use/plugins.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "build-with-wordpress",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/Automattic/claude-code-wordpress.com.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/build-with-wordpress/THIRD_PARTY_LICENSES/LICENSE.md"
+      ]
+    },
+    {
+      "name": "buildkite",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/buildkite/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/buildkite/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "canva",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/canva-sdks/canva-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/canva/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "carbone-skill",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/carboneio/carbone-skill.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/carbone-skill/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "carta-cap-table",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/carta/plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/carta-cap-table/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "carta-crm",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/carta/plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/carta-crm/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "carta-investors",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/carta/plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/carta-investors/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "catalyst-by-zoho",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/catalystbyzoho/claude-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/catalyst-by-zoho/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "cds-mcp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/cap-js/mcp-server.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/cds-mcp/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "chrome-devtools-mcp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/chrome-devtools-mcp/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "circle-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/circlefin/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/circle-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "circleback",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/circlebackai/claude-code-plugin.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "ckeditor",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/ckeditor/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/ckeditor/THIRD_PARTY_LICENSES/LICENSE.md"
+      ]
+    },
+    {
+      "name": "clangd-lsp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/clangd-lsp/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "claude-code-setup",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/claude-code-setup/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "claude-md-management",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/claude-md-management/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "claude-security",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/claude-security/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "clickhouse",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/ClickHouse/clickhouse-claude-code-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/clickhouse/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "clickhouse-best-practices",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/ClickHouse/agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/clickhouse-best-practices/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/clickhouse-best-practices/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "cloud-sql-mysql",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/gemini-cli-extensions/cloud-sql-mysql.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/cloud-sql-mysql/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "cloud-sql-postgresql",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/gemini-cli-extensions/cloud-sql-postgresql.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/cloud-sql-postgresql/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "cloud-sql-sqlserver",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/gemini-cli-extensions/cloud-sql-sqlserver.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/cloud-sql-sqlserver/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "cloudflare",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/cloudflare/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/cloudflare/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "cloudinary",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/cloudinary-devs/cloudinary-plugin.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "cockroachdb",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/cockroachdb/claude-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/cockroachdb/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "code-modernization",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/code-modernization/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "code-review",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/code-review/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "code-simplifier",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/code-simplifier/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "coderabbit",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/coderabbitai/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/coderabbit/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "codspeed",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/CodSpeedHQ/codspeed.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/codspeed/THIRD_PARTY_LICENSES/LICENSE-APACHE",
+        "plugins/anthropic/codspeed/THIRD_PARTY_LICENSES/LICENSE-MIT"
+      ]
+    },
+    {
+      "name": "commit-commands",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/commit-commands/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "confidence",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/spotify/confidence-ai-plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/confidence/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "context7",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/context7/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "convex",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/get-convex/convex-backend-skill.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "crowdsec",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/crowdsecurity/crowdsec-skill.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/crowdsec/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "crowdstrike-falcon-foundry",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/CrowdStrike/foundry-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/crowdstrike-falcon-foundry/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "crowdstrike-falcon-fusion",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/CrowdStrike/fusion-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/crowdstrike-falcon-fusion/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "csharp-lsp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/csharp-lsp/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "cwc-makers",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/cwc-makers/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "dash0",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/dash0hq/dash0-agent-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/dash0/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "data",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/astronomer/agents.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/data/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "data-agent-kit-starter-pack",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/data-agent-kit-starter-pack/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "data-engineering",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/astronomer/agents.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/data-engineering/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "databases-on-aws",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/awslabs/agent-plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/databases-on-aws/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/databases-on-aws/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "databricks",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/databricks/databricks-agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/databricks/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/databricks/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "datadog",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/datadog-labs/claude-code-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/datadog/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/datadog/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "datahub-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/datahub-project/datahub-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/datahub-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "dataproc",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/gemini-cli-extensions/dataproc.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/dataproc/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "datarobot-agent-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/datarobot-oss/datarobot-agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/datarobot-agent-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "dataverse",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/microsoft/Dataverse-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/dataverse/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "deepeval",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/confident-ai/deepeval.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/deepeval/THIRD_PARTY_LICENSES/LICENSE.md"
+      ]
+    },
+    {
+      "name": "deploy-on-aws",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/awslabs/agent-plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/deploy-on-aws/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/deploy-on-aws/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "desktop-commander",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/wonderwhy-er/DesktopCommanderMCP.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/desktop-commander/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "discord",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/discord/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "dominodatalab",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/dominodatalab/domino-claude-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/dominodatalab/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "dropbox",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/dropbox/dropbox-ai-plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/dropbox/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "duckdb-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/duckdb/duckdb-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/duckdb-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "duende-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/DuendeSoftware/duende-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/duende-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "exa",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/exa-labs/exa-mcp-server.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/exa/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "explanatory-output-style",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/explanatory-output-style/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "expo",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/expo/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/expo/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "fakechat",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/fakechat/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "fastly-agent-toolkit",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/fastly/fastly-agent-toolkit.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/fastly-agent-toolkit/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "feature-dev",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/feature-dev/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "fiftyone",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/voxel51/fiftyone-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/fiftyone/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "figma",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/figma/mcp-server-guide.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "firebase",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/firebase/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "firecrawl",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/firecrawl/firecrawl-claude-plugin.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "firestore-native",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/gemini-cli-extensions/firestore-native.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/firestore-native/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "forge-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/atlassian/forge-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/forge-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "frontend-design",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/frontend-design/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "fullstory",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/fullstorydev/fullstory-skills",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "github",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/github/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "gitkraken",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/gitkraken/claude-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/gitkraken/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/gitkraken/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "gitlab",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/gitlab/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "google-cloud-storage",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/gemini-cli-extensions/google-cloud-storage.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/google-cloud-storage/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "gopls-lsp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/gopls-lsp/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "grafana-assistant",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/grafana/ai-marketplace.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/grafana-assistant/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "grafana-cloud-mcp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/grafana/ai-marketplace.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/grafana-cloud-mcp/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "grafana-mcp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/grafana/ai-marketplace.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/grafana-mcp/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "greptile",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/greptile/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "growthbook",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/growthbook/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/growthbook/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "honeycomb",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/honeycombio/agent-skill.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/honeycomb/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "hookify",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/hookify/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "hostinger",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/hostinger/claude-plugin.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "huggingface-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/huggingface/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/huggingface-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "hunter",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/hunter-io/claude-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/hunter/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "hyperframes",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/heygen-com/hyperframes.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/hyperframes/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "idmp-plugin",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/taosdata/agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/idmp-plugin/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "imessage",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/imessage/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "intercom",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/intercom/claude-plugin-external.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/intercom/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "jdtls-lsp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/jdtls-lsp/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "jfrog",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/jfrog/claude-plugin",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/jfrog/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "knowledge-catalog",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/gemini-cli-extensions/knowledge-catalog.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/knowledge-catalog/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "kotlin-lsp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/kotlin-lsp/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "langfuse",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/langfuse/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/langfuse/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "langfuse-observability",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/langfuse/claude-observability-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/langfuse-observability/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "laravel-boost",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/laravel-boost/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "learn-with-coursera",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/coursera/skills.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "learning-output-style",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/learning-output-style/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "legalzoom",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/legalzoom/claude-plugins.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "linear",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/linear/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "liquid-lsp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/Shopify/liquid-skills.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "liquid-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/Shopify/liquid-skills.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "logfire",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/pydantic/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/logfire/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "logrocket",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/LogRocket/logrocket-claude-plugin.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "looker",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/gemini-cli-extensions/looker.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/looker/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "lovable",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/lovablelabs/mcp.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/lovable/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "lua-lsp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/lua-lsp/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "lumen",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/ory/lumen.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/lumen/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "lusha",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/lusha-oss/lusha-mcp-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/lusha/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "mapbox",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/mapbox/mapbox-agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/mapbox/THIRD_PARTY_LICENSES/LICENSE.md"
+      ]
+    },
+    {
+      "name": "math-olympiad",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/math-olympiad/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "mattpocock-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/mattpocock/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/mattpocock-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "mcp-apps",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/modelcontextprotocol/ext-apps.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/mcp-apps/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "mcp-server-dev",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/mcp-server-dev/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "mcp-tunnels",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/mcp-tunnels/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "mercadopago",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/mercadopago/mercadopago-claude-marketplace.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/mercadopago/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/mercadopago/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "mergify",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/mergifyio/mergify-cli.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/mergify/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "microsoft-docs",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/MicrosoftDocs/mcp.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/microsoft-docs/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/microsoft-docs/THIRD_PARTY_LICENSES/LICENSE-CODE"
+      ]
+    },
+    {
+      "name": "migration-to-aws",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/awslabs/startups.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/migration-to-aws/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/migration-to-aws/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "mintlify",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/mintlify/mintlify-claude-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/mintlify/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "miro",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/miroapp/miro-ai.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/miro/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "mlflow",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/mlflow/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/mlflow/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "modern-web-guidance",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/GoogleChrome/modern-web-guidance.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/modern-web-guidance/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "monday-crm",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/mondaycom/mcp.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/monday-crm/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "mongodb",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/mongodb/agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/mongodb/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "mongodb-atlas",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/mongodb/agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/mongodb-atlas/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "neon",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/neondatabase/agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/neon/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "netlify-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/netlify/context-and-tools.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/netlify-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "netsuite-suitecloud",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/oracle/netsuite-suitecloud-sdk.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/netsuite-suitecloud/THIRD_PARTY_LICENSES/LICENSE.txt"
+      ]
+    },
+    {
+      "name": "newrelic",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/newrelic/claude-code-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/newrelic/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "nightvision",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/nvsecurity/nightvision-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/nightvision/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "nimble",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/Nimbleway/agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/nimble/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "noibu",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/Noibu/ai-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/noibu/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "notion",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/makenotion/claude-code-notion-plugin.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "nvidia-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/NVIDIA/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/nvidia-skills/THIRD_PARTY_LICENSES/LICENSE-APACHE",
+        "plugins/anthropic/nvidia-skills/THIRD_PARTY_LICENSES/LICENSE-CC-BY-4.0"
+      ]
+    },
+    {
+      "name": "oracle-ai-data-platform-workbench-databricks-migrator",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/oracle-samples/oracle-aidp-samples.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/oracle-ai-data-platform-workbench-databricks-migrator/THIRD_PARTY_LICENSES/LICENSE.txt"
+      ]
+    },
+    {
+      "name": "oracle-ai-data-platform-workbench-engineer-agent",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/oracle-samples/oracle-aidp-samples.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/oracle-ai-data-platform-workbench-engineer-agent/THIRD_PARTY_LICENSES/LICENSE.txt"
+      ]
+    },
+    {
+      "name": "oracle-ai-data-platform-workbench-spark-connectors",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/oracle-samples/oracle-aidp-samples.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/oracle-ai-data-platform-workbench-spark-connectors/THIRD_PARTY_LICENSES/LICENSE.txt"
+      ]
+    },
+    {
+      "name": "oracledb",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/gemini-cli-extensions/oracledb.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/oracledb/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "outputai",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/growthxai/output.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/outputai/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "pagerduty",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/PagerDuty/claude-code-plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/pagerduty/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "paypal",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/paypal/AI-Toolkit.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/paypal/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "php-lsp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/php-lsp/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "pigment",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/gopigment/ai-plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/pigment/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "pinecone",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/pinecone-io/pinecone-claude-code-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/pinecone/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "pixeltable",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/pixeltable/pixeltable-skill.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/pixeltable/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "planetscale",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/planetscale/claude-plugin.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "playground",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/playground/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "playwright",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/playwright/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "plugin-dev",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/plugin-dev/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "posthog",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/PostHog/ai-plugin.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "postiz",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/gitroomhq/postiz-agent.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/postiz/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "postman",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/Postman-Devrel/postman-claude-code-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/postman/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "pr-review-toolkit",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/pr-review-toolkit/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "preset-cli-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/preset-io/agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/preset-cli-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "prisma",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/prisma/claude-plugin.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "project-artifact",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/project-artifact/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "pydantic-ai",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/pydantic/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/pydantic-ai/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "pyright-lsp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/pyright-lsp/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "qdrant-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/qdrant/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/qdrant-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "qodo",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/qodo-ai/qodo-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/qodo/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "qt-development-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/TheQtCompanyRnD/agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/qt-development-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "quarkus-agent",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/quarkusio/quarkus-agent-mcp.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/quarkus-agent/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "railway",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/railwayapp/railway-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/railway/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "ralph-loop",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/ralph-loop/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "rc",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/RevenueCat/rc-claude-code-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/rc/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "receipts",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/receipts/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "redis-development",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/redis/agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/redis-development/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "remember",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/Digital-Process-Tools/claude-remember.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/remember/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "render",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/render-oss/render-plugin-claude-code.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/render/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "resend",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/resend/resend-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/resend/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "revenuecat",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/RevenueCat/rc-claude-code-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/revenuecat/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "rill",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/rilldata/agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/rill/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "rootly",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/Rootly-AI-Labs/rootly-claude-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/rootly/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "ruby-lsp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/ruby-lsp/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "runway-api",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/runwayml/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/runway-api/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "rust-analyzer-lsp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/rust-analyzer-lsp/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "sagemaker-ai",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/awslabs/agent-plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/sagemaker-ai/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/sagemaker-ai/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "salesforce-development",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/forcedotcom/sf-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/salesforce-development/THIRD_PARTY_LICENSES/LICENSE.txt"
+      ]
+    },
+    {
+      "name": "sanity",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/sanity-io/agent-toolkit.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/sanity/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "sap-cds-mcp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/cap-js/mcp-server.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/sap-cds-mcp/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "sap-fiori-mcp-server",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/SAP/open-ux-tools.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/sap-fiori-mcp-server/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "sap-hana-cli",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/SAP-samples/hana-cli-claude-plugin.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "sap-mdk-server",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/SAP/mdk-mcp-server.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/sap-mdk-server/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "save-to-spotify",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/spotify/save-to-spotify.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/save-to-spotify/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "security-guidance",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/security-guidance/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "semgrep",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/semgrep/mcp-marketplace.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "sentry",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/getsentry/plugin-claude.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/sentry/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "sentry-cli",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/getsentry/cli.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/sentry-cli/THIRD_PARTY_LICENSES/LICENSE.md"
+      ]
+    },
+    {
+      "name": "serena",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/serena/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "servicenow-sdk",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/ServiceNow/sdk.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "session-report",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/session-report/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "shippo",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/goshippo/ai.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/shippo/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "shopify-ai-toolkit",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/Shopify/Shopify-AI-Toolkit.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/shopify-ai-toolkit/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skill-creator",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/skill-creator/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "slack",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/slackapi/slack-mcp-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/slack/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "snowflake-cortex-code",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/Snowflake-Labs/snowflake-ai-kit.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/snowflake-cortex-code/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/anthropic/snowflake-cortex-code/THIRD_PARTY_LICENSES/LICENSE-SKILLS.md"
+      ]
+    },
+    {
+      "name": "sonarqube",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/SonarSource/sonarqube-agent-plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/sonarqube/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "sonatype-guide",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/sonatype/sonatype-guide-claude-plugin.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "sourcegraph",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/sourcegraph-community/sourcegraph-claudecode-plugin.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "spanner",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/gemini-cli-extensions/spanner.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/spanner/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "spotify-ads-api",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/spotify/ads-claude-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/spotify-ads-api/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "stackhawk-api",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/stackhawk/agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/stackhawk-api/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "stackhawk-hawkscan",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/stackhawk/agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/stackhawk-hawkscan/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "streaming-skills-plugin",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/confluentinc/agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/streaming-skills-plugin/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "stripe",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/stripe/ai.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/stripe/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "sumup",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/sumup/sumup-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/sumup/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "supabase",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/supabase-community/supabase-plugin.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "superdesign",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/superdesigndev/superdesign-skill.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/superdesign/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "superpowers",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/obra/superpowers.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/superpowers/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "swift-lsp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/swift-lsp/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "synthflow",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/SynthFlowAI/AnthropicPlugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/synthflow/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "tavily",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/tavily-ai/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/tavily/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "teamcity-cli",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/JetBrains/teamcity-cli.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/teamcity-cli/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "telegram",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/telegram/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "terraform",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/terraform/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "togetherai-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/togethercomputer/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/togetherai-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "twilio-developer-kit",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/twilio/ai.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/twilio-developer-kit/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "typescript-lsp",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/anthropics/claude-plugins-official",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/typescript-lsp/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "ui-theme-designer",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/SAP/ui-theme-designer-plugins-for-coding-agents.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/ui-theme-designer/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "ui5",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/UI5/plugins-coding-agents.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/ui5/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "ui5-modernization",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/UI5/plugins-coding-agents.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/ui5-modernization/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "ui5-typescript-conversion",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/UI5/plugins-coding-agents.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/ui5-typescript-conversion/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "unreal-engine-skills-for-claude-code",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/EpicGames/unreal-engine-skills-for-claude-code-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/unreal-engine-skills-for-claude-code/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "valtown",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/val-town/plugins.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/valtown/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "vanta",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/VantaInc/vanta-mcp-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/vanta/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "vanta-mcp-plugin",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/VantaInc/vanta-mcp-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/vanta-mcp-plugin/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "vercel",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/vercel/vercel-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/vercel/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "vibe-prospecting",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/explorium-ai/vibeprospecting-plugin.git",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "vsql-extension-builder",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/villagesql/villagesql-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/vsql-extension-builder/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "windsor-ai",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/windsor-ai/claude-windsor-ai-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/windsor-ai/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "wix",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/wix/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/wix/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "workos",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/workos/skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/workos/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "youdotcom-agent-skills",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/youdotcom-oss/agent-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/youdotcom-agent-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "zapier",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/zapier/zapier-mcp.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/zapier/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "zilliz",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/zilliztech/zilliz-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/zilliz/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "zoom-plugin",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/zoom/zoom-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/zoom-plugin/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "zoominfo",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/Zoominfo/zoominfo-mcp-plugin.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/zoominfo/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "zscaler",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/zscaler/zscaler-mcp-server.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/zscaler/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "zyte-web-data",
+      "kind": "anthropic-marketplace",
+      "upstream_repository": "https://github.com/zytedata/claude-skills.git",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/anthropic/zyte-web-data/THIRD_PARTY_LICENSES/LICENSE.md"
+      ]
+    },
+    {
+      "name": "skillsh-addyosmani-web-quality-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/addyosmani/web-quality-skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-addyosmani-web-quality-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-agent-qq-com",
+      "kind": "skills.sh",
+      "upstream_repository": "agent.qq.com",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-agentix-cloud-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/agentix-cloud/skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-agentix-cloud-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-alchaincyf-huashu-design",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/alchaincyf/huashu-design",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-alchaincyf-huashu-design/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-anthropics-claude-code",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/anthropics/claude-code",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-anthropics-claude-code/THIRD_PARTY_LICENSES/LICENSE.md"
+      ]
+    },
+    {
+      "name": "skillsh-anthropics-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/anthropics/skills",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-antibrow-anti-detect-browser-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/antibrow/anti-detect-browser-skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-antibrow-anti-detect-browser-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-anysearch-ai-anysearch-skill",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/anysearch-ai/anysearch-skill",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-anysearch-ai-anysearch-skill/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/skills-sh/skillsh-anysearch-ai-anysearch-skill/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "skillsh-arvindrk-extract-design-system",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/arvindrk/extract-design-system",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-arvindrk-extract-design-system/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-better-auth-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/better-auth/skills",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-browser-act-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/browser-act/skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-browser-act-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-browser-use-browser-use",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/browser-use/browser-use",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-browser-use-browser-use/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-cloudflare-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/cloudflare/skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-cloudflare-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-coreyhaines31-marketingskills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/coreyhaines31/marketingskills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-coreyhaines31-marketingskills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-currents-dev-playwright-best-practices-skill",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/currents-dev/playwright-best-practices-skill",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-currents-dev-playwright-best-practices-skill/THIRD_PARTY_LICENSES/LICENSE.md"
+      ]
+    },
+    {
+      "name": "skillsh-degausai-wonda",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/degausai/wonda",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-dietrichgebert-ponytail",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/dietrichgebert/ponytail",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-dietrichgebert-ponytail/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-emilkowalski-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/emilkowalski/skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-emilkowalski-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-expo-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/expo/skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-expo-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-firebase-agent-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/firebase/agent-skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-firebase-agent-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-firecrawl-cli",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/firecrawl/cli",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-firecrawl-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/firecrawl/skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-firecrawl-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-genkit-ai-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/genkit-ai/skills",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-get-convex-agent-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/get-convex/agent-skills",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-github-awesome-copilot",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/github/awesome-copilot",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-github-awesome-copilot/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-google-agents-cli",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/google/agents-cli",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-google-agents-cli/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-google-labs-code-stitch-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/google-labs-code/stitch-skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-google-labs-code-stitch-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-googleworkspace-cli",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/googleworkspace/cli",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-googleworkspace-cli/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-greensock-gsap-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/greensock/gsap-skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-greensock-gsap-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-heygen-com-hyperframes",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/heygen-com/hyperframes",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-heygen-com-hyperframes/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-higgsfield-ai-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/higgsfield-ai/skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-higgsfield-ai-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-hugmouse-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/hugmouse/skills",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-intellectronica-agent-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/intellectronica/agent-skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-intellectronica-agent-skills/THIRD_PARTY_LICENSES/LICENSE.txt"
+      ]
+    },
+    {
+      "name": "skillsh-jakubkrehel-make-interfaces-feel-better",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/jakubkrehel/make-interfaces-feel-better",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-jakubkrehel-make-interfaces-feel-better/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-juliusbrussee-caveman",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/juliusbrussee/caveman",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-juliusbrussee-caveman/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/skills-sh/skillsh-juliusbrussee-caveman/THIRD_PARTY_LICENSES/LICENSE.BSL"
+      ]
+    },
+    {
+      "name": "skillsh-kepano-obsidian-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/kepano/obsidian-skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-kepano-obsidian-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-larksuite-cli",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/larksuite/cli",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-larksuite-cli/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-leonxlnx-taste-skill",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/leonxlnx/taste-skill",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-leonxlnx-taste-skill/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-lllllllama-rigorpilot-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/lllllllama/rigorpilot-skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-lllllllama-rigorpilot-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-mattpocock-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/mattpocock/skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-mattpocock-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-mcollina-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/mcollina/skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-mcollina-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-microsoft-azure-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/microsoft/azure-skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-microsoft-azure-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-microsoft-playwright-cli",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/microsoft/playwright-cli",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-microsoft-playwright-cli/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-momentic-ai-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/momentic-ai/skills",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-msmps-opentui-skill",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/msmps/opentui-skill",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-msmps-opentui-skill/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-neondatabase-agent-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/neondatabase/agent-skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-neondatabase-agent-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-nexscope-ai-amazon-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/nexscope-ai/amazon-skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-nexscope-ai-amazon-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-nexscope-ai-ecommerce-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/nexscope-ai/ecommerce-skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-nexscope-ai-ecommerce-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-nextlevelbuilder-ui-ux-pro-max-skill",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-nextlevelbuilder-ui-ux-pro-max-skill/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-nozomio-labs-nia-skill",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/nozomio-labs/nia-skill",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-nutlope-hallmark",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/nutlope/hallmark",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-nutlope-hallmark/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-obra-superpowers",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/obra/superpowers",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-obra-superpowers/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-op7418-humanizer-zh",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/op7418/humanizer-zh",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-op7418-humanizer-zh/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-open-feishu-cn",
+      "kind": "skills.sh",
+      "upstream_repository": "open.feishu.cn",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-othmanadi-planning-with-files",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/othmanadi/planning-with-files",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-othmanadi-planning-with-files/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-pbakaus-impeccable",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/pbakaus/impeccable",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-pbakaus-impeccable/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/skills-sh/skillsh-pbakaus-impeccable/THIRD_PARTY_LICENSES/NOTICE.md"
+      ]
+    },
+    {
+      "name": "skillsh-pexoai-pexo-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/pexoai/pexo-skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-pexoai-pexo-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-prime-skills-runcomfy-agent-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/prime-skills/runcomfy-agent-skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-prime-skills-runcomfy-agent-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-prisma-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/prisma/skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-prisma-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-remotion-dev-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/remotion-dev/skills",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-replicas-group-skill",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/replicas-group/skill",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-resciencelab-opc-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/resciencelab/opc-skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-resciencelab-opc-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-samber-cc-skills-golang",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/samber/cc-skills-golang",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-samber-cc-skills-golang/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-scrapegraphai-just-scrape",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/scrapegraphai/just-scrape",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-scrapegraphai-just-scrape/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-sentry-dev",
+      "kind": "skills.sh",
+      "upstream_repository": "sentry/dev",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-shadcn-ui",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/shadcn/ui",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-shadcn-ui/THIRD_PARTY_LICENSES/LICENSE.md"
+      ]
+    },
+    {
+      "name": "skillsh-skills-101-superpowers",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/skills-101/superpowers",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-skills-volces-com",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/bytedance/agentkit-samples",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-skills-volces-com/THIRD_PARTY_LICENSES/LICENSE",
+        "plugins/skills-sh/skillsh-skills-volces-com/THIRD_PARTY_LICENSES/NOTICE"
+      ]
+    },
+    {
+      "name": "skillsh-solana-foundation-solana-dev-skill",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/solana-foundation/solana-dev-skill",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-solana-foundation-solana-dev-skill/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-spillwavesolutions-design-doc-mermaid",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/spillwavesolutions/design-doc-mermaid",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-squirrelscan-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/squirrelscan/skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-squirrelscan-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-stablyai-orca",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/stablyai/orca",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-stablyai-orca/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-stripe-ai",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/stripe/ai",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-stripe-ai/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-supabase-agent-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/supabase/agent-skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-supabase-agent-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-tencent-wechatreading",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/tencent/wechatreading",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-tencent-wechatreading/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-uizze-com",
+      "kind": "skills.sh",
+      "upstream_repository": "uizze.com",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-useosint-osint-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/useosint/osint-skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-useosint-osint-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-vercel-ai",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/vercel/ai",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-vercel-ai/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-vercel-labs-agent-browser",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/vercel-labs/agent-browser",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-vercel-labs-agent-browser/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-vercel-labs-agent-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/vercel-labs/agent-skills",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-vercel-labs-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/vercel-labs/skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-vercel-labs-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-vercel-turborepo",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/vercel/turborepo",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-vercel-turborepo/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-vuejs-ai-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/vuejs-ai/skills",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-vuejs-ai-skills/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-wind-information-co-ltd-wind-skills",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/wind-information-co-ltd/wind-skills",
+      "status": "UNKNOWN",
+      "license_files": []
+    },
+    {
+      "name": "skillsh-wshobson-agents",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/wshobson/agents",
+      "status": "FILES_DETECTED",
+      "license_files": [
+        "plugins/skills-sh/skillsh-wshobson-agents/THIRD_PARTY_LICENSES/LICENSE"
+      ]
+    },
+    {
+      "name": "skillsh-zhaono1-agent-playbook",
+      "kind": "skills.sh",
+      "upstream_repository": "https://github.com/zhaono1/agent-playbook",
+      "status": "UNKNOWN",
+      "license_files": []
+    }
+  ]
+}

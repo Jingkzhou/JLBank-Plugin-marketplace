@@ -1,0 +1,25 @@
+{
+  "model": "claude-opus-4-20250514",
+  "eval_id": 4,
+  "mode": "with_skill",
+  "assertions": [
+    {
+      "assertion": "Response states that the implicit flow is deprecated and should not be used, explaining tokens are exposed in URL fragments",
+      "passed": true
+    },
+    {
+      "assertion": "Response recommends the Backend-for-Frontend (BFF) pattern as the correct approach for SPAs",
+      "passed": true
+    },
+    {
+      "assertion": "Response explains that authorization code flow with PKCE should be used instead of implicit flow",
+      "passed": true
+    },
+    {
+      "assertion": "Response mentions that with BFF, tokens are kept server-side and the SPA uses session cookies to communicate with its backend",
+      "passed": true
+    }
+  ],
+  "passed": 4,
+  "total": 4
+}

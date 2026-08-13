@@ -1,0 +1,71 @@
+name: Sync Agent Skills Discovery
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "skills/**"
+      - "scripts/export-agent-skills-discovery.go"
+      - ".github/workflows/sync-agent-skills-discovery.yaml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout sumup-skills
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: sumup-skills
+
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ secrets.SUMUP_BOT_APP_ID }}
+          private-key: ${{ secrets.SUMUP_BOT_PRIVATE_KEY }}
+          owner: sumup
+          repositories: sumup-developer
+
+      - name: Checkout sumup-developer
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: sumup/sumup-developer
+          path: sumup-developer
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Setup Go
+        uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
+        with:
+          go-version: "1.26"
+          cache: false
+
+      - name: Export discovery artifacts
+        working-directory: sumup-skills
+        run: |
+          set -euo pipefail
+          go run scripts/export-agent-skills-discovery.go \
+            --out ../sumup-developer/public/.well-known/agent-skills \
+            --base-url https://developer.sumup.com/.well-known/agent-skills
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          path: sumup-developer
+          token: ${{ steps.app-token.outputs.token }}
+          branch: chore/sync-agent-skills-discovery
+          delete-branch: true
+          title: "chore: sync agent skills discovery artifacts"
+          commit-message: "chore: sync agent skills discovery artifacts"
+          body: |
+            Syncs Agent Skills Discovery RFC artifacts from `sumup/sumup-skills`.
+
+            Generated files are served from:
+
+            - `/.well-known/agent-skills/index.json`
+            - `/.well-known/agent-skills/*.zip`

@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-scrapegraphai-just-scrape",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from scrapegraphai/just-scrape.",
+  "author": {
+    "name": "scrapegraphai/just-scrape"
+  }
+}

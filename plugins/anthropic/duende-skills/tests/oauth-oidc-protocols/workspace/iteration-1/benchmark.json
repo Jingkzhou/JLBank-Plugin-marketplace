@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "skill_name": "oauth-oidc-protocols",
+    "iteration": 1,
+    "model": "claude-opus-4-20250514",
+    "date": "2026-03-26"
+  },
+  "summary": {
+    "with_skill": {
+      "total_assertions": 0,
+      "passed": 0,
+      "failed": 0,
+      "pass_rate": 0
+    },
+    "without_skill": {
+      "total_assertions": 0,
+      "passed": 0,
+      "failed": 0,
+      "pass_rate": 0
+    },
+    "delta": {
+      "assertions_improved": 0,
+      "delta_pass_rate": 0
+    }
+  },
+  "evals": []
+}

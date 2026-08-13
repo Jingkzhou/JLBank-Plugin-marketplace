@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-currents-dev-playwright-best-practices-skill",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from currents-dev/playwright-best-practices-skill.",
+  "author": {
+    "name": "currents-dev/playwright-best-practices-skill"
+  }
+}

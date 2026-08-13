@@ -1,0 +1,29 @@
+{
+  "eval_id": 8,
+  "variant": "without_skill",
+  "assertions": [
+    {
+      "assertion": "Recommends setting options.KeyManagement.Enabled = false in test configuration",
+      "pass": false,
+      "rationale": "Does not mention KeyManagement.Enabled = false \u2014 only vaguely mentions 'in-memory approach' for developer signing credential"
+    },
+    {
+      "assertion": "Recommends AddDeveloperSigningCredential(persistKey: false) to avoid disk writes",
+      "pass": false,
+      "rationale": "Mentions developer signing credential writes to disk but does not provide the persistKey: false fix"
+    },
+    {
+      "assertion": "Warns against hard-coding localhost ports \u2014 use factory.CreateClient() BaseAddress instead",
+      "pass": true,
+      "rationale": "Warns against hard-coded ports and shows factory.CreateClient()"
+    },
+    {
+      "assertion": "Mentions the risk of sharing HttpClient or ClaimsProvider state across parallel tests",
+      "pass": true,
+      "rationale": "Warns about shared HttpClient state and suggests IAsyncLifetime"
+    }
+  ],
+  "pass_count": 2,
+  "total_count": 4,
+  "score": 0.5
+}

@@ -1,0 +1,675 @@
+package project
+
+import (
+	"cmp"
+	"errors"
+	"fmt"
+	"io"
+	"slices"
+	"strings"
+
+	"github.com/JetBrains/teamcity-cli/api"
+	"github.com/JetBrains/teamcity-cli/internal/cmd/param"
+	"github.com/JetBrains/teamcity-cli/internal/cmdutil"
+	"github.com/JetBrains/teamcity-cli/internal/completion"
+	"github.com/JetBrains/teamcity-cli/internal/output"
+	"github.com/charmbracelet/huh"
+	"github.com/dustin/go-humanize"
+	"github.com/dustin/go-humanize/english"
+	"github.com/spf13/cobra"
+)
+
+// pickerVisibleRows is the viewport size for the project picker; extras scroll.
+const pickerVisibleRows = 10
+
+func NewCmd(f *cmdutil.Factory) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "project",
+		Short: "Manage projects",
+		Long: `List, view, and manage TeamCity projects.
+
+A project groups related jobs, pipelines, VCS roots, parameters, and
+cloud profiles. Use these commands to navigate the project hierarchy
+and manage project-scoped resources (VCS roots, SSH keys, secure
+tokens, versioned settings, cloud integrations, and connections).
+
+See: https://www.jetbrains.com/help/teamcity/creating-and-editing-projects.html`,
+		Args: cobra.NoArgs,
+		RunE: cmdutil.SubcommandRequired,
+	}
+
+	cmd.AddCommand(newProjectListCmd(f))
+	cmd.AddCommand(newProjectViewCmd(f))
+	cmd.AddCommand(newProjectCreateCmd(f))
+	cmd.AddCommand(newProjectTreeCmd(f))
+	cmd.AddCommand(newProjectTokenCmd(f))
+	cmd.AddCommand(newProjectSettingsCmd(f))
+	cmd.AddCommand(newCloudCmd(f))
+	cmd.AddCommand(newVcsCmd(f))
+	cmd.AddCommand(newSSHCmd(f))
+	cmd.AddCommand(newConnectionCmd(f))
+	cmd.AddCommand(param.NewCmd(f, "project", param.ProjectParamAPI, f.ResolveProject))
+
+	return cmd
+}
+
+type projectListOptions struct {
+	parent string
+	cmdutil.ListFlags
+}
+
+func newProjectListCmd(f *cmdutil.Factory) *cobra.Command {
+	opts := &projectListOptions{}
+
+	cmd := &cobra.Command{
+		Use:     "list",
+		Short:   "List projects",
+		Aliases: []string{"ls"},
+		Example: `  teamcity project list
+  teamcity project list --parent Falcon
+  teamcity project list --json
+  teamcity project list --json=id,name,webUrl
+  teamcity project list --plain
+  teamcity project list --plain --no-header`,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return cmdutil.RunList(f, cmd, &opts.ListFlags, &api.ProjectFields, opts.fetch)
+		},
+	}
+
+	cmd.Flags().StringVarP(&opts.parent, "parent", "p", "", "Filter by parent project ID")
+	cmdutil.AddListFlags(cmd, &opts.ListFlags, 100)
+
+	_ = cmd.RegisterFlagCompletionFunc("parent", completion.LinkedProjects())
+
+	return cmd
+}
+
+func (opts *projectListOptions) fetch(client api.ClientInterface, fields []string) (*cmdutil.ListResult, error) {
+	projects, truncated, err := client.GetProjects(api.ProjectsOptions{
+		Parent: opts.parent,
+		Limit:  opts.Limit,
+		Fields: fields,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	headers := []string{"ID", "NAME", "PARENT"}
+	var rows [][]string
+
+	for _, p := range projects.Projects {
+		parent := "-"
+		if p.ParentProjectID != "" {
+			parent = p.ParentProjectID
+		}
+
+		rows = append(rows, []string{
+			p.ID,
+			p.Name,
+			parent,
+		})
+	}
+
+	return &cmdutil.ListResult{
+		JSON:      projects,
+		Table:     cmdutil.ListTable{Headers: headers, Rows: rows, FlexCols: []int{0, 1, 2}},
+		EmptyMsg:  "No projects found",
+		EmptyTip:  output.TipNoProjects,
+		Truncated: truncated,
+	}, nil
+}
+
+func newProjectViewCmd(f *cmdutil.Factory) *cobra.Command {
+	opts := &cmdutil.ViewOptions{}
+	cmd := &cobra.Command{
+		Use:               "view [project-id]",
+		Short:             "View project details",
+		Long:              `View details of a TeamCity project. With no argument, uses the linked project from teamcity.toml.`,
+		Aliases:           []string{"show"},
+		Args:              cobra.MaximumNArgs(1),
+		ValidArgsFunction: completion.LinkedProjects(),
+		Example: `  teamcity project view Falcon
+  teamcity project view Falcon --web
+  teamcity project view              # uses linked project (see 'teamcity link')`,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			projectID, _, err := cmdutil.ResolveOwnerID("project", args, 0, f.ResolveProject)
+			if err != nil {
+				return err
+			}
+			return runProjectView(f, projectID, opts)
+		},
+	}
+	cmdutil.AddViewFlags(cmd, opts)
+	return cmd
+}
+
+func runProjectView(f *cmdutil.Factory, projectID string, opts *cmdutil.ViewOptions) error {
+	client, err := f.Client()
+	if err != nil {
+		return err
+	}
+
+	project, err := client.GetProject(projectID)
+	if err != nil {
+		return err
+	}
+
+	if done, err := opts.EmitWebURL(f.Printer, project.WebURL); done {
+		return err
+	}
+
+	if opts.JSON {
+		return f.Printer.PrintJSON(project)
+	}
+
+	f.Printer.PrintViewHeader(project.Name, project.WebURL, func() {
+		f.Printer.PrintField("ID", project.ID)
+		if project.ParentProjectID != "" {
+			f.Printer.PrintField("Parent", project.ParentProjectID)
+		}
+		if project.Description != "" {
+			f.Printer.PrintField("Description", project.Description)
+		}
+	})
+
+	return nil
+}
+
+func newProjectTokenCmd(f *cmdutil.Factory) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "token",
+		Short: "Manage secure tokens",
+		Long: `Manage secure tokens for versioned settings.
+
+Secure tokens allow you to store sensitive values (passwords, API keys, etc.)
+in TeamCity's credentials storage. The scrambled token can be safely committed
+to version control and used in configuration files as credentialsJSON:<token>.
+
+See: https://www.jetbrains.com/help/teamcity/storing-project-settings-in-version-control.html#Managing+Tokens`,
+		Args: cobra.NoArgs,
+		RunE: cmdutil.SubcommandRequired,
+	}
+
+	cmd.AddCommand(newProjectTokenPutCmd(f))
+	cmd.AddCommand(newProjectTokenGetCmd(f))
+
+	return cmd
+}
+
+type projectTokenPutOptions struct {
+	stdin bool
+}
+
+func newProjectTokenPutCmd(f *cmdutil.Factory) *cobra.Command {
+	opts := &projectTokenPutOptions{}
+
+	cmd := &cobra.Command{
+		Use:               "put <project-id> [value]",
+		Short:             "Store a secret and get a secure token",
+		ValidArgsFunction: completion.LinkedProjects(),
+		Long: `Store a sensitive value and get a secure token reference.
+
+The returned token can be used in versioned settings configuration files
+as credentialsJSON:<token>. The actual value is stored securely in TeamCity
+and is not committed to version control.
+
+Requires EDIT_PROJECT permission (Project Administrator role).`,
+		Example: `  # Store a secret interactively (prompts for value)
+  teamcity project token put Falcon
+
+  # Store a secret from a value
+  teamcity project token put Falcon "my-secret-password"
+
+  # Store a secret from stdin (useful for piping)
+  echo -n "my-secret" | teamcity project token put Falcon --stdin
+
+  # Use the token in versioned settings
+  # password: credentialsJSON:<returned-token>`,
+		Args: cobra.RangeArgs(1, 2),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			var value string
+			if len(args) > 1 {
+				value = args[1]
+			}
+			return runProjectTokenPut(f, args[0], value, opts)
+		},
+	}
+
+	cmd.Flags().BoolVar(&opts.stdin, "stdin", false, "Read value from stdin")
+
+	return cmd
+}
+
+func runProjectTokenPut(f *cmdutil.Factory, projectID, value string, opts *projectTokenPutOptions) error {
+	client, err := f.Client()
+	if err != nil {
+		return err
+	}
+
+	if opts.stdin {
+		data, err := io.ReadAll(f.IOStreams.In)
+		if err != nil {
+			return fmt.Errorf("failed to read from stdin: %w", err)
+		}
+		value = strings.TrimSuffix(string(data), "\n")
+	}
+
+	if value == "" && !f.IsInteractive() {
+		return api.Validation(
+			"value is required",
+			"Provide value as argument or use --stdin",
+		)
+	}
+
+	if value == "" {
+		if err := cmdutil.PromptSecret("Enter secure value to scramble", &value); err != nil {
+			return fmt.Errorf("failed to read value: %w", err)
+		}
+	}
+
+	if value == "" {
+		return errors.New("value cannot be empty")
+	}
+
+	token, err := client.CreateSecureToken(projectID, value)
+	if err != nil {
+		return fmt.Errorf("failed to create secure token: %w", err)
+	}
+
+	_, _ = fmt.Fprintln(f.Printer.Out, token)
+
+	if strings.HasPrefix(token, "credentialsJSON:") {
+		_, _ = fmt.Fprintln(f.Printer.ErrOut, "")
+		_, _ = fmt.Fprintln(f.Printer.ErrOut, output.Faint("Use in versioned settings as: "+token))
+	}
+
+	return nil
+}
+
+func newProjectTokenGetCmd(f *cmdutil.Factory) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:               "get <project-id> <token>",
+		Short:             "Get the value of a secure token",
+		ValidArgsFunction: cmdutil.CompleteOwnerID(completion.LinkedProjects()),
+		Long: `Retrieve the original value for a secure token.
+
+This operation requires VIEW_SERVER_SETTINGS permission,
+which is only available to System Administrators.`,
+		Example: `  teamcity project token get Falcon "credentialsJSON:abc123..."
+  teamcity project token get Falcon "abc123..."`,
+		Args: cobra.ExactArgs(2),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return runProjectTokenGet(f, args[0], args[1])
+		},
+	}
+
+	return cmd
+}
+
+func runProjectTokenGet(f *cmdutil.Factory, projectID, token string) error {
+	client, err := f.Client()
+	if err != nil {
+		return err
+	}
+
+	token = strings.TrimPrefix(token, "credentialsJSON:")
+
+	value, err := client.GetSecureValue(projectID, token)
+	if err != nil {
+		return fmt.Errorf("failed to get secure value: %w", err)
+	}
+
+	_, _ = fmt.Fprintln(f.Printer.Out, value)
+	return nil
+}
+
+//goland:noinspection GoUnnecessarilyExportedIdentifiers
+type ProjectTreeNode struct {
+	ID        string            `json:"id"`
+	Name      string            `json:"name"`
+	Children  []ProjectTreeNode `json:"children"`
+	Pipelines []pipelineRef     `json:"pipelines,omitempty"`
+	Jobs      []jobRef          `json:"jobs,omitempty"`
+}
+
+type pipelineRef struct {
+	ID       string `json:"id"`
+	Name     string `json:"name"`
+	JobCount int    `json:"jobCount,omitempty"`
+}
+
+type jobRef struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+}
+
+func newProjectTreeCmd(f *cmdutil.Factory) *cobra.Command {
+	var noJobs bool
+	var depth int
+	var jsonOut bool
+
+	cmd := &cobra.Command{
+		Use:   "tree [project-id]",
+		Short: "Display project hierarchy as a tree",
+		Long:  "Display the project hierarchy as a tree. With no argument, uses the linked project from teamcity.toml; falls back to _Root (the whole server).",
+		Example: `  teamcity project tree
+  teamcity project tree MyProject
+  teamcity project tree --no-jobs
+  teamcity project tree --depth 2
+  teamcity project tree --json`,
+		Args:              cobra.MaximumNArgs(1),
+		ValidArgsFunction: completion.LinkedProjects(),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			explicit := ""
+			if len(args) > 0 {
+				explicit = args[0]
+			}
+			rootID := f.ResolveProject(explicit)
+			if rootID == "" {
+				rootID = "_Root"
+			}
+			return runProjectTree(f, rootID, noJobs, depth, jsonOut)
+		},
+	}
+
+	cmd.Flags().BoolVar(&noJobs, "no-jobs", false, "Hide jobs")
+	cmd.Flags().IntVarP(&depth, "depth", "d", 0, "Limit tree depth (0 = unlimited)")
+	cmd.Flags().BoolVar(&jsonOut, "json", false, "Output as JSON")
+
+	return cmd
+}
+
+func runProjectTree(f *cmdutil.Factory, rootID string, noJobs bool, depth int, jsonOut bool) error {
+	client, err := f.Client()
+	if err != nil {
+		return err
+	}
+
+	projects, _, err := client.GetProjects(api.ProjectsOptions{Limit: 10000})
+	if err != nil {
+		return err
+	}
+
+	known := map[string]*api.Project{}
+	children := map[string][]api.Project{}
+	for i := range projects.Projects {
+		p := &projects.Projects[i]
+		known[p.ID] = p
+		if p.ParentProjectID != "" {
+			children[p.ParentProjectID] = append(children[p.ParentProjectID], *p)
+		}
+	}
+
+	root := known[rootID]
+	if root == nil {
+		root, err = client.GetProject(rootID)
+		if err != nil {
+			return fmt.Errorf("project %q not found", rootID)
+		}
+		known[root.ID] = root
+	}
+
+	var jobsByProject map[string][]api.BuildType
+	var pipelinesByProject map[string][]api.Pipeline
+	pipelineProjectIDs := map[string]bool{}
+	pipelineHeadJobIDs := map[string]bool{}
+
+	pipelines, _, pipelineErr := client.GetPipelines(api.PipelinesOptions{Limit: 10000})
+	if pipelineErr == nil && len(pipelines.Pipelines) > 0 {
+		pipelinesByProject = map[string][]api.Pipeline{}
+		for _, p := range pipelines.Pipelines {
+			projectID := ""
+			if p.ParentProject != nil {
+				projectID = p.ParentProject.ID
+			}
+			if projectID != "" {
+				pipelinesByProject[projectID] = append(pipelinesByProject[projectID], p)
+			}
+			pipelineProjectIDs[p.ID] = true
+			if p.HeadBuildType != nil {
+				pipelineHeadJobIDs[p.HeadBuildType.ID] = true
+			}
+		}
+	}
+
+	if !noJobs {
+		buildTypes, _, err := client.GetBuildTypes(api.BuildTypesOptions{Limit: 10000})
+		if err != nil {
+			return err
+		}
+		jobsByProject = map[string][]api.BuildType{}
+		for _, bt := range buildTypes.BuildTypes {
+			jobsByProject[bt.ProjectID] = append(jobsByProject[bt.ProjectID], bt)
+		}
+		resolveHiddenProjects(client, known, children, jobsByProject)
+	}
+
+	if depth > 0 {
+		depth++
+	}
+
+	node := buildProjectTreeData(children, jobsByProject, pipelinesByProject, pipelineProjectIDs, pipelineHeadJobIDs, rootID, root.Name, depth)
+	if jsonOut {
+		return f.Printer.PrintJSON(node)
+	}
+	f.Printer.PrintTree(node.toDisplayNode())
+	return nil
+}
+
+func (n ProjectTreeNode) toDisplayNode() output.TreeNode {
+	node := output.TreeNode{Label: output.Cyan(n.Name) + " " + output.Faint(n.ID)}
+	for _, child := range n.Children {
+		node.Children = append(node.Children, child.toDisplayNode())
+	}
+	for _, p := range n.Pipelines {
+		label := output.Cyan(p.Name) + " " + output.Faint(p.ID) + " " + output.Faint(output.Sym().Pipeline+" pipeline")
+		if p.JobCount > 0 {
+			label += output.Faint(fmt.Sprintf(" "+output.Sym().Sep+" %d jobs", p.JobCount))
+		}
+		node.Children = append(node.Children, output.TreeNode{Label: label})
+	}
+	for _, j := range n.Jobs {
+		node.Children = append(node.Children, output.TreeNode{Label: output.Faint(j.Name) + " " + output.Faint(j.ID)})
+	}
+	return node
+}
+
+func buildProjectTreeData(children map[string][]api.Project, jobs map[string][]api.BuildType, pipelines map[string][]api.Pipeline, hiddenProjects, hiddenJobs map[string]bool, id, name string, depth int) ProjectTreeNode {
+	node := ProjectTreeNode{ID: id, Name: name, Children: []ProjectTreeNode{}}
+	if depth == 1 {
+		return node
+	}
+	next := max(depth-1, 0)
+	slices.SortFunc(children[id], func(a, b api.Project) int { return cmp.Compare(a.Name, b.Name) })
+	for _, p := range children[id] {
+		if hiddenProjects[p.ID] {
+			continue
+		}
+		node.Children = append(node.Children, buildProjectTreeData(children, jobs, pipelines, hiddenProjects, hiddenJobs, p.ID, p.Name, next))
+	}
+
+	slices.SortFunc(pipelines[id], func(a, b api.Pipeline) int { return cmp.Compare(a.Name, b.Name) })
+	for _, p := range pipelines[id] {
+		jobCount := 0
+		if p.Jobs != nil {
+			jobCount = p.Jobs.Count
+		}
+		node.Pipelines = append(node.Pipelines, pipelineRef{ID: p.ID, Name: p.Name, JobCount: jobCount})
+	}
+
+	slices.SortFunc(jobs[id], func(a, b api.BuildType) int { return cmp.Compare(a.Name, b.Name) })
+	for _, j := range jobs[id] {
+		if hiddenJobs[j.ID] {
+			continue
+		}
+		node.Jobs = append(node.Jobs, jobRef{ID: j.ID, Name: j.Name})
+	}
+	return node
+}
+
+func resolveHiddenProjects(client api.ClientInterface, known map[string]*api.Project, children map[string][]api.Project, jobsByProject map[string][]api.BuildType) {
+	var queue []string
+	for pid := range jobsByProject {
+		if _, ok := known[pid]; !ok {
+			queue = append(queue, pid)
+			known[pid] = nil
+		}
+	}
+	for i := 0; i < len(queue); i++ {
+		p, err := client.GetProject(queue[i])
+		if err != nil {
+			continue
+		}
+		known[p.ID] = p
+		children[p.ParentProjectID] = append(children[p.ParentProjectID], *p)
+		if _, ok := known[p.ParentProjectID]; p.ParentProjectID != "" && !ok {
+			queue = append(queue, p.ParentProjectID)
+			known[p.ParentProjectID] = nil
+		}
+	}
+}
+
+func newProjectSettingsCmd(f *cmdutil.Factory) *cobra.Command {
+	return newSettingsCmd(f)
+}
+
+// projectPickerOptions fetches projects the user can act on, then collapses to permission roots so the picker isn't drowned by inherited descendants.
+func projectPickerOptions(f *cmdutil.Factory, permission string) []huh.Option[string] {
+	client, err := f.Client()
+	if err != nil {
+		return nil
+	}
+	list, _, err := client.GetProjects(api.ProjectsOptions{
+		Limit:           10000,
+		Fields:          []string{"id", "name", "parentProjectId"},
+		Permission:      permission,
+		ExcludeArchived: true,
+	})
+	if err != nil || len(list.Projects) == 0 {
+		return nil
+	}
+	roots := permissionRoots(list.Projects)
+	options := make([]huh.Option[string], len(roots))
+	for i, p := range roots {
+		label := p.ID
+		if p.Name != "" && p.Name != p.ID {
+			label = p.ID + " - " + p.Name
+		}
+		options[i] = huh.Option[string]{Key: label, Value: p.ID}
+	}
+	return options
+}
+
+// permissionRoots keeps only projects whose parent is not also in the set; descendants inherit the permission via the kept root.
+func permissionRoots(projects []api.Project) []api.Project {
+	inSet := make(map[string]bool, len(projects))
+	for _, p := range projects {
+		inSet[p.ID] = true
+	}
+	out := make([]api.Project, 0, len(projects))
+	for _, p := range projects {
+		if !inSet[p.ParentProjectID] {
+			out = append(out, p)
+		}
+	}
+	return out
+}
+
+// pickerDescription renders the count below the picker title; appends a filter hint when the list overflows the viewport.
+func pickerDescription(total int) string {
+	desc := fmt.Sprintf("%s %s", humanize.Comma(int64(total)), english.PluralWord(total, "project", ""))
+	if total > pickerVisibleRows {
+		desc += " " + output.Sym().Sep + " type to filter"
+	}
+	return desc
+}
+
+// formField describes one text input for runInteractiveForm. Validate defaults to cmdutil.RequireNonEmpty.
+type formField struct {
+	title       string
+	description string
+	value       *string
+	validate    func(string) error
+}
+
+// resolveProject returns project if non-empty; otherwise runs the project picker (interactive) or errors (non-interactive).
+func resolveProject(f *cmdutil.Factory, project, permission string) (string, error) {
+	if project != "" {
+		return project, nil
+	}
+	if !f.IsInteractive() {
+		return "", api.RequiredFlag("project")
+	}
+	if err := runInteractiveForm(f, &project, permission); err != nil {
+		return "", err
+	}
+	return project, nil
+}
+
+// runInteractiveForm prompts for project (picker scoped to permission, with text-input fallback) and the given fields in a single huh form so Shift+Tab navigates between them.
+func runInteractiveForm(f *cmdutil.Factory, project *string, permission string, fields ...formField) error {
+	var groups []*huh.Group
+
+	needsProject := *project == ""
+	var pickerOptions []huh.Option[string]
+	if needsProject {
+		pickerOptions = projectPickerOptions(f, permission)
+		if pickerOptions != nil {
+			sel := huh.NewSelect[string]().
+				Title("Project").
+				Description(pickerDescription(len(pickerOptions))).
+				Options(pickerOptions...).
+				Height(pickerVisibleRows).
+				Value(project)
+			if len(pickerOptions) >= 5 {
+				sel.Filtering(true)
+			}
+			groups = append(groups, huh.NewGroup(sel))
+		} else {
+			groups = append(groups, huh.NewGroup(huh.NewInput().Title("Project ID").Prompt("").Validate(cmdutil.RequireNonEmpty).Value(project)))
+		}
+	}
+
+	var prompted []formField
+	var huhFields []huh.Field
+	for _, fld := range fields {
+		if *fld.value != "" {
+			continue
+		}
+		validate := fld.validate
+		if validate == nil {
+			validate = cmdutil.RequireNonEmpty
+		}
+		in := huh.NewInput().Prompt("").Title(fld.title).Validate(validate).Value(fld.value)
+		if fld.description != "" {
+			in.Description(fld.description)
+		}
+		huhFields = append(huhFields, in)
+		prompted = append(prompted, fld)
+	}
+	if len(huhFields) > 0 {
+		groups = append(groups, huh.NewGroup(huhFields...))
+	}
+
+	if len(groups) == 0 {
+		return nil
+	}
+	if err := cmdutil.RunForm(groups...); err != nil {
+		return err
+	}
+
+	if needsProject {
+		label := *project
+		for _, o := range pickerOptions {
+			if o.Value == *project {
+				label = o.Key
+				break
+			}
+		}
+		_, _ = fmt.Fprintf(f.Printer.Out, "Project: %s\n", output.Cyan(label))
+	}
+	for _, fld := range prompted {
+		_, _ = fmt.Fprintf(f.Printer.Out, "%s: %s\n", fld.title, output.Cyan(*fld.value))
+	}
+	return nil
+}

@@ -1,0 +1,305 @@
+use crate::executor::ExecutorName;
+use crate::executor::ExecutorSupport;
+use crate::executor::PrivilegeStatus;
+use crate::executor::ToolStatus;
+use crate::executor::helpers::command::CommandBuilder;
+use crate::executor::helpers::env::{build_path_env, get_base_injected_env};
+use crate::executor::helpers::get_bench_command::get_bench_command;
+use crate::executor::helpers::run_command_with_log_pipe::run_command_with_log_pipe_and_callback;
+use crate::executor::helpers::run_with_env::prefix_command_with_env;
+use crate::executor::helpers::run_with_sudo::is_root_user;
+use crate::executor::shared::fifo::RunnerFifo;
+use crate::executor::{ExecutionContext, Executor};
+use crate::instruments::mongo_tracer::MongoTracer;
+use crate::prelude::*;
+use crate::runner_mode::RunnerMode;
+use crate::system::{SupportedOs, SystemInfo};
+use async_trait::async_trait;
+use ipc_channel::ipc;
+use memtrack::MemtrackIpcClient;
+use memtrack::MemtrackIpcServer;
+use memtrack::has_delegated_bpf_token;
+use runner_shared::artifacts::{ArtifactExt, ExecutionTimestamps};
+use runner_shared::fifo::Command as FifoCommand;
+use runner_shared::fifo::IntegrationMode;
+use semver::Version;
+use std::fs::canonicalize;
+use std::path::Path;
+use std::rc::Rc;
+use tempfile::NamedTempFile;
+use tokio::time::{Duration, timeout};
+
+use super::setup::{
+    MEMTRACK_COMMAND, ensure_memtrack_capabilities, get_memtrack_status, has_memtrack_capabilities,
+    install_memtrack,
+};
+
+pub struct MemoryExecutor;
+
+impl MemoryExecutor {
+    fn build_memtrack_command(
+        execution_context: &ExecutionContext,
+    ) -> Result<(MemtrackIpcServer, CommandBuilder, NamedTempFile)> {
+        let mut extra_env = get_base_injected_env(
+            RunnerMode::Memory,
+            &execution_context.profile_folder,
+            &execution_context.config,
+        );
+
+        extra_env.insert(
+            "PATH".into(),
+            build_path_env(execution_context.config.enable_introspection)?,
+        );
+
+        // Setup memtrack IPC server
+        let (ipc_server, server_name) = ipc::IpcOneShotServer::new()?;
+
+        // A file-capability binary runs in glibc secure-execution mode, which strips
+        // LD_* variables. The forwarded environment has to be re-sourced below that
+        // boundary, inside the benchmark, to survive.
+        let bench_command = get_bench_command(&execution_context.config)?;
+        let (bench_command, env_file) = prefix_command_with_env(&bench_command, &extra_env)?;
+
+        // Build the memtrack command
+        let mut cmd_builder = CommandBuilder::new(MEMTRACK_COMMAND);
+        cmd_builder.arg("track");
+        cmd_builder.arg("--output");
+        cmd_builder.arg(execution_context.profile_folder.join("results"));
+        cmd_builder.arg("--ipc-server");
+        cmd_builder.arg(server_name);
+        cmd_builder.arg(bench_command);
+
+        // Set working directory if specified
+        if let Some(cwd) = &execution_context.config.working_directory {
+            let abs_cwd = canonicalize(cwd)?;
+            cmd_builder.current_dir(abs_cwd);
+        }
+
+        Ok((ipc_server, cmd_builder, env_file))
+    }
+
+    /// Ensure memtrack can load its eBPF programs: either run as root, hold the
+    /// required file capabilities, or be handed a delegated BPF token. Tries a
+    /// one-time capability grant if none holds, and bails if that fails.
+    fn ensure_privileges() -> Result<()> {
+        if is_root_user() || has_delegated_bpf_token() || has_memtrack_capabilities() {
+            return Ok(());
+        }
+
+        ensure_memtrack_capabilities()?;
+
+        if has_memtrack_capabilities() {
+            return Ok(());
+        }
+
+        bail!(
+            "{MEMTRACK_COMMAND} needs elevated privileges to load its eBPF programs, but the \
+             required capabilities could not be granted."
+        );
+    }
+}
+
+#[async_trait(?Send)]
+impl Executor for MemoryExecutor {
+    fn name(&self) -> ExecutorName {
+        ExecutorName::Memory
+    }
+
+    fn tool_status(&self) -> Option<ToolStatus> {
+        Some(get_memtrack_status())
+    }
+
+    fn privilege_status(&self) -> Option<PrivilegeStatus> {
+        if is_root_user() {
+            return Some(PrivilegeStatus::Satisfied {
+                detail: "running as root".to_string(),
+            });
+        }
+        if has_delegated_bpf_token() {
+            return Some(PrivilegeStatus::Satisfied {
+                detail: "delegated BPF token".to_string(),
+            });
+        }
+        if has_memtrack_capabilities() {
+            return Some(PrivilegeStatus::Satisfied {
+                detail: "capabilities granted".to_string(),
+            });
+        }
+        Some(PrivilegeStatus::Missing {
+            message: "capabilities missing, run `codspeed setup --mode memory`".to_string(),
+        })
+    }
+
+    fn support_level(&self, system_info: &SystemInfo) -> ExecutorSupport {
+        match &system_info.os {
+            SupportedOs::Linux(_) => ExecutorSupport::FullySupported,
+            SupportedOs::Macos { .. } => ExecutorSupport::Unsupported,
+        }
+    }
+
+    async fn setup(
+        &self,
+        _system_info: &SystemInfo,
+        _setup_cache_dir: Option<&Path>,
+    ) -> Result<()> {
+        install_memtrack().await
+    }
+
+    fn grant_privileges(&self) -> Result<()> {
+        // A delegated BPF token already provides the privilege memtrack needs;
+        // there is nothing to grant (and no sudo to prompt for) in that case.
+        if has_delegated_bpf_token() {
+            return Ok(());
+        }
+        ensure_memtrack_capabilities()
+    }
+
+    async fn run(
+        &mut self,
+        execution_context: &ExecutionContext,
+        _mongo_tracer: &Option<MongoTracer>,
+    ) -> Result<()> {
+        // Create the results/ directory inside the profile folder to avoid having memtrack create it with wrong permissions
+        std::fs::create_dir_all(execution_context.profile_folder.join("results"))?;
+
+        Self::ensure_privileges()?;
+
+        let (ipc, cmd_builder, _env_file) = Self::build_memtrack_command(execution_context)?;
+        let cmd = cmd_builder.build();
+        debug!("cmd: {cmd:?}");
+
+        let runner_fifo = RunnerFifo::new()?;
+        let on_process_started = |mut child: std::process::Child| async move {
+            let (marker_result, exit_status) =
+                Self::handle_fifo(runner_fifo, ipc, &mut child).await?;
+
+            // Directly write to the profile folder, to avoid having to define another field
+            marker_result
+                .save_to(execution_context.profile_folder.join("results"))
+                .unwrap();
+
+            Ok(exit_status)
+        };
+
+        let status = run_command_with_log_pipe_and_callback(cmd, on_process_started).await?;
+        debug!("cmd exit status: {status:?}");
+
+        if !status.success() {
+            bail!("failed to execute memory tracker process: {status}");
+        }
+
+        Ok(())
+    }
+
+    async fn teardown(&self, execution_context: &ExecutionContext) -> Result<()> {
+        let results_dir = execution_context.profile_folder.join("results");
+        let has_benchmarks = std::fs::read_dir(&results_dir)?
+            .filter_map(Result::ok)
+            // Filter out non-ExecutionTimestamps files:
+            .filter(|entry| {
+                entry
+                    .file_name()
+                    .to_string_lossy()
+                    .contains(ExecutionTimestamps::name())
+            })
+            .filter_map(|entry| {
+                let file = std::fs::File::open(entry.path()).ok()?;
+                ExecutionTimestamps::decode_from_reader(file).ok()
+            })
+            .any(|artifact| !artifact.uri_by_ts.is_empty());
+
+        if !has_benchmarks {
+            if !execution_context.config.allow_empty {
+                bail!("No memory results found in profile folder: {results_dir:?}.");
+            } else {
+                info!("No memory results found in profile folder: {results_dir:?}.");
+            }
+        }
+
+        Ok(())
+    }
+}
+
+impl MemoryExecutor {
+    async fn handle_fifo(
+        mut runner_fifo: RunnerFifo,
+        ipc: MemtrackIpcServer,
+        child: &mut std::process::Child,
+    ) -> anyhow::Result<(ExecutionTimestamps, std::process::ExitStatus)> {
+        // Accept the IPC connection from memtrack and get the sender it sends us
+        // Use a timeout to prevent hanging if the process doesn't start properly
+        // https://github.com/servo/ipc-channel/issues/261
+        let (_, memtrack_sender) = timeout(Duration::from_secs(5), async move {
+            tokio::task::spawn_blocking(move || ipc.accept())
+                .await
+                .context("Failed to spawn blocking task")?
+                .context("Failed to accept IPC connection")
+        })
+        .await
+        .context("Timeout waiting for IPC connection from memtrack process")??;
+        let ipc_client = Rc::new(MemtrackIpcClient::from_accepted(memtrack_sender));
+
+        let on_cmd = async move |cmd: &FifoCommand| {
+            const INVALID_INTEGRATION_ERROR: &str = "This integration doesn't support memory profiling. Please update your integration to a version that supports memory profiling.";
+
+            match cmd {
+                FifoCommand::SetIntegration { name, version } => {
+                    let min_version = match name.as_str() {
+                        "codspeed-rust" => Version::new(4, 2, 0),
+                        "codspeed-cpp" => Version::new(2, 1, 0),
+                        "pytest-codspeed" => Version::new(4, 3, 0),
+                        "codspeed-node" => Version::new(5, 2, 0),
+                        "exec-harness" => Version::new(1, 0, 0),
+                        _ => {
+                            panic!("{INVALID_INTEGRATION_ERROR}")
+                        }
+                    };
+
+                    let Ok(cur_version) = Version::parse(version) else {
+                        panic!("Received invalid integration version");
+                    };
+
+                    if cur_version < min_version {
+                        panic!("{INVALID_INTEGRATION_ERROR}")
+                    }
+                }
+                FifoCommand::SetVersion(protocol_version) => {
+                    if *protocol_version < 2 {
+                        bail!(
+                            "Memory profiling requires protocol version 2 or higher, but the integration is using version {protocol_version}. \
+                            {INVALID_INTEGRATION_ERROR}",
+                        );
+                    }
+                }
+                FifoCommand::StartProfiler => {
+                    debug!("Enabling memtrack via IPC");
+                    if let Err(e) = ipc_client.enable() {
+                        error!("Failed to enable memtrack: {e}");
+                        return Ok(Some(FifoCommand::Err));
+                    }
+                }
+                FifoCommand::StopProfiler => {
+                    debug!("Disabling memtrack via IPC");
+                    if let Err(e) = ipc_client.disable() {
+                        // There's a chance that memtrack has already exited here, so just log as debug
+                        debug!("Failed to disable memtrack: {e}");
+                        return Ok(Some(FifoCommand::Err));
+                    }
+                }
+                FifoCommand::GetIntegrationMode => {
+                    return Ok(Some(FifoCommand::IntegrationModeResponse(
+                        IntegrationMode::Analysis,
+                    )));
+                }
+                _ => {}
+            }
+
+            Ok(None)
+        };
+
+        let (marker_result, _, exit_status) =
+            runner_fifo.handle_fifo_messages(child, on_cmd).await?;
+
+        Ok((marker_result, exit_status))
+    }
+}

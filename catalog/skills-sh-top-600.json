@@ -1,0 +1,4807 @@
+{
+  "source": "https://www.skills.sh/",
+  "collected_at": "2026-08-12T18:19:54+00:00",
+  "limit": 600,
+  "skills": [
+    {
+      "rank": 1,
+      "source": "vercel-labs/skills",
+      "skill": "find-skills",
+      "name": "find-skills",
+      "installs": 2925772,
+      "url": "https://www.skills.sh/vercel-labs/skills/find-skills"
+    },
+    {
+      "rank": 2,
+      "source": "mattpocock/skills",
+      "skill": "grill-me",
+      "name": "grill-me",
+      "installs": 838147,
+      "url": "https://www.skills.sh/mattpocock/skills/grill-me"
+    },
+    {
+      "rank": 3,
+      "source": "anthropics/skills",
+      "skill": "frontend-design",
+      "name": "frontend-design",
+      "installs": 769774,
+      "url": "https://www.skills.sh/anthropics/skills/frontend-design"
+    },
+    {
+      "rank": 4,
+      "source": "mattpocock/skills",
+      "skill": "grill-with-docs",
+      "name": "grill-with-docs",
+      "installs": 713224,
+      "url": "https://www.skills.sh/mattpocock/skills/grill-with-docs"
+    },
+    {
+      "rank": 5,
+      "source": "mattpocock/skills",
+      "skill": "improve-codebase-architecture",
+      "name": "improve-codebase-architecture",
+      "installs": 688002,
+      "url": "https://www.skills.sh/mattpocock/skills/improve-codebase-architecture"
+    },
+    {
+      "rank": 6,
+      "source": "mattpocock/skills",
+      "skill": "tdd",
+      "name": "tdd",
+      "installs": 664866,
+      "url": "https://www.skills.sh/mattpocock/skills/tdd"
+    },
+    {
+      "rank": 7,
+      "source": "vercel-labs/agent-browser",
+      "skill": "agent-browser",
+      "name": "agent-browser",
+      "installs": 662337,
+      "url": "https://www.skills.sh/vercel-labs/agent-browser/agent-browser"
+    },
+    {
+      "rank": 8,
+      "source": "vercel-labs/agent-skills",
+      "skill": "vercel-react-best-practices",
+      "name": "vercel-react-best-practices",
+      "installs": 626998,
+      "url": "https://www.skills.sh/vercel-labs/agent-skills/vercel-react-best-practices"
+    },
+    {
+      "rank": 9,
+      "source": "mattpocock/skills",
+      "skill": "setup-matt-pocock-skills",
+      "name": "setup-matt-pocock-skills",
+      "installs": 611746,
+      "url": "https://www.skills.sh/mattpocock/skills/setup-matt-pocock-skills"
+    },
+    {
+      "rank": 10,
+      "source": "mattpocock/skills",
+      "skill": "handoff",
+      "name": "handoff",
+      "installs": 574601,
+      "url": "https://www.skills.sh/mattpocock/skills/handoff"
+    },
+    {
+      "rank": 11,
+      "source": "mattpocock/skills",
+      "skill": "triage",
+      "name": "triage",
+      "installs": 572643,
+      "url": "https://www.skills.sh/mattpocock/skills/triage"
+    },
+    {
+      "rank": 12,
+      "source": "open.feishu.cn",
+      "skill": "lark-doc",
+      "name": "lark-doc",
+      "installs": 564613,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-doc"
+    },
+    {
+      "rank": 13,
+      "source": "open.feishu.cn",
+      "skill": "lark-approval",
+      "name": "lark-approval",
+      "installs": 564568,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-approval"
+    },
+    {
+      "rank": 14,
+      "source": "open.feishu.cn",
+      "skill": "lark-base",
+      "name": "lark-base",
+      "installs": 564460,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-base"
+    },
+    {
+      "rank": 15,
+      "source": "open.feishu.cn",
+      "skill": "lark-drive",
+      "name": "lark-drive",
+      "installs": 564265,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-drive"
+    },
+    {
+      "rank": 16,
+      "source": "open.feishu.cn",
+      "skill": "lark-shared",
+      "name": "lark-shared",
+      "installs": 564147,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-shared"
+    },
+    {
+      "rank": 17,
+      "source": "open.feishu.cn",
+      "skill": "lark-calendar",
+      "name": "lark-calendar",
+      "installs": 564087,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-calendar"
+    },
+    {
+      "rank": 18,
+      "source": "open.feishu.cn",
+      "skill": "lark-im",
+      "name": "lark-im",
+      "installs": 564060,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-im"
+    },
+    {
+      "rank": 19,
+      "source": "open.feishu.cn",
+      "skill": "lark-contact",
+      "name": "lark-contact",
+      "installs": 563963,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-contact"
+    },
+    {
+      "rank": 20,
+      "source": "open.feishu.cn",
+      "skill": "lark-sheets",
+      "name": "lark-sheets",
+      "installs": 563815,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-sheets"
+    },
+    {
+      "rank": 21,
+      "source": "open.feishu.cn",
+      "skill": "lark-wiki",
+      "name": "lark-wiki",
+      "installs": 563735,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-wiki"
+    },
+    {
+      "rank": 22,
+      "source": "open.feishu.cn",
+      "skill": "lark-event",
+      "name": "lark-event",
+      "installs": 563693,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-event"
+    },
+    {
+      "rank": 23,
+      "source": "open.feishu.cn",
+      "skill": "lark-attendance",
+      "name": "lark-attendance",
+      "installs": 563691,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-attendance"
+    },
+    {
+      "rank": 24,
+      "source": "open.feishu.cn",
+      "skill": "lark-minutes",
+      "name": "lark-minutes",
+      "installs": 563625,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-minutes"
+    },
+    {
+      "rank": 25,
+      "source": "open.feishu.cn",
+      "skill": "lark-openapi-explorer",
+      "name": "lark-openapi-explorer",
+      "installs": 563578,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-openapi-explorer"
+    },
+    {
+      "rank": 26,
+      "source": "open.feishu.cn",
+      "skill": "lark-whiteboard",
+      "name": "lark-whiteboard",
+      "installs": 563572,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-whiteboard"
+    },
+    {
+      "rank": 27,
+      "source": "open.feishu.cn",
+      "skill": "lark-mail",
+      "name": "lark-mail",
+      "installs": 563519,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-mail"
+    },
+    {
+      "rank": 28,
+      "source": "open.feishu.cn",
+      "skill": "lark-task",
+      "name": "lark-task",
+      "installs": 563496,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-task"
+    },
+    {
+      "rank": 29,
+      "source": "open.feishu.cn",
+      "skill": "lark-slides",
+      "name": "lark-slides",
+      "installs": 563398,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-slides"
+    },
+    {
+      "rank": 30,
+      "source": "open.feishu.cn",
+      "skill": "lark-skill-maker",
+      "name": "lark-skill-maker",
+      "installs": 563356,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-skill-maker"
+    },
+    {
+      "rank": 31,
+      "source": "open.feishu.cn",
+      "skill": "lark-vc",
+      "name": "lark-vc",
+      "installs": 563268,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-vc"
+    },
+    {
+      "rank": 32,
+      "source": "open.feishu.cn",
+      "skill": "lark-workflow-meeting-summary",
+      "name": "lark-workflow-meeting-summary",
+      "installs": 563168,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-workflow-meeting-summary"
+    },
+    {
+      "rank": 33,
+      "source": "open.feishu.cn",
+      "skill": "lark-workflow-standup-report",
+      "name": "lark-workflow-standup-report",
+      "installs": 563158,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-workflow-standup-report"
+    },
+    {
+      "rank": 34,
+      "source": "mattpocock/skills",
+      "skill": "prototype",
+      "name": "prototype",
+      "installs": 560409,
+      "url": "https://www.skills.sh/mattpocock/skills/prototype"
+    },
+    {
+      "rank": 35,
+      "source": "open.feishu.cn",
+      "skill": "lark-okr",
+      "name": "lark-okr",
+      "installs": 544231,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-okr"
+    },
+    {
+      "rank": 36,
+      "source": "vercel-labs/agent-skills",
+      "skill": "web-design-guidelines",
+      "name": "web-design-guidelines",
+      "installs": 536760,
+      "url": "https://www.skills.sh/vercel-labs/agent-skills/web-design-guidelines"
+    },
+    {
+      "rank": 37,
+      "source": "open.feishu.cn",
+      "skill": "lark-markdown",
+      "name": "lark-markdown",
+      "installs": 529356,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-markdown"
+    },
+    {
+      "rank": 38,
+      "source": "microsoft/azure-skills",
+      "skill": "microsoft-foundry",
+      "name": "microsoft-foundry",
+      "installs": 524928,
+      "url": "https://www.skills.sh/microsoft/azure-skills/microsoft-foundry"
+    },
+    {
+      "rank": 39,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-diagnostics",
+      "name": "azure-diagnostics",
+      "installs": 519612,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-diagnostics"
+    },
+    {
+      "rank": 40,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-ai",
+      "name": "azure-ai",
+      "installs": 519391,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-ai"
+    },
+    {
+      "rank": 41,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-deploy",
+      "name": "azure-deploy",
+      "installs": 519258,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-deploy"
+    },
+    {
+      "rank": 42,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-prepare",
+      "name": "azure-prepare",
+      "installs": 519074,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-prepare"
+    },
+    {
+      "rank": 43,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-validate",
+      "name": "azure-validate",
+      "installs": 518787,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-validate"
+    },
+    {
+      "rank": 44,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-storage",
+      "name": "azure-storage",
+      "installs": 518344,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-storage"
+    },
+    {
+      "rank": 45,
+      "source": "microsoft/azure-skills",
+      "skill": "entra-app-registration",
+      "name": "entra-app-registration",
+      "installs": 518088,
+      "url": "https://www.skills.sh/microsoft/azure-skills/entra-app-registration"
+    },
+    {
+      "rank": 46,
+      "source": "microsoft/azure-skills",
+      "skill": "appinsights-instrumentation",
+      "name": "appinsights-instrumentation",
+      "installs": 517854,
+      "url": "https://www.skills.sh/microsoft/azure-skills/appinsights-instrumentation"
+    },
+    {
+      "rank": 47,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-resource-lookup",
+      "name": "azure-resource-lookup",
+      "installs": 517771,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-resource-lookup"
+    },
+    {
+      "rank": 48,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-compliance",
+      "name": "azure-compliance",
+      "installs": 517717,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-compliance"
+    },
+    {
+      "rank": 49,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-aigateway",
+      "name": "azure-aigateway",
+      "installs": 517577,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-aigateway"
+    },
+    {
+      "rank": 50,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-kusto",
+      "name": "azure-kusto",
+      "installs": 517499,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-kusto"
+    },
+    {
+      "rank": 51,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-resource-visualizer",
+      "name": "azure-resource-visualizer",
+      "installs": 517457,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-resource-visualizer"
+    },
+    {
+      "rank": 52,
+      "source": "open.feishu.cn",
+      "skill": "lark-vc-agent",
+      "name": "lark-vc-agent",
+      "installs": 507990,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-vc-agent"
+    },
+    {
+      "rank": 53,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-messaging",
+      "name": "azure-messaging",
+      "installs": 507231,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-messaging"
+    },
+    {
+      "rank": 54,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-rbac",
+      "name": "azure-rbac",
+      "installs": 480467,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-rbac"
+    },
+    {
+      "rank": 55,
+      "source": "remotion-dev/skills",
+      "skill": "remotion-best-practices",
+      "name": "remotion-best-practices",
+      "installs": 475659,
+      "url": "https://www.skills.sh/remotion-dev/skills/remotion-best-practices"
+    },
+    {
+      "rank": 56,
+      "source": "open.feishu.cn",
+      "skill": "lark-apps",
+      "name": "lark-apps",
+      "installs": 473201,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-apps"
+    },
+    {
+      "rank": 57,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-compute",
+      "name": "azure-compute",
+      "installs": 461324,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-compute"
+    },
+    {
+      "rank": 58,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-cloud-migrate",
+      "name": "azure-cloud-migrate",
+      "installs": 450996,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-cloud-migrate"
+    },
+    {
+      "rank": 59,
+      "source": "mattpocock/skills",
+      "skill": "teach",
+      "name": "teach",
+      "installs": 441996,
+      "url": "https://www.skills.sh/mattpocock/skills/teach"
+    },
+    {
+      "rank": 60,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-hosted-copilot-sdk",
+      "name": "azure-hosted-copilot-sdk",
+      "installs": 433802,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-hosted-copilot-sdk"
+    },
+    {
+      "rank": 61,
+      "source": "juliusbrussee/caveman",
+      "skill": "caveman",
+      "name": "caveman",
+      "installs": 430323,
+      "url": "https://www.skills.sh/juliusbrussee/caveman/caveman"
+    },
+    {
+      "rank": 62,
+      "source": "mattpocock/skills",
+      "skill": "grilling",
+      "name": "grilling",
+      "installs": 426092,
+      "url": "https://www.skills.sh/mattpocock/skills/grilling"
+    },
+    {
+      "rank": 63,
+      "source": "larksuite/cli",
+      "skill": "lark-doc",
+      "name": "lark-doc",
+      "installs": 410972,
+      "url": "https://www.skills.sh/larksuite/cli/lark-doc"
+    },
+    {
+      "rank": 64,
+      "source": "larksuite/cli",
+      "skill": "lark-base",
+      "name": "lark-base",
+      "installs": 409342,
+      "url": "https://www.skills.sh/larksuite/cli/lark-base"
+    },
+    {
+      "rank": 65,
+      "source": "larksuite/cli",
+      "skill": "lark-shared",
+      "name": "lark-shared",
+      "installs": 408230,
+      "url": "https://www.skills.sh/larksuite/cli/lark-shared"
+    },
+    {
+      "rank": 66,
+      "source": "larksuite/cli",
+      "skill": "lark-drive",
+      "name": "lark-drive",
+      "installs": 408090,
+      "url": "https://www.skills.sh/larksuite/cli/lark-drive"
+    },
+    {
+      "rank": 67,
+      "source": "larksuite/cli",
+      "skill": "lark-im",
+      "name": "lark-im",
+      "installs": 407971,
+      "url": "https://www.skills.sh/larksuite/cli/lark-im"
+    },
+    {
+      "rank": 68,
+      "source": "larksuite/cli",
+      "skill": "lark-wiki",
+      "name": "lark-wiki",
+      "installs": 406767,
+      "url": "https://www.skills.sh/larksuite/cli/lark-wiki"
+    },
+    {
+      "rank": 69,
+      "source": "larksuite/cli",
+      "skill": "lark-sheets",
+      "name": "lark-sheets",
+      "installs": 406547,
+      "url": "https://www.skills.sh/larksuite/cli/lark-sheets"
+    },
+    {
+      "rank": 70,
+      "source": "larksuite/cli",
+      "skill": "lark-whiteboard",
+      "name": "lark-whiteboard",
+      "installs": 406270,
+      "url": "https://www.skills.sh/larksuite/cli/lark-whiteboard"
+    },
+    {
+      "rank": 71,
+      "source": "larksuite/cli",
+      "skill": "lark-task",
+      "name": "lark-task",
+      "installs": 405909,
+      "url": "https://www.skills.sh/larksuite/cli/lark-task"
+    },
+    {
+      "rank": 72,
+      "source": "larksuite/cli",
+      "skill": "lark-calendar",
+      "name": "lark-calendar",
+      "installs": 405431,
+      "url": "https://www.skills.sh/larksuite/cli/lark-calendar"
+    },
+    {
+      "rank": 73,
+      "source": "larksuite/cli",
+      "skill": "lark-mail",
+      "name": "lark-mail",
+      "installs": 404325,
+      "url": "https://www.skills.sh/larksuite/cli/lark-mail"
+    },
+    {
+      "rank": 74,
+      "source": "larksuite/cli",
+      "skill": "lark-minutes",
+      "name": "lark-minutes",
+      "installs": 404153,
+      "url": "https://www.skills.sh/larksuite/cli/lark-minutes"
+    },
+    {
+      "rank": 75,
+      "source": "larksuite/cli",
+      "skill": "lark-vc",
+      "name": "lark-vc",
+      "installs": 404055,
+      "url": "https://www.skills.sh/larksuite/cli/lark-vc"
+    },
+    {
+      "rank": 76,
+      "source": "larksuite/cli",
+      "skill": "lark-event",
+      "name": "lark-event",
+      "installs": 403927,
+      "url": "https://www.skills.sh/larksuite/cli/lark-event"
+    },
+    {
+      "rank": 77,
+      "source": "larksuite/cli",
+      "skill": "lark-contact",
+      "name": "lark-contact",
+      "installs": 403609,
+      "url": "https://www.skills.sh/larksuite/cli/lark-contact"
+    },
+    {
+      "rank": 78,
+      "source": "larksuite/cli",
+      "skill": "lark-workflow-meeting-summary",
+      "name": "lark-workflow-meeting-summary",
+      "installs": 403165,
+      "url": "https://www.skills.sh/larksuite/cli/lark-workflow-meeting-summary"
+    },
+    {
+      "rank": 79,
+      "source": "larksuite/cli",
+      "skill": "lark-workflow-standup-report",
+      "name": "lark-workflow-standup-report",
+      "installs": 402611,
+      "url": "https://www.skills.sh/larksuite/cli/lark-workflow-standup-report"
+    },
+    {
+      "rank": 80,
+      "source": "larksuite/cli",
+      "skill": "lark-openapi-explorer",
+      "name": "lark-openapi-explorer",
+      "installs": 402397,
+      "url": "https://www.skills.sh/larksuite/cli/lark-openapi-explorer"
+    },
+    {
+      "rank": 81,
+      "source": "larksuite/cli",
+      "skill": "lark-skill-maker",
+      "name": "lark-skill-maker",
+      "installs": 402179,
+      "url": "https://www.skills.sh/larksuite/cli/lark-skill-maker"
+    },
+    {
+      "rank": 82,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "video-edit",
+      "name": "video-edit",
+      "installs": 401944,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/video-edit"
+    },
+    {
+      "rank": 83,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "image-to-video",
+      "name": "image-to-video",
+      "installs": 400544,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/image-to-video"
+    },
+    {
+      "rank": 84,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "nano-banana-2",
+      "name": "nano-banana-2",
+      "installs": 400297,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/nano-banana-2"
+    },
+    {
+      "rank": 85,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "nano-banana-edit",
+      "name": "nano-banana-edit",
+      "installs": 400038,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/nano-banana-edit"
+    },
+    {
+      "rank": 86,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "image-edit",
+      "name": "image-edit",
+      "installs": 399904,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/image-edit"
+    },
+    {
+      "rank": 87,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "flux-kontext",
+      "name": "flux-kontext",
+      "installs": 399835,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/flux-kontext"
+    },
+    {
+      "rank": 88,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "wan-2-7",
+      "name": "wan-2-7",
+      "installs": 399301,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/wan-2-7"
+    },
+    {
+      "rank": 89,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "gpt-image-edit",
+      "name": "gpt-image-edit",
+      "installs": 399129,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/gpt-image-edit"
+    },
+    {
+      "rank": 90,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "seedance-v2",
+      "name": "seedance-v2",
+      "installs": 399118,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/seedance-v2"
+    },
+    {
+      "rank": 91,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "happyhorse-1-0",
+      "name": "happyhorse-1-0",
+      "installs": 399093,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/happyhorse-1-0"
+    },
+    {
+      "rank": 92,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "flux-2-klein",
+      "name": "flux-2-klein",
+      "installs": 398920,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/flux-2-klein"
+    },
+    {
+      "rank": 93,
+      "source": "mattpocock/skills",
+      "skill": "domain-modeling",
+      "name": "domain-modeling",
+      "installs": 391066,
+      "url": "https://www.skills.sh/mattpocock/skills/domain-modeling"
+    },
+    {
+      "rank": 94,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-quotas",
+      "name": "azure-quotas",
+      "installs": 387542,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-quotas"
+    },
+    {
+      "rank": 95,
+      "source": "mattpocock/skills",
+      "skill": "codebase-design",
+      "name": "codebase-design",
+      "installs": 381632,
+      "url": "https://www.skills.sh/mattpocock/skills/codebase-design"
+    },
+    {
+      "rank": 96,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-upgrade",
+      "name": "azure-upgrade",
+      "installs": 379821,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-upgrade"
+    },
+    {
+      "rank": 97,
+      "source": "larksuite/cli",
+      "skill": "lark-approval",
+      "name": "lark-approval",
+      "installs": 377283,
+      "url": "https://www.skills.sh/larksuite/cli/lark-approval"
+    },
+    {
+      "rank": 98,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "kling-3-0",
+      "name": "kling-3-0",
+      "installs": 375991,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/kling-3-0"
+    },
+    {
+      "rank": 99,
+      "source": "mattpocock/skills",
+      "skill": "diagnosing-bugs",
+      "name": "diagnosing-bugs",
+      "installs": 375706,
+      "url": "https://www.skills.sh/mattpocock/skills/diagnosing-bugs"
+    },
+    {
+      "rank": 100,
+      "source": "heygen-com/hyperframes",
+      "skill": "hyperframes-cli",
+      "name": "hyperframes-cli",
+      "installs": 374757,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/hyperframes-cli"
+    },
+    {
+      "rank": 101,
+      "source": "lllllllama/rigorpilot-skills",
+      "skill": "paper-context-resolver",
+      "name": "paper-context-resolver",
+      "installs": 373064,
+      "url": "https://www.skills.sh/lllllllama/rigorpilot-skills/paper-context-resolver"
+    },
+    {
+      "rank": 102,
+      "source": "lllllllama/rigorpilot-skills",
+      "skill": "repo-intake-and-plan",
+      "name": "repo-intake-and-plan",
+      "installs": 372395,
+      "url": "https://www.skills.sh/lllllllama/rigorpilot-skills/repo-intake-and-plan"
+    },
+    {
+      "rank": 103,
+      "source": "lllllllama/rigorpilot-skills",
+      "skill": "minimal-run-and-audit",
+      "name": "minimal-run-and-audit",
+      "installs": 372318,
+      "url": "https://www.skills.sh/lllllllama/rigorpilot-skills/minimal-run-and-audit"
+    },
+    {
+      "rank": 104,
+      "source": "lllllllama/rigorpilot-skills",
+      "skill": "env-and-assets-bootstrap",
+      "name": "env-and-assets-bootstrap",
+      "installs": 372311,
+      "url": "https://www.skills.sh/lllllllama/rigorpilot-skills/env-and-assets-bootstrap"
+    },
+    {
+      "rank": 105,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "codex-pet",
+      "name": "codex-pet",
+      "installs": 364385,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/codex-pet"
+    },
+    {
+      "rank": 106,
+      "source": "mattpocock/skills",
+      "skill": "to-prd",
+      "name": "to-prd",
+      "installs": 363828,
+      "url": "https://www.skills.sh/mattpocock/skills/to-prd"
+    },
+    {
+      "rank": 107,
+      "source": "heygen-com/hyperframes",
+      "skill": "hyperframes",
+      "name": "hyperframes",
+      "installs": 361136,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/hyperframes"
+    },
+    {
+      "rank": 108,
+      "source": "larksuite/cli",
+      "skill": "lark-slides",
+      "name": "lark-slides",
+      "installs": 357526,
+      "url": "https://www.skills.sh/larksuite/cli/lark-slides"
+    },
+    {
+      "rank": 109,
+      "source": "larksuite/cli",
+      "skill": "lark-attendance",
+      "name": "lark-attendance",
+      "installs": 355320,
+      "url": "https://www.skills.sh/larksuite/cli/lark-attendance"
+    },
+    {
+      "rank": 110,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-enterprise-infra-planner",
+      "name": "azure-enterprise-infra-planner",
+      "installs": 353947,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-enterprise-infra-planner"
+    },
+    {
+      "rank": 111,
+      "source": "leonxlnx/taste-skill",
+      "skill": "design-taste-frontend",
+      "name": "design-taste-frontend",
+      "installs": 352520,
+      "url": "https://www.skills.sh/leonxlnx/taste-skill/design-taste-frontend"
+    },
+    {
+      "rank": 112,
+      "source": "mattpocock/skills",
+      "skill": "ask-matt",
+      "name": "ask-matt",
+      "installs": 351893,
+      "url": "https://www.skills.sh/mattpocock/skills/ask-matt"
+    },
+    {
+      "rank": 113,
+      "source": "mattpocock/skills",
+      "skill": "to-issues",
+      "name": "to-issues",
+      "installs": 350916,
+      "url": "https://www.skills.sh/mattpocock/skills/to-issues"
+    },
+    {
+      "rank": 114,
+      "source": "anthropics/skills",
+      "skill": "skill-creator",
+      "name": "skill-creator",
+      "installs": 349464,
+      "url": "https://www.skills.sh/anthropics/skills/skill-creator"
+    },
+    {
+      "rank": 115,
+      "source": "open.feishu.cn",
+      "skill": "lark-note",
+      "name": "lark-note",
+      "installs": 347775,
+      "url": "https://www.skills.sh/open.feishu.cn/lark-note"
+    },
+    {
+      "rank": 116,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-kubernetes",
+      "name": "azure-kubernetes",
+      "installs": 347008,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-kubernetes"
+    },
+    {
+      "rank": 117,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "ai-video-generation",
+      "name": "ai-video-generation",
+      "installs": 345304,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/ai-video-generation"
+    },
+    {
+      "rank": 118,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "ai-image-generation",
+      "name": "ai-image-generation",
+      "installs": 344815,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/ai-image-generation"
+    },
+    {
+      "rank": 119,
+      "source": "supabase/agent-skills",
+      "skill": "supabase-postgres-best-practices",
+      "name": "supabase-postgres-best-practices",
+      "installs": 343648,
+      "url": "https://www.skills.sh/supabase/agent-skills/supabase-postgres-best-practices"
+    },
+    {
+      "rank": 120,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "runcomfy-cli",
+      "name": "runcomfy-cli",
+      "installs": 342960,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/runcomfy-cli"
+    },
+    {
+      "rank": 121,
+      "source": "mattpocock/skills",
+      "skill": "implement",
+      "name": "implement",
+      "installs": 342801,
+      "url": "https://www.skills.sh/mattpocock/skills/implement"
+    },
+    {
+      "rank": 122,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "ai-avatar-video",
+      "name": "ai-avatar-video",
+      "installs": 342663,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/ai-avatar-video"
+    },
+    {
+      "rank": 123,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "face-swap",
+      "name": "face-swap",
+      "installs": 342652,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/face-swap"
+    },
+    {
+      "rank": 124,
+      "source": "larksuite/cli",
+      "skill": "lark-okr",
+      "name": "lark-okr",
+      "installs": 341210,
+      "url": "https://www.skills.sh/larksuite/cli/lark-okr"
+    },
+    {
+      "rank": 125,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "video-inpainting",
+      "name": "video-inpainting",
+      "installs": 340991,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/video-inpainting"
+    },
+    {
+      "rank": 126,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "image-inpainting",
+      "name": "image-inpainting",
+      "installs": 340531,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/image-inpainting"
+    },
+    {
+      "rank": 127,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "controlnet-pose",
+      "name": "controlnet-pose",
+      "installs": 340351,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/controlnet-pose"
+    },
+    {
+      "rank": 128,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "lipsync",
+      "name": "lipsync",
+      "installs": 340298,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/lipsync"
+    },
+    {
+      "rank": 129,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "video-extend",
+      "name": "video-extend",
+      "installs": 339885,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/video-extend"
+    },
+    {
+      "rank": 130,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "elevenlabs-music-generation",
+      "name": "elevenlabs-music-generation",
+      "installs": 339743,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/elevenlabs-music-generation"
+    },
+    {
+      "rank": 131,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "image-outpainting",
+      "name": "image-outpainting",
+      "installs": 339628,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/image-outpainting"
+    },
+    {
+      "rank": 132,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "relight",
+      "name": "relight",
+      "installs": 339554,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/relight"
+    },
+    {
+      "rank": 133,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "video-outpainting",
+      "name": "video-outpainting",
+      "installs": 339439,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/video-outpainting"
+    },
+    {
+      "rank": 134,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "ai-music",
+      "name": "ai-music",
+      "installs": 331727,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/ai-music"
+    },
+    {
+      "rank": 135,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "ace-step",
+      "name": "ace-step",
+      "installs": 331340,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/ace-step"
+    },
+    {
+      "rank": 136,
+      "source": "heygen-com/hyperframes",
+      "skill": "hyperframes-registry",
+      "name": "hyperframes-registry",
+      "installs": 329303,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/hyperframes-registry"
+    },
+    {
+      "rank": 137,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-cost",
+      "name": "azure-cost",
+      "installs": 322310,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-cost"
+    },
+    {
+      "rank": 138,
+      "source": "obra/superpowers",
+      "skill": "brainstorming",
+      "name": "brainstorming",
+      "installs": 322152,
+      "url": "https://www.skills.sh/obra/superpowers/brainstorming"
+    },
+    {
+      "rank": 139,
+      "source": "larksuite/cli",
+      "skill": "lark-markdown",
+      "name": "lark-markdown",
+      "installs": 321249,
+      "url": "https://www.skills.sh/larksuite/cli/lark-markdown"
+    },
+    {
+      "rank": 140,
+      "source": "mattpocock/skills",
+      "skill": "code-review",
+      "name": "code-review",
+      "installs": 316974,
+      "url": "https://www.skills.sh/mattpocock/skills/code-review"
+    },
+    {
+      "rank": 141,
+      "source": "mattpocock/skills",
+      "skill": "writing-great-skills",
+      "name": "writing-great-skills",
+      "installs": 316419,
+      "url": "https://www.skills.sh/mattpocock/skills/writing-great-skills"
+    },
+    {
+      "rank": 142,
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "skill": "ui-ux-pro-max",
+      "name": "ui-ux-pro-max",
+      "installs": 312435,
+      "url": "https://www.skills.sh/nextlevelbuilder/ui-ux-pro-max-skill/ui-ux-pro-max"
+    },
+    {
+      "rank": 143,
+      "source": "juliusbrussee/caveman",
+      "skill": "caveman-commit",
+      "name": "caveman-commit",
+      "installs": 302496,
+      "url": "https://www.skills.sh/juliusbrussee/caveman/caveman-commit"
+    },
+    {
+      "rank": 144,
+      "source": "juliusbrussee/caveman",
+      "skill": "caveman-review",
+      "name": "caveman-review",
+      "installs": 300504,
+      "url": "https://www.skills.sh/juliusbrussee/caveman/caveman-review"
+    },
+    {
+      "rank": 145,
+      "source": "juliusbrussee/caveman",
+      "skill": "caveman-compress",
+      "name": "caveman-compress",
+      "installs": 298192,
+      "url": "https://www.skills.sh/juliusbrussee/caveman/caveman-compress"
+    },
+    {
+      "rank": 146,
+      "source": "juliusbrussee/caveman",
+      "skill": "caveman-help",
+      "name": "caveman-help",
+      "installs": 292498,
+      "url": "https://www.skills.sh/juliusbrussee/caveman/caveman-help"
+    },
+    {
+      "rank": 147,
+      "source": "larksuite/cli",
+      "skill": "lark-vc-agent",
+      "name": "lark-vc-agent",
+      "installs": 292209,
+      "url": "https://www.skills.sh/larksuite/cli/lark-vc-agent"
+    },
+    {
+      "rank": 148,
+      "source": "mattpocock/skills",
+      "skill": "wayfinder",
+      "name": "wayfinder",
+      "installs": 290266,
+      "url": "https://www.skills.sh/mattpocock/skills/wayfinder"
+    },
+    {
+      "rank": 149,
+      "source": "mattpocock/skills",
+      "skill": "research",
+      "name": "research",
+      "installs": 288468,
+      "url": "https://www.skills.sh/mattpocock/skills/research"
+    },
+    {
+      "rank": 150,
+      "source": "vercel-labs/agent-skills",
+      "skill": "vercel-composition-patterns",
+      "name": "vercel-composition-patterns",
+      "installs": 286461,
+      "url": "https://www.skills.sh/vercel-labs/agent-skills/vercel-composition-patterns"
+    },
+    {
+      "rank": 151,
+      "source": "mattpocock/skills",
+      "skill": "resolving-merge-conflicts",
+      "name": "resolving-merge-conflicts",
+      "installs": 280822,
+      "url": "https://www.skills.sh/mattpocock/skills/resolving-merge-conflicts"
+    },
+    {
+      "rank": 152,
+      "source": "mattpocock/skills",
+      "skill": "to-spec",
+      "name": "to-spec",
+      "installs": 276442,
+      "url": "https://www.skills.sh/mattpocock/skills/to-spec"
+    },
+    {
+      "rank": 153,
+      "source": "shadcn/ui",
+      "skill": "shadcn",
+      "name": "shadcn",
+      "installs": 271674,
+      "url": "https://www.skills.sh/shadcn/ui/shadcn"
+    },
+    {
+      "rank": 154,
+      "source": "mattpocock/skills",
+      "skill": "to-tickets",
+      "name": "to-tickets",
+      "installs": 270940,
+      "url": "https://www.skills.sh/mattpocock/skills/to-tickets"
+    },
+    {
+      "rank": 155,
+      "source": "leonxlnx/taste-skill",
+      "skill": "high-end-visual-design",
+      "name": "high-end-visual-design",
+      "installs": 266527,
+      "url": "https://www.skills.sh/leonxlnx/taste-skill/high-end-visual-design"
+    },
+    {
+      "rank": 156,
+      "source": "microsoft/azure-skills",
+      "skill": "airunway-aks-setup",
+      "name": "airunway-aks-setup",
+      "installs": 266501,
+      "url": "https://www.skills.sh/microsoft/azure-skills/airunway-aks-setup"
+    },
+    {
+      "rank": 157,
+      "source": "heygen-com/hyperframes",
+      "skill": "hyperframes-core",
+      "name": "hyperframes-core",
+      "installs": 263740,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/hyperframes-core"
+    },
+    {
+      "rank": 158,
+      "source": "leonxlnx/taste-skill",
+      "skill": "redesign-existing-projects",
+      "name": "redesign-existing-projects",
+      "installs": 262783,
+      "url": "https://www.skills.sh/leonxlnx/taste-skill/redesign-existing-projects"
+    },
+    {
+      "rank": 159,
+      "source": "heygen-com/hyperframes",
+      "skill": "hyperframes-animation",
+      "name": "hyperframes-animation",
+      "installs": 259964,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/hyperframes-animation"
+    },
+    {
+      "rank": 160,
+      "source": "heygen-com/hyperframes",
+      "skill": "media-use",
+      "name": "media-use",
+      "installs": 259104,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/media-use"
+    },
+    {
+      "rank": 161,
+      "source": "uizze.com",
+      "skill": "anti-ui-slop",
+      "name": "anti-ui-slop",
+      "installs": 256096,
+      "url": "https://www.skills.sh/uizze.com/anti-ui-slop"
+    },
+    {
+      "rank": 162,
+      "source": "larksuite/cli",
+      "skill": "lark-apps",
+      "name": "lark-apps",
+      "installs": 252176,
+      "url": "https://www.skills.sh/larksuite/cli/lark-apps"
+    },
+    {
+      "rank": 163,
+      "source": "juliusbrussee/caveman",
+      "skill": "cavecrew",
+      "name": "cavecrew",
+      "installs": 250049,
+      "url": "https://www.skills.sh/juliusbrussee/caveman/cavecrew"
+    },
+    {
+      "rank": 164,
+      "source": "juliusbrussee/caveman",
+      "skill": "caveman-stats",
+      "name": "caveman-stats",
+      "installs": 249752,
+      "url": "https://www.skills.sh/juliusbrussee/caveman/caveman-stats"
+    },
+    {
+      "rank": 165,
+      "source": "heygen-com/hyperframes",
+      "skill": "hyperframes-creative",
+      "name": "hyperframes-creative",
+      "installs": 245687,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/hyperframes-creative"
+    },
+    {
+      "rank": 166,
+      "source": "scrapegraphai/just-scrape",
+      "skill": "just-scrape",
+      "name": "just-scrape",
+      "installs": 244908,
+      "url": "https://www.skills.sh/scrapegraphai/just-scrape/just-scrape"
+    },
+    {
+      "rank": 167,
+      "source": "leonxlnx/taste-skill",
+      "skill": "minimalist-ui",
+      "name": "minimalist-ui",
+      "installs": 243567,
+      "url": "https://www.skills.sh/leonxlnx/taste-skill/minimalist-ui"
+    },
+    {
+      "rank": 168,
+      "source": "microsoft/azure-skills",
+      "skill": "entra-agent-id",
+      "name": "entra-agent-id",
+      "installs": 240691,
+      "url": "https://www.skills.sh/microsoft/azure-skills/entra-agent-id"
+    },
+    {
+      "rank": 169,
+      "source": "mattpocock/skills",
+      "skill": "diagnose",
+      "name": "diagnose",
+      "installs": 236561,
+      "url": "https://www.skills.sh/mattpocock/skills/diagnose"
+    },
+    {
+      "rank": 170,
+      "source": "lllllllama/rigorpilot-skills",
+      "skill": "ai-research-explore",
+      "name": "ai-research-explore",
+      "installs": 233299,
+      "url": "https://www.skills.sh/lllllllama/rigorpilot-skills/ai-research-explore"
+    },
+    {
+      "rank": 171,
+      "source": "lllllllama/rigorpilot-skills",
+      "skill": "analyze-project",
+      "name": "analyze-project",
+      "installs": 233225,
+      "url": "https://www.skills.sh/lllllllama/rigorpilot-skills/analyze-project"
+    },
+    {
+      "rank": 172,
+      "source": "lllllllama/rigorpilot-skills",
+      "skill": "ai-research-reproduction",
+      "name": "ai-research-reproduction",
+      "installs": 233155,
+      "url": "https://www.skills.sh/lllllllama/rigorpilot-skills/ai-research-reproduction"
+    },
+    {
+      "rank": 173,
+      "source": "lllllllama/rigorpilot-skills",
+      "skill": "explore-code",
+      "name": "explore-code",
+      "installs": 232944,
+      "url": "https://www.skills.sh/lllllllama/rigorpilot-skills/explore-code"
+    },
+    {
+      "rank": 174,
+      "source": "lllllllama/rigorpilot-skills",
+      "skill": "safe-debug",
+      "name": "safe-debug",
+      "installs": 232853,
+      "url": "https://www.skills.sh/lllllllama/rigorpilot-skills/safe-debug"
+    },
+    {
+      "rank": 175,
+      "source": "lllllllama/rigorpilot-skills",
+      "skill": "run-train",
+      "name": "run-train",
+      "installs": 232823,
+      "url": "https://www.skills.sh/lllllllama/rigorpilot-skills/run-train"
+    },
+    {
+      "rank": 176,
+      "source": "lllllllama/rigorpilot-skills",
+      "skill": "explore-run",
+      "name": "explore-run",
+      "installs": 232816,
+      "url": "https://www.skills.sh/lllllllama/rigorpilot-skills/explore-run"
+    },
+    {
+      "rank": 177,
+      "source": "leonxlnx/taste-skill",
+      "skill": "full-output-enforcement",
+      "name": "full-output-enforcement",
+      "installs": 231896,
+      "url": "https://www.skills.sh/leonxlnx/taste-skill/full-output-enforcement"
+    },
+    {
+      "rank": 178,
+      "source": "pbakaus/impeccable",
+      "skill": "impeccable",
+      "name": "impeccable",
+      "installs": 230134,
+      "url": "https://www.skills.sh/pbakaus/impeccable/impeccable"
+    },
+    {
+      "rank": 179,
+      "source": "mattpocock/skills",
+      "skill": "write-a-skill",
+      "name": "write-a-skill",
+      "installs": 228170,
+      "url": "https://www.skills.sh/mattpocock/skills/write-a-skill"
+    },
+    {
+      "rank": 180,
+      "source": "mattpocock/skills",
+      "skill": "zoom-out",
+      "name": "zoom-out",
+      "installs": 227595,
+      "url": "https://www.skills.sh/mattpocock/skills/zoom-out"
+    },
+    {
+      "rank": 181,
+      "source": "leonxlnx/taste-skill",
+      "skill": "industrial-brutalist-ui",
+      "name": "industrial-brutalist-ui",
+      "installs": 226075,
+      "url": "https://www.skills.sh/leonxlnx/taste-skill/industrial-brutalist-ui"
+    },
+    {
+      "rank": 182,
+      "source": "leonxlnx/taste-skill",
+      "skill": "stitch-design-taste",
+      "name": "stitch-design-taste",
+      "installs": 224738,
+      "url": "https://www.skills.sh/leonxlnx/taste-skill/stitch-design-taste"
+    },
+    {
+      "rank": 183,
+      "source": "leonxlnx/taste-skill",
+      "skill": "gpt-taste",
+      "name": "gpt-taste",
+      "installs": 223082,
+      "url": "https://www.skills.sh/leonxlnx/taste-skill/gpt-taste"
+    },
+    {
+      "rank": 184,
+      "source": "mattpocock/skills",
+      "skill": "caveman",
+      "name": "caveman",
+      "installs": 222238,
+      "url": "https://www.skills.sh/mattpocock/skills/caveman"
+    },
+    {
+      "rank": 185,
+      "source": "obra/superpowers",
+      "skill": "systematic-debugging",
+      "name": "systematic-debugging",
+      "installs": 222223,
+      "url": "https://www.skills.sh/obra/superpowers/systematic-debugging"
+    },
+    {
+      "rank": 186,
+      "source": "heygen-com/hyperframes",
+      "skill": "remotion-to-hyperframes",
+      "name": "remotion-to-hyperframes",
+      "installs": 221954,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/remotion-to-hyperframes"
+    },
+    {
+      "rank": 187,
+      "source": "mattpocock/skills",
+      "skill": "git-guardrails-claude-code",
+      "name": "git-guardrails-claude-code",
+      "installs": 220061,
+      "url": "https://www.skills.sh/mattpocock/skills/git-guardrails-claude-code"
+    },
+    {
+      "rank": 188,
+      "source": "obra/superpowers",
+      "skill": "writing-plans",
+      "name": "writing-plans",
+      "installs": 216727,
+      "url": "https://www.skills.sh/obra/superpowers/writing-plans"
+    },
+    {
+      "rank": 189,
+      "source": "supabase/agent-skills",
+      "skill": "supabase",
+      "name": "supabase",
+      "installs": 213782,
+      "url": "https://www.skills.sh/supabase/agent-skills/supabase"
+    },
+    {
+      "rank": 190,
+      "source": "mattpocock/skills",
+      "skill": "setup-pre-commit",
+      "name": "setup-pre-commit",
+      "installs": 213763,
+      "url": "https://www.skills.sh/mattpocock/skills/setup-pre-commit"
+    },
+    {
+      "rank": 191,
+      "source": "obra/superpowers",
+      "skill": "using-superpowers",
+      "name": "using-superpowers",
+      "installs": 213759,
+      "url": "https://www.skills.sh/obra/superpowers/using-superpowers"
+    },
+    {
+      "rank": 192,
+      "source": "mattpocock/skills",
+      "skill": "design-an-interface",
+      "name": "design-an-interface",
+      "installs": 213505,
+      "url": "https://www.skills.sh/mattpocock/skills/design-an-interface"
+    },
+    {
+      "rank": 193,
+      "source": "leonxlnx/taste-skill",
+      "skill": "brandkit",
+      "name": "brandkit",
+      "installs": 212681,
+      "url": "https://www.skills.sh/leonxlnx/taste-skill/brandkit"
+    },
+    {
+      "rank": 194,
+      "source": "mattpocock/skills",
+      "skill": "scaffold-exercises",
+      "name": "scaffold-exercises",
+      "installs": 210502,
+      "url": "https://www.skills.sh/mattpocock/skills/scaffold-exercises"
+    },
+    {
+      "rank": 195,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-cost-optimization",
+      "name": "azure-cost-optimization",
+      "installs": 209056,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-cost-optimization"
+    },
+    {
+      "rank": 196,
+      "source": "mattpocock/skills",
+      "skill": "writing-shape",
+      "name": "writing-shape",
+      "installs": 208378,
+      "url": "https://www.skills.sh/mattpocock/skills/writing-shape"
+    },
+    {
+      "rank": 197,
+      "source": "mattpocock/skills",
+      "skill": "writing-fragments",
+      "name": "writing-fragments",
+      "installs": 208209,
+      "url": "https://www.skills.sh/mattpocock/skills/writing-fragments"
+    },
+    {
+      "rank": 198,
+      "source": "mattpocock/skills",
+      "skill": "writing-beats",
+      "name": "writing-beats",
+      "installs": 207980,
+      "url": "https://www.skills.sh/mattpocock/skills/writing-beats"
+    },
+    {
+      "rank": 199,
+      "source": "mattpocock/skills",
+      "skill": "migrate-to-shoehorn",
+      "name": "migrate-to-shoehorn",
+      "installs": 207547,
+      "url": "https://www.skills.sh/mattpocock/skills/migrate-to-shoehorn"
+    },
+    {
+      "rank": 200,
+      "source": "leonxlnx/taste-skill",
+      "skill": "imagegen-frontend-web",
+      "name": "imagegen-frontend-web",
+      "installs": 207334,
+      "url": "https://www.skills.sh/leonxlnx/taste-skill/imagegen-frontend-web"
+    },
+    {
+      "rank": 201,
+      "source": "leonxlnx/taste-skill",
+      "skill": "image-to-code",
+      "name": "image-to-code",
+      "installs": 207144,
+      "url": "https://www.skills.sh/leonxlnx/taste-skill/image-to-code"
+    },
+    {
+      "rank": 202,
+      "source": "mattpocock/skills",
+      "skill": "request-refactor-plan",
+      "name": "request-refactor-plan",
+      "installs": 207014,
+      "url": "https://www.skills.sh/mattpocock/skills/request-refactor-plan"
+    },
+    {
+      "rank": 203,
+      "source": "mattpocock/skills",
+      "skill": "qa",
+      "name": "qa",
+      "installs": 202971,
+      "url": "https://www.skills.sh/mattpocock/skills/qa"
+    },
+    {
+      "rank": 204,
+      "source": "leonxlnx/taste-skill",
+      "skill": "imagegen-frontend-mobile",
+      "name": "imagegen-frontend-mobile",
+      "installs": 202706,
+      "url": "https://www.skills.sh/leonxlnx/taste-skill/imagegen-frontend-mobile"
+    },
+    {
+      "rank": 205,
+      "source": "emilkowalski/skills",
+      "skill": "emil-design-eng",
+      "name": "emil-design-eng",
+      "installs": 202238,
+      "url": "https://www.skills.sh/emilkowalski/skills/emil-design-eng"
+    },
+    {
+      "rank": 206,
+      "source": "mattpocock/skills",
+      "skill": "ubiquitous-language",
+      "name": "ubiquitous-language",
+      "installs": 201649,
+      "url": "https://www.skills.sh/mattpocock/skills/ubiquitous-language"
+    },
+    {
+      "rank": 207,
+      "source": "anthropics/skills",
+      "skill": "pptx",
+      "name": "pptx",
+      "installs": 200166,
+      "url": "https://www.skills.sh/anthropics/skills/pptx"
+    },
+    {
+      "rank": 208,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-reliability",
+      "name": "azure-reliability",
+      "installs": 199932,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-reliability"
+    },
+    {
+      "rank": 209,
+      "source": "mattpocock/skills",
+      "skill": "obsidian-vault",
+      "name": "obsidian-vault",
+      "installs": 199541,
+      "url": "https://www.skills.sh/mattpocock/skills/obsidian-vault"
+    },
+    {
+      "rank": 210,
+      "source": "obra/superpowers",
+      "skill": "requesting-code-review",
+      "name": "requesting-code-review",
+      "installs": 197279,
+      "url": "https://www.skills.sh/obra/superpowers/requesting-code-review"
+    },
+    {
+      "rank": 211,
+      "source": "mattpocock/skills",
+      "skill": "edit-article",
+      "name": "edit-article",
+      "installs": 195814,
+      "url": "https://www.skills.sh/mattpocock/skills/edit-article"
+    },
+    {
+      "rank": 212,
+      "source": "obra/superpowers",
+      "skill": "test-driven-development",
+      "name": "test-driven-development",
+      "installs": 195550,
+      "url": "https://www.skills.sh/obra/superpowers/test-driven-development"
+    },
+    {
+      "rank": 213,
+      "source": "vercel-labs/agent-skills",
+      "skill": "vercel-react-native-skills",
+      "name": "vercel-react-native-skills",
+      "installs": 186148,
+      "url": "https://www.skills.sh/vercel-labs/agent-skills/vercel-react-native-skills"
+    },
+    {
+      "rank": 214,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "seo-audit",
+      "name": "seo-audit",
+      "installs": 184812,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/seo-audit"
+    },
+    {
+      "rank": 215,
+      "source": "obra/superpowers",
+      "skill": "executing-plans",
+      "name": "executing-plans",
+      "installs": 182487,
+      "url": "https://www.skills.sh/obra/superpowers/executing-plans"
+    },
+    {
+      "rank": 216,
+      "source": "larksuite/cli",
+      "skill": "lark-note",
+      "name": "lark-note",
+      "installs": 179007,
+      "url": "https://www.skills.sh/larksuite/cli/lark-note"
+    },
+    {
+      "rank": 217,
+      "source": "heygen-com/hyperframes",
+      "skill": "general-video",
+      "name": "general-video",
+      "installs": 178256,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/general-video"
+    },
+    {
+      "rank": 218,
+      "source": "anthropics/skills",
+      "skill": "pdf",
+      "name": "pdf",
+      "installs": 177588,
+      "url": "https://www.skills.sh/anthropics/skills/pdf"
+    },
+    {
+      "rank": 219,
+      "source": "heygen-com/hyperframes",
+      "skill": "hyperframes-keyframes",
+      "name": "hyperframes-keyframes",
+      "installs": 177429,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/hyperframes-keyframes"
+    },
+    {
+      "rank": 220,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "copywriting",
+      "name": "copywriting",
+      "installs": 175667,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/copywriting"
+    },
+    {
+      "rank": 221,
+      "source": "obra/superpowers",
+      "skill": "verification-before-completion",
+      "name": "verification-before-completion",
+      "installs": 175326,
+      "url": "https://www.skills.sh/obra/superpowers/verification-before-completion"
+    },
+    {
+      "rank": 222,
+      "source": "obra/superpowers",
+      "skill": "subagent-driven-development",
+      "name": "subagent-driven-development",
+      "installs": 173809,
+      "url": "https://www.skills.sh/obra/superpowers/subagent-driven-development"
+    },
+    {
+      "rank": 223,
+      "source": "anthropics/skills",
+      "skill": "docx",
+      "name": "docx",
+      "installs": 170282,
+      "url": "https://www.skills.sh/anthropics/skills/docx"
+    },
+    {
+      "rank": 224,
+      "source": "mattpocock/skills",
+      "skill": "wizard",
+      "name": "wizard",
+      "installs": 167697,
+      "url": "https://www.skills.sh/mattpocock/skills/wizard"
+    },
+    {
+      "rank": 225,
+      "source": "heygen-com/hyperframes",
+      "skill": "faceless-explainer",
+      "name": "faceless-explainer",
+      "installs": 167475,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/faceless-explainer"
+    },
+    {
+      "rank": 226,
+      "source": "heygen-com/hyperframes",
+      "skill": "product-launch-video",
+      "name": "product-launch-video",
+      "installs": 167421,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/product-launch-video"
+    },
+    {
+      "rank": 227,
+      "source": "heygen-com/hyperframes",
+      "skill": "motion-graphics",
+      "name": "motion-graphics",
+      "installs": 165981,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/motion-graphics"
+    },
+    {
+      "rank": 228,
+      "source": "obra/superpowers",
+      "skill": "receiving-code-review",
+      "name": "receiving-code-review",
+      "installs": 164860,
+      "url": "https://www.skills.sh/obra/superpowers/receiving-code-review"
+    },
+    {
+      "rank": 229,
+      "source": "prisma/skills",
+      "skill": "prisma-database-setup",
+      "name": "prisma-database-setup",
+      "installs": 164687,
+      "url": "https://www.skills.sh/prisma/skills/prisma-database-setup"
+    },
+    {
+      "rank": 230,
+      "source": "prisma/skills",
+      "skill": "prisma-client-api",
+      "name": "prisma-client-api",
+      "installs": 163997,
+      "url": "https://www.skills.sh/prisma/skills/prisma-client-api"
+    },
+    {
+      "rank": 231,
+      "source": "obra/superpowers",
+      "skill": "writing-skills",
+      "name": "writing-skills",
+      "installs": 163053,
+      "url": "https://www.skills.sh/obra/superpowers/writing-skills"
+    },
+    {
+      "rank": 232,
+      "source": "leonxlnx/taste-skill",
+      "skill": "design-taste-frontend-v1",
+      "name": "design-taste-frontend-v1",
+      "installs": 162202,
+      "url": "https://www.skills.sh/leonxlnx/taste-skill/design-taste-frontend-v1"
+    },
+    {
+      "rank": 233,
+      "source": "prisma/skills",
+      "skill": "prisma-cli",
+      "name": "prisma-cli",
+      "installs": 162059,
+      "url": "https://www.skills.sh/prisma/skills/prisma-cli"
+    },
+    {
+      "rank": 234,
+      "source": "obra/superpowers",
+      "skill": "dispatching-parallel-agents",
+      "name": "dispatching-parallel-agents",
+      "installs": 161882,
+      "url": "https://www.skills.sh/obra/superpowers/dispatching-parallel-agents"
+    },
+    {
+      "rank": 235,
+      "source": "obra/superpowers",
+      "skill": "using-git-worktrees",
+      "name": "using-git-worktrees",
+      "installs": 161525,
+      "url": "https://www.skills.sh/obra/superpowers/using-git-worktrees"
+    },
+    {
+      "rank": 236,
+      "source": "mattpocock/skills",
+      "skill": "loop-me",
+      "name": "loop-me",
+      "installs": 158809,
+      "url": "https://www.skills.sh/mattpocock/skills/loop-me"
+    },
+    {
+      "rank": 237,
+      "source": "obra/superpowers",
+      "skill": "finishing-a-development-branch",
+      "name": "finishing-a-development-branch",
+      "installs": 158755,
+      "url": "https://www.skills.sh/obra/superpowers/finishing-a-development-branch"
+    },
+    {
+      "rank": 238,
+      "source": "prisma/skills",
+      "skill": "prisma-postgres",
+      "name": "prisma-postgres",
+      "installs": 158502,
+      "url": "https://www.skills.sh/prisma/skills/prisma-postgres"
+    },
+    {
+      "rank": 239,
+      "source": "heygen-com/hyperframes",
+      "skill": "pr-to-video",
+      "name": "pr-to-video",
+      "installs": 154627,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/pr-to-video"
+    },
+    {
+      "rank": 240,
+      "source": "prisma/skills",
+      "skill": "prisma-driver-adapter-implementation",
+      "name": "prisma-driver-adapter-implementation",
+      "installs": 154372,
+      "url": "https://www.skills.sh/prisma/skills/prisma-driver-adapter-implementation"
+    },
+    {
+      "rank": 241,
+      "source": "prisma/skills",
+      "skill": "prisma-upgrade-v7",
+      "name": "prisma-upgrade-v7",
+      "installs": 154263,
+      "url": "https://www.skills.sh/prisma/skills/prisma-upgrade-v7"
+    },
+    {
+      "rank": 242,
+      "source": "heygen-com/hyperframes",
+      "skill": "embedded-captions",
+      "name": "embedded-captions",
+      "installs": 153129,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/embedded-captions"
+    },
+    {
+      "rank": 243,
+      "source": "prisma/skills",
+      "skill": "prisma-postgres-setup",
+      "name": "prisma-postgres-setup",
+      "installs": 152973,
+      "url": "https://www.skills.sh/prisma/skills/prisma-postgres-setup"
+    },
+    {
+      "rank": 244,
+      "source": "anthropics/skills",
+      "skill": "xlsx",
+      "name": "xlsx",
+      "installs": 151512,
+      "url": "https://www.skills.sh/anthropics/skills/xlsx"
+    },
+    {
+      "rank": 245,
+      "source": "prisma/skills",
+      "skill": "prisma-compute",
+      "name": "prisma-compute",
+      "installs": 149688,
+      "url": "https://www.skills.sh/prisma/skills/prisma-compute"
+    },
+    {
+      "rank": 246,
+      "source": "prisma/skills",
+      "skill": "prisma-mongodb-upgrade",
+      "name": "prisma-mongodb-upgrade",
+      "installs": 148516,
+      "url": "https://www.skills.sh/prisma/skills/prisma-mongodb-upgrade"
+    },
+    {
+      "rank": 247,
+      "source": "heygen-com/hyperframes",
+      "skill": "hyperframes-media",
+      "name": "hyperframes-media",
+      "installs": 147164,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/hyperframes-media"
+    },
+    {
+      "rank": 248,
+      "source": "heygen-com/hyperframes",
+      "skill": "music-to-video",
+      "name": "music-to-video",
+      "installs": 134904,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/music-to-video"
+    },
+    {
+      "rank": 249,
+      "source": "mattpocock/skills",
+      "skill": "claude-handoff",
+      "name": "claude-handoff",
+      "installs": 134351,
+      "url": "https://www.skills.sh/mattpocock/skills/claude-handoff"
+    },
+    {
+      "rank": 250,
+      "source": "heygen-com/hyperframes",
+      "skill": "slideshow",
+      "name": "slideshow",
+      "installs": 132918,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/slideshow"
+    },
+    {
+      "rank": 251,
+      "source": "uizze.com",
+      "skill": "ui-radar",
+      "name": "ui-radar",
+      "installs": 132016,
+      "url": "https://www.skills.sh/uizze.com/ui-radar"
+    },
+    {
+      "rank": 252,
+      "source": "anthropics/skills",
+      "skill": "webapp-testing",
+      "name": "webapp-testing",
+      "installs": 131475,
+      "url": "https://www.skills.sh/anthropics/skills/webapp-testing"
+    },
+    {
+      "rank": 253,
+      "source": "firebase/agent-skills",
+      "skill": "firebase-basics",
+      "name": "firebase-basics",
+      "installs": 128536,
+      "url": "https://www.skills.sh/firebase/agent-skills/firebase-basics"
+    },
+    {
+      "rank": 254,
+      "source": "firebase/agent-skills",
+      "skill": "firebase-auth-basics",
+      "name": "firebase-auth-basics",
+      "installs": 127524,
+      "url": "https://www.skills.sh/firebase/agent-skills/firebase-auth-basics"
+    },
+    {
+      "rank": 255,
+      "source": "arvindrk/extract-design-system",
+      "skill": "extract-design-system",
+      "name": "extract-design-system",
+      "installs": 127221,
+      "url": "https://www.skills.sh/arvindrk/extract-design-system/extract-design-system"
+    },
+    {
+      "rank": 256,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "marketing-psychology",
+      "name": "marketing-psychology",
+      "installs": 126974,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/marketing-psychology"
+    },
+    {
+      "rank": 257,
+      "source": "sentry/dev",
+      "skill": "sentry-cli",
+      "name": "sentry-cli",
+      "installs": 125872,
+      "url": "https://www.skills.sh/sentry/dev/sentry-cli"
+    },
+    {
+      "rank": 258,
+      "source": "higgsfield-ai/skills",
+      "skill": "higgsfield-generate",
+      "name": "higgsfield-generate",
+      "installs": 124328,
+      "url": "https://www.skills.sh/higgsfield-ai/skills/higgsfield-generate"
+    },
+    {
+      "rank": 259,
+      "source": "firebase/agent-skills",
+      "skill": "firebase-hosting-basics",
+      "name": "firebase-hosting-basics",
+      "installs": 124318,
+      "url": "https://www.skills.sh/firebase/agent-skills/firebase-hosting-basics"
+    },
+    {
+      "rank": 260,
+      "source": "firebase/agent-skills",
+      "skill": "firebase-app-hosting-basics",
+      "name": "firebase-app-hosting-basics",
+      "installs": 123879,
+      "url": "https://www.skills.sh/firebase/agent-skills/firebase-app-hosting-basics"
+    },
+    {
+      "rank": 261,
+      "source": "stablyai/orca",
+      "skill": "orca-cli",
+      "name": "orca-cli",
+      "installs": 123586,
+      "url": "https://www.skills.sh/stablyai/orca/orca-cli"
+    },
+    {
+      "rank": 262,
+      "source": "microsoft/azure-skills",
+      "skill": "python-appservice-deploy",
+      "name": "python-appservice-deploy",
+      "installs": 123517,
+      "url": "https://www.skills.sh/microsoft/azure-skills/python-appservice-deploy"
+    },
+    {
+      "rank": 263,
+      "source": "firebase/agent-skills",
+      "skill": "firebase-data-connect",
+      "name": "firebase-data-connect",
+      "installs": 123150,
+      "url": "https://www.skills.sh/firebase/agent-skills/firebase-data-connect"
+    },
+    {
+      "rank": 264,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "content-strategy",
+      "name": "content-strategy",
+      "installs": 122419,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/content-strategy"
+    },
+    {
+      "rank": 265,
+      "source": "heygen-com/hyperframes",
+      "skill": "talking-head-recut",
+      "name": "talking-head-recut",
+      "installs": 117322,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/talking-head-recut"
+    },
+    {
+      "rank": 266,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "programmatic-seo",
+      "name": "programmatic-seo",
+      "installs": 117246,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/programmatic-seo"
+    },
+    {
+      "rank": 267,
+      "source": "microsoft/playwright-cli",
+      "skill": "playwright-cli",
+      "name": "playwright-cli",
+      "installs": 117174,
+      "url": "https://www.skills.sh/microsoft/playwright-cli/playwright-cli"
+    },
+    {
+      "rank": 268,
+      "source": "mattpocock/skills",
+      "skill": "to-questionnaire",
+      "name": "to-questionnaire",
+      "installs": 116467,
+      "url": "https://www.skills.sh/mattpocock/skills/to-questionnaire"
+    },
+    {
+      "rank": 269,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "marketing-ideas",
+      "name": "marketing-ideas",
+      "installs": 113679,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/marketing-ideas"
+    },
+    {
+      "rank": 270,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "copy-editing",
+      "name": "copy-editing",
+      "installs": 108785,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/copy-editing"
+    },
+    {
+      "rank": 271,
+      "source": "browser-act/skills",
+      "skill": "browser-act",
+      "name": "browser-act",
+      "installs": 107609,
+      "url": "https://www.skills.sh/browser-act/skills/browser-act"
+    },
+    {
+      "rank": 272,
+      "source": "vercel-labs/agent-skills",
+      "skill": "deploy-to-vercel",
+      "name": "deploy-to-vercel",
+      "installs": 106791,
+      "url": "https://www.skills.sh/vercel-labs/agent-skills/deploy-to-vercel"
+    },
+    {
+      "rank": 273,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "ai-seo",
+      "name": "ai-seo",
+      "installs": 106624,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/ai-seo"
+    },
+    {
+      "rank": 274,
+      "source": "higgsfield-ai/skills",
+      "skill": "higgsfield-product-photoshoot",
+      "name": "higgsfield-product-photoshoot",
+      "installs": 105700,
+      "url": "https://www.skills.sh/higgsfield-ai/skills/higgsfield-product-photoshoot"
+    },
+    {
+      "rank": 275,
+      "source": "higgsfield-ai/skills",
+      "skill": "higgsfield-soul-id",
+      "name": "higgsfield-soul-id",
+      "installs": 104658,
+      "url": "https://www.skills.sh/higgsfield-ai/skills/higgsfield-soul-id"
+    },
+    {
+      "rank": 276,
+      "source": "stablyai/orca",
+      "skill": "orchestration",
+      "name": "orchestration",
+      "installs": 103524,
+      "url": "https://www.skills.sh/stablyai/orca/orchestration"
+    },
+    {
+      "rank": 277,
+      "source": "higgsfield-ai/skills",
+      "skill": "higgsfield-marketplace-cards",
+      "name": "higgsfield-marketplace-cards",
+      "installs": 103309,
+      "url": "https://www.skills.sh/higgsfield-ai/skills/higgsfield-marketplace-cards"
+    },
+    {
+      "rank": 278,
+      "source": "heygen-com/hyperframes",
+      "skill": "website-to-video",
+      "name": "website-to-video",
+      "installs": 103110,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/website-to-video"
+    },
+    {
+      "rank": 279,
+      "source": "anthropics/skills",
+      "skill": "mcp-builder",
+      "name": "mcp-builder",
+      "installs": 100583,
+      "url": "https://www.skills.sh/anthropics/skills/mcp-builder"
+    },
+    {
+      "rank": 280,
+      "source": "get-convex/agent-skills",
+      "skill": "convex-quickstart",
+      "name": "convex-quickstart",
+      "installs": 100465,
+      "url": "https://www.skills.sh/get-convex/agent-skills/convex-quickstart"
+    },
+    {
+      "rank": 281,
+      "source": "get-convex/agent-skills",
+      "skill": "convex-create-component",
+      "name": "convex-create-component",
+      "installs": 99931,
+      "url": "https://www.skills.sh/get-convex/agent-skills/convex-create-component"
+    },
+    {
+      "rank": 282,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-observability",
+      "name": "azure-observability",
+      "installs": 98284,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-observability"
+    },
+    {
+      "rank": 283,
+      "source": "firecrawl/cli",
+      "skill": "firecrawl",
+      "name": "firecrawl",
+      "installs": 97450,
+      "url": "https://www.skills.sh/firecrawl/cli/firecrawl"
+    },
+    {
+      "rank": 284,
+      "source": "mattpocock/skills",
+      "skill": "setup-ts-deep-modules",
+      "name": "setup-ts-deep-modules",
+      "installs": 97360,
+      "url": "https://www.skills.sh/mattpocock/skills/setup-ts-deep-modules"
+    },
+    {
+      "rank": 285,
+      "source": "anthropics/skills",
+      "skill": "canvas-design",
+      "name": "canvas-design",
+      "installs": 97026,
+      "url": "https://www.skills.sh/anthropics/skills/canvas-design"
+    },
+    {
+      "rank": 286,
+      "source": "vercel-labs/agent-skills",
+      "skill": "vercel-react-view-transitions",
+      "name": "vercel-react-view-transitions",
+      "installs": 96664,
+      "url": "https://www.skills.sh/vercel-labs/agent-skills/vercel-react-view-transitions"
+    },
+    {
+      "rank": 287,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "ad-creative",
+      "name": "ad-creative",
+      "installs": 95738,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/ad-creative"
+    },
+    {
+      "rank": 288,
+      "source": "emilkowalski/skills",
+      "skill": "review-animations",
+      "name": "review-animations",
+      "installs": 95525,
+      "url": "https://www.skills.sh/emilkowalski/skills/review-animations"
+    },
+    {
+      "rank": 289,
+      "source": "get-convex/agent-skills",
+      "skill": "convex-performance-audit",
+      "name": "convex-performance-audit",
+      "installs": 94374,
+      "url": "https://www.skills.sh/get-convex/agent-skills/convex-performance-audit"
+    },
+    {
+      "rank": 290,
+      "source": "heygen-com/hyperframes",
+      "skill": "gsap",
+      "name": "gsap",
+      "installs": 94274,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/gsap"
+    },
+    {
+      "rank": 291,
+      "source": "get-convex/agent-skills",
+      "skill": "convex-setup-auth",
+      "name": "convex-setup-auth",
+      "installs": 93949,
+      "url": "https://www.skills.sh/get-convex/agent-skills/convex-setup-auth"
+    },
+    {
+      "rank": 292,
+      "source": "get-convex/agent-skills",
+      "skill": "convex-migration-helper",
+      "name": "convex-migration-helper",
+      "installs": 93939,
+      "url": "https://www.skills.sh/get-convex/agent-skills/convex-migration-helper"
+    },
+    {
+      "rank": 293,
+      "source": "mattpocock/skills",
+      "skill": "review",
+      "name": "review",
+      "installs": 93444,
+      "url": "https://www.skills.sh/mattpocock/skills/review"
+    },
+    {
+      "rank": 294,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "cold-email",
+      "name": "cold-email",
+      "installs": 93384,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/cold-email"
+    },
+    {
+      "rank": 295,
+      "source": "wind-information-co-ltd/wind-skills",
+      "skill": "wind-mcp-skill",
+      "name": "wind-mcp-skill",
+      "installs": 91489,
+      "url": "https://www.skills.sh/wind-information-co-ltd/wind-skills/wind-mcp-skill"
+    },
+    {
+      "rank": 296,
+      "source": "heygen-com/hyperframes",
+      "skill": "website-to-hyperframes",
+      "name": "website-to-hyperframes",
+      "installs": 91462,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/website-to-hyperframes"
+    },
+    {
+      "rank": 297,
+      "source": "better-auth/skills",
+      "skill": "better-auth-best-practices",
+      "name": "better-auth-best-practices",
+      "installs": 91446,
+      "url": "https://www.skills.sh/better-auth/skills/better-auth-best-practices"
+    },
+    {
+      "rank": 298,
+      "source": "firebase/agent-skills",
+      "skill": "firebase-security-rules-auditor",
+      "name": "firebase-security-rules-auditor",
+      "installs": 91408,
+      "url": "https://www.skills.sh/firebase/agent-skills/firebase-security-rules-auditor"
+    },
+    {
+      "rank": 299,
+      "source": "anthropics/skills",
+      "skill": "web-artifacts-builder",
+      "name": "web-artifacts-builder",
+      "installs": 91161,
+      "url": "https://www.skills.sh/anthropics/skills/web-artifacts-builder"
+    },
+    {
+      "rank": 300,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "site-architecture",
+      "name": "site-architecture",
+      "installs": 91029,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/site-architecture"
+    },
+    {
+      "rank": 301,
+      "source": "browser-use/browser-use",
+      "skill": "browser-use",
+      "name": "browser-use",
+      "installs": 90734,
+      "url": "https://www.skills.sh/browser-use/browser-use/browser-use"
+    },
+    {
+      "rank": 302,
+      "source": "firebase/agent-skills",
+      "skill": "firebase-ai-logic-basics",
+      "name": "firebase-ai-logic-basics",
+      "installs": 89831,
+      "url": "https://www.skills.sh/firebase/agent-skills/firebase-ai-logic-basics"
+    },
+    {
+      "rank": 303,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "sales-enablement",
+      "name": "sales-enablement",
+      "installs": 89019,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/sales-enablement"
+    },
+    {
+      "rank": 304,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "churn-prevention",
+      "name": "churn-prevention",
+      "installs": 88502,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/churn-prevention"
+    },
+    {
+      "rank": 305,
+      "source": "firebase/agent-skills",
+      "skill": "firebase-firestore",
+      "name": "firebase-firestore",
+      "installs": 88004,
+      "url": "https://www.skills.sh/firebase/agent-skills/firebase-firestore"
+    },
+    {
+      "rank": 306,
+      "source": "pbakaus/impeccable",
+      "skill": "polish",
+      "name": "polish",
+      "installs": 86940,
+      "url": "https://www.skills.sh/pbakaus/impeccable/polish"
+    },
+    {
+      "rank": 307,
+      "source": "firebase/agent-skills",
+      "skill": "firebase-crashlytics",
+      "name": "firebase-crashlytics",
+      "installs": 85699,
+      "url": "https://www.skills.sh/firebase/agent-skills/firebase-crashlytics"
+    },
+    {
+      "rank": 308,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "revops",
+      "name": "revops",
+      "installs": 85354,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/revops"
+    },
+    {
+      "rank": 309,
+      "source": "firebase/agent-skills",
+      "skill": "xcode-project-setup",
+      "name": "xcode-project-setup",
+      "installs": 85055,
+      "url": "https://www.skills.sh/firebase/agent-skills/xcode-project-setup"
+    },
+    {
+      "rank": 310,
+      "source": "browser-act/skills",
+      "skill": "browser-act-skill-forge",
+      "name": "browser-act-skill-forge",
+      "installs": 84970,
+      "url": "https://www.skills.sh/browser-act/skills/browser-act-skill-forge"
+    },
+    {
+      "rank": 311,
+      "source": "neondatabase/agent-skills",
+      "skill": "neon-postgres",
+      "name": "neon-postgres",
+      "installs": 84962,
+      "url": "https://www.skills.sh/neondatabase/agent-skills/neon-postgres"
+    },
+    {
+      "rank": 312,
+      "source": "pbakaus/impeccable",
+      "skill": "critique",
+      "name": "critique",
+      "installs": 84352,
+      "url": "https://www.skills.sh/pbakaus/impeccable/critique"
+    },
+    {
+      "rank": 313,
+      "source": "pbakaus/impeccable",
+      "skill": "audit",
+      "name": "audit",
+      "installs": 83567,
+      "url": "https://www.skills.sh/pbakaus/impeccable/audit"
+    },
+    {
+      "rank": 314,
+      "source": "google/agents-cli",
+      "skill": "google-agents-cli-adk-code",
+      "name": "google-agents-cli-adk-code",
+      "installs": 83541,
+      "url": "https://www.skills.sh/google/agents-cli/google-agents-cli-adk-code"
+    },
+    {
+      "rank": 315,
+      "source": "pbakaus/impeccable",
+      "skill": "animate",
+      "name": "animate",
+      "installs": 83421,
+      "url": "https://www.skills.sh/pbakaus/impeccable/animate"
+    },
+    {
+      "rank": 316,
+      "source": "pbakaus/impeccable",
+      "skill": "adapt",
+      "name": "adapt",
+      "installs": 83410,
+      "url": "https://www.skills.sh/pbakaus/impeccable/adapt"
+    },
+    {
+      "rank": 317,
+      "source": "google/agents-cli",
+      "skill": "google-agents-cli-workflow",
+      "name": "google-agents-cli-workflow",
+      "installs": 83261,
+      "url": "https://www.skills.sh/google/agents-cli/google-agents-cli-workflow"
+    },
+    {
+      "rank": 318,
+      "source": "google/agents-cli",
+      "skill": "google-agents-cli-eval",
+      "name": "google-agents-cli-eval",
+      "installs": 83226,
+      "url": "https://www.skills.sh/google/agents-cli/google-agents-cli-eval"
+    },
+    {
+      "rank": 319,
+      "source": "google/agents-cli",
+      "skill": "google-agents-cli-deploy",
+      "name": "google-agents-cli-deploy",
+      "installs": 83180,
+      "url": "https://www.skills.sh/google/agents-cli/google-agents-cli-deploy"
+    },
+    {
+      "rank": 320,
+      "source": "google/agents-cli",
+      "skill": "google-agents-cli-scaffold",
+      "name": "google-agents-cli-scaffold",
+      "installs": 83180,
+      "url": "https://www.skills.sh/google/agents-cli/google-agents-cli-scaffold"
+    },
+    {
+      "rank": 321,
+      "source": "google/agents-cli",
+      "skill": "google-agents-cli-observability",
+      "name": "google-agents-cli-observability",
+      "installs": 83174,
+      "url": "https://www.skills.sh/google/agents-cli/google-agents-cli-observability"
+    },
+    {
+      "rank": 322,
+      "source": "emilkowalski/skills",
+      "skill": "animation-vocabulary",
+      "name": "animation-vocabulary",
+      "installs": 83132,
+      "url": "https://www.skills.sh/emilkowalski/skills/animation-vocabulary"
+    },
+    {
+      "rank": 323,
+      "source": "google/agents-cli",
+      "skill": "google-agents-cli-publish",
+      "name": "google-agents-cli-publish",
+      "installs": 83073,
+      "url": "https://www.skills.sh/google/agents-cli/google-agents-cli-publish"
+    },
+    {
+      "rank": 324,
+      "source": "pbakaus/impeccable",
+      "skill": "clarify",
+      "name": "clarify",
+      "installs": 82901,
+      "url": "https://www.skills.sh/pbakaus/impeccable/clarify"
+    },
+    {
+      "rank": 325,
+      "source": "pbakaus/impeccable",
+      "skill": "optimize",
+      "name": "optimize",
+      "installs": 82753,
+      "url": "https://www.skills.sh/pbakaus/impeccable/optimize"
+    },
+    {
+      "rank": 326,
+      "source": "pbakaus/impeccable",
+      "skill": "colorize",
+      "name": "colorize",
+      "installs": 82569,
+      "url": "https://www.skills.sh/pbakaus/impeccable/colorize"
+    },
+    {
+      "rank": 327,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "lead-magnets",
+      "name": "lead-magnets",
+      "installs": 81965,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/lead-magnets"
+    },
+    {
+      "rank": 328,
+      "source": "pbakaus/impeccable",
+      "skill": "bolder",
+      "name": "bolder",
+      "installs": 81680,
+      "url": "https://www.skills.sh/pbakaus/impeccable/bolder"
+    },
+    {
+      "rank": 329,
+      "source": "pbakaus/impeccable",
+      "skill": "delight",
+      "name": "delight",
+      "installs": 81517,
+      "url": "https://www.skills.sh/pbakaus/impeccable/delight"
+    },
+    {
+      "rank": 330,
+      "source": "pbakaus/impeccable",
+      "skill": "distill",
+      "name": "distill",
+      "installs": 81131,
+      "url": "https://www.skills.sh/pbakaus/impeccable/distill"
+    },
+    {
+      "rank": 331,
+      "source": "vercel-labs/agent-skills",
+      "skill": "vercel-cli-with-tokens",
+      "name": "vercel-cli-with-tokens",
+      "installs": 80876,
+      "url": "https://www.skills.sh/vercel-labs/agent-skills/vercel-cli-with-tokens"
+    },
+    {
+      "rank": 332,
+      "source": "pbakaus/impeccable",
+      "skill": "quieter",
+      "name": "quieter",
+      "installs": 80301,
+      "url": "https://www.skills.sh/pbakaus/impeccable/quieter"
+    },
+    {
+      "rank": 333,
+      "source": "firecrawl/cli",
+      "skill": "firecrawl-search",
+      "name": "firecrawl-search",
+      "installs": 78820,
+      "url": "https://www.skills.sh/firecrawl/cli/firecrawl-search"
+    },
+    {
+      "rank": 334,
+      "source": "firecrawl/cli",
+      "skill": "firecrawl-scrape",
+      "name": "firecrawl-scrape",
+      "installs": 78661,
+      "url": "https://www.skills.sh/firecrawl/cli/firecrawl-scrape"
+    },
+    {
+      "rank": 335,
+      "source": "heygen-com/hyperframes",
+      "skill": "figma",
+      "name": "figma",
+      "installs": 78593,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/figma"
+    },
+    {
+      "rank": 336,
+      "source": "skills-101/superpowers",
+      "skill": "ai-video-generation",
+      "name": "ai-video-generation",
+      "installs": 78088,
+      "url": "https://www.skills.sh/skills-101/superpowers/ai-video-generation"
+    },
+    {
+      "rank": 337,
+      "source": "skills-101/superpowers",
+      "skill": "ai-image-generation",
+      "name": "ai-image-generation",
+      "installs": 78027,
+      "url": "https://www.skills.sh/skills-101/superpowers/ai-image-generation"
+    },
+    {
+      "rank": 338,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "customer-research",
+      "name": "customer-research",
+      "installs": 77996,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/customer-research"
+    },
+    {
+      "rank": 339,
+      "source": "skills-101/superpowers",
+      "skill": "ai-avatar-video",
+      "name": "ai-avatar-video",
+      "installs": 77983,
+      "url": "https://www.skills.sh/skills-101/superpowers/ai-avatar-video"
+    },
+    {
+      "rank": 340,
+      "source": "skills-101/superpowers",
+      "skill": "twitter-automation",
+      "name": "twitter-automation",
+      "installs": 77946,
+      "url": "https://www.skills.sh/skills-101/superpowers/twitter-automation"
+    },
+    {
+      "rank": 341,
+      "source": "nexscope-ai/amazon-skills",
+      "skill": "amazon-product-research",
+      "name": "amazon-product-research",
+      "installs": 77414,
+      "url": "https://www.skills.sh/nexscope-ai/amazon-skills/amazon-product-research"
+    },
+    {
+      "rank": 342,
+      "source": "stablyai/orca",
+      "skill": "computer-use",
+      "name": "computer-use",
+      "installs": 76803,
+      "url": "https://www.skills.sh/stablyai/orca/computer-use"
+    },
+    {
+      "rank": 343,
+      "source": "firecrawl/cli",
+      "skill": "firecrawl-crawl",
+      "name": "firecrawl-crawl",
+      "installs": 76686,
+      "url": "https://www.skills.sh/firecrawl/cli/firecrawl-crawl"
+    },
+    {
+      "rank": 344,
+      "source": "firecrawl/cli",
+      "skill": "firecrawl-agent",
+      "name": "firecrawl-agent",
+      "installs": 76660,
+      "url": "https://www.skills.sh/firecrawl/cli/firecrawl-agent"
+    },
+    {
+      "rank": 345,
+      "source": "get-convex/agent-skills",
+      "skill": "convex",
+      "name": "convex",
+      "installs": 76529,
+      "url": "https://www.skills.sh/get-convex/agent-skills/convex"
+    },
+    {
+      "rank": 346,
+      "source": "firecrawl/cli",
+      "skill": "firecrawl-map",
+      "name": "firecrawl-map",
+      "installs": 76302,
+      "url": "https://www.skills.sh/firecrawl/cli/firecrawl-map"
+    },
+    {
+      "rank": 347,
+      "source": "anthropics/skills",
+      "skill": "theme-factory",
+      "name": "theme-factory",
+      "installs": 76102,
+      "url": "https://www.skills.sh/anthropics/skills/theme-factory"
+    },
+    {
+      "rank": 348,
+      "source": "firecrawl/cli",
+      "skill": "firecrawl-download",
+      "name": "firecrawl-download",
+      "installs": 76011,
+      "url": "https://www.skills.sh/firecrawl/cli/firecrawl-download"
+    },
+    {
+      "rank": 349,
+      "source": "anthropics/skills",
+      "skill": "doc-coauthoring",
+      "name": "doc-coauthoring",
+      "installs": 75670,
+      "url": "https://www.skills.sh/anthropics/skills/doc-coauthoring"
+    },
+    {
+      "rank": 350,
+      "source": "firebase/agent-skills",
+      "skill": "firebase-remote-config-basics",
+      "name": "firebase-remote-config-basics",
+      "installs": 75434,
+      "url": "https://www.skills.sh/firebase/agent-skills/firebase-remote-config-basics"
+    },
+    {
+      "rank": 351,
+      "source": "emilkowalski/skills",
+      "skill": "apple-design",
+      "name": "apple-design",
+      "installs": 74906,
+      "url": "https://www.skills.sh/emilkowalski/skills/apple-design"
+    },
+    {
+      "rank": 352,
+      "source": "anthropics/skills",
+      "skill": "brand-guidelines",
+      "name": "brand-guidelines",
+      "installs": 74876,
+      "url": "https://www.skills.sh/anthropics/skills/brand-guidelines"
+    },
+    {
+      "rank": 353,
+      "source": "degausai/wonda",
+      "skill": "wonda-cli",
+      "name": "wonda-cli",
+      "installs": 74605,
+      "url": "https://www.skills.sh/degausai/wonda/wonda-cli"
+    },
+    {
+      "rank": 354,
+      "source": "heygen-com/hyperframes",
+      "skill": "css-animations",
+      "name": "css-animations",
+      "installs": 73712,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/css-animations"
+    },
+    {
+      "rank": 355,
+      "source": "anthropics/skills",
+      "skill": "algorithmic-art",
+      "name": "algorithmic-art",
+      "installs": 73318,
+      "url": "https://www.skills.sh/anthropics/skills/algorithmic-art"
+    },
+    {
+      "rank": 356,
+      "source": "kepano/obsidian-skills",
+      "skill": "obsidian-markdown",
+      "name": "obsidian-markdown",
+      "installs": 72781,
+      "url": "https://www.skills.sh/kepano/obsidian-skills/obsidian-markdown"
+    },
+    {
+      "rank": 357,
+      "source": "heygen-com/hyperframes",
+      "skill": "tailwind",
+      "name": "tailwind",
+      "installs": 71902,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/tailwind"
+    },
+    {
+      "rank": 358,
+      "source": "stripe/ai",
+      "skill": "stripe-best-practices",
+      "name": "stripe-best-practices",
+      "installs": 71460,
+      "url": "https://www.skills.sh/stripe/ai/stripe-best-practices"
+    },
+    {
+      "rank": 359,
+      "source": "heygen-com/hyperframes",
+      "skill": "animejs",
+      "name": "animejs",
+      "installs": 71354,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/animejs"
+    },
+    {
+      "rank": 360,
+      "source": "currents-dev/playwright-best-practices-skill",
+      "skill": "playwright-best-practices",
+      "name": "playwright-best-practices",
+      "installs": 70797,
+      "url": "https://www.skills.sh/currents-dev/playwright-best-practices-skill/playwright-best-practices"
+    },
+    {
+      "rank": 361,
+      "source": "heygen-com/hyperframes",
+      "skill": "three",
+      "name": "three",
+      "installs": 70644,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/three"
+    },
+    {
+      "rank": 362,
+      "source": "heygen-com/hyperframes",
+      "skill": "lottie",
+      "name": "lottie",
+      "installs": 70372,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/lottie"
+    },
+    {
+      "rank": 363,
+      "source": "heygen-com/hyperframes",
+      "skill": "waapi",
+      "name": "waapi",
+      "installs": 70007,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/waapi"
+    },
+    {
+      "rank": 364,
+      "source": "googleworkspace/cli",
+      "skill": "gws-gmail",
+      "name": "gws-gmail",
+      "installs": 69690,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-gmail"
+    },
+    {
+      "rank": 365,
+      "source": "squirrelscan/skills",
+      "skill": "audit-website",
+      "name": "audit-website",
+      "installs": 68239,
+      "url": "https://www.skills.sh/squirrelscan/skills/audit-website"
+    },
+    {
+      "rank": 366,
+      "source": "emilkowalski/skills",
+      "skill": "improve-animations",
+      "name": "improve-animations",
+      "installs": 68076,
+      "url": "https://www.skills.sh/emilkowalski/skills/improve-animations"
+    },
+    {
+      "rank": 367,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "social-content",
+      "name": "social-content",
+      "installs": 67638,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/social-content"
+    },
+    {
+      "rank": 368,
+      "source": "googleworkspace/cli",
+      "skill": "gws-gmail-send",
+      "name": "gws-gmail-send",
+      "installs": 66512,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-gmail-send"
+    },
+    {
+      "rank": 369,
+      "source": "pbakaus/impeccable",
+      "skill": "typeset",
+      "name": "typeset",
+      "installs": 65998,
+      "url": "https://www.skills.sh/pbakaus/impeccable/typeset"
+    },
+    {
+      "rank": 370,
+      "source": "anthropics/skills",
+      "skill": "internal-comms",
+      "name": "internal-comms",
+      "installs": 65481,
+      "url": "https://www.skills.sh/anthropics/skills/internal-comms"
+    },
+    {
+      "rank": 371,
+      "source": "intellectronica/agent-skills",
+      "skill": "notion-api",
+      "name": "notion-api",
+      "installs": 65304,
+      "url": "https://www.skills.sh/intellectronica/agent-skills/notion-api"
+    },
+    {
+      "rank": 372,
+      "source": "googleworkspace/cli",
+      "skill": "gws-drive",
+      "name": "gws-drive",
+      "installs": 64083,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-drive"
+    },
+    {
+      "rank": 373,
+      "source": "pbakaus/impeccable",
+      "skill": "overdrive",
+      "name": "overdrive",
+      "installs": 64075,
+      "url": "https://www.skills.sh/pbakaus/impeccable/overdrive"
+    },
+    {
+      "rank": 374,
+      "source": "mattpocock/skills",
+      "skill": "batch-grill-me",
+      "name": "batch-grill-me",
+      "installs": 63326,
+      "url": "https://www.skills.sh/mattpocock/skills/batch-grill-me"
+    },
+    {
+      "rank": 375,
+      "source": "kepano/obsidian-skills",
+      "skill": "obsidian-cli",
+      "name": "obsidian-cli",
+      "installs": 63023,
+      "url": "https://www.skills.sh/kepano/obsidian-skills/obsidian-cli"
+    },
+    {
+      "rank": 376,
+      "source": "firebase/agent-skills",
+      "skill": "developing-genkit-js",
+      "name": "developing-genkit-js",
+      "installs": 62569,
+      "url": "https://www.skills.sh/firebase/agent-skills/developing-genkit-js"
+    },
+    {
+      "rank": 377,
+      "source": "firebase/agent-skills",
+      "skill": "developing-genkit-dart",
+      "name": "developing-genkit-dart",
+      "installs": 62258,
+      "url": "https://www.skills.sh/firebase/agent-skills/developing-genkit-dart"
+    },
+    {
+      "rank": 378,
+      "source": "nexscope-ai/ecommerce-skills",
+      "skill": "cross-border-ecommerce",
+      "name": "cross-border-ecommerce",
+      "installs": 62146,
+      "url": "https://www.skills.sh/nexscope-ai/ecommerce-skills/cross-border-ecommerce"
+    },
+    {
+      "rank": 379,
+      "source": "kepano/obsidian-skills",
+      "skill": "obsidian-bases",
+      "name": "obsidian-bases",
+      "installs": 62087,
+      "url": "https://www.skills.sh/kepano/obsidian-skills/obsidian-bases"
+    },
+    {
+      "rank": 380,
+      "source": "anthropics/skills",
+      "skill": "slack-gif-creator",
+      "name": "slack-gif-creator",
+      "installs": 61847,
+      "url": "https://www.skills.sh/anthropics/skills/slack-gif-creator"
+    },
+    {
+      "rank": 381,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "pricing-strategy",
+      "name": "pricing-strategy",
+      "installs": 61794,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/pricing-strategy"
+    },
+    {
+      "rank": 382,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "product-marketing-context",
+      "name": "product-marketing-context",
+      "installs": 61787,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/product-marketing-context"
+    },
+    {
+      "rank": 383,
+      "source": "firecrawl/cli",
+      "skill": "firecrawl-interact",
+      "name": "firecrawl-interact",
+      "installs": 61416,
+      "url": "https://www.skills.sh/firecrawl/cli/firecrawl-interact"
+    },
+    {
+      "rank": 384,
+      "source": "vercel/turborepo",
+      "skill": "turborepo",
+      "name": "turborepo",
+      "installs": 61022,
+      "url": "https://www.skills.sh/vercel/turborepo/turborepo"
+    },
+    {
+      "rank": 385,
+      "source": "wshobson/agents",
+      "skill": "typescript-advanced-types",
+      "name": "typescript-advanced-types",
+      "installs": 59950,
+      "url": "https://www.skills.sh/wshobson/agents/typescript-advanced-types"
+    },
+    {
+      "rank": 386,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "competitor-profiling",
+      "name": "competitor-profiling",
+      "installs": 59178,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/competitor-profiling"
+    },
+    {
+      "rank": 387,
+      "source": "anthropics/skills",
+      "skill": "template-skill",
+      "name": "template-skill",
+      "installs": 59093,
+      "url": "https://www.skills.sh/anthropics/skills/template-skill"
+    },
+    {
+      "rank": 388,
+      "source": "wshobson/agents",
+      "skill": "tailwind-design-system",
+      "name": "tailwind-design-system",
+      "installs": 59054,
+      "url": "https://www.skills.sh/wshobson/agents/tailwind-design-system"
+    },
+    {
+      "rank": 389,
+      "source": "expo/skills",
+      "skill": "building-native-ui",
+      "name": "building-native-ui",
+      "installs": 58916,
+      "url": "https://www.skills.sh/expo/skills/building-native-ui"
+    },
+    {
+      "rank": 390,
+      "source": "google-labs-code/stitch-skills",
+      "skill": "design-md",
+      "name": "design-md",
+      "installs": 58587,
+      "url": "https://www.skills.sh/google-labs-code/stitch-skills/design-md"
+    },
+    {
+      "rank": 391,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "analytics-tracking",
+      "name": "analytics-tracking",
+      "installs": 58412,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/analytics-tracking"
+    },
+    {
+      "rank": 392,
+      "source": "solana-foundation/solana-dev-skill",
+      "skill": "solana-dev",
+      "name": "solana-dev",
+      "installs": 58290,
+      "url": "https://www.skills.sh/solana-foundation/solana-dev-skill/solana-dev"
+    },
+    {
+      "rank": 393,
+      "source": "stripe/ai",
+      "skill": "upgrade-stripe",
+      "name": "upgrade-stripe",
+      "installs": 58110,
+      "url": "https://www.skills.sh/stripe/ai/upgrade-stripe"
+    },
+    {
+      "rank": 394,
+      "source": "useosint/osint-skills",
+      "skill": "is-this-photo-real",
+      "name": "is-this-photo-real",
+      "installs": 58040,
+      "url": "https://www.skills.sh/useosint/osint-skills/is-this-photo-real"
+    },
+    {
+      "rank": 395,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "page-cro",
+      "name": "page-cro",
+      "installs": 58040,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/page-cro"
+    },
+    {
+      "rank": 396,
+      "source": "useosint/osint-skills",
+      "skill": "investigate-without-getting-made",
+      "name": "investigate-without-getting-made",
+      "installs": 57956,
+      "url": "https://www.skills.sh/useosint/osint-skills/investigate-without-getting-made"
+    },
+    {
+      "rank": 397,
+      "source": "firecrawl/skills",
+      "skill": "firecrawl-build-scrape",
+      "name": "firecrawl-build-scrape",
+      "installs": 57894,
+      "url": "https://www.skills.sh/firecrawl/skills/firecrawl-build-scrape"
+    },
+    {
+      "rank": 398,
+      "source": "firecrawl/skills",
+      "skill": "firecrawl-build-search",
+      "name": "firecrawl-build-search",
+      "installs": 57754,
+      "url": "https://www.skills.sh/firecrawl/skills/firecrawl-build-search"
+    },
+    {
+      "rank": 399,
+      "source": "kepano/obsidian-skills",
+      "skill": "json-canvas",
+      "name": "json-canvas",
+      "installs": 57636,
+      "url": "https://www.skills.sh/kepano/obsidian-skills/json-canvas"
+    },
+    {
+      "rank": 400,
+      "source": "firecrawl/skills",
+      "skill": "firecrawl-build-interact",
+      "name": "firecrawl-build-interact",
+      "installs": 57576,
+      "url": "https://www.skills.sh/firecrawl/skills/firecrawl-build-interact"
+    },
+    {
+      "rank": 401,
+      "source": "firecrawl/skills",
+      "skill": "firecrawl-build-onboarding",
+      "name": "firecrawl-build-onboarding",
+      "installs": 57553,
+      "url": "https://www.skills.sh/firecrawl/skills/firecrawl-build-onboarding"
+    },
+    {
+      "rank": 402,
+      "source": "useosint/osint-skills",
+      "skill": "what-leaked-about-you",
+      "name": "what-leaked-about-you",
+      "installs": 57547,
+      "url": "https://www.skills.sh/useosint/osint-skills/what-leaked-about-you"
+    },
+    {
+      "rank": 403,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "community-marketing",
+      "name": "community-marketing",
+      "installs": 57214,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/community-marketing"
+    },
+    {
+      "rank": 404,
+      "source": "anthropics/skills",
+      "skill": "claude-api",
+      "name": "claude-api",
+      "installs": 57123,
+      "url": "https://www.skills.sh/anthropics/skills/claude-api"
+    },
+    {
+      "rank": 405,
+      "source": "kepano/obsidian-skills",
+      "skill": "defuddle",
+      "name": "defuddle",
+      "installs": 56712,
+      "url": "https://www.skills.sh/kepano/obsidian-skills/defuddle"
+    },
+    {
+      "rank": 406,
+      "source": "mattpocock/skills",
+      "skill": "writing-for-agents",
+      "name": "writing-for-agents",
+      "installs": 56712,
+      "url": "https://www.skills.sh/mattpocock/skills/writing-for-agents"
+    },
+    {
+      "rank": 407,
+      "source": "emilkowalski/skills",
+      "skill": "find-animation-opportunities",
+      "name": "find-animation-opportunities",
+      "installs": 56694,
+      "url": "https://www.skills.sh/emilkowalski/skills/find-animation-opportunities"
+    },
+    {
+      "rank": 408,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "launch-strategy",
+      "name": "launch-strategy",
+      "installs": 56617,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/launch-strategy"
+    },
+    {
+      "rank": 409,
+      "source": "heygen-com/hyperframes",
+      "skill": "contribute-catalog",
+      "name": "contribute-catalog",
+      "installs": 56317,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/contribute-catalog"
+    },
+    {
+      "rank": 410,
+      "source": "useosint/osint-skills",
+      "skill": "find-the-original-image",
+      "name": "find-the-original-image",
+      "installs": 56294,
+      "url": "https://www.skills.sh/useosint/osint-skills/find-the-original-image"
+    },
+    {
+      "rank": 411,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "image",
+      "name": "image",
+      "installs": 56094,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/image"
+    },
+    {
+      "rank": 412,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "video",
+      "name": "video",
+      "installs": 56083,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/video"
+    },
+    {
+      "rank": 413,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "schema-markup",
+      "name": "schema-markup",
+      "installs": 56046,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/schema-markup"
+    },
+    {
+      "rank": 414,
+      "source": "cloudflare/skills",
+      "skill": "cloudflare",
+      "name": "cloudflare",
+      "installs": 55853,
+      "url": "https://www.skills.sh/cloudflare/skills/cloudflare"
+    },
+    {
+      "rank": 415,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "email-sequence",
+      "name": "email-sequence",
+      "installs": 55668,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/email-sequence"
+    },
+    {
+      "rank": 416,
+      "source": "pbakaus/impeccable",
+      "skill": "normalize",
+      "name": "normalize",
+      "installs": 55591,
+      "url": "https://www.skills.sh/pbakaus/impeccable/normalize"
+    },
+    {
+      "rank": 417,
+      "source": "googleworkspace/cli",
+      "skill": "gws-shared",
+      "name": "gws-shared",
+      "installs": 55461,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-shared"
+    },
+    {
+      "rank": 418,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "directory-submissions",
+      "name": "directory-submissions",
+      "installs": 55411,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/directory-submissions"
+    },
+    {
+      "rank": 419,
+      "source": "stripe/ai",
+      "skill": "stripe-projects",
+      "name": "stripe-projects",
+      "installs": 55301,
+      "url": "https://www.skills.sh/stripe/ai/stripe-projects"
+    },
+    {
+      "rank": 420,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "paid-ads",
+      "name": "paid-ads",
+      "installs": 55226,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/paid-ads"
+    },
+    {
+      "rank": 421,
+      "source": "genkit-ai/skills",
+      "skill": "developing-genkit-js",
+      "name": "developing-genkit-js",
+      "installs": 55049,
+      "url": "https://www.skills.sh/genkit-ai/skills/developing-genkit-js"
+    },
+    {
+      "rank": 422,
+      "source": "mattpocock/skills",
+      "skill": "wait-what",
+      "name": "wait-what",
+      "installs": 54842,
+      "url": "https://www.skills.sh/mattpocock/skills/wait-what"
+    },
+    {
+      "rank": 423,
+      "source": "nozomio-labs/nia-skill",
+      "skill": "nia",
+      "name": "nia",
+      "installs": 54816,
+      "url": "https://www.skills.sh/nozomio-labs/nia-skill/nia"
+    },
+    {
+      "rank": 424,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "competitor-alternatives",
+      "name": "competitor-alternatives",
+      "installs": 54711,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/competitor-alternatives"
+    },
+    {
+      "rank": 425,
+      "source": "anthropics/claude-code",
+      "skill": "frontend-design",
+      "name": "frontend-design",
+      "installs": 54631,
+      "url": "https://www.skills.sh/anthropics/claude-code/frontend-design"
+    },
+    {
+      "rank": 426,
+      "source": "pbakaus/impeccable",
+      "skill": "extract",
+      "name": "extract",
+      "installs": 54510,
+      "url": "https://www.skills.sh/pbakaus/impeccable/extract"
+    },
+    {
+      "rank": 427,
+      "source": "msmps/opentui-skill",
+      "skill": "opentui",
+      "name": "opentui",
+      "installs": 54380,
+      "url": "https://www.skills.sh/msmps/opentui-skill/opentui"
+    },
+    {
+      "rank": 428,
+      "source": "pbakaus/impeccable",
+      "skill": "onboard",
+      "name": "onboard",
+      "installs": 54347,
+      "url": "https://www.skills.sh/pbakaus/impeccable/onboard"
+    },
+    {
+      "rank": 429,
+      "source": "pbakaus/impeccable",
+      "skill": "frontend-design",
+      "name": "frontend-design",
+      "installs": 54298,
+      "url": "https://www.skills.sh/pbakaus/impeccable/frontend-design"
+    },
+    {
+      "rank": 430,
+      "source": "pbakaus/impeccable",
+      "skill": "harden",
+      "name": "harden",
+      "installs": 54281,
+      "url": "https://www.skills.sh/pbakaus/impeccable/harden"
+    },
+    {
+      "rank": 431,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "onboarding-cro",
+      "name": "onboarding-cro",
+      "installs": 54184,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/onboarding-cro"
+    },
+    {
+      "rank": 432,
+      "source": "cloudflare/skills",
+      "skill": "wrangler",
+      "name": "wrangler",
+      "installs": 53384,
+      "url": "https://www.skills.sh/cloudflare/skills/wrangler"
+    },
+    {
+      "rank": 433,
+      "source": "google-labs-code/stitch-skills",
+      "skill": "enhance-prompt",
+      "name": "enhance-prompt",
+      "installs": 53167,
+      "url": "https://www.skills.sh/google-labs-code/stitch-skills/enhance-prompt"
+    },
+    {
+      "rank": 434,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "form-cro",
+      "name": "form-cro",
+      "installs": 53109,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/form-cro"
+    },
+    {
+      "rank": 435,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "free-tool-strategy",
+      "name": "free-tool-strategy",
+      "installs": 52871,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/free-tool-strategy"
+    },
+    {
+      "rank": 436,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "referral-program",
+      "name": "referral-program",
+      "installs": 52810,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/referral-program"
+    },
+    {
+      "rank": 437,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "ab-test-setup",
+      "name": "ab-test-setup",
+      "installs": 52635,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/ab-test-setup"
+    },
+    {
+      "rank": 438,
+      "source": "agent.qq.com",
+      "skill": "agently-mail",
+      "name": "agently-mail",
+      "installs": 52430,
+      "url": "https://www.skills.sh/agent.qq.com/agently-mail"
+    },
+    {
+      "rank": 439,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "signup-flow-cro",
+      "name": "signup-flow-cro",
+      "installs": 52362,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/signup-flow-cro"
+    },
+    {
+      "rank": 440,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "paywall-upgrade-cro",
+      "name": "paywall-upgrade-cro",
+      "installs": 51961,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/paywall-upgrade-cro"
+    },
+    {
+      "rank": 441,
+      "source": "heygen-com/hyperframes",
+      "skill": "typegpu",
+      "name": "typegpu",
+      "installs": 51733,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/typegpu"
+    },
+    {
+      "rank": 442,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "popup-cro",
+      "name": "popup-cro",
+      "installs": 51627,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/popup-cro"
+    },
+    {
+      "rank": 443,
+      "source": "google-labs-code/stitch-skills",
+      "skill": "stitch-loop",
+      "name": "stitch-loop",
+      "installs": 51538,
+      "url": "https://www.skills.sh/google-labs-code/stitch-skills/stitch-loop"
+    },
+    {
+      "rank": 444,
+      "source": "googleworkspace/cli",
+      "skill": "gws-calendar",
+      "name": "gws-calendar",
+      "installs": 51521,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-calendar"
+    },
+    {
+      "rank": 445,
+      "source": "agentix-cloud/skills",
+      "skill": "agentix-ceo",
+      "name": "agentix-ceo",
+      "installs": 51393,
+      "url": "https://www.skills.sh/agentix-cloud/skills/agentix-ceo"
+    },
+    {
+      "rank": 446,
+      "source": "pbakaus/impeccable",
+      "skill": "teach-impeccable",
+      "name": "teach-impeccable",
+      "installs": 51256,
+      "url": "https://www.skills.sh/pbakaus/impeccable/teach-impeccable"
+    },
+    {
+      "rank": 447,
+      "source": "jakubkrehel/make-interfaces-feel-better",
+      "skill": "make-interfaces-feel-better",
+      "name": "make-interfaces-feel-better",
+      "installs": 50709,
+      "url": "https://www.skills.sh/jakubkrehel/make-interfaces-feel-better/make-interfaces-feel-better"
+    },
+    {
+      "rank": 448,
+      "source": "google-labs-code/stitch-skills",
+      "skill": "react:components",
+      "name": "react:components",
+      "installs": 50587,
+      "url": "https://www.skills.sh/google-labs-code/stitch-skills/react%3Acomponents"
+    },
+    {
+      "rank": 449,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "cro",
+      "name": "cro",
+      "installs": 50308,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/cro"
+    },
+    {
+      "rank": 450,
+      "source": "expo/skills",
+      "skill": "expo-tailwind-setup",
+      "name": "expo-tailwind-setup",
+      "installs": 49917,
+      "url": "https://www.skills.sh/expo/skills/expo-tailwind-setup"
+    },
+    {
+      "rank": 451,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "product-marketing",
+      "name": "product-marketing",
+      "installs": 49756,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/product-marketing"
+    },
+    {
+      "rank": 452,
+      "source": "firebase/agent-skills",
+      "skill": "developing-genkit-go",
+      "name": "developing-genkit-go",
+      "installs": 49532,
+      "url": "https://www.skills.sh/firebase/agent-skills/developing-genkit-go"
+    },
+    {
+      "rank": 453,
+      "source": "expo/skills",
+      "skill": "expo-dev-client",
+      "name": "expo-dev-client",
+      "installs": 49469,
+      "url": "https://www.skills.sh/expo/skills/expo-dev-client"
+    },
+    {
+      "rank": 454,
+      "source": "vercel-labs/agent-skills",
+      "skill": "vercel-optimize",
+      "name": "vercel-optimize",
+      "installs": 49335,
+      "url": "https://www.skills.sh/vercel-labs/agent-skills/vercel-optimize"
+    },
+    {
+      "rank": 455,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "social",
+      "name": "social",
+      "installs": 49315,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/social"
+    },
+    {
+      "rank": 456,
+      "source": "googleworkspace/cli",
+      "skill": "gws-sheets",
+      "name": "gws-sheets",
+      "installs": 48761,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-sheets"
+    },
+    {
+      "rank": 457,
+      "source": "google-labs-code/stitch-skills",
+      "skill": "shadcn-ui",
+      "name": "shadcn-ui",
+      "installs": 48463,
+      "url": "https://www.skills.sh/google-labs-code/stitch-skills/shadcn-ui"
+    },
+    {
+      "rank": 458,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "co-marketing",
+      "name": "co-marketing",
+      "installs": 48383,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/co-marketing"
+    },
+    {
+      "rank": 459,
+      "source": "googleworkspace/cli",
+      "skill": "gws-docs",
+      "name": "gws-docs",
+      "installs": 48274,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-docs"
+    },
+    {
+      "rank": 460,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "analytics",
+      "name": "analytics",
+      "installs": 47883,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/analytics"
+    },
+    {
+      "rank": 461,
+      "source": "firecrawl/cli",
+      "skill": "firecrawl-parse",
+      "name": "firecrawl-parse",
+      "installs": 47468,
+      "url": "https://www.skills.sh/firecrawl/cli/firecrawl-parse"
+    },
+    {
+      "rank": 462,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "pricing",
+      "name": "pricing",
+      "installs": 47184,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/pricing"
+    },
+    {
+      "rank": 463,
+      "source": "vercel/ai",
+      "skill": "ai-sdk",
+      "name": "ai-sdk",
+      "installs": 47140,
+      "url": "https://www.skills.sh/vercel/ai/ai-sdk"
+    },
+    {
+      "rank": 464,
+      "source": "expo/skills",
+      "skill": "native-data-fetching",
+      "name": "native-data-fetching",
+      "installs": 47018,
+      "url": "https://www.skills.sh/expo/skills/native-data-fetching"
+    },
+    {
+      "rank": 465,
+      "source": "prime-skills/runcomfy-agent-skills",
+      "skill": "gpt-image-2",
+      "name": "gpt-image-2",
+      "installs": 46864,
+      "url": "https://www.skills.sh/prime-skills/runcomfy-agent-skills/gpt-image-2"
+    },
+    {
+      "rank": 466,
+      "source": "juliusbrussee/caveman",
+      "skill": "compress",
+      "name": "compress",
+      "installs": 46635,
+      "url": "https://www.skills.sh/juliusbrussee/caveman/compress"
+    },
+    {
+      "rank": 467,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "ads",
+      "name": "ads",
+      "installs": 46618,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/ads"
+    },
+    {
+      "rank": 468,
+      "source": "cloudflare/skills",
+      "skill": "workers-best-practices",
+      "name": "workers-best-practices",
+      "installs": 46574,
+      "url": "https://www.skills.sh/cloudflare/skills/workers-best-practices"
+    },
+    {
+      "rank": 469,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "emails",
+      "name": "emails",
+      "installs": 45974,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/emails"
+    },
+    {
+      "rank": 470,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "schema",
+      "name": "schema",
+      "installs": 45784,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/schema"
+    },
+    {
+      "rank": 471,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "launch",
+      "name": "launch",
+      "installs": 45727,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/launch"
+    },
+    {
+      "rank": 472,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "competitors",
+      "name": "competitors",
+      "installs": 45653,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/competitors"
+    },
+    {
+      "rank": 473,
+      "source": "greensock/gsap-skills",
+      "skill": "gsap-core",
+      "name": "gsap-core",
+      "installs": 45283,
+      "url": "https://www.skills.sh/greensock/gsap-skills/gsap-core"
+    },
+    {
+      "rank": 474,
+      "source": "higgsfield-ai/skills",
+      "skill": "higgsfield-websites",
+      "name": "higgsfield-websites",
+      "installs": 45164,
+      "url": "https://www.skills.sh/higgsfield-ai/skills/higgsfield-websites"
+    },
+    {
+      "rank": 475,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "onboarding",
+      "name": "onboarding",
+      "installs": 44543,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/onboarding"
+    },
+    {
+      "rank": 476,
+      "source": "mattpocock/skills",
+      "skill": "decision-mapping",
+      "name": "decision-mapping",
+      "installs": 44305,
+      "url": "https://www.skills.sh/mattpocock/skills/decision-mapping"
+    },
+    {
+      "rank": 477,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "ab-testing",
+      "name": "ab-testing",
+      "installs": 44078,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/ab-testing"
+    },
+    {
+      "rank": 478,
+      "source": "addyosmani/web-quality-skills",
+      "skill": "accessibility",
+      "name": "accessibility",
+      "installs": 43879,
+      "url": "https://www.skills.sh/addyosmani/web-quality-skills/accessibility"
+    },
+    {
+      "rank": 479,
+      "source": "antibrow/anti-detect-browser-skills",
+      "skill": "anti-detect-browser",
+      "name": "anti-detect-browser",
+      "installs": 43522,
+      "url": "https://www.skills.sh/antibrow/anti-detect-browser-skills/anti-detect-browser"
+    },
+    {
+      "rank": 480,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "signup",
+      "name": "signup",
+      "installs": 43516,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/signup"
+    },
+    {
+      "rank": 481,
+      "source": "op7418/humanizer-zh",
+      "skill": "humanizer-zh",
+      "name": "humanizer-zh",
+      "installs": 43462,
+      "url": "https://www.skills.sh/op7418/humanizer-zh/humanizer-zh"
+    },
+    {
+      "rank": 482,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "free-tools",
+      "name": "free-tools",
+      "installs": 43457,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/free-tools"
+    },
+    {
+      "rank": 483,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "referrals",
+      "name": "referrals",
+      "installs": 43410,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/referrals"
+    },
+    {
+      "rank": 484,
+      "source": "greensock/gsap-skills",
+      "skill": "gsap-scrolltrigger",
+      "name": "gsap-scrolltrigger",
+      "installs": 43375,
+      "url": "https://www.skills.sh/greensock/gsap-skills/gsap-scrolltrigger"
+    },
+    {
+      "rank": 485,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "popups",
+      "name": "popups",
+      "installs": 43137,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/popups"
+    },
+    {
+      "rank": 486,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "paywalls",
+      "name": "paywalls",
+      "installs": 43055,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/paywalls"
+    },
+    {
+      "rank": 487,
+      "source": "vercel-labs/agent-skills",
+      "skill": "writing-guidelines",
+      "name": "writing-guidelines",
+      "installs": 43046,
+      "url": "https://www.skills.sh/vercel-labs/agent-skills/writing-guidelines"
+    },
+    {
+      "rank": 488,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "aso",
+      "name": "aso",
+      "installs": 43000,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/aso"
+    },
+    {
+      "rank": 489,
+      "source": "emilkowalski/skills",
+      "skill": "pick-ui-library",
+      "name": "pick-ui-library",
+      "installs": 42876,
+      "url": "https://www.skills.sh/emilkowalski/skills/pick-ui-library"
+    },
+    {
+      "rank": 490,
+      "source": "expo/skills",
+      "skill": "upgrading-expo",
+      "name": "upgrading-expo",
+      "installs": 42853,
+      "url": "https://www.skills.sh/expo/skills/upgrading-expo"
+    },
+    {
+      "rank": 491,
+      "source": "wshobson/agents",
+      "skill": "nodejs-backend-patterns",
+      "name": "nodejs-backend-patterns",
+      "installs": 42482,
+      "url": "https://www.skills.sh/wshobson/agents/nodejs-backend-patterns"
+    },
+    {
+      "rank": 492,
+      "source": "alchaincyf/huashu-design",
+      "skill": "huashu-design",
+      "name": "huashu-design",
+      "installs": 42471,
+      "url": "https://www.skills.sh/alchaincyf/huashu-design/huashu-design"
+    },
+    {
+      "rank": 493,
+      "source": "remotion-dev/skills",
+      "skill": "remotion-create",
+      "name": "remotion-create",
+      "installs": 42429,
+      "url": "https://www.skills.sh/remotion-dev/skills/remotion-create"
+    },
+    {
+      "rank": 494,
+      "source": "remotion-dev/skills",
+      "skill": "remotion-render",
+      "name": "remotion-render",
+      "installs": 42309,
+      "url": "https://www.skills.sh/remotion-dev/skills/remotion-render"
+    },
+    {
+      "rank": 495,
+      "source": "github/awesome-copilot",
+      "skill": "git-commit",
+      "name": "git-commit",
+      "installs": 42216,
+      "url": "https://www.skills.sh/github/awesome-copilot/git-commit"
+    },
+    {
+      "rank": 496,
+      "source": "cloudflare/skills",
+      "skill": "web-perf",
+      "name": "web-perf",
+      "installs": 41973,
+      "url": "https://www.skills.sh/cloudflare/skills/web-perf"
+    },
+    {
+      "rank": 497,
+      "source": "googleworkspace/cli",
+      "skill": "gws-sheets-read",
+      "name": "gws-sheets-read",
+      "installs": 41964,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-sheets-read"
+    },
+    {
+      "rank": 498,
+      "source": "greensock/gsap-skills",
+      "skill": "gsap-performance",
+      "name": "gsap-performance",
+      "installs": 41825,
+      "url": "https://www.skills.sh/greensock/gsap-skills/gsap-performance"
+    },
+    {
+      "rank": 499,
+      "source": "greensock/gsap-skills",
+      "skill": "gsap-timeline",
+      "name": "gsap-timeline",
+      "installs": 41669,
+      "url": "https://www.skills.sh/greensock/gsap-skills/gsap-timeline"
+    },
+    {
+      "rank": 500,
+      "source": "googleworkspace/cli",
+      "skill": "gws-docs-write",
+      "name": "gws-docs-write",
+      "installs": 41344,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-docs-write"
+    },
+    {
+      "rank": 501,
+      "source": "cloudflare/skills",
+      "skill": "durable-objects",
+      "name": "durable-objects",
+      "installs": 41217,
+      "url": "https://www.skills.sh/cloudflare/skills/durable-objects"
+    },
+    {
+      "rank": 502,
+      "source": "googleworkspace/cli",
+      "skill": "gws-calendar-agenda",
+      "name": "gws-calendar-agenda",
+      "installs": 41214,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-calendar-agenda"
+    },
+    {
+      "rank": 503,
+      "source": "remotion-dev/skills",
+      "skill": "remotion-captions",
+      "name": "remotion-captions",
+      "installs": 41126,
+      "url": "https://www.skills.sh/remotion-dev/skills/remotion-captions"
+    },
+    {
+      "rank": 504,
+      "source": "greensock/gsap-skills",
+      "skill": "gsap-plugins",
+      "name": "gsap-plugins",
+      "installs": 40860,
+      "url": "https://www.skills.sh/greensock/gsap-skills/gsap-plugins"
+    },
+    {
+      "rank": 505,
+      "source": "googleworkspace/cli",
+      "skill": "gws-drive-upload",
+      "name": "gws-drive-upload",
+      "installs": 40839,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-drive-upload"
+    },
+    {
+      "rank": 506,
+      "source": "expo/skills",
+      "skill": "expo-deployment",
+      "name": "expo-deployment",
+      "installs": 40778,
+      "url": "https://www.skills.sh/expo/skills/expo-deployment"
+    },
+    {
+      "rank": 507,
+      "source": "resciencelab/opc-skills",
+      "skill": "seo-geo",
+      "name": "seo-geo",
+      "installs": 40715,
+      "url": "https://www.skills.sh/resciencelab/opc-skills/seo-geo"
+    },
+    {
+      "rank": 508,
+      "source": "momentic-ai/skills",
+      "skill": "momentic-test",
+      "name": "momentic-test",
+      "installs": 40534,
+      "url": "https://www.skills.sh/momentic-ai/skills/momentic-test"
+    },
+    {
+      "rank": 509,
+      "source": "momentic-ai/skills",
+      "skill": "momentic-result-classification",
+      "name": "momentic-result-classification",
+      "installs": 40524,
+      "url": "https://www.skills.sh/momentic-ai/skills/momentic-result-classification"
+    },
+    {
+      "rank": 510,
+      "source": "neondatabase/agent-skills",
+      "skill": "neon",
+      "name": "neon",
+      "installs": 40501,
+      "url": "https://www.skills.sh/neondatabase/agent-skills/neon"
+    },
+    {
+      "rank": 511,
+      "source": "googleworkspace/cli",
+      "skill": "gws-calendar-insert",
+      "name": "gws-calendar-insert",
+      "installs": 40163,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-calendar-insert"
+    },
+    {
+      "rank": 512,
+      "source": "othmanadi/planning-with-files",
+      "skill": "planning-with-files",
+      "name": "planning-with-files",
+      "installs": 40132,
+      "url": "https://www.skills.sh/othmanadi/planning-with-files/planning-with-files"
+    },
+    {
+      "rank": 513,
+      "source": "nutlope/hallmark",
+      "skill": "hallmark",
+      "name": "hallmark",
+      "installs": 40033,
+      "url": "https://www.skills.sh/nutlope/hallmark/hallmark"
+    },
+    {
+      "rank": 514,
+      "source": "greensock/gsap-skills",
+      "skill": "gsap-utils",
+      "name": "gsap-utils",
+      "installs": 40030,
+      "url": "https://www.skills.sh/greensock/gsap-skills/gsap-utils"
+    },
+    {
+      "rank": 515,
+      "source": "pbakaus/impeccable",
+      "skill": "arrange",
+      "name": "arrange",
+      "installs": 40019,
+      "url": "https://www.skills.sh/pbakaus/impeccable/arrange"
+    },
+    {
+      "rank": 516,
+      "source": "expo/skills",
+      "skill": "expo-cicd-workflows",
+      "name": "expo-cicd-workflows",
+      "installs": 39777,
+      "url": "https://www.skills.sh/expo/skills/expo-cicd-workflows"
+    },
+    {
+      "rank": 517,
+      "source": "remotion-dev/skills",
+      "skill": "remotion-markup",
+      "name": "remotion-markup",
+      "installs": 39708,
+      "url": "https://www.skills.sh/remotion-dev/skills/remotion-markup"
+    },
+    {
+      "rank": 518,
+      "source": "greensock/gsap-skills",
+      "skill": "gsap-react",
+      "name": "gsap-react",
+      "installs": 39665,
+      "url": "https://www.skills.sh/greensock/gsap-skills/gsap-react"
+    },
+    {
+      "rank": 519,
+      "source": "cloudflare/skills",
+      "skill": "agents-sdk",
+      "name": "agents-sdk",
+      "installs": 39413,
+      "url": "https://www.skills.sh/cloudflare/skills/agents-sdk"
+    },
+    {
+      "rank": 520,
+      "source": "pexoai/pexo-skills",
+      "skill": "pexo-agent",
+      "name": "pexo-agent",
+      "installs": 39398,
+      "url": "https://www.skills.sh/pexoai/pexo-skills/pexo-agent"
+    },
+    {
+      "rank": 521,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-app-onboard",
+      "name": "azure-app-onboard",
+      "installs": 39274,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-app-onboard"
+    },
+    {
+      "rank": 522,
+      "source": "microsoft/azure-skills",
+      "skill": "azure-app-onboard-prereq",
+      "name": "azure-app-onboard-prereq",
+      "installs": 39206,
+      "url": "https://www.skills.sh/microsoft/azure-skills/azure-app-onboard-prereq"
+    },
+    {
+      "rank": 523,
+      "source": "remotion-dev/skills",
+      "skill": "remotion-interactivity",
+      "name": "remotion-interactivity",
+      "installs": 38926,
+      "url": "https://www.skills.sh/remotion-dev/skills/remotion-interactivity"
+    },
+    {
+      "rank": 524,
+      "source": "addyosmani/web-quality-skills",
+      "skill": "seo",
+      "name": "seo",
+      "installs": 38896,
+      "url": "https://www.skills.sh/addyosmani/web-quality-skills/seo"
+    },
+    {
+      "rank": 525,
+      "source": "googleworkspace/cli",
+      "skill": "gws-gmail-triage",
+      "name": "gws-gmail-triage",
+      "installs": 38414,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-gmail-triage"
+    },
+    {
+      "rank": 526,
+      "source": "googleworkspace/cli",
+      "skill": "gws-sheets-append",
+      "name": "gws-sheets-append",
+      "installs": 38139,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-sheets-append"
+    },
+    {
+      "rank": 527,
+      "source": "greensock/gsap-skills",
+      "skill": "gsap-frameworks",
+      "name": "gsap-frameworks",
+      "installs": 38129,
+      "url": "https://www.skills.sh/greensock/gsap-skills/gsap-frameworks"
+    },
+    {
+      "rank": 528,
+      "source": "remotion-dev/skills",
+      "skill": "remotion-saas",
+      "name": "remotion-saas",
+      "installs": 38004,
+      "url": "https://www.skills.sh/remotion-dev/skills/remotion-saas"
+    },
+    {
+      "rank": 529,
+      "source": "expo/skills",
+      "skill": "expo-api-routes",
+      "name": "expo-api-routes",
+      "installs": 37719,
+      "url": "https://www.skills.sh/expo/skills/expo-api-routes"
+    },
+    {
+      "rank": 530,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-code-style",
+      "name": "golang-code-style",
+      "installs": 37527,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-code-style"
+    },
+    {
+      "rank": 531,
+      "source": "skills.volces.com",
+      "skill": "byted-web-search",
+      "name": "byted-web-search",
+      "installs": 37143,
+      "url": "https://www.skills.sh/skills.volces.com/byted-web-search"
+    },
+    {
+      "rank": 532,
+      "source": "firebase/agent-skills",
+      "skill": "firebase-firestore-standard",
+      "name": "firebase-firestore-standard",
+      "installs": 37107,
+      "url": "https://www.skills.sh/firebase/agent-skills/firebase-firestore-standard"
+    },
+    {
+      "rank": 533,
+      "source": "google-labs-code/stitch-skills",
+      "skill": "remotion",
+      "name": "remotion",
+      "installs": 37078,
+      "url": "https://www.skills.sh/google-labs-code/stitch-skills/remotion"
+    },
+    {
+      "rank": 534,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "sms",
+      "name": "sms",
+      "installs": 36996,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/sms"
+    },
+    {
+      "rank": 535,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-error-handling",
+      "name": "golang-error-handling",
+      "installs": 36933,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-error-handling"
+    },
+    {
+      "rank": 536,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-testing",
+      "name": "golang-testing",
+      "installs": 36630,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-testing"
+    },
+    {
+      "rank": 537,
+      "source": "googleworkspace/cli",
+      "skill": "gws-tasks",
+      "name": "gws-tasks",
+      "installs": 36604,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-tasks"
+    },
+    {
+      "rank": 538,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "marketing-plan",
+      "name": "marketing-plan",
+      "installs": 36483,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/marketing-plan"
+    },
+    {
+      "rank": 539,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-design-patterns",
+      "name": "golang-design-patterns",
+      "installs": 36437,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-design-patterns"
+    },
+    {
+      "rank": 540,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-performance",
+      "name": "golang-performance",
+      "installs": 36415,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-performance"
+    },
+    {
+      "rank": 541,
+      "source": "vuejs-ai/skills",
+      "skill": "vue-best-practices",
+      "name": "vue-best-practices",
+      "installs": 36400,
+      "url": "https://www.skills.sh/vuejs-ai/skills/vue-best-practices"
+    },
+    {
+      "rank": 542,
+      "source": "coreyhaines31/marketingskills",
+      "skill": "prospecting",
+      "name": "prospecting",
+      "installs": 36309,
+      "url": "https://www.skills.sh/coreyhaines31/marketingskills/prospecting"
+    },
+    {
+      "rank": 543,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-security",
+      "name": "golang-security",
+      "installs": 36219,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-security"
+    },
+    {
+      "rank": 544,
+      "source": "anysearch-ai/anysearch-skill",
+      "skill": "anysearch",
+      "name": "anysearch",
+      "installs": 36120,
+      "url": "https://www.skills.sh/anysearch-ai/anysearch-skill/anysearch"
+    },
+    {
+      "rank": 545,
+      "source": "firebase/agent-skills",
+      "skill": "firebase-firestore-enterprise-native-mode",
+      "name": "firebase-firestore-enterprise-native-mode",
+      "installs": 36048,
+      "url": "https://www.skills.sh/firebase/agent-skills/firebase-firestore-enterprise-native-mode"
+    },
+    {
+      "rank": 546,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-concurrency",
+      "name": "golang-concurrency",
+      "installs": 35737,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-concurrency"
+    },
+    {
+      "rank": 547,
+      "source": "hugmouse/skills",
+      "skill": "value",
+      "name": "value",
+      "installs": 35520,
+      "url": "https://www.skills.sh/hugmouse/skills/value"
+    },
+    {
+      "rank": 548,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-naming",
+      "name": "golang-naming",
+      "installs": 35517,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-naming"
+    },
+    {
+      "rank": 549,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-documentation",
+      "name": "golang-documentation",
+      "installs": 35397,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-documentation"
+    },
+    {
+      "rank": 550,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-context",
+      "name": "golang-context",
+      "installs": 35379,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-context"
+    },
+    {
+      "rank": 551,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-data-structures",
+      "name": "golang-data-structures",
+      "installs": 35361,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-data-structures"
+    },
+    {
+      "rank": 552,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-database",
+      "name": "golang-database",
+      "installs": 35325,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-database"
+    },
+    {
+      "rank": 553,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-modernize",
+      "name": "golang-modernize",
+      "installs": 35275,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-modernize"
+    },
+    {
+      "rank": 554,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-safety",
+      "name": "golang-safety",
+      "installs": 35274,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-safety"
+    },
+    {
+      "rank": 555,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-project-layout",
+      "name": "golang-project-layout",
+      "installs": 35181,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-project-layout"
+    },
+    {
+      "rank": 556,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-lint",
+      "name": "golang-lint",
+      "installs": 35084,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-lint"
+    },
+    {
+      "rank": 557,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-troubleshooting",
+      "name": "golang-troubleshooting",
+      "installs": 35050,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-troubleshooting"
+    },
+    {
+      "rank": 558,
+      "source": "googleworkspace/cli",
+      "skill": "gws-slides",
+      "name": "gws-slides",
+      "installs": 35026,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-slides"
+    },
+    {
+      "rank": 559,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-observability",
+      "name": "golang-observability",
+      "installs": 34954,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-observability"
+    },
+    {
+      "rank": 560,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-popular-libraries",
+      "name": "golang-popular-libraries",
+      "installs": 34941,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-popular-libraries"
+    },
+    {
+      "rank": 561,
+      "source": "cloudflare/skills",
+      "skill": "cloudflare-email-service",
+      "name": "cloudflare-email-service",
+      "installs": 34932,
+      "url": "https://www.skills.sh/cloudflare/skills/cloudflare-email-service"
+    },
+    {
+      "rank": 562,
+      "source": "tencent/wechatreading",
+      "skill": "weread-skills",
+      "name": "weread-skills",
+      "installs": 34924,
+      "url": "https://www.skills.sh/tencent/wechatreading/weread-skills"
+    },
+    {
+      "rank": 563,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-dependency-management",
+      "name": "golang-dependency-management",
+      "installs": 34919,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-dependency-management"
+    },
+    {
+      "rank": 564,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-structs-interfaces",
+      "name": "golang-structs-interfaces",
+      "installs": 34909,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-structs-interfaces"
+    },
+    {
+      "rank": 565,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-dependency-injection",
+      "name": "golang-dependency-injection",
+      "installs": 34829,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-dependency-injection"
+    },
+    {
+      "rank": 566,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-benchmark",
+      "name": "golang-benchmark",
+      "installs": 34773,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-benchmark"
+    },
+    {
+      "rank": 567,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-cli",
+      "name": "golang-cli",
+      "installs": 34744,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-cli"
+    },
+    {
+      "rank": 568,
+      "source": "googleworkspace/cli",
+      "skill": "gws-gmail-read",
+      "name": "gws-gmail-read",
+      "installs": 34687,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-gmail-read"
+    },
+    {
+      "rank": 569,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-grpc",
+      "name": "golang-grpc",
+      "installs": 34683,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-grpc"
+    },
+    {
+      "rank": 570,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-continuous-integration",
+      "name": "golang-continuous-integration",
+      "installs": 34656,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-continuous-integration"
+    },
+    {
+      "rank": 571,
+      "source": "replicas-group/skill",
+      "skill": "replicas-agent",
+      "name": "replicas-agent",
+      "installs": 34631,
+      "url": "https://www.skills.sh/replicas-group/skill/replicas-agent"
+    },
+    {
+      "rank": 572,
+      "source": "mcollina/skills",
+      "skill": "fastify-best-practices",
+      "name": "fastify-best-practices",
+      "installs": 34582,
+      "url": "https://www.skills.sh/mcollina/skills/fastify-best-practices"
+    },
+    {
+      "rank": 573,
+      "source": "firebase/agent-skills",
+      "skill": "firebase-ai-logic",
+      "name": "firebase-ai-logic",
+      "installs": 34575,
+      "url": "https://www.skills.sh/firebase/agent-skills/firebase-ai-logic"
+    },
+    {
+      "rank": 574,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-stretchr-testify",
+      "name": "golang-stretchr-testify",
+      "installs": 34549,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-stretchr-testify"
+    },
+    {
+      "rank": 575,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-stay-updated",
+      "name": "golang-stay-updated",
+      "installs": 34325,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-stay-updated"
+    },
+    {
+      "rank": 576,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-samber-lo",
+      "name": "golang-samber-lo",
+      "installs": 34251,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-samber-lo"
+    },
+    {
+      "rank": 577,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-samber-do",
+      "name": "golang-samber-do",
+      "installs": 34189,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-samber-do"
+    },
+    {
+      "rank": 578,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-samber-slog",
+      "name": "golang-samber-slog",
+      "installs": 34146,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-samber-slog"
+    },
+    {
+      "rank": 579,
+      "source": "wshobson/agents",
+      "skill": "brand-landingpage",
+      "name": "brand-landingpage",
+      "installs": 34144,
+      "url": "https://www.skills.sh/wshobson/agents/brand-landingpage"
+    },
+    {
+      "rank": 580,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-samber-oops",
+      "name": "golang-samber-oops",
+      "installs": 34128,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-samber-oops"
+    },
+    {
+      "rank": 581,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-samber-mo",
+      "name": "golang-samber-mo",
+      "installs": 34110,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-samber-mo"
+    },
+    {
+      "rank": 582,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-samber-hot",
+      "name": "golang-samber-hot",
+      "installs": 34089,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-samber-hot"
+    },
+    {
+      "rank": 583,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-samber-ro",
+      "name": "golang-samber-ro",
+      "installs": 34083,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-samber-ro"
+    },
+    {
+      "rank": 584,
+      "source": "remotion-dev/skills",
+      "skill": "remotion-docs",
+      "name": "remotion-docs",
+      "installs": 33788,
+      "url": "https://www.skills.sh/remotion-dev/skills/remotion-docs"
+    },
+    {
+      "rank": 585,
+      "source": "dietrichgebert/ponytail",
+      "skill": "ponytail",
+      "name": "ponytail",
+      "installs": 33739,
+      "url": "https://www.skills.sh/dietrichgebert/ponytail/ponytail"
+    },
+    {
+      "rank": 586,
+      "source": "firebase/agent-skills",
+      "skill": "developing-genkit-python",
+      "name": "developing-genkit-python",
+      "installs": 33632,
+      "url": "https://www.skills.sh/firebase/agent-skills/developing-genkit-python"
+    },
+    {
+      "rank": 587,
+      "source": "higgsfield-ai/skills",
+      "skill": "higgsfield-video-explainer",
+      "name": "higgsfield-video-explainer",
+      "installs": 33597,
+      "url": "https://www.skills.sh/higgsfield-ai/skills/higgsfield-video-explainer"
+    },
+    {
+      "rank": 588,
+      "source": "heygen-com/hyperframes",
+      "skill": "captions-overlay",
+      "name": "captions-overlay",
+      "installs": 33468,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/captions-overlay"
+    },
+    {
+      "rank": 589,
+      "source": "heygen-com/hyperframes",
+      "skill": "motion-doctrine",
+      "name": "motion-doctrine",
+      "installs": 33393,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/motion-doctrine"
+    },
+    {
+      "rank": 590,
+      "source": "heygen-com/hyperframes",
+      "skill": "cut-the-curve",
+      "name": "cut-the-curve",
+      "installs": 33299,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/cut-the-curve"
+    },
+    {
+      "rank": 591,
+      "source": "googleworkspace/cli",
+      "skill": "gws-forms",
+      "name": "gws-forms",
+      "installs": 33215,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-forms"
+    },
+    {
+      "rank": 592,
+      "source": "cloudflare/skills",
+      "skill": "sandbox-sdk",
+      "name": "sandbox-sdk",
+      "installs": 33193,
+      "url": "https://www.skills.sh/cloudflare/skills/sandbox-sdk"
+    },
+    {
+      "rank": 593,
+      "source": "heygen-com/hyperframes",
+      "skill": "seam-craft",
+      "name": "seam-craft",
+      "installs": 33099,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/seam-craft"
+    },
+    {
+      "rank": 594,
+      "source": "heygen-com/hyperframes",
+      "skill": "changelog-video",
+      "name": "changelog-video",
+      "installs": 33081,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/changelog-video"
+    },
+    {
+      "rank": 595,
+      "source": "heygen-com/hyperframes",
+      "skill": "oversized-cursor",
+      "name": "oversized-cursor",
+      "installs": 33024,
+      "url": "https://www.skills.sh/heygen-com/hyperframes/oversized-cursor"
+    },
+    {
+      "rank": 596,
+      "source": "zhaono1/agent-playbook",
+      "skill": "self-improving-agent",
+      "name": "self-improving-agent",
+      "installs": 32958,
+      "url": "https://www.skills.sh/zhaono1/agent-playbook/self-improving-agent"
+    },
+    {
+      "rank": 597,
+      "source": "spillwavesolutions/design-doc-mermaid",
+      "skill": "design-doc-mermaid",
+      "name": "design-doc-mermaid",
+      "installs": 32901,
+      "url": "https://www.skills.sh/spillwavesolutions/design-doc-mermaid/design-doc-mermaid"
+    },
+    {
+      "rank": 598,
+      "source": "googleworkspace/cli",
+      "skill": "gws-meet",
+      "name": "gws-meet",
+      "installs": 32846,
+      "url": "https://www.skills.sh/googleworkspace/cli/gws-meet"
+    },
+    {
+      "rank": 599,
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-swagger",
+      "name": "golang-swagger",
+      "installs": 32845,
+      "url": "https://www.skills.sh/samber/cc-skills-golang/golang-swagger"
+    },
+    {
+      "rank": 600,
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "skill": "ckm:design-system",
+      "name": "ckm:design-system",
+      "installs": 32821,
+      "url": "https://www.skills.sh/nextlevelbuilder/ui-ux-pro-max-skill/ckm%3Adesign-system"
+    }
+  ]
+}

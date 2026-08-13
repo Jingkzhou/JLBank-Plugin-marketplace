@@ -1,0 +1,51 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build and test
+        run: ./mvnw verify
+
+      - name: Upload runner jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: quarkus-agent-mcp-runner
+          path: target/quarkus-app/
+
+  native-build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            graalvm-distribution: mandrel
+          - os: macos-14
+            graalvm-distribution: graalvm
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up GraalVM
+        uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: 25
+          distribution: ${{ matrix.graalvm-distribution }}
+          cache: maven
+
+      - name: Build native binary
+        run: ./mvnw package -DskipTests -Dnative

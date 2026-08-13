@@ -1,0 +1,139 @@
+package cmdutil
+
+import (
+	"cmp"
+	"fmt"
+
+	"github.com/JetBrains/teamcity-cli/api"
+	"github.com/JetBrains/teamcity-cli/internal/output"
+	"github.com/spf13/cobra"
+)
+
+// ListFlags holds the common flags shared by all list commands.
+type ListFlags struct {
+	Limit      int
+	JSONFields string
+	Plain      bool
+	NoHeader   bool
+}
+
+// AddListFlags registers --limit, --json, --plain, and --no-header flags on a command.
+func AddListFlags(cmd *cobra.Command, flags *ListFlags, defaultLimit int) {
+	cmd.Flags().IntVarP(&flags.Limit, "limit", "n", defaultLimit, "Maximum number of items (0 for all)")
+	AddJSONFieldsFlag(cmd, &flags.JSONFields)
+	AddPlainFlags(cmd, flags)
+}
+
+// AddPlainFlags registers --plain and --no-header flags on a command.
+// Use this for list commands that already register --json separately.
+func AddPlainFlags(cmd *cobra.Command, flags *ListFlags) {
+	cmd.Flags().BoolVar(&flags.Plain, "plain", false, "Output in plain text format for scripting")
+	cmd.Flags().BoolVar(&flags.NoHeader, "no-header", false, "Omit header row (use with --plain)")
+	cmd.MarkFlagsMutuallyExclusive("json", "plain")
+}
+
+// ListTable holds the data needed to print a table.
+type ListTable struct {
+	Headers  []string
+	Rows     [][]string
+	FlexCols []int
+}
+
+// ListResult is returned by a list command's fetch function.
+// Set either JSON (for JSON output) or Table (for table output).
+// EmptyTip is shown alongside EmptyMsg when the table is empty.
+// Truncated reports that a finite --limit capped the result; RunList turns it into a stderr hint.
+type ListResult struct {
+	JSON      any
+	Table     ListTable
+	EmptyMsg  string
+	EmptyTip  string
+	Truncated bool
+}
+
+// RunList handles the shared boilerplate for list commands:
+// limit validation, JSON field parsing, client creation, fetch, and output.
+func RunList(
+	f *Factory,
+	cmd *cobra.Command,
+	flags *ListFlags,
+	fieldSpec *api.FieldSpec,
+	fetch func(client api.ClientInterface, fields []string) (*ListResult, error),
+) error {
+	if cmd.Flags().Lookup("limit") != nil {
+		if err := ValidateLimit(flags.Limit); err != nil {
+			return err
+		}
+	}
+
+	jsonResult, showHelp, err := ParseJSONFields(cmd, flags.JSONFields, fieldSpec, f.Printer.Out)
+	if err != nil {
+		return err
+	}
+	if showHelp {
+		return nil
+	}
+
+	client, err := f.Client()
+	if err != nil {
+		return err
+	}
+
+	result, err := fetch(client, jsonResult.Fields)
+	if err != nil {
+		return err
+	}
+
+	if jsonResult.Enabled {
+		if err := f.Printer.PrintJSON(result.JSON); err != nil {
+			return err
+		}
+		WarnListTruncated(f, result.Truncated, flags.Limit)
+		return nil
+	}
+
+	if len(result.Table.Rows) == 0 {
+		tip := result.EmptyTip
+		if result.Truncated && flags.Limit > 0 {
+			tip = fmt.Sprintf("Searched only the first %d results - use --limit 0 to fetch all", flags.Limit)
+		}
+		f.Printer.Empty(cmp.Or(result.EmptyMsg, "No items found"), tip)
+		return nil
+	}
+
+	if flags.Plain {
+		f.Printer.PrintPlainTable(result.Table.Headers, result.Table.Rows, flags.NoHeader)
+	} else {
+		if len(result.Table.FlexCols) > 0 {
+			output.AutoSizeColumns(result.Table.Headers, result.Table.Rows, 2, result.Table.FlexCols...)
+		}
+		f.Printer.PrintTable(result.Table.Headers, result.Table.Rows)
+	}
+	WarnListTruncated(f, result.Truncated, flags.Limit)
+	return nil
+}
+
+// WarnListTruncated emits a stderr hint, set off by a blank line, when a finite --limit capped the result; no-op for --limit <= 0 or under --quiet.
+func WarnListTruncated(f *Factory, truncated bool, limit int) {
+	if !truncated || limit <= 0 || f.Printer.Quiet {
+		return
+	}
+	_, _ = fmt.Fprintln(f.Printer.ErrOut)
+	f.Printer.Warn("Showing only the first %d results - use --limit 0 to fetch all", limit)
+}
+
+// FilterJSONList renders items as maps holding only the requested fields, so a zero value the caller asked for is emitted and one they did not is left out.
+func FilterJSONList[T any](items []T, fields []string, toMap func(T) map[string]any) any {
+	result := make([]map[string]any, 0, len(items))
+	for _, item := range items {
+		full := toMap(item)
+		filtered := make(map[string]any, len(fields))
+		for _, f := range fields {
+			if v, ok := full[f]; ok {
+				filtered[f] = v
+			}
+		}
+		result = append(result, filtered)
+	}
+	return result
+}

@@ -1,0 +1,14 @@
+# Test HTTP methods beyond GET.
+
+exec teamcity api '/app/rest/server' -X HEAD --no-input
+! stdout .
+! stderr 'Error'
+
+! exec teamcity api '/app/rest/server' -X DELETE --no-input
+stderr '.'
+
+! exec teamcity api '/app/rest/buildQueue' -X POST --input body.json --no-input
+stderr '.'
+
+-- body.json --
+{"invalid": true}

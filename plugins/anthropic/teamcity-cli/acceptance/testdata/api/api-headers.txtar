@@ -1,0 +1,10 @@
+# Test HTTP header flags.
+
+exec teamcity api '/app/rest/server' --include --no-input
+stdout 'HTTP/'
+stdout 'Content-Type'
+! stderr 'Error'
+
+exec teamcity api '/app/rest/server' --header Accept:application/json --no-input
+stdout 'version'
+! stderr 'Error'

@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "cloudinary-asset-mgmt": {
+      "url": "https://asset-management.mcp.cloudinary.com/mcp"
+    },
+    "cloudinary-env-config": {
+      "url": "https://environment-config.mcp.cloudinary.com/mcp"
+    },
+    "cloudinary-smd": {
+      "url": "https://structured-metadata.mcp.cloudinary.com/mcp"
+    },
+    "cloudinary-analysis": {
+      "url": "https://analysis.mcp.cloudinary.com/sse"
+    },
+    "cloudinary-mediaflows": {
+      "url": "https://mediaflows.mcp.cloudinary.com/v2/mcp",
+      "headers": {
+        "cld-cloud-name": "cloud_name",
+        "cld-api-key": "api_key",
+        "cld-secret": "api_secret"
+      }
+    }
+  }
+}

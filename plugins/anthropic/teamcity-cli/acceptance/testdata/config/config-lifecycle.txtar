@@ -1,0 +1,31 @@
+# Test config get, set, and list lifecycle.
+# CI may use env vars only (no server in config), so per-server
+# set is tested in unit tests; here we test list, get, JSON,
+# and error paths that work regardless of config state.
+
+# List shows default_server key and JSON fields
+exec teamcity config list --no-input
+stdout 'default_server='
+
+exec teamcity config list --json --no-input
+stdout '"default_server"'
+stdout '"servers"'
+stdout '"aliases"'
+
+# Get default_server (may be empty, should not error)
+exec teamcity config get default_server --no-input
+
+# Invalid key errors
+! exec teamcity config get nonexistent --no-input
+stderr 'unknown key'
+
+! exec teamcity config set nonexistent val --no-input
+stderr 'unknown key'
+
+# Unknown server rejected for default_server
+! exec teamcity config set default_server typo.example.com --no-input
+stderr 'not found in configuration'
+
+# Unknown server rejected for per-server set
+! exec teamcity config set ro true --server https://nonexistent.example.com --no-input
+stderr 'not found in configuration'

@@ -1,0 +1,14 @@
+{
+  "name": "cloudinary",
+  "displayName": "Cloudinary",
+  "version": "1.1.2",
+  "description": "Use Cloudinary directly in Cursor. Upload, manage, optimize, and transform images and videos at scale using natural language.",
+  "author": {
+    "name": "Cloudinary",
+    "email": "support@cloudinary.com"
+  },
+  "license": "MIT",
+  "keywords": ["cursor", "plugin", "skills", "mcp", "images", "videos", "transformations", "asset management"],
+  "logo": "assets/logo.svg",
+  "repository": "https://github.com/cloudinary-devs/cloudinary-plugin"
+}

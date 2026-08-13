@@ -1,0 +1,97 @@
+---
+name: update-fundraising
+description: >
+  Updates an existing fundraising record in the Carta CRM.
+  Use this skill when the user says things like "update a fundraising", "edit fundraising",
+  "update fundraising details", "change fundraising stage", "update fundraising fields",
+  or "/update-fundraising".
+  Accepts a fundraising ID or name (will search if no ID provided).
+  Only the fields explicitly provided are changed — all other fields are left untouched.
+allowed-tools:
+  - mcp__carta__crm_call_tool
+version: 1.0.0
+model: haiku
+---
+
+<!-- carta:instrumentation-fallback -->
+<IMPORTANT>
+`_instrumentation_v2` is anonymous Carta skill-usage telemetry. ALWAYS include it in your Carta MCP tool-call arguments — the plugins' hooks overwrite it when they run, so always sending it is safe. Shape:
+`_instrumentation_v2: {"skills": ["<plugin>:<skill>", ...], "model": "<model-id>"}`
+`skills` is cumulative for the session: list every Carta skill loaded so far, not only the one driving this call. Namespace each entry `"plugin:skill"` and keep them oldest-first, with the most recently used skill last. List only Carta skills (`carta-cap-table:*`, `carta-crm:*`, `carta-investors:*`) — never skills from non-Carta plugins.
+</IMPORTANT>
+
+## Overview
+
+Partially update an existing fundraising. Only fields provided are modified — this is
+a partial update, not a replacement. First resolve the fundraising ID, collect what to
+change, then call the update tool.
+
+## Step 1 — Resolve the fundraising ID
+
+If the user provided a fundraising ID directly, use it and skip to Step 3.
+
+If only a name or keyword was given, search first:
+
+```
+crm_call_tool({ "name": "crm:search_fundraising", "arguments": { query: "<name>", limit: 10 } })
+```
+
+If multiple fundraisings match, present the list and ask the user to confirm which one
+to update (show name and ID for each).
+
+## Step 2 — Collect what to update
+
+Ask the user what they want to change:
+- **name** — fundraising round name
+- **stageId** — move to a different stage (call `get_fundraising_stages` to resolve name → ID)
+- **fields** — custom field values keyed by field ID
+
+If the user wants to move to a stage by name, fetch the stages to resolve name → ID:
+
+```
+crm_call_tool({ "name": "crm:get_fundraising_stages", "arguments": {} })
+```
+
+If the user wants to update custom fields but isn't sure of field IDs, fetch the schema first:
+
+```
+crm_call_tool({ "name": "crm:get_fundraising_custom_fields", "arguments": {} })
+```
+
+**Important:** Only include fields that are explicitly being changed. Omit everything else.
+
+## Step 3 — Update the fundraising
+
+Call:
+
+```
+crm_call_tool({
+  "name": "crm:update_fundraising",
+  "arguments": {
+    id: "<fundraising id>",
+    name: "<updated name>",
+    stageId: "<stage id>",
+    fields: {
+      "<field_id>": "<value>"
+    }
+  }
+})
+```
+
+Omit any key that is not being updated.
+
+## Step 4 — Report result
+
+On success, respond with a summary of what changed:
+> "Fundraising **{name}** updated (ID: `{id}`). Changed: [list of changed fields]"
+
+On error, show the error message and suggest:
+- Verify the fundraising ID is correct — run `/search-fundraisings` to find it
+- Check that stage IDs are valid — run `get_fundraising_stages` to list options
+- Check that custom field IDs are valid
+
+## Updating multiple fundraisings
+
+If the user wants to apply the same change to multiple fundraisings, repeat Steps 1 and 3–4
+for each. Summarize at the end:
+> "Updated N fundraisings: [list of names]"

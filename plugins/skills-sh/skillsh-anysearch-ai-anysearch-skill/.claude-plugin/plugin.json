@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-anysearch-ai-anysearch-skill",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from anysearch-ai/anysearch-skill.",
+  "author": {
+    "name": "anysearch-ai/anysearch-skill"
+  }
+}

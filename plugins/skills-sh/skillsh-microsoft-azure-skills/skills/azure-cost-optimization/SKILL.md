@@ -1,0 +1,33 @@
+---
+name: azure-cost-optimization
+description: Popular skill mirrored from https://www.skills.sh/microsoft/azure-skills/azure-cost-optimization.
+---
+
+Azure Cost Optimization Skill
+
+Analyze Azure subscriptions to identify cost savings through orphaned resource cleanup, rightsizing, and optimization recommendations based on actual usage data.
+
+When to Use This Skill
+
+Use this skill when the user asks to:
+
+
+Optimize Azure costs or reduce spending
+
+Analyze Azure subscription for cost savings
+
+Generate cost optimization report
+
+Find orphaned or unused resources
+
+Rightsize Azure VMs, containers, or services
+
+Identify where they're overspending in Azure
+
+Optimize Redis costs specifically - See Azure Redis Cost Optimization for Redis-specific analysis
+
+
+Instructions
+
+Follow these steps in conversation with the user:
+Show more

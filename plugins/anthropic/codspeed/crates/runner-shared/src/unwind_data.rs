@@ -1,0 +1,443 @@
+//! Serialized unwind data captured per shared object, used to unwind stacks
+//! during post-processing.
+//!
+//! [`UnwindData`] aliases the current version ([`UnwindDataV4`]). On-disk
+//! artifacts are wrapped in `UnwindDataCompat` so older versions can still be
+//! deserialized and (where possible) upgraded via `From` impls.
+//!
+//! # Version history
+//!
+//! - **V1** — Original format. Carries both the pid-agnostic unwind tables
+//!   (`eh_frame`/`eh_frame_hdr`) and per-pid load info (`avma_range`,
+//!   `base_avma`) in a single struct.
+//! - **V2** — Adds `timestamp: Option<u64>` to mark when the data was captured
+//!   (`None` = valid for the whole execution). Upgradable from V1.
+//! - **V3** — Splits per-pid load info out into [`ProcessUnwindData`], leaving
+//!   only the deduplicated, pid-agnostic tables. *Breaking*: cannot be parsed
+//!   as V2 (the per-pid fields are gone). Upgradable from V2.
+//! - **V4** — Makes `eh_frame_hdr`/`eh_frame_hdr_svma` optional. The hdr is just
+//!   a binary-search index into `.eh_frame`; some binaries (e.g. Valgrind's
+//!   statically-linked tools, linked without `ld --eh-frame-hdr`) omit it and
+//!   the parser rebuilds the index from `.eh_frame`. Upgradable from V3.
+//!
+//! When adding a version: add a `UnwindDataV{N}` struct, a `From<V{N-1}>` impl
+//! (if non-breaking), a `UnwindDataCompat` variant, update the `UnwindData`
+//! alias and `parse`/`save_to`, and append an entry above.
+
+use core::{
+    fmt::Debug,
+    hash::{Hash, Hasher},
+};
+use serde::{Deserialize, Serialize};
+use std::io::BufWriter;
+use std::{hash::DefaultHasher, ops::Range};
+
+pub const UNWIND_FILE_EXT: &str = "unwind_data";
+
+pub type UnwindData = UnwindDataV4;
+impl UnwindData {
+    pub fn parse(reader: &[u8]) -> anyhow::Result<Self> {
+        let compat: UnwindDataCompat = bincode::deserialize(reader)?;
+
+        match compat {
+            UnwindDataCompat::V1(_) => {
+                anyhow::bail!("Cannot parse V1 unwind data as V4 (breaking changes)")
+            }
+            UnwindDataCompat::V2(_) => {
+                anyhow::bail!("Cannot parse V2 unwind data as V4 (breaking changes)")
+            }
+            UnwindDataCompat::V3(v3) => Ok(v3.into()),
+            UnwindDataCompat::V4(v4) => Ok(v4),
+        }
+    }
+
+    pub fn save_to<P: AsRef<std::path::Path>>(&self, folder: P, key: &str) -> anyhow::Result<()> {
+        let path = folder.as_ref().join(format!("{key}.{UNWIND_FILE_EXT}"));
+        let compat = UnwindDataCompat::V4(self.clone());
+        let file = std::fs::File::create(&path)?;
+        const BUFFER_SIZE: usize = 256 * 1024;
+        let writer = BufWriter::with_capacity(BUFFER_SIZE, file);
+        bincode::serialize_into(writer, &compat)?;
+        Ok(())
+    }
+}
+
+/// A versioned enum for `UnwindData` to allow for future extensions while maintaining backward compatibility.
+#[derive(Serialize, Deserialize)]
+enum UnwindDataCompat {
+    V1(UnwindDataV1),
+    V2(UnwindDataV2),
+    V3(UnwindDataV3),
+    V4(UnwindDataV4),
+}
+
+#[doc(hidden)]
+#[derive(Serialize, Deserialize, Clone)]
+struct UnwindDataV1 {
+    pub path: String,
+
+    pub avma_range: Range<u64>,
+    pub base_avma: u64,
+    pub base_svma: u64,
+
+    pub eh_frame_hdr: Vec<u8>,
+    pub eh_frame_hdr_svma: Range<u64>,
+
+    pub eh_frame: Vec<u8>,
+    pub eh_frame_svma: Range<u64>,
+}
+
+#[doc(hidden)]
+#[derive(Serialize, Deserialize, Clone, PartialEq)]
+pub struct UnwindDataV2 {
+    pub path: String,
+
+    /// The monotonic timestamp when the unwind data was captured.
+    /// Is `None` if unwind data is valid for the whole program execution
+    pub timestamp: Option<u64>,
+
+    pub avma_range: Range<u64>,
+    pub base_avma: u64,
+    pub base_svma: u64,
+
+    pub eh_frame_hdr: Vec<u8>,
+    pub eh_frame_hdr_svma: Range<u64>,
+
+    pub eh_frame: Vec<u8>,
+    pub eh_frame_svma: Range<u64>,
+}
+
+impl UnwindDataV2 {
+    /// Parse unwind data bytes, converting V1 to V2 but erroring on V3
+    /// (since V3 doesn't have the per-pid fields needed for V2).
+    pub fn parse(reader: &[u8]) -> anyhow::Result<Self> {
+        let compat: UnwindDataCompat = bincode::deserialize(reader)?;
+        match compat {
+            UnwindDataCompat::V1(v1) => Ok(v1.into()),
+            UnwindDataCompat::V2(v2) => Ok(v2),
+            UnwindDataCompat::V3(_) => {
+                anyhow::bail!("Cannot parse V3 unwind data as V2 (missing per-pid fields)")
+            }
+            UnwindDataCompat::V4(_) => {
+                anyhow::bail!("Cannot parse V4 unwind data as V2 (missing per-pid fields)")
+            }
+        }
+    }
+}
+
+impl From<UnwindDataV1> for UnwindDataV2 {
+    fn from(v1: UnwindDataV1) -> Self {
+        Self {
+            path: v1.path,
+            timestamp: None,
+            avma_range: v1.avma_range,
+            base_avma: v1.base_avma,
+            base_svma: v1.base_svma,
+            eh_frame_hdr: v1.eh_frame_hdr,
+            eh_frame_hdr_svma: v1.eh_frame_hdr_svma,
+            eh_frame: v1.eh_frame,
+            eh_frame_svma: v1.eh_frame_svma,
+        }
+    }
+}
+
+/// Pid-agnostic unwind data.
+/// Contains only the data that is common across all PIDs loading the same shared library.
+#[derive(Serialize, Deserialize, Clone, PartialEq, Eq, Hash)]
+pub struct UnwindDataV3 {
+    pub path: String,
+    pub base_svma: u64,
+    pub eh_frame_hdr: Vec<u8>,
+    pub eh_frame_hdr_svma: Range<u64>,
+    pub eh_frame: Vec<u8>,
+    pub eh_frame_svma: Range<u64>,
+}
+
+impl From<UnwindDataV2> for UnwindDataV3 {
+    fn from(v2: UnwindDataV2) -> Self {
+        Self {
+            path: v2.path,
+            base_svma: v2.base_svma,
+            eh_frame_hdr: v2.eh_frame_hdr,
+            eh_frame_hdr_svma: v2.eh_frame_hdr_svma,
+            eh_frame: v2.eh_frame,
+            eh_frame_svma: v2.eh_frame_svma,
+        }
+    }
+}
+
+/// Pid-agnostic unwind data with an optional `.eh_frame_hdr`.
+///
+/// The hdr is only a binary-search index into `.eh_frame` — some binaries
+/// (e.g. Valgrind's statically-linked tools) are linked without
+/// `ld --eh-frame-hdr` and don't carry it. The parser rebuilds the index from
+/// `.eh_frame` in that case.
+#[derive(Serialize, Deserialize, Clone, PartialEq, Eq, Hash)]
+pub struct UnwindDataV4 {
+    pub path: String,
+    pub base_svma: u64,
+    pub eh_frame_hdr: Option<Vec<u8>>,
+    pub eh_frame_hdr_svma: Option<Range<u64>>,
+    pub eh_frame: Vec<u8>,
+    pub eh_frame_svma: Range<u64>,
+}
+
+impl From<UnwindDataV3> for UnwindDataV4 {
+    fn from(v3: UnwindDataV3) -> Self {
+        Self {
+            path: v3.path,
+            base_svma: v3.base_svma,
+            eh_frame_hdr: Some(v3.eh_frame_hdr),
+            eh_frame_hdr_svma: Some(v3.eh_frame_hdr_svma),
+            eh_frame: v3.eh_frame,
+            eh_frame_svma: v3.eh_frame_svma,
+        }
+    }
+}
+
+impl Debug for UnwindDataV2 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let eh_frame_hdr_hash = {
+            let mut hasher = DefaultHasher::new();
+            self.eh_frame_hdr.hash(&mut hasher);
+            hasher.finish()
+        };
+        let eh_frame_hash = {
+            let mut hasher = DefaultHasher::new();
+            self.eh_frame.hash(&mut hasher);
+            hasher.finish()
+        };
+
+        f.debug_struct("UnwindData")
+            .field("path", &self.path)
+            .field("timestamp", &self.timestamp)
+            .field("avma_range", &format_args!("{:x?}", self.avma_range))
+            .field("base_avma", &format_args!("{:x}", self.base_avma))
+            .field("base_svma", &format_args!("{:x}", self.base_svma))
+            .field(
+                "eh_frame_hdr_svma",
+                &format_args!("{:x?}", self.eh_frame_hdr_svma),
+            )
+            .field("eh_frame_hdr_hash", &format_args!("{eh_frame_hdr_hash:x}"))
+            .field("eh_frame_hash", &format_args!("{eh_frame_hash:x}"))
+            .field("eh_frame_svma", &format_args!("{:x?}", self.eh_frame_svma))
+            .finish()
+    }
+}
+
+impl Debug for UnwindDataV3 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let eh_frame_hdr_hash = {
+            let mut hasher = DefaultHasher::new();
+            self.eh_frame_hdr.hash(&mut hasher);
+            hasher.finish()
+        };
+        let eh_frame_hash = {
+            let mut hasher = DefaultHasher::new();
+            self.eh_frame.hash(&mut hasher);
+            hasher.finish()
+        };
+
+        f.debug_struct("UnwindData")
+            .field("path", &self.path)
+            .field("base_svma", &format_args!("{:x}", self.base_svma))
+            .field(
+                "eh_frame_hdr_svma",
+                &format_args!("{:x?}", self.eh_frame_hdr_svma),
+            )
+            .field("eh_frame_hdr_hash", &format_args!("{eh_frame_hdr_hash:x}"))
+            .field("eh_frame_hash", &format_args!("{eh_frame_hash:x}"))
+            .field("eh_frame_svma", &format_args!("{:x?}", self.eh_frame_svma))
+            .finish()
+    }
+}
+
+impl Debug for UnwindDataV4 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let eh_frame_hdr_hash = self.eh_frame_hdr.as_ref().map(|eh_frame_hdr| {
+            let mut hasher = DefaultHasher::new();
+            eh_frame_hdr.hash(&mut hasher);
+            hasher.finish()
+        });
+        let eh_frame_hash = {
+            let mut hasher = DefaultHasher::new();
+            self.eh_frame.hash(&mut hasher);
+            hasher.finish()
+        };
+
+        f.debug_struct("UnwindData")
+            .field("path", &self.path)
+            .field("base_svma", &format_args!("{:x}", self.base_svma))
+            .field(
+                "eh_frame_hdr_svma",
+                &format_args!("{:x?}", self.eh_frame_hdr_svma),
+            )
+            .field("eh_frame_hdr_hash", &format_args!("{eh_frame_hdr_hash:x?}"))
+            .field("eh_frame_hash", &format_args!("{eh_frame_hash:x}"))
+            .field("eh_frame_svma", &format_args!("{:x?}", self.eh_frame_svma))
+            .finish()
+    }
+}
+
+/// Per-pid mounting info referencing a deduplicated unwind data entry.
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct MappedProcessUnwindData {
+    pub unwind_data_key: String,
+    #[serde(flatten)]
+    pub inner: ProcessUnwindData,
+}
+
+#[derive(Serialize, Deserialize, Clone)]
+pub struct ProcessUnwindData {
+    pub timestamp: Option<u64>,
+    pub avma_range: Range<u64>,
+    pub base_avma: u64,
+}
+
+impl Debug for ProcessUnwindData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("ProcessUnwindData")
+            .field("timestamp", &self.timestamp)
+            .field("avma_range", &format_args!("{:x?}", self.avma_range))
+            .field("base_avma", &format_args!("{:x}", self.base_avma))
+            .finish()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const V2_BINARY: &[u8] = include_bytes!("../testdata/unwind_data_v2.bin");
+    const V3_BINARY: &[u8] = include_bytes!("../testdata/unwind_data_v3.bin");
+    const V4_BINARY: &[u8] = include_bytes!("../testdata/unwind_data_v4.bin");
+
+    fn create_sample_v2() -> UnwindDataV2 {
+        UnwindDataV2 {
+            path: "/lib/test.so".to_string(),
+            timestamp: Some(12345),
+            avma_range: 0x1000..0x2000,
+            base_avma: 0x1000,
+            base_svma: 0x0,
+            eh_frame_hdr: vec![1, 2, 3, 4],
+            eh_frame_hdr_svma: 0x100..0x200,
+            eh_frame: vec![5, 6, 7, 8],
+            eh_frame_svma: 0x200..0x300,
+        }
+    }
+
+    fn create_sample_v3() -> UnwindDataV3 {
+        UnwindDataV3 {
+            path: "/lib/test.so".to_string(),
+            base_svma: 0x0,
+            eh_frame_hdr: vec![1, 2, 3, 4],
+            eh_frame_hdr_svma: 0x100..0x200,
+            eh_frame: vec![5, 6, 7, 8],
+            eh_frame_svma: 0x200..0x300,
+        }
+    }
+
+    fn create_sample_v4() -> UnwindDataV4 {
+        UnwindDataV4 {
+            path: "/lib/test.so".to_string(),
+            base_svma: 0x0,
+            // No `.eh_frame_hdr`, like Valgrind's statically-linked tools
+            eh_frame_hdr: None,
+            eh_frame_hdr_svma: None,
+            eh_frame: vec![5, 6, 7, 8],
+            eh_frame_svma: 0x200..0x300,
+        }
+    }
+
+    #[test]
+    #[ignore = "one-off generator for the V4 testdata artifact"]
+    fn generate_v4_testdata() {
+        let compat = UnwindDataCompat::V4(create_sample_v4());
+        let bytes = bincode::serialize(&compat).unwrap();
+        std::fs::write("testdata/unwind_data_v4.bin", bytes).unwrap();
+    }
+
+    #[test]
+    fn test_parse_v2_as_v4_should_error() {
+        // Try to parse V2 binary artifact as V4 using UnwindData::parse
+        let result = UnwindData::parse(V2_BINARY);
+
+        // Should error due to breaking changes between V2 and V4
+        assert!(result.is_err());
+        let err = result.unwrap_err();
+        assert!(
+            err.to_string()
+                .contains("Cannot parse V2 unwind data as V4"),
+            "Expected error message about V2->V4 incompatibility, got: {err}"
+        );
+    }
+
+    #[test]
+    fn test_parse_v3_as_v2_should_error() {
+        // Try to parse V3 binary artifact as V2 using UnwindDataV2::parse
+        let result = UnwindDataV2::parse(V3_BINARY);
+
+        // Should error with specific message about missing per-pid fields
+        assert!(result.is_err());
+        let err = result.unwrap_err();
+        assert!(
+            err.to_string()
+                .contains("Cannot parse V3 unwind data as V2"),
+            "Expected error message about V3->V2 incompatibility, got: {err}"
+        );
+    }
+
+    #[test]
+    fn test_parse_v4_as_v2_should_error() {
+        // Try to parse V4 binary artifact as V2 using UnwindDataV2::parse
+        let result = UnwindDataV2::parse(V4_BINARY);
+
+        // Should error with specific message about missing per-pid fields
+        assert!(result.is_err());
+        let err = result.unwrap_err();
+        assert!(
+            err.to_string()
+                .contains("Cannot parse V4 unwind data as V2"),
+            "Expected error message about V4->V2 incompatibility, got: {err}"
+        );
+    }
+
+    #[test]
+    fn test_parse_v3_as_v4() {
+        // Parse V3 binary artifact using UnwindData::parse — it converts to V4
+        let parsed = UnwindData::parse(V3_BINARY).expect("Failed to parse V3 data as V4");
+
+        // Should match the V3 data with the hdr fields wrapped in `Some`
+        let expected: UnwindDataV4 = create_sample_v3().into();
+        assert_eq!(parsed, expected);
+        assert!(parsed.eh_frame_hdr.is_some());
+    }
+
+    #[test]
+    fn test_parse_v4_as_v4() {
+        // Parse V4 binary artifact as V4 using UnwindData::parse
+        let parsed_v4 = UnwindData::parse(V4_BINARY).expect("Failed to parse V4 data as V4");
+
+        // Should match expected V4 data (without an eh_frame_hdr)
+        let expected_v4 = create_sample_v4();
+        assert_eq!(parsed_v4, expected_v4);
+    }
+
+    #[test]
+    fn test_parse_v2_as_v2() {
+        // Parse V2 binary artifact as V2 using UnwindDataV2::parse
+        let parsed_v2 = UnwindDataV2::parse(V2_BINARY).expect("Failed to parse V2 data as V2");
+
+        // Should match expected V2 data
+        let expected_v2 = create_sample_v2();
+        assert_eq!(parsed_v2.path, expected_v2.path);
+        assert_eq!(parsed_v2.timestamp, expected_v2.timestamp);
+        assert_eq!(parsed_v2.avma_range, expected_v2.avma_range);
+        assert_eq!(parsed_v2.base_avma, expected_v2.base_avma);
+        assert_eq!(parsed_v2.base_svma, expected_v2.base_svma);
+        assert_eq!(parsed_v2.eh_frame_hdr, expected_v2.eh_frame_hdr);
+        assert_eq!(parsed_v2.eh_frame_hdr_svma, expected_v2.eh_frame_hdr_svma);
+        assert_eq!(parsed_v2.eh_frame, expected_v2.eh_frame);
+        assert_eq!(parsed_v2.eh_frame_svma, expected_v2.eh_frame_svma);
+    }
+}

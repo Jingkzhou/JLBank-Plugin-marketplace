@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "zscaler-mcp-server": {
+      "command": "uvx",
+      "args": [
+        "--env-file",
+        "/absolute/path/to/.env",
+        "zscaler-mcp"
+      ]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-agent-qq-com",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from agent.qq.com.",
+  "author": {
+    "name": "agent.qq.com"
+  }
+}

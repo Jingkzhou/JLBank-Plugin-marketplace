@@ -1,0 +1,29 @@
+{
+  "eval_id": 4,
+  "variant": "without_skill",
+  "assertions": [
+    {
+      "assertion": "Explains that SLO uses front-channel logout via iframes (not redirect chains)",
+      "pass": false,
+      "rationale": "The iframe-based approach is Duende-specific; general SAML knowledge would describe redirect-based SLO."
+    },
+    {
+      "assertion": "Shows SingleLogoutServiceUrls configuration with SamlEndpointType and SamlBinding.HttpRedirect",
+      "pass": false,
+      "rationale": "SingleLogoutServiceUrls with SamlEndpointType is Duende-specific."
+    },
+    {
+      "assertion": "Mentions that partial logout is normal/expected when some SPs don't respond",
+      "pass": true,
+      "rationale": "General SAML knowledge would acknowledge that SLO can be unreliable."
+    },
+    {
+      "assertion": "Mentions ISamlLogoutSessionStore for distributed/multi-node deployments",
+      "pass": false,
+      "rationale": "ISamlLogoutSessionStore is Duende-specific and not general knowledge."
+    }
+  ],
+  "pass_count": 1,
+  "total_count": 4,
+  "score": 0.25
+}

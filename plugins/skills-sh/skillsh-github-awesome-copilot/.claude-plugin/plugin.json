@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-github-awesome-copilot",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from github/awesome-copilot.",
+  "author": {
+    "name": "github/awesome-copilot"
+  }
+}

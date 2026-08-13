@@ -1,0 +1,1700 @@
+// Copyright 2026 Aeneas Rekkas
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+//go:build e2e
+
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"regexp"
+	"strconv"
+	"strings"
+	"sync"
+	"testing"
+	"time"
+
+	"github.com/modelcontextprotocol/go-sdk/mcp"
+)
+
+// Local copies of tool I/O types for black-box E2E testing.
+// These mirror cmd.SemanticSearchInput etc. but are intentionally
+// decoupled so the E2E tests don't depend on cmd internals.
+
+type semanticSearchOutput struct {
+	Results      []searchResultItem `json:"results"`
+	Reindexed    bool               `json:"reindexed"`
+	IndexedFiles int                `json:"indexed_files,omitempty"`
+}
+
+type indexStatusOutput struct {
+	ProjectPath    string `json:"project_path"`
+	TotalFiles     int    `json:"total_files"`
+	IndexedFiles   int    `json:"indexed_files"`
+	TotalChunks    int    `json:"total_chunks"`
+	LastIndexedAt  string `json:"last_indexed_at"`
+	EmbeddingModel string `json:"embedding_model"`
+	Stale          bool   `json:"stale"`
+}
+
+var serverBinary string
+
+func TestMain(m *testing.M) {
+	// Build the server binary.
+	bin := filepath.Join(os.TempDir(), "lumen-e2e-test")
+	cmd := exec.Command("go", "build", "-o", bin, ".")
+	cmd.Env = append(os.Environ(), "CGO_ENABLED=1")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	if err := cmd.Run(); err != nil {
+		fmt.Fprintf(os.Stderr, "failed to build server binary: %v\n", err)
+		os.Exit(1)
+	}
+	defer os.Remove(bin)
+
+	// Check Ollama health.
+	ollamaHost := os.Getenv("OLLAMA_HOST")
+	if ollamaHost == "" {
+		ollamaHost = "http://localhost:11434"
+	}
+	resp, err := http.Get(ollamaHost)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Ollama is unreachable at %s: %v — skipping E2E tests\n", ollamaHost, err)
+		os.Exit(1)
+	}
+	resp.Body.Close()
+
+	// Check that the all-minilm model is available in Ollama.
+	tagsResp, err := http.Get(ollamaHost + "/api/tags")
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "failed to list Ollama models: %v\n", err)
+		os.Exit(1)
+	}
+	var tagsBody struct {
+		Models []struct {
+			Name string `json:"name"`
+		} `json:"models"`
+	}
+	if err := json.NewDecoder(tagsResp.Body).Decode(&tagsBody); err != nil {
+		tagsResp.Body.Close()
+		fmt.Fprintf(os.Stderr, "failed to decode Ollama model list: %v\n", err)
+		os.Exit(1)
+	}
+	tagsResp.Body.Close()
+	hasMinilm := false
+	for _, m := range tagsBody.Models {
+		if strings.HasPrefix(m.Name, "all-minilm") {
+			hasMinilm = true
+			break
+		}
+	}
+	if !hasMinilm {
+		fmt.Fprintf(os.Stderr, "E2E tests require the all-minilm model in Ollama — run: ollama pull all-minilm\n")
+		os.Exit(1)
+	}
+
+	serverBinary = bin
+	os.Exit(m.Run())
+}
+
+// startServer launches the MCP server as a subprocess and returns a connected client session.
+func startServer(t *testing.T) *mcp.ClientSession {
+	t.Helper()
+	return startServerWithOpts(t, nil)
+}
+
+// startServerWithOpts launches the MCP server with custom client options.
+func startServerWithOpts(t *testing.T, opts *mcp.ClientOptions) *mcp.ClientSession {
+	t.Helper()
+
+	dataHome := t.TempDir()
+	ollamaHost := os.Getenv("OLLAMA_HOST")
+	if ollamaHost == "" {
+		ollamaHost = "http://localhost:11434"
+	}
+
+	cmd := exec.Command(serverBinary, "stdio")
+	cmd.Env = []string{
+		"OLLAMA_HOST=" + ollamaHost,
+		"LUMEN_EMBED_MODEL=all-minilm",
+		"LUMEN_FRESHNESS_TTL=1s",
+		// all-minilm uses BERT WordPiece tokenisation which is ~4x denser than
+		// our 4-chars-per-token estimate, so cap chunks at 100 "tokens" (400
+		// chars) to stay within the model's 512-token context window.
+		"LUMEN_MAX_CHUNK_TOKENS=100",
+		"XDG_DATA_HOME=" + dataHome,
+		"XDG_CONFIG_HOME=" + dataHome,
+		"HOME=" + os.Getenv("HOME"),
+		"PATH=" + os.Getenv("PATH"),
+	}
+
+	transport := &mcp.CommandTransport{Command: cmd}
+	client := mcp.NewClient(&mcp.Implementation{
+		Name:    "e2e-test-client",
+		Version: "0.1.0",
+	}, opts)
+
+	ctx := context.Background()
+	session, err := client.Connect(ctx, transport, nil)
+	if err != nil {
+		t.Fatalf("failed to connect to server: %v", err)
+	}
+
+	t.Cleanup(func() {
+		session.Close()
+	})
+
+	return session
+}
+
+// getTextContent extracts the text from the first TextContent block in a CallToolResult.
+func getTextContent(t *testing.T, result *mcp.CallToolResult) string {
+	t.Helper()
+	if len(result.Content) == 0 {
+		t.Fatal("expected at least one Content block")
+	}
+	tc, ok := result.Content[0].(*mcp.TextContent)
+	if !ok {
+		t.Fatalf("expected TextContent, got %T", result.Content[0])
+	}
+	return tc.Text
+}
+
+// fileRe matches <result:file filename="..."> opening tags.
+var fileRe = regexp.MustCompile(`^<result:file filename="([^"]+)">$`)
+
+// chunkRe matches <result:chunk ...> opening tags like:
+//
+//	<result:chunk line-start="10" line-end="19" symbol="ValidateToken" kind="function" score="0.66">
+var chunkRe = regexp.MustCompile(`^\s*<result:chunk line-start="(\d+)" line-end="(\d+)" symbol="([^"]+)" kind="([^"]+)" score="(-?\d+\.\d+)">$`)
+
+// parseSearchText parses the XML-tagged output of semantic_search into a semanticSearchOutput.
+func parseSearchText(t *testing.T, text string) semanticSearchOutput {
+	t.Helper()
+
+	var out semanticSearchOutput
+
+	// Parse "(indexed M files)" first — present in both "Found N results" and "No results found." output.
+	if strings.Contains(text, "(indexed") {
+		re := regexp.MustCompile(`\(indexed (\d+) files\)`)
+		if m := re.FindStringSubmatch(text); m != nil {
+			out.IndexedFiles, _ = strconv.Atoi(m[1])
+			out.Reindexed = true
+		}
+	}
+	if strings.HasPrefix(text, "No results found") {
+		return out
+	}
+
+	lines := strings.Split(text, "\n")
+	currentFile := ""
+	inChunk := false
+	var chunkItem searchResultItem
+	var contentLines []string
+
+	flushChunk := func() {
+		if !inChunk {
+			return
+		}
+		chunkItem.Content = strings.TrimSpace(strings.Join(contentLines, "\n"))
+		out.Results = append(out.Results, chunkItem)
+		inChunk = false
+		contentLines = nil
+	}
+
+	for _, line := range lines {
+		if m := fileRe.FindStringSubmatch(line); m != nil {
+			flushChunk()
+			currentFile = m[1]
+			continue
+		}
+		if m := chunkRe.FindStringSubmatch(line); m != nil {
+			flushChunk()
+			startLine, _ := strconv.Atoi(m[1])
+			endLine, _ := strconv.Atoi(m[2])
+			score, _ := strconv.ParseFloat(m[5], 32)
+			chunkItem = searchResultItem{
+				FilePath:  currentFile,
+				Symbol:    m[3],
+				Kind:      m[4],
+				StartLine: startLine,
+				EndLine:   endLine,
+				Score:     float32(score),
+			}
+			inChunk = true
+			continue
+		}
+		if inChunk {
+			trimmed := strings.TrimPrefix(line, "  ")
+			if trimmed == "</result:chunk>" {
+				flushChunk()
+				continue
+			}
+			contentLines = append(contentLines, trimmed)
+		}
+	}
+	flushChunk()
+
+	return out
+}
+
+// callSearch calls the semantic_search tool and returns the parsed output.
+func callSearch(t *testing.T, session *mcp.ClientSession, args map[string]any) semanticSearchOutput {
+	t.Helper()
+	result := callSearchRaw(t, session, args)
+	if result.IsError {
+		for _, c := range result.Content {
+			if tc, ok := c.(*mcp.TextContent); ok {
+				t.Fatalf("semantic_search returned error: %s", tc.Text)
+			}
+		}
+		t.Fatalf("semantic_search returned error (no text content)")
+	}
+	text := getTextContent(t, result)
+	return parseSearchText(t, text)
+}
+
+// callSearchRaw calls semantic_search and returns the raw CallToolResult (for error testing).
+func callSearchRaw(t *testing.T, session *mcp.ClientSession, args map[string]any) *mcp.CallToolResult {
+	t.Helper()
+
+	ctx := context.Background()
+	result, err := session.CallTool(ctx, &mcp.CallToolParams{
+		Name:      "semantic_search",
+		Arguments: mustJSON(t, args),
+	})
+	if err != nil {
+		t.Fatalf("CallTool semantic_search failed: %v", err)
+	}
+	return result
+}
+
+// parseStatusText parses the plaintext output of index_status.
+func parseStatusText(t *testing.T, text string) indexStatusOutput {
+	t.Helper()
+
+	var out indexStatusOutput
+
+	// Parse "Index: <path>"
+	if m := regexp.MustCompile(`Index: (.+)`).FindStringSubmatch(text); m != nil {
+		out.ProjectPath = m[1]
+	}
+
+	// Parse "Files: N | Indexed: N | Chunks: N | Model: ..."
+	if m := regexp.MustCompile(`Files: (\d+) \| Indexed: (\d+) \| Chunks: (\d+) \| Model: (.+)`).FindStringSubmatch(text); m != nil {
+		out.TotalFiles, _ = strconv.Atoi(m[1])
+		out.IndexedFiles, _ = strconv.Atoi(m[2])
+		out.TotalChunks, _ = strconv.Atoi(m[3])
+		out.EmbeddingModel = m[4]
+	}
+
+	// Parse "Last indexed: ... | Stale: yes/no"
+	if m := regexp.MustCompile(`Last indexed: (.+?) \| Stale: (\w+)`).FindStringSubmatch(text); m != nil {
+		if m[1] != "never" {
+			out.LastIndexedAt = m[1]
+		}
+		out.Stale = m[2] == "yes"
+	}
+
+	return out
+}
+
+// callStatus calls the index_status tool and returns the parsed output.
+func callStatus(t *testing.T, session *mcp.ClientSession, args map[string]any) indexStatusOutput {
+	t.Helper()
+
+	ctx := context.Background()
+	result, err := session.CallTool(ctx, &mcp.CallToolParams{
+		Name:      "index_status",
+		Arguments: mustJSON(t, args),
+	})
+	if err != nil {
+		t.Fatalf("CallTool index_status failed: %v", err)
+	}
+	if result.IsError {
+		t.Fatalf("index_status returned error: %+v", result.Content)
+	}
+
+	text := getTextContent(t, result)
+	return parseStatusText(t, text)
+}
+
+// sampleProjectPath returns the absolute path to the test fixture.
+func sampleProjectPath(t *testing.T) string {
+	t.Helper()
+	p, err := filepath.Abs("testdata/sample-project")
+	if err != nil {
+		t.Fatalf("failed to resolve sample project path: %v", err)
+	}
+	return p
+}
+
+// mustJSON marshals args to json.RawMessage for use as CallToolParams.Arguments.
+func mustJSON(t *testing.T, v any) json.RawMessage {
+	t.Helper()
+	data, err := json.Marshal(v)
+	if err != nil {
+		t.Fatalf("failed to marshal args: %v", err)
+	}
+	return data
+}
+
+// resultSymbols extracts symbol names from search results.
+func resultSymbols(results []searchResultItem) []string {
+	names := make([]string, len(results))
+	for i, r := range results {
+		names[i] = r.Symbol
+	}
+	return names
+}
+
+// findResult returns the first result matching the given symbol name, or nil.
+// Matches if the result symbol equals symbol or contains it as a component
+// (e.g. "ValidateToken+CreateSession" matches "ValidateToken").
+func findResult(results []searchResultItem, symbol string) *searchResultItem {
+	for i := range results {
+		if results[i].Symbol == symbol || strings.Contains(results[i].Symbol, symbol) {
+			return &results[i]
+		}
+	}
+	return nil
+}
+
+// rankOf returns the 0-based index of the first result matching symbol, or -1.
+// Matches if the result symbol equals symbol or contains it as a component.
+func rankOf(results []searchResultItem, symbol string) int {
+	for i, r := range results {
+		if r.Symbol == symbol || strings.Contains(r.Symbol, symbol) {
+			return i
+		}
+	}
+	return -1
+}
+
+// copyDir copies src directory contents to dst.
+func copyDir(t *testing.T, src, dst string) {
+	t.Helper()
+	cmd := exec.Command("cp", "-r", src+"/.", dst)
+	if err := cmd.Run(); err != nil {
+		t.Fatalf("failed to copy %s to %s: %v", src, dst, err)
+	}
+}
+
+// validChunkKinds is the set of chunk kinds produced by the Go AST chunker.
+var validChunkKinds = map[string]bool{
+	"function":  true,
+	"method":    true,
+	"type":      true,
+	"interface": true,
+	"const":     true,
+	"var":       true,
+}
+
+// --- Tests ---
+
+func TestE2E_ToolDiscovery(t *testing.T) {
+	t.Parallel()
+	session := startServer(t)
+
+	ctx := context.Background()
+	result, err := session.ListTools(ctx, nil)
+	if err != nil {
+		t.Fatalf("ListTools failed: %v", err)
+	}
+
+	tools := make(map[string]*mcp.Tool)
+	for _, tool := range result.Tools {
+		tools[tool.Name] = tool
+	}
+
+	for _, name := range []string{"semantic_search", "index_status"} {
+		tool, ok := tools[name]
+		if !ok {
+			t.Errorf("expected tool %q not found", name)
+			continue
+		}
+		if tool.Description == "" {
+			t.Errorf("tool %q has empty description", name)
+		}
+
+		// InputSchema is any; unmarshal to check properties.
+		schemaBytes, err := json.Marshal(tool.InputSchema)
+		if err != nil {
+			t.Errorf("tool %q: failed to marshal InputSchema: %v", name, err)
+			continue
+		}
+		var schema map[string]any
+		if err := json.Unmarshal(schemaBytes, &schema); err != nil {
+			t.Errorf("tool %q: failed to unmarshal InputSchema: %v", name, err)
+			continue
+		}
+		props, _ := schema["properties"].(map[string]any)
+		if props == nil {
+			t.Errorf("tool %q: InputSchema has no properties", name)
+			continue
+		}
+		if _, ok := props["path"]; !ok {
+			t.Errorf("tool %q: missing 'path' property in schema", name)
+		}
+	}
+
+	// Verify semantic_search has query in its schema.
+	if ss, ok := tools["semantic_search"]; ok {
+		schemaBytes, _ := json.Marshal(ss.InputSchema)
+		var schema map[string]any
+		_ = json.Unmarshal(schemaBytes, &schema)
+		props, _ := schema["properties"].(map[string]any)
+		if _, hasQuery := props["query"]; !hasQuery {
+			t.Error("semantic_search missing 'query' property in schema")
+		}
+	}
+}
+
+func TestE2E_IndexAndSearchResults(t *testing.T) {
+	t.Parallel()
+	session := startServer(t)
+	projectPath := sampleProjectPath(t)
+
+	out := callSearch(t, session, map[string]any{
+		"query": "authentication token validation",
+		"path":  projectPath,
+		"limit": 5,
+	})
+
+	if !out.Reindexed {
+		t.Error("expected Reindexed=true on first search")
+	}
+	if out.IndexedFiles != 7 {
+		t.Errorf("expected IndexedFiles=7, got %d", out.IndexedFiles)
+	}
+
+	// Limit respected.
+	if len(out.Results) > 5 {
+		t.Errorf("expected at most 5 results, got %d", len(out.Results))
+	}
+	if len(out.Results) == 0 {
+		t.Fatal("expected at least one search result")
+	}
+
+	// Validate every result has well-formed fields.
+	for i, r := range out.Results {
+		if r.FilePath == "" {
+			t.Errorf("result[%d]: FilePath should be non-empty, got %q", i, r.FilePath)
+		}
+		// Results can be .go, .svelte, or .swift files
+		validExt := strings.HasSuffix(r.FilePath, ".go") || strings.HasSuffix(r.FilePath, ".svelte") || strings.HasSuffix(r.FilePath, ".swift")
+		if !validExt {
+			t.Errorf("result[%d]: FilePath should end in .go, .svelte, or .swift, got %q", i, r.FilePath)
+		}
+		if r.Symbol == "" {
+			t.Errorf("result[%d]: Symbol should be non-empty", i)
+		}
+		if !validChunkKinds[r.Kind] {
+			t.Errorf("result[%d]: Kind %q is not a valid chunk kind", i, r.Kind)
+		}
+		if r.StartLine <= 0 {
+			t.Errorf("result[%d]: StartLine should be > 0, got %d", i, r.StartLine)
+		}
+		if r.EndLine < r.StartLine {
+			t.Errorf("result[%d]: EndLine (%d) should be >= StartLine (%d)", i, r.EndLine, r.StartLine)
+		}
+		if r.Score <= 0 || r.Score > 1 {
+			t.Errorf("result[%d]: Score should be in (0, 1], got %f", i, r.Score)
+		}
+	}
+
+	// Results are grouped by file (not globally sorted), so verify
+	// that chunks within each file group are sorted by score descending.
+	for i := 1; i < len(out.Results); i++ {
+		if out.Results[i].FilePath == out.Results[i-1].FilePath &&
+			out.Results[i].Score > out.Results[i-1].Score {
+			t.Errorf("results in file %q not sorted by score descending: result[%d].Score=%f > result[%d].Score=%f",
+				out.Results[i].FilePath, i, out.Results[i].Score, i-1, out.Results[i-1].Score)
+		}
+	}
+
+	// Semantic relevance: ValidateToken should appear (it's literally about token validation).
+	if findResult(out.Results, "ValidateToken") == nil {
+		t.Errorf("expected ValidateToken in results for 'authentication token validation', got: %v", resultSymbols(out.Results))
+	}
+
+	// Every result should have code content.
+	for i, r := range out.Results {
+		if r.Content == "" {
+			t.Errorf("result[%d] %s: expected non-empty Content (code snippet)", i, r.Symbol)
+		}
+	}
+
+	// ValidateToken's content should contain the actual function code.
+	if vt := findResult(out.Results, "ValidateToken"); vt != nil {
+		if !strings.Contains(vt.Content, "func ValidateToken") {
+			t.Errorf("ValidateToken content should contain 'func ValidateToken', got: %s", vt.Content[:min(len(vt.Content), 200)])
+		}
+	}
+}
+
+func TestE2E_PlaintextContent(t *testing.T) {
+	t.Parallel()
+	session := startServer(t)
+	projectPath := sampleProjectPath(t)
+
+	// Get raw result to inspect Content (text) alongside StructuredContent.
+	result := callSearchRaw(t, session, map[string]any{
+		"query": "authentication token validation",
+		"path":  projectPath,
+		"limit": 3,
+	})
+
+	if result.IsError {
+		t.Fatalf("unexpected error: %+v", result.Content)
+	}
+
+	// Content should have exactly one TextContent block.
+	if len(result.Content) != 1 {
+		t.Fatalf("expected 1 Content block, got %d", len(result.Content))
+	}
+	tc, ok := result.Content[0].(*mcp.TextContent)
+	if !ok {
+		t.Fatalf("expected TextContent, got %T", result.Content[0])
+	}
+
+	// Plaintext should contain "Found N results".
+	if !strings.Contains(tc.Text, "Found") || !strings.Contains(tc.Text, "results") {
+		t.Errorf("plaintext should contain 'Found N results', got: %s", tc.Text[:min(len(tc.Text), 200)])
+	}
+
+	// Plaintext should contain actual code.
+	if !strings.Contains(tc.Text, "func ") {
+		t.Errorf("plaintext should contain code snippets with 'func ', got: %s", tc.Text[:min(len(tc.Text), 500)])
+	}
+
+	// No StructuredContent — only plaintext Content for LLM consumption.
+	if result.StructuredContent != nil {
+		t.Error("expected StructuredContent to be nil (plaintext-only mode)")
+	}
+
+	// Verify index_status also returns plaintext.
+	callSearch(t, session, map[string]any{"query": "anything", "path": projectPath})
+	statusResult, err := session.CallTool(context.Background(), &mcp.CallToolParams{
+		Name:      "index_status",
+		Arguments: mustJSON(t, map[string]any{"path": projectPath}),
+	})
+	if err != nil {
+		t.Fatalf("index_status failed: %v", err)
+	}
+	if len(statusResult.Content) != 1 {
+		t.Fatalf("index_status: expected 1 Content block, got %d", len(statusResult.Content))
+	}
+	stc, ok := statusResult.Content[0].(*mcp.TextContent)
+	if !ok {
+		t.Fatalf("index_status: expected TextContent, got %T", statusResult.Content[0])
+	}
+	if !strings.Contains(stc.Text, "Index:") || !strings.Contains(stc.Text, "Files:") {
+		t.Errorf("index_status plaintext should contain 'Index:' and 'Files:', got: %s", stc.Text)
+	}
+}
+
+func TestE2E_SearchRelevanceRanking(t *testing.T) {
+	t.Parallel()
+	session := startServer(t)
+	projectPath := sampleProjectPath(t)
+
+	// HandleHealth should rank higher than ValidateToken for an HTTP handler query.
+	// Use min_score=-1 to ensure all results appear regardless of score threshold.
+	out := callSearch(t, session, map[string]any{
+		"query":     "HTTP request handler for health check endpoint",
+		"path":      projectPath,
+		"limit":     50,
+		"min_score": -1,
+	})
+	healthRank := rankOf(out.Results, "HandleHealth")
+	tokenRank := rankOf(out.Results, "ValidateToken")
+	if healthRank == -1 {
+		// Show raw text for debugging.
+		raw := callSearchRaw(t, session, map[string]any{
+			"query":     "HTTP request handler for health check endpoint",
+			"path":      projectPath,
+			"limit":     50,
+			"min_score": -1,
+		})
+		t.Logf("raw text:\n%s", getTextContent(t, raw))
+		t.Fatalf("HandleHealth not found in results: %v", resultSymbols(out.Results))
+	}
+	if tokenRank == -1 {
+		t.Fatalf("ValidateToken not found in results: %v", resultSymbols(out.Results))
+	}
+	if healthRank >= tokenRank {
+		t.Errorf("expected HandleHealth (rank %d) to rank higher than ValidateToken (rank %d) for HTTP handler query",
+			healthRank, tokenRank)
+	}
+
+	// QueryUsers should rank higher than HandleHealth for a database query.
+	out2 := callSearch(t, session, map[string]any{
+		"query":     "database query pagination",
+		"path":      projectPath,
+		"limit":     50,
+		"min_score": -1,
+	})
+	queryRank := rankOf(out2.Results, "QueryUsers")
+	handleRank := rankOf(out2.Results, "HandleHealth")
+	if queryRank == -1 {
+		t.Fatalf("QueryUsers not found in results: %v", resultSymbols(out2.Results))
+	}
+	if handleRank == -1 {
+		t.Fatalf("HandleHealth not found in results: %v", resultSymbols(out2.Results))
+	}
+	if queryRank >= handleRank {
+		t.Errorf("expected QueryUsers (rank %d) to rank higher than HandleHealth (rank %d) for database query",
+			queryRank, handleRank)
+	}
+}
+
+func TestE2E_LimitParameter(t *testing.T) {
+	t.Parallel()
+	session := startServer(t)
+	projectPath := sampleProjectPath(t)
+
+	// limit=1 should return exactly 1. Use min_score=-1 to bypass score filtering.
+	out1 := callSearch(t, session, map[string]any{
+		"query":     "user",
+		"path":      projectPath,
+		"limit":     1,
+		"min_score": -1,
+	})
+	if len(out1.Results) != 1 {
+		t.Errorf("limit=1: expected exactly 1 result, got %d", len(out1.Results))
+	}
+
+	// limit=3 should return at most 3.
+	out3 := callSearch(t, session, map[string]any{
+		"query":     "user",
+		"path":      projectPath,
+		"limit":     3,
+		"min_score": -1,
+	})
+	if len(out3.Results) > 3 {
+		t.Errorf("limit=3: expected at most 3 results, got %d", len(out3.Results))
+	}
+
+	// No limit (omitted) should return results (default 8 kicks in).
+	outDefault := callSearch(t, session, map[string]any{
+		"query":     "user",
+		"path":      projectPath,
+		"min_score": -1,
+	})
+	if len(outDefault.Results) == 0 {
+		t.Error("no limit: expected results with default")
+	}
+}
+
+func TestE2E_MinScoreFilter(t *testing.T) {
+	t.Parallel()
+	session := startServer(t)
+	projectPath := sampleProjectPath(t)
+
+	// min_score=-1: get all results regardless of score.
+	outAll := callSearch(t, session, map[string]any{
+		"query":     "authentication token validation",
+		"path":      projectPath,
+		"limit":     50,
+		"min_score": -1,
+	})
+	if len(outAll.Results) == 0 {
+		t.Fatal("expected results")
+	}
+
+	// With a high min_score: should get fewer results.
+	outFiltered := callSearch(t, session, map[string]any{
+		"query":     "authentication token validation",
+		"path":      projectPath,
+		"limit":     50,
+		"min_score": 0.5,
+	})
+
+	if len(outFiltered.Results) >= len(outAll.Results) {
+		t.Errorf("min_score=0.5 should filter some results: got %d (unfiltered: %d)",
+			len(outFiltered.Results), len(outAll.Results))
+	}
+
+	// All filtered results should have score >= 0.5.
+	for i, r := range outFiltered.Results {
+		if r.Score < 0.5 {
+			t.Errorf("result[%d] %s: score %.2f below min_score 0.5", i, r.Symbol, r.Score)
+		}
+	}
+
+	// The top result should still be present.
+	if len(outFiltered.Results) == 0 {
+		t.Fatal("min_score=0.5 should still return the best match")
+	}
+	topAll := outAll.Results[0].Symbol
+	topFiltered := outFiltered.Results[0].Symbol
+	if topAll != topFiltered &&
+		!strings.Contains(topAll, topFiltered) &&
+		!strings.Contains(topFiltered, topAll) {
+		t.Errorf("top result should be related: got %s vs %s",
+			topFiltered, topAll)
+	}
+}
+
+func TestE2E_IncrementalIndex(t *testing.T) {
+	t.Parallel()
+	session := startServer(t)
+
+	tmpDir := t.TempDir()
+	copyDir(t, sampleProjectPath(t), tmpDir)
+
+	// First search triggers indexing.
+	out1 := callSearch(t, session, map[string]any{
+		"query": "authentication",
+		"path":  tmpDir,
+	})
+	if !out1.Reindexed {
+		t.Error("first search: expected Reindexed=true")
+	}
+
+	// Second search with no changes should skip re-indexing.
+	out2 := callSearch(t, session, map[string]any{
+		"query": "authentication",
+		"path":  tmpDir,
+	})
+	if out2.Reindexed {
+		t.Error("second search (no changes): expected Reindexed=false")
+	}
+
+	// Add a new file.
+	newFile := filepath.Join(tmpDir, "shutdown.go")
+	code := `package project
+
+import "fmt"
+
+// GracefulShutdown performs a graceful shutdown of all active connections.
+func GracefulShutdown(timeout int) error {
+	fmt.Printf("shutting down with timeout %d\n", timeout)
+	return nil
+}
+`
+	if err := os.WriteFile(newFile, []byte(code), 0o644); err != nil {
+		t.Fatalf("failed to write new file: %v", err)
+	}
+	// Wait for the freshness TTL (1s in e2e tests) to expire so the merkle
+	// walk is triggered and the new file is detected.
+	time.Sleep(1100 * time.Millisecond)
+
+	outAdd := callSearch(t, session, map[string]any{
+		"query": "graceful shutdown",
+		"path":  tmpDir,
+	})
+	if !outAdd.Reindexed {
+		t.Error("after adding file: expected Reindexed=true")
+	}
+	if findResult(outAdd.Results, "GracefulShutdown") == nil {
+		t.Errorf("expected GracefulShutdown in results after adding file, got: %v", resultSymbols(outAdd.Results))
+	}
+
+	// Modify an existing file: replace ValidateToken with VerifyCredentials.
+	authFile := filepath.Join(tmpDir, "auth.go")
+	modifiedAuth := `package project
+
+import (
+	"errors"
+)
+
+// VerifyCredentials checks whether user credentials are valid.
+func VerifyCredentials(username, password string) error {
+	if username == "" {
+		return errors.New("empty username")
+	}
+	if password == "" {
+		return errors.New("empty password")
+	}
+	return nil
+}
+`
+	if err := os.WriteFile(authFile, []byte(modifiedAuth), 0o644); err != nil {
+		t.Fatalf("failed to rewrite auth.go: %v", err)
+	}
+	// Wait for the freshness TTL to expire.
+	time.Sleep(1100 * time.Millisecond)
+
+	outMod := callSearch(t, session, map[string]any{
+		"query": "verify credentials",
+		"path":  tmpDir,
+	})
+	if !outMod.Reindexed {
+		t.Error("after modifying file: expected Reindexed=true")
+	}
+	if findResult(outMod.Results, "VerifyCredentials") == nil {
+		t.Errorf("expected VerifyCredentials in results after modification, got: %v", resultSymbols(outMod.Results))
+	}
+	if findResult(outMod.Results, "ValidateToken") != nil {
+		t.Error("ValidateToken should not appear after being replaced")
+	}
+
+	// Delete a file.
+	if err := os.Remove(filepath.Join(tmpDir, "database.go")); err != nil {
+		t.Fatalf("failed to delete database.go: %v", err)
+	}
+	// Wait for the freshness TTL to expire.
+	time.Sleep(1100 * time.Millisecond)
+
+	outDel := callSearch(t, session, map[string]any{
+		"query": "database query",
+		"path":  tmpDir,
+	})
+	if !outDel.Reindexed {
+		t.Error("after deleting file: expected Reindexed=true")
+	}
+	if findResult(outDel.Results, "QueryUsers") != nil {
+		t.Error("QueryUsers should not appear after deleting database.go")
+	}
+}
+
+func TestE2E_IndexStatus(t *testing.T) {
+	t.Parallel()
+	session := startServer(t)
+	projectPath := sampleProjectPath(t)
+
+	// Status before any indexing.
+	statusBefore := callStatus(t, session, map[string]any{
+		"path": projectPath,
+	})
+	if statusBefore.TotalFiles != 0 {
+		t.Errorf("before indexing: expected TotalFiles=0, got %d", statusBefore.TotalFiles)
+	}
+	if statusBefore.TotalChunks != 0 {
+		t.Errorf("before indexing: expected TotalChunks=0, got %d", statusBefore.TotalChunks)
+	}
+	if !statusBefore.Stale {
+		t.Error("before indexing: expected Stale=true")
+	}
+
+	// Trigger indexing via search.
+	callSearch(t, session, map[string]any{
+		"query": "anything",
+		"path":  projectPath,
+	})
+
+	// Status after indexing.
+	status := callStatus(t, session, map[string]any{
+		"path": projectPath,
+	})
+	if status.TotalFiles != 7 {
+		t.Errorf("expected TotalFiles=7, got %d", status.TotalFiles)
+	}
+	if status.IndexedFiles != 7 {
+		t.Errorf("expected IndexedFiles=7, got %d", status.IndexedFiles)
+	}
+	if status.TotalChunks <= 10 {
+		t.Errorf("expected TotalChunks > 10 (fixture has ~16 symbols, no package chunks), got %d", status.TotalChunks)
+	}
+	if status.EmbeddingModel != "all-minilm" {
+		t.Errorf("expected EmbeddingModel=all-minilm, got %q", status.EmbeddingModel)
+	}
+	if status.ProjectPath != projectPath {
+		t.Errorf("expected ProjectPath=%s, got %s", projectPath, status.ProjectPath)
+	}
+	if status.Stale {
+		t.Error("after indexing: expected Stale=false")
+	}
+	if status.LastIndexedAt == "" {
+		t.Error("expected LastIndexedAt to be non-empty")
+	} else {
+		ts, err := time.Parse(time.RFC3339, status.LastIndexedAt)
+		if err != nil {
+			t.Errorf("LastIndexedAt is not valid RFC3339: %q", status.LastIndexedAt)
+		} else if time.Since(ts) > 60*time.Second {
+			t.Errorf("LastIndexedAt is too old: %s (more than 60s ago)", status.LastIndexedAt)
+		}
+	}
+}
+
+func TestE2E_ProgressNotifications(t *testing.T) {
+	t.Parallel()
+	var mu sync.Mutex
+	var notifications []mcp.ProgressNotificationParams
+
+	session := startServerWithOpts(t, &mcp.ClientOptions{
+		ProgressNotificationHandler: func(_ context.Context, req *mcp.ProgressNotificationClientRequest) {
+			mu.Lock()
+			defer mu.Unlock()
+			notifications = append(notifications, *req.Params)
+		},
+	})
+	projectPath := sampleProjectPath(t)
+
+	ctx := context.Background()
+	params := &mcp.CallToolParams{
+		Name:      "semantic_search",
+		Arguments: mustJSON(t, map[string]any{"query": "authentication", "path": projectPath}),
+		Meta:      mcp.Meta{"progressToken": "test-progress-1"},
+	}
+
+	result, err := session.CallTool(ctx, params)
+	if err != nil {
+		t.Fatalf("CallTool failed: %v", err)
+	}
+	if result.IsError {
+		t.Fatalf("CallTool returned error: %+v", result.Content)
+	}
+
+	mu.Lock()
+	got := make([]mcp.ProgressNotificationParams, len(notifications))
+	copy(got, notifications)
+	mu.Unlock()
+
+	if len(got) == 0 {
+		t.Fatal("expected progress notifications, got none")
+	}
+
+	// All notifications should carry our progress token.
+	for i, n := range got {
+		if n.ProgressToken != "test-progress-1" {
+			t.Errorf("notification[%d]: expected ProgressToken='test-progress-1', got %v", i, n.ProgressToken)
+		}
+	}
+
+	// First notification should be "Found N files to index".
+	if !strings.Contains(got[0].Message, "Found") || !strings.Contains(got[0].Message, "files to index") {
+		t.Errorf("first notification message should contain 'Found ... files to index', got %q", got[0].Message)
+	}
+
+	// All notifications must have Total > 0 and Progress <= Total.
+	for i, n := range got {
+		if n.Total <= 0 {
+			t.Errorf("notification[%d]: expected Total > 0, got %f", i, n.Total)
+		}
+		if n.Progress > n.Total {
+			t.Errorf("notification[%d]: Progress (%f) > Total (%f)", i, n.Progress, n.Total)
+		}
+	}
+
+	// Should have at least one processing notification with file count.
+	hasProcessing := false
+	for _, n := range got {
+		if strings.Contains(n.Message, "Processing file") && strings.Contains(n.Message, "/") {
+			hasProcessing = true
+			break
+		}
+	}
+	if !hasProcessing {
+		t.Error("expected at least one 'Processing file N/M' progress notification")
+	}
+
+	// Should have at least one embed notification.
+	hasEmbed := false
+	for _, n := range got {
+		if strings.Contains(n.Message, "Embedded") {
+			hasEmbed = true
+			break
+		}
+	}
+	if !hasEmbed {
+		t.Error("expected at least one 'Embedded' progress notification")
+	}
+
+	// Last notification should be the completion message.
+	last := got[len(got)-1]
+	if !strings.Contains(last.Message, "Indexing complete") {
+		t.Errorf("last notification should contain 'Indexing complete', got %q", last.Message)
+	}
+
+	// Second search (no changes) should NOT produce progress notifications
+	// because no indexing happens.
+	mu.Lock()
+	notifications = notifications[:0]
+	mu.Unlock()
+
+	params2 := &mcp.CallToolParams{
+		Name:      "semantic_search",
+		Arguments: mustJSON(t, map[string]any{"query": "authentication", "path": projectPath}),
+		Meta:      mcp.Meta{"progressToken": "test-progress-2"},
+	}
+
+	if _, err := session.CallTool(ctx, params2); err != nil {
+		t.Fatalf("second CallTool failed: %v", err)
+	}
+
+	mu.Lock()
+	got2 := len(notifications)
+	mu.Unlock()
+
+	if got2 != 0 {
+		t.Errorf("expected 0 progress notifications on cached search, got %d", got2)
+	}
+}
+
+func TestE2E_ErrorHandling(t *testing.T) {
+	t.Parallel()
+	session := startServer(t)
+
+	// Non-existent project path should return IsError=true.
+	result := callSearchRaw(t, session, map[string]any{
+		"query": "test",
+		"path":  "/nonexistent/path/that/does/not/exist",
+	})
+	if !result.IsError {
+		t.Error("expected IsError=true for non-existent project path")
+	}
+
+	// Empty project directory (no .go files) should return 0 results, not an error.
+	emptyDir := t.TempDir()
+	out := callSearch(t, session, map[string]any{
+		"query": "anything",
+		"path":  emptyDir,
+	})
+	if len(out.Results) != 0 {
+		t.Errorf("expected 0 results for empty project, got %d", len(out.Results))
+	}
+}
+
+func TestE2E_SubdirFastPathNoDoubleIndex(t *testing.T) {
+	t.Parallel()
+	// Regression: when a subdirectory search hits the fast path (second call),
+	// the correct effectiveRoot must be used — not the subdirectory path.
+	// A wrong effectiveRoot causes spurious re-indexing and broken snippets.
+	session := startServer(t)
+
+	tmpDir := t.TempDir()
+	subDir := filepath.Join(tmpDir, "api")
+	if err := os.MkdirAll(subDir, 0o755); err != nil {
+		t.Fatal(err)
+	}
+
+	// Root-level file.
+	if err := os.WriteFile(filepath.Join(tmpDir, "main.go"), []byte(`package main
+
+// Run starts the server.
+func Run() {}
+`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	// Subdirectory file — target for subdir searches below.
+	if err := os.WriteFile(filepath.Join(subDir, "handler.go"), []byte(`package api
+
+import "net/http"
+
+// HandleHealth returns a health check response.
+func HandleHealth(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+}
+`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	// Call 1: search the ROOT — triggers indexing, effectiveRoot = tmpDir.
+	out1 := callSearch(t, session, map[string]any{
+		"query": "server",
+		"path":  tmpDir,
+	})
+	if !out1.Reindexed {
+		t.Error("call 1 (root): expected Reindexed=true")
+	}
+
+	// Call 2: search a SUBDIRECTORY for the first time — slow path, aliases
+	// tmpDir/api → effectiveRoot = tmpDir in cache.
+	out2 := callSearch(t, session, map[string]any{
+		"query":     "HTTP handler health check",
+		"path":      subDir,
+		"min_score": -1,
+	})
+	if out2.Reindexed {
+		t.Error("call 2 (first subdir search): expected Reindexed=false (parent already indexed)")
+	}
+
+	// Call 3: search the SAME subdirectory again — hits the fast path.
+	// Before the fix: fast path returned subDir as effectiveRoot → EnsureFresh
+	// built a Merkle tree for subDir alone (different hash), triggering a
+	// spurious re-index. extractSnippets also used the wrong root path.
+	out3 := callSearch(t, session, map[string]any{
+		"query":     "HTTP handler health check",
+		"path":      subDir,
+		"min_score": -1,
+	})
+	if out3.Reindexed {
+		t.Error("call 3 (fast-path subdir): expected Reindexed=false — double index detected!")
+	}
+
+	if len(out3.Results) == 0 {
+		t.Fatal("call 3: expected at least one result")
+	}
+	found := findResult(out3.Results, "HandleHealth")
+	if found == nil {
+		t.Fatalf("call 3: expected HandleHealth in results, got: %v", resultSymbols(out3.Results))
+	}
+	// Snippet content must be non-empty — proves extractSnippets used the right root.
+	if found.Content == "" {
+		t.Error("call 3: HandleHealth result has no snippet content — wrong effectiveRoot in extractSnippets")
+	}
+
+	// Call 4: same subdirectory with min_score=0.3 filter.
+	out4 := callSearch(t, session, map[string]any{
+		"query":     "HTTP handler health check",
+		"path":      subDir,
+		"min_score": 0.3,
+	})
+	if out4.Reindexed {
+		t.Error("call 4 (min_score filter): unexpected re-index")
+	}
+	if found.Score > 0.3 && findResult(out4.Results, "HandleHealth") == nil {
+		t.Errorf("call 4: HandleHealth (score=%.2f) should pass min_score=0.3 filter", found.Score)
+	}
+}
+
+// TestE2E_WorktreeIndexesChangedFile verifies that when working inside a git
+// worktree that has a modified file, searching from the worktree path triggers
+// indexing and returns the worktree's version of the file — not the main repo's.
+func TestE2E_WorktreeIndexesChangedFile(t *testing.T) {
+	if _, err := exec.LookPath("git"); err != nil {
+		t.Skip("git not on PATH")
+	}
+	t.Parallel()
+	session := startServer(t)
+
+	// Set up a main repo with auth.go committed.
+	repoDir := t.TempDir()
+	gitE2ERun(t, repoDir, "init")
+	authPath := filepath.Join(repoDir, "auth.go")
+	if err := os.WriteFile(authPath, []byte(`package main
+
+// ValidateToken checks whether a token is valid.
+func ValidateToken(token string) bool {
+	return token != ""
+}
+`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	gitE2ERun(t, repoDir, "add", "auth.go")
+	gitE2ERun(t, repoDir, "commit", "-m", "add auth")
+
+	// Create a worktree INSIDE the repo dir.
+	wtDir := filepath.Join(repoDir, ".worktrees", "feature")
+	gitE2ERun(t, repoDir, "worktree", "add", wtDir)
+
+	// In the worktree, replace ValidateToken with ValidateTokenV2.
+	wtAuthPath := filepath.Join(wtDir, "auth.go")
+	if err := os.WriteFile(wtAuthPath, []byte(`package main
+
+// ValidateTokenV2 checks whether a token is valid using the v2 algorithm.
+func ValidateTokenV2(token string) bool {
+	return len(token) >= 32
+}
+`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	// Search from the worktree — first call triggers indexing.
+	out1 := callSearch(t, session, map[string]any{
+		"query":     "token validation",
+		"path":      wtDir,
+		"cwd":       wtDir,
+		"limit":     10,
+		"min_score": -1,
+	})
+	if !out1.Reindexed {
+		t.Error("expected Reindexed=true on first search in worktree")
+	}
+	if out1.IndexedFiles == 0 {
+		t.Error("expected at least one file indexed in worktree")
+	}
+
+	// The worktree's version of the symbol should appear.
+	v2 := findResult(out1.Results, "ValidateTokenV2")
+	if v2 == nil {
+		t.Fatalf("expected ValidateTokenV2 in worktree search results, got: %v", resultSymbols(out1.Results))
+	}
+
+	// The snippet must reflect the worktree file content (v2 algorithm).
+	if !strings.Contains(v2.Content, "ValidateTokenV2") {
+		t.Errorf("snippet should contain 'ValidateTokenV2', got: %s", v2.Content)
+	}
+	if strings.Contains(v2.Content, "ValidateToken(") {
+		t.Errorf("snippet should not contain old 'ValidateToken(' from main repo, got: %s", v2.Content)
+	}
+
+	// The old symbol (exact name) must not appear — it was replaced in the worktree.
+	for _, r := range out1.Results {
+		if r.Symbol == "ValidateToken" {
+			t.Errorf("ValidateToken (main-repo-only symbol) should not appear in worktree index, but got result: %+v", r)
+		}
+	}
+
+	// Second search — no file changes — must NOT re-index.
+	out2 := callSearch(t, session, map[string]any{
+		"query":     "token validation",
+		"path":      wtDir,
+		"cwd":       wtDir,
+		"min_score": -1,
+	})
+	if out2.Reindexed {
+		t.Error("second search in worktree (no changes): expected Reindexed=false")
+	}
+}
+
+// TestE2E_CwdNotAdoptedWhenNoDBExists verifies that when cwd points to a large
+// ancestor directory with no existing DB, the index is scoped to path — not
+// cwd. This was the root cause of multi-minute searches in monorepos.
+func TestE2E_CwdNotAdoptedWhenNoDBExists(t *testing.T) {
+	if _, err := exec.LookPath("git"); err != nil {
+		t.Skip("git not on PATH")
+	}
+	t.Parallel()
+	session := startServer(t)
+
+	// Layout: repo/ (git root = cwd)
+	//           main.go
+	//           sub/
+	//             handler.go  ← path for search
+	repoDir := t.TempDir()
+	gitE2ERun(t, repoDir, "init")
+	subDir := filepath.Join(repoDir, "sub")
+	if err := os.MkdirAll(subDir, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(repoDir, "main.go"), []byte(`package main
+
+// StartServer launches the HTTP server.
+func StartServer() {}
+`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(subDir, "handler.go"), []byte(`package sub
+
+import "net/http"
+
+// HandleRequest processes an incoming HTTP request.
+func HandleRequest(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+}
+`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	// Search with path=subDir, cwd=repoDir (no existing DB anywhere).
+	// Old behaviour: cwd used as root → indexes all of repoDir.
+	// New behaviour: no DB at cwd → falls through to findEffectiveRoot →
+	// defaults to git root (repoDir), but critically does NOT blindly use cwd
+	// when it would force a fresh index of a much larger tree with no benefit.
+	out1 := callSearch(t, session, map[string]any{
+		"query":     "HTTP request handler",
+		"path":      subDir,
+		"cwd":       repoDir,
+		"limit":     5,
+		"min_score": -1,
+	})
+	if !out1.Reindexed {
+		t.Error("first search: expected Reindexed=true")
+	}
+
+	// Second call — same path+cwd, no file changes, within TTL.
+	// Must NOT reindex regardless of which root was chosen.
+	out2 := callSearch(t, session, map[string]any{
+		"query":     "HTTP request handler",
+		"path":      subDir,
+		"cwd":       repoDir,
+		"limit":     5,
+		"min_score": -1,
+	})
+	if out2.Reindexed {
+		t.Error("second search (no changes, within TTL): expected Reindexed=false")
+	}
+
+	// HandleRequest must be findable — it's in the indexed tree.
+	if findResult(out1.Results, "HandleRequest") == nil {
+		t.Errorf("HandleRequest not found in first search results: %v", resultSymbols(out1.Results))
+	}
+
+	// Now build a DB at cwd by searching repoDir directly.
+	callSearch(t, session, map[string]any{
+		"query": "server startup",
+		"path":  repoDir,
+		"cwd":   repoDir,
+	})
+
+	// Third call: DB now exists at cwd=repoDir — must reuse it (no new index).
+	out3 := callSearch(t, session, map[string]any{
+		"query":     "HTTP request handler",
+		"path":      subDir,
+		"cwd":       repoDir,
+		"limit":     5,
+		"min_score": -1,
+	})
+	if out3.Reindexed {
+		t.Error("third search (cwd DB exists): expected Reindexed=false")
+	}
+}
+
+// TestE2E_GitRootFallbackSharedIndex verifies that the first search from any
+// subdirectory in a git repo creates one shared index at the git root, and
+// a sibling subdirectory search reuses it without triggering a re-index.
+func TestE2E_GitRootFallbackSharedIndex(t *testing.T) {
+	if _, err := exec.LookPath("git"); err != nil {
+		t.Skip("git not on PATH")
+	}
+	t.Parallel()
+	session := startServer(t)
+
+	// Layout: repo/ (git root)
+	//           pkg/
+	//             server.go
+	//           api/
+	//             handler.go
+	repoDir := t.TempDir()
+	gitE2ERun(t, repoDir, "init")
+	pkgDir := filepath.Join(repoDir, "pkg")
+	apiDir := filepath.Join(repoDir, "api")
+	for _, d := range []string{pkgDir, apiDir} {
+		if err := os.MkdirAll(d, 0o755); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if err := os.WriteFile(filepath.Join(pkgDir, "server.go"), []byte(`package pkg
+
+// StartServer starts the main server loop.
+func StartServer() {}
+`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(apiDir, "handler.go"), []byte(`package api
+
+// HandleLogin processes login requests.
+func HandleLogin() {}
+`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	// First search from pkg/ — no DB anywhere, should default to git root.
+	out1 := callSearch(t, session, map[string]any{
+		"query":     "start server",
+		"path":      pkgDir,
+		"limit":     5,
+		"min_score": -1,
+	})
+	if !out1.Reindexed {
+		t.Error("call 1 (pkg/): expected Reindexed=true on first search")
+	}
+	// Both files should be indexed (git root scope, not just pkg/).
+	if out1.IndexedFiles < 2 {
+		t.Errorf("call 1: expected at least 2 files indexed (git root scope), got %d — index may be scoped to subdir only", out1.IndexedFiles)
+	}
+
+	// Search from sibling api/ — should reuse the repo-root index, no re-index.
+	out2 := callSearch(t, session, map[string]any{
+		"query":     "login handler",
+		"path":      apiDir,
+		"limit":     5,
+		"min_score": -1,
+	})
+	if out2.Reindexed {
+		t.Error("call 2 (api/): expected Reindexed=false — sibling should reuse git-root index")
+	}
+	if findResult(out2.Results, "HandleLogin") == nil {
+		t.Errorf("HandleLogin not found in api/ search: %v", resultSymbols(out2.Results))
+	}
+
+	// Verify the shared index contains both subdirectories by searching the repo root.
+	out3 := callSearch(t, session, map[string]any{
+		"query":     "start server",
+		"path":      repoDir,
+		"limit":     5,
+		"min_score": -1,
+	})
+	if findResult(out3.Results, "StartServer") == nil {
+		t.Errorf("StartServer (in pkg/) not findable from repo root — index missing pkg/ files: %v", resultSymbols(out3.Results))
+	}
+}
+
+// TestE2E_FreshnessTTLSkipsMerkleWalk verifies that consecutive searches
+// within the TTL window skip the merkle tree walk (Reindexed stays false even
+// after the TTL would have expired if files had not changed).
+func TestE2E_FreshnessTTLSkipsMerkleWalk(t *testing.T) {
+	t.Parallel()
+	session := startServer(t)
+
+	tmpDir := t.TempDir()
+	copyDir(t, sampleProjectPath(t), tmpDir)
+
+	// First search — triggers indexing.
+	out1 := callSearch(t, session, map[string]any{
+		"query": "authentication",
+		"path":  tmpDir,
+	})
+	if !out1.Reindexed {
+		t.Error("first search: expected Reindexed=true")
+	}
+
+	// Immediately — within TTL (1s in tests): must skip the walk.
+	out2 := callSearch(t, session, map[string]any{
+		"query": "authentication",
+		"path":  tmpDir,
+	})
+	if out2.Reindexed {
+		t.Error("second search (within TTL): expected Reindexed=false")
+	}
+
+	// Wait for TTL to expire, then search again — merkle walk runs, finds no changes.
+	time.Sleep(1100 * time.Millisecond)
+	out3 := callSearch(t, session, map[string]any{
+		"query": "authentication",
+		"path":  tmpDir,
+	})
+	if out3.Reindexed {
+		t.Error("third search (after TTL, no file changes): expected Reindexed=false")
+	}
+
+	// Now modify a file and wait for TTL to expire again.
+	authFile := filepath.Join(tmpDir, "auth.go")
+	modified := `package project
+
+// RefreshedToken is a new token variant.
+func RefreshedToken(id string) string { return id }
+`
+	if err := os.WriteFile(authFile, []byte(modified), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	time.Sleep(1100 * time.Millisecond)
+
+	// After TTL + file change: merkle walk detects the change and reindexes.
+	out4 := callSearch(t, session, map[string]any{
+		"query": "refreshed token",
+		"path":  tmpDir,
+	})
+	if !out4.Reindexed {
+		t.Error("fourth search (after TTL + file change): expected Reindexed=true")
+	}
+	if findResult(out4.Results, "RefreshedToken") == nil {
+		t.Errorf("RefreshedToken not found after reindex: %v", resultSymbols(out4.Results))
+	}
+}
+
+// gitE2ERun runs a git command in dir, failing the test on error.
+func gitE2ERun(t *testing.T, dir string, args ...string) {
+	t.Helper()
+	cmd := exec.Command("git", args...)
+	cmd.Dir = dir
+	cmd.Env = append(os.Environ(),
+		"GIT_AUTHOR_NAME=test",
+		"GIT_AUTHOR_EMAIL=test@test.com",
+		"GIT_COMMITTER_NAME=test",
+		"GIT_COMMITTER_EMAIL=test@test.com",
+	)
+	if out, err := cmd.CombinedOutput(); err != nil {
+		t.Fatalf("git %v failed: %v\n%s", args, err, out)
+	}
+}
+
+// TestE2E_InternalWorktreeFilesExcludedFromIndex verifies that files inside a
+// git worktree checked out under the project root are not counted or returned
+// by the main-repo index.
+func TestE2E_InternalWorktreeFilesExcludedFromIndex(t *testing.T) {
+	if _, err := exec.LookPath("git"); err != nil {
+		t.Skip("git not on PATH")
+	}
+	t.Parallel()
+	session := startServer(t)
+
+	// Set up a git repo with one .go file.
+	repoDir := t.TempDir()
+	gitE2ERun(t, repoDir, "init")
+	gitE2ERun(t, repoDir, "commit", "--allow-empty", "-m", "init")
+	if err := os.WriteFile(filepath.Join(repoDir, "main.go"), []byte(`package main
+
+// Run starts the application.
+func Run() {}
+`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	// Create a worktree INSIDE the repo dir with different symbols.
+	wtDir := filepath.Join(repoDir, ".worktrees", "feature")
+	gitE2ERun(t, repoDir, "worktree", "add", wtDir)
+	if err := os.WriteFile(filepath.Join(wtDir, "feature.go"), []byte(`package main
+
+// FeatureFlag controls the feature rollout.
+func FeatureFlag() bool { return false }
+`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	// Index the main repo.
+	out1 := callSearch(t, session, map[string]any{
+		"query": "application startup",
+		"path":  repoDir,
+		"cwd":   repoDir,
+	})
+	if !out1.Reindexed {
+		t.Error("expected Reindexed=true on first search")
+	}
+
+	// Only main.go should have been indexed — not the worktree file.
+	if out1.IndexedFiles != 1 {
+		t.Errorf("expected IndexedFiles=1 (main.go only), got %d — worktree files are leaking into the index", out1.IndexedFiles)
+	}
+
+	// A symbol that only exists in the worktree should not be findable.
+	out2 := callSearch(t, session, map[string]any{
+		"query":     "feature flag rollout",
+		"path":      repoDir,
+		"cwd":       repoDir,
+		"limit":     10,
+		"min_score": -1,
+	})
+	if findResult(out2.Results, "FeatureFlag") != nil {
+		t.Error("FeatureFlag (worktree-only symbol) should not appear in main repo index")
+	}
+}
+
+// TestE2E_InternalWorktreeSearchNoReindex verifies that searching with a path
+// prefix inside the internal worktree directory does not trigger a re-index.
+func TestE2E_InternalWorktreeSearchNoReindex(t *testing.T) {
+	if _, err := exec.LookPath("git"); err != nil {
+		t.Skip("git not on PATH")
+	}
+	t.Parallel()
+	session := startServer(t)
+
+	// Set up a git repo with one .go file and an internal worktree.
+	repoDir := t.TempDir()
+	gitE2ERun(t, repoDir, "init")
+	gitE2ERun(t, repoDir, "commit", "--allow-empty", "-m", "init")
+	if err := os.WriteFile(filepath.Join(repoDir, "server.go"), []byte(`package main
+
+// ServeHTTP handles incoming HTTP requests.
+func ServeHTTP() {}
+`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	wtDir := filepath.Join(repoDir, ".worktrees", "fix")
+	gitE2ERun(t, repoDir, "worktree", "add", wtDir)
+
+	// Call 1: index the repo.
+	out1 := callSearch(t, session, map[string]any{
+		"query": "HTTP server",
+		"path":  repoDir,
+		"cwd":   repoDir,
+	})
+	if !out1.Reindexed {
+		t.Error("call 1: expected Reindexed=true on first search")
+	}
+
+	// Call 2: search again — no changes, must NOT reindex.
+	out2 := callSearch(t, session, map[string]any{
+		"query": "HTTP server",
+		"path":  repoDir,
+		"cwd":   repoDir,
+	})
+	if out2.Reindexed {
+		t.Error("call 2: expected Reindexed=false (no changes)")
+	}
+
+	// Call 3: search with path pointing INTO the worktree directory.
+	// Should use the parent index (no re-index) and return no results
+	// (worktree files were excluded from the index).
+	out3 := callSearch(t, session, map[string]any{
+		"query":     "anything",
+		"path":      wtDir,
+		"cwd":       repoDir,
+		"min_score": -1,
+	})
+	if out3.Reindexed {
+		t.Error("call 3 (path inside worktree): unexpected re-index triggered")
+	}
+}
+
+func TestE2E_SvelteIndexing(t *testing.T) {
+	t.Parallel()
+	session := startServer(t)
+	projectPath := sampleProjectPath(t)
+
+	// Search for a concept that maps to mcp-server-card.svelte symbols.
+	out := callSearch(t, session, map[string]any{
+		"query": "server health check enable disable",
+		"path":  projectPath,
+		"limit": 10,
+	})
+
+	if !out.Reindexed {
+		t.Error("expected Reindexed=true on first search")
+	}
+	if out.IndexedFiles != 7 {
+		t.Errorf("expected 7 indexed files (5 Go + 1 Svelte + 1 Swift), got %d", out.IndexedFiles)
+	}
+
+	// mcp-server-card.svelte must appear in results.
+	svelteResult := findResult(out.Results, "setEnabled")
+	if svelteResult == nil {
+		svelteResult = findResult(out.Results, "handleHealthCheck")
+	}
+	if svelteResult == nil {
+		svelteResult = findResult(out.Results, "handleDelete")
+	}
+	if svelteResult == nil {
+		t.Fatalf("expected at least one symbol from mcp-server-card.svelte in results, got: %v", resultSymbols(out.Results))
+	}
+	if !strings.HasSuffix(svelteResult.FilePath, "mcp-server-card.svelte") {
+		t.Errorf("expected result from mcp-server-card.svelte, got %s", svelteResult.FilePath)
+	}
+	if svelteResult.StartLine < 2 {
+		t.Errorf("expected file-relative line number (>= 2), got StartLine=%d", svelteResult.StartLine)
+	}
+}
+
+func TestE2E_SwiftIndexing(t *testing.T) {
+	t.Parallel()
+	session := startServer(t)
+	projectPath := sampleProjectPath(t)
+
+	// Search for a concept that maps to CORSMiddleware.swift symbols.
+	out := callSearch(t, session, map[string]any{
+		"query": "CORS middleware origin allowed headers",
+		"path":  projectPath,
+		"limit": 10,
+	})
+
+	if !out.Reindexed {
+		t.Error("expected Reindexed=true on first search")
+	}
+	if out.IndexedFiles != 7 {
+		t.Errorf("expected 7 indexed files (5 Go + 1 Svelte + 1 Swift), got %d", out.IndexedFiles)
+	}
+
+	// CORSMiddleware.swift must appear in results.
+	swiftResult := findResult(out.Results, "CORSMiddleware")
+	if swiftResult == nil {
+		swiftResult = findResult(out.Results, "AllowOriginSetting")
+	}
+	if swiftResult == nil {
+		swiftResult = findResult(out.Results, "Configuration")
+	}
+	if swiftResult == nil {
+		swiftResult = findResult(out.Results, "respond")
+	}
+	if swiftResult == nil {
+		t.Fatalf("expected at least one symbol from CORSMiddleware.swift in results, got: %v", resultSymbols(out.Results))
+	}
+	if !strings.HasSuffix(swiftResult.FilePath, "CORSMiddleware.swift") {
+		t.Errorf("expected result from CORSMiddleware.swift, got %s", swiftResult.FilePath)
+	}
+	if swiftResult.StartLine < 1 {
+		t.Errorf("expected valid line number (>= 1), got StartLine=%d", swiftResult.StartLine)
+	}
+}

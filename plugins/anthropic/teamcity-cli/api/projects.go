@@ -1,0 +1,187 @@
+package api
+
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"net/url"
+	"strings"
+)
+
+// ProjectsOptions represents options for listing projects
+type ProjectsOptions struct {
+	Parent string
+	Limit  int
+	Fields []string
+	// Permission, when set, restricts results to projects where the current user holds it (e.g. PermissionEditProject).
+	Permission string
+	// ExcludeArchived, when true, drops archived projects (which can't accept new features).
+	ExcludeArchived bool
+}
+
+// GetProjects returns a list of projects, following pagination; the bool is true when a finite limit capped the result.
+func (c *Client) GetProjects(opts ProjectsOptions) (*ProjectList, bool, error) {
+	locator := NewLocator().
+		Add("parentProject", opts.Parent).
+		AddInt("count", pageCount(opts.Limit))
+	if opts.Permission != "" {
+		locator.AddLocator("userPermission", NewLocator().
+			Add("permission", opts.Permission).
+			Add("user", "current"))
+	}
+	if opts.ExcludeArchived {
+		locator.Add("archived", "false")
+	}
+
+	fields := opts.Fields
+	if len(fields) == 0 {
+		fields = ProjectFields.Default
+	}
+	fieldsParam := fmt.Sprintf("count,nextHref,project(%s)", ToAPIFields(fields))
+	path := fmt.Sprintf("/app/rest/projects?locator=%s&fields=%s", locator.Encode(), url.QueryEscape(fieldsParam))
+
+	projects, truncated, err := collectPages(c, path, opts.Limit, func(p string) ([]Project, string, error) {
+		var page ProjectList
+		if err := c.get(c.ctx(), p, &page); err != nil {
+			return nil, "", err
+		}
+		return page.Projects, page.NextHref, nil
+	})
+	if err != nil {
+		return nil, false, err
+	}
+
+	return &ProjectList{Count: len(projects), Projects: projects}, truncated, nil
+}
+
+// GetProject returns a single project by ID
+func (c *Client) GetProject(id string) (*Project, error) {
+	path := "/app/rest/projects/id:" + id
+
+	var project Project
+	if err := c.get(c.ctx(), path, &project); err != nil {
+		return nil, err
+	}
+
+	return &project, nil
+}
+
+// CreateProjectRequest represents a request to create a project
+type CreateProjectRequest struct {
+	ID            string      `json:"id,omitempty"`
+	Name          string      `json:"name"`
+	ParentProject *ProjectRef `json:"parentProject,omitempty"`
+}
+
+// CreateProject creates a new project
+func (c *Client) CreateProject(req CreateProjectRequest) (*Project, error) {
+	body, err := json.Marshal(req)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal request: %w", err)
+	}
+
+	var project Project
+	if err := c.post(c.ctx(), "/app/rest/projects", bytes.NewReader(body), &project); err != nil {
+		return nil, err
+	}
+
+	return &project, nil
+}
+
+// ProjectExists checks if a project exists
+func (c *Client) ProjectExists(id string) bool {
+	_, err := c.GetProject(id)
+	return err == nil
+}
+
+// CreateSecureToken creates a new secure token for the given value in a project.
+// Returns the scrambled token that can be used in configuration files as credentialsJSON:<token>.
+// Requires EDIT_PROJECT permission.
+func (c *Client) CreateSecureToken(projectID, value string) (string, error) {
+	path := fmt.Sprintf("/app/rest/projects/%s/secure/tokens", url.PathEscape(projectID))
+
+	resp, err := c.doRequestFull(c.ctx(), "POST", path, strings.NewReader(value), "text/plain", "text/plain")
+	if err != nil {
+		return "", err
+	}
+	defer func() { _ = resp.Body.Close() }()
+
+	if resp.StatusCode != http.StatusOK {
+		return "", c.handleErrorResponse(resp)
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+
+	return string(body), nil
+}
+
+// GetSecureValue retrieves the original value for a secure token.
+// Requires VIEW_SERVER_SETTINGS permission (System Administrator only).
+func (c *Client) GetSecureValue(projectID, token string) (string, error) {
+	path := fmt.Sprintf("/app/rest/projects/%s/secure/values/%s", url.PathEscape(projectID), url.PathEscape(token))
+
+	resp, err := c.doRequestWithAccept(c.ctx(), "GET", path, nil, "text/plain")
+	if err != nil {
+		return "", err
+	}
+	defer func() { _ = resp.Body.Close() }()
+
+	if resp.StatusCode != http.StatusOK {
+		return "", c.handleErrorResponse(resp)
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+
+	return string(body), nil
+}
+
+// GetVersionedSettingsStatus returns the sync status of versioned settings for a project.
+func (c *Client) GetVersionedSettingsStatus(projectID string) (*VersionedSettingsStatus, error) {
+	path := fmt.Sprintf("/app/rest/projects/%s/versionedSettings/status", url.PathEscape(projectID))
+
+	var status VersionedSettingsStatus
+	if err := c.get(c.ctx(), path, &status); err != nil {
+		return nil, err
+	}
+
+	return &status, nil
+}
+
+// GetVersionedSettingsConfig returns the versioned settings configuration for a project.
+func (c *Client) GetVersionedSettingsConfig(projectID string) (*VersionedSettingsConfig, error) {
+	path := fmt.Sprintf("/app/rest/projects/%s/versionedSettings/config", url.PathEscape(projectID))
+
+	var config VersionedSettingsConfig
+	if err := c.get(c.ctx(), path, &config); err != nil {
+		return nil, err
+	}
+
+	return &config, nil
+}
+
+// ExportProjectSettings exports project settings as a ZIP archive in the specified format.
+// Format can be "kotlin" or "xml". Returns the raw ZIP file bytes.
+func (c *Client) ExportProjectSettings(projectID, format string, useRelativeIds bool) ([]byte, error) {
+	path := fmt.Sprintf("/admin/versionedSettingsActions.html?projectId=%s&action=generate&format=%s&version=latest&useRelativeIds=%t",
+		url.QueryEscape(projectID), url.QueryEscape(format), useRelativeIds)
+
+	resp, err := c.doRequestWithAccept(c.ctx(), "GET", path, nil, "application/zip")
+	if err != nil {
+		return nil, err
+	}
+	defer func() { _ = resp.Body.Close() }()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, c.handleErrorResponse(resp)
+	}
+
+	return io.ReadAll(resp.Body)
+}

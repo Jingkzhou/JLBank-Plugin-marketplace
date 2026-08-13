@@ -1,0 +1,12 @@
+results: 10
+config.go:122-150  LoadFile (function)
+config.go:282-297  Config (type)
+config.go:308-320  Config.SetDirectory (method)
+config.go:330-358  Config.GetScrapeConfigs (method)
+config.go:371-382  Config.GetScrapeConfigs (method)
+config.go:396-419  Config.UnmarshalYAML (method)
+config.go:464-465  GlobalConfig (type)
+config.go:541-542  ScrapeProtocol.Validate (method)
+config.go:1082-1086  StorageConfig (type)
+manager.go:288-295  Manager.ApplyConfig (method)
+

@@ -1,0 +1,40 @@
+# Test job list subcommand.
+# Use --all to include pipeline-generated build types (servers may have only pipelines).
+
+exec teamcity job list --all --limit 5 --no-input
+stdout 'ID'
+stdout 'NAME'
+stdout 'PROJECT'
+! stderr 'Error'
+
+exec teamcity job list --all --limit 2 --json --no-input
+stdout '"count"'
+! stderr 'Error'
+
+exec teamcity job list --all --limit 1 --json --no-input
+stdout '"id"'
+stdout '"name"'
+stdout '"projectId"'
+! stderr 'Error'
+
+exec teamcity job list --all --limit 1 --json=id,name,projectId --no-input
+stdout '"id"'
+stdout '"name"'
+stdout '"projectId"'
+! stderr 'Error'
+
+! exec teamcity job list --limit -1 --no-input
+stderr 'must not be negative'
+
+exec teamcity job list --all --plain --no-input
+stdout '.'
+! stderr 'Error'
+
+exec teamcity job list --all --plain --no-header --no-input
+! stderr 'Error'
+
+exec teamcity api '/app/rest/projects?locator=count:1&fields=project(id)' --raw --no-input
+extract '"id":"([^"]+)"' PROJECT_ID
+
+exec teamcity job list --all --project $PROJECT_ID --limit 3 --no-input
+! stderr 'Error'

@@ -1,0 +1,37 @@
+{
+  "name": "crowdsecurity",
+  "owner": {
+    "name": "CrowdSec",
+    "url": "https://github.com/crowdsecurity"
+  },
+  "metadata": {
+    "description": "CrowdSec skills and tooling for Claude Code — operational automation for installing, configuring, and debugging CrowdSec."
+  },
+  "plugins": [
+    {
+      "name": "crowdsec",
+      "source": "./",
+      "description": "Operational skill for installing, configuring, operating, and debugging CrowdSec (cscli, LAPI/CAPI, hub, bouncers, WAF/AppSec) across bare-metal, Docker, and Kubernetes.",
+      "version": "0.2.3",
+      "author": {
+        "name": "CrowdSec",
+        "url": "https://github.com/crowdsecurity"
+      },
+      "homepage": "https://github.com/crowdsecurity/crowdsec-skill",
+      "repository": "https://github.com/crowdsecurity/crowdsec-skill",
+      "license": "MIT",
+      "keywords": [
+        "crowdsec",
+        "security",
+        "waf",
+        "appsec",
+        "ids",
+        "ips",
+        "bouncer",
+        "fail2ban",
+        "devops",
+        "sre"
+      ]
+    }
+  ]
+}

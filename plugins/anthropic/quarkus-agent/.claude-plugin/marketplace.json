@@ -1,0 +1,18 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "quarkus-tools",
+  "description": "MCP servers and tools for Quarkus development with AI coding agents",
+  "owner": {
+    "name": "Quarkus"
+  },
+  "plugins": [
+    {
+      "name": "quarkus-agent",
+      "description": "MCP server for AI coding agents to create, manage, and interact with Quarkus applications. Provides tools for project scaffolding, dev mode lifecycle, extension skills, Dev MCP proxy, and documentation search.",
+      "category": "development",
+      "source": "./plugins/quarkus-agent",
+      "homepage": "https://github.com/quarkusio/quarkus-agent-mcp",
+      "version": "1.2.5"
+    }
+  ]
+}

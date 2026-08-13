@@ -1,0 +1,72 @@
+name: Bug report
+description: Report a bug, regression, or unexpected behavior in Azure SQL Developer.
+title: "[Bug]: "
+type: Bug
+labels: ["bug", "needs-triage", "User-filled"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a bug. Before you do, scan the [open issues](../../issues) and [Known limitations](https://microsoft.github.io/azure-sql-database-container/known-limitations.html). If it is a known limitation, comment there instead.
+
+  - type: input
+    id: image-tag
+    attributes:
+      label: Container image tag
+      placeholder: "sqldbpreview-dpgaeqhmgphzd4bk.azurecr.io/azure-sql/db-dev:latest"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: host-os
+    attributes:
+      label: Host OS
+      options:
+        - macOS (x86_64 / Intel)
+        - Linux (x86_64)
+        - Windows 11 (x86_64)
+        - Other (describe below)
+    validations:
+      required: true
+
+  - type: input
+    id: runtime
+    attributes:
+      label: Container runtime and version
+      placeholder: "Docker 27.0.3 / Podman 5.0 / Rancher Desktop 1.13"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened
+      description: What you expected versus what actually happened. Include error messages and `docker logs sqldb`.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Include the `docker run` command or `docker-compose.yml` if relevant.
+      placeholder: |
+        1. Start the container with ...
+        2. Connect with `sqlcmd -S localhost,1433 -U sa -P ... -C`.
+        3. Run query / observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Driver/ORM and version, screenshots, related issues. Optional.
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmation
+      options:
+        - label: I scanned open issues and Known limitations for a duplicate.
+          required: true

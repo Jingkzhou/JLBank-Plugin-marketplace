@@ -1,0 +1,9 @@
+---
+source: crates/memtrack/tests/c_tests.rs
+expression: formatted_events
+---
+[
+    "Malloc { size: 100 }",
+    "Realloc { size: 200 }",
+    "Free",
+]

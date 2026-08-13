@@ -1,0 +1,29 @@
+{
+  "model": "claude-opus-4-20250514",
+  "eval_id": 13,
+  "mode": "with_skill",
+  "assertions": [
+    {
+      "assertion": "Response mentions a migration analysis tool or controller (MigrationAnalysisController) that can be added to the existing IS4 project",
+      "passed": true
+    },
+    {
+      "assertion": "Response mentions that the tool inspects the running IdentityServer4 instance to provide recommendations",
+      "passed": true
+    },
+    {
+      "assertion": "Response mentions that the tool checks client counts (interactive vs non-interactive) which helps determine the Duende license edition needed",
+      "passed": true
+    },
+    {
+      "assertion": "Response mentions that the tool checks data protection configuration (application discriminator and/or key repository)",
+      "passed": true
+    },
+    {
+      "assertion": "Response mentions that the tool checks authentication schemes for compatibility",
+      "passed": true
+    }
+  ],
+  "passed": 5,
+  "total": 5
+}

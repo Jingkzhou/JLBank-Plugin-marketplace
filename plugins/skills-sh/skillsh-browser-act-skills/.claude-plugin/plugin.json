@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-browser-act-skills",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from browser-act/skills.",
+  "author": {
+    "name": "browser-act/skills"
+  }
+}

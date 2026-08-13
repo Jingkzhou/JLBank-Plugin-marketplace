@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-solana-foundation-solana-dev-skill",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from solana-foundation/solana-dev-skill.",
+  "author": {
+    "name": "solana-foundation/solana-dev-skill"
+  }
+}

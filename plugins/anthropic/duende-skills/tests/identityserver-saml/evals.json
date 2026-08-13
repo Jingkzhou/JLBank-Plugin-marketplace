@@ -1,0 +1,114 @@
+{
+  "skill_name": "identityserver-saml",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need to set up Duende IdentityServer as a SAML 2.0 Identity Provider. I already have IdentityServer configured with OIDC clients. Show me how to add SAML support and register a service provider with entity ID https://crm.contoso.com that posts assertions to https://crm.contoso.com/saml/acs.",
+      "expected_output": "Working code that calls .AddSaml() on the IdentityServer builder, registers a SamlServiceProvider with correct EntityId, AssertionConsumerServiceUrls using IndexedEndpoint, and AllowedScopes.",
+      "files": [
+        "files/begin-state/Program.cs",
+        "files/begin-state/IdentityServer.csproj",
+        "files/begin-state/appsettings.json"
+      ],
+      "assertions": [
+        "Calls .AddSaml() on the IdentityServer builder chain",
+        "No separate NuGet package is added — SAML is built into Duende.IdentityServer",
+        "A SamlServiceProvider is created with EntityId set to 'https://crm.contoso.com'",
+        "AssertionConsumerServiceUrls uses IndexedEndpoint with Location 'https://crm.contoso.com/saml/acs' and Binding = SamlBinding.HttpPost",
+        "AllowedScopes is configured on the SamlServiceProvider (not empty)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We're going to production with our SAML IdP. Right now we use AddInMemorySamlServiceProviders. What's the recommended production approach? Show me how to implement a custom store with caching.",
+      "expected_output": "An explanation that in-memory stores are for dev only, followed by a custom ISamlServiceProviderStore implementation with FindByEntityIdAsync and GetAllSamlServiceProvidersAsync, registered via AddSamlServiceProviderStore<T>(), with AddSamlServiceProviderStoreCache<T>() for caching.",
+      "files": [
+        "files/begin-state/Program.cs",
+        "files/begin-state/IdentityServer.csproj"
+      ],
+      "assertions": [
+        "Warns against using in-memory stores in production",
+        "Implements ISamlServiceProviderStore with FindByEntityIdAsync(string entityId, CancellationToken ct)",
+        "Implements GetAllSamlServiceProvidersAsync returning IAsyncEnumerable<SamlServiceProvider>",
+        "Uses AddSamlServiceProviderStore<T>() for registration",
+        "Shows AddSamlServiceProviderStoreCache<T>() for adding HybridCache layer"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I have a SAML service provider that needs specific claims mapped to custom SAML attribute URIs. For example, the 'email' claim should become 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress' and 'department' should become 'urn:custom:department'. How do I configure this?",
+      "expected_output": "Configuration using ClaimMappings on the SamlServiceProvider, explaining the claim pipeline (AllowedScopes → RequestedClaimTypes → ClaimMappings), and how DefaultClaimMappings on SamlOptions provides global defaults.",
+      "files": [],
+      "assertions": [
+        "Uses ClaimMappings dictionary on SamlServiceProvider for per-SP attribute mapping",
+        "Explains or shows AllowedScopes as a prerequisite for claims reaching ClaimMappings",
+        "Shows how to set DefaultClaimMappings on SamlOptions for global defaults",
+        "The mapping correctly associates OIDC claim names (keys) to SAML attribute URIs (values)"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "We need to implement Single Logout (SLO) for our SAML service providers. Explain how it works in Duende IdentityServer and what we need to configure on the SP registration.",
+      "expected_output": "Explanation of front-channel SLO via iframes, configuration of SingleLogoutServiceUrls with SamlEndpointType, mention of partial logout being expected, and ISamlLogoutSessionStore for distributed deployments.",
+      "files": [],
+      "assertions": [
+        "Explains that SLO uses front-channel logout via iframes (not redirect chains)",
+        "Shows SingleLogoutServiceUrls configuration with SamlEndpointType and SamlBinding.HttpRedirect",
+        "Mentions that partial logout is normal/expected when some SPs don't respond",
+        "Mentions ISamlLogoutSessionStore for distributed/multi-node deployments"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "I need to generate custom NameID values for a SAML SP. Instead of using the sub claim, I want to use an 'employee_id' claim from the user's profile. How do I implement this?",
+      "expected_output": "A custom ISamlNameIdGenerator implementation that extracts employee_id from the subject claims and returns a NameIdGenerationResult.",
+      "files": [
+        "files/begin-state/Program.cs"
+      ],
+      "assertions": [
+        "Implements ISamlNameIdGenerator interface",
+        "The GenerateAsync method receives a NameIdGenerationContext with Subject claims",
+        "Extracts the employee_id claim from context.Subject",
+        "Returns NameIdGenerationResult.Success with a NameId containing the employee_id value",
+        "Handles the missing claim case with NameIdGenerationResult.Failure"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "We're deploying IdentityServer on multiple nodes behind a load balancer. What do we need to configure for SAML to work correctly in this environment?",
+      "expected_output": "Guidance on configuring distributed stores for SAML state: ISamlSigninStateStore for SSO state, ISamlLogoutSessionStore for SLO sessions, plus EF Core configuration store for SP data and data protection for key sharing.",
+      "files": [],
+      "assertions": [
+        "Mentions ISamlSigninStateStore for distributed sign-in state persistence",
+        "Mentions ISamlLogoutSessionStore for distributed SLO session tracking",
+        "Recommends persistent storage (EF Core, Redis) instead of in-memory for multi-node",
+        "Notes that without distributed stores, SSO/SLO state is lost across nodes"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "I want to add SAML support to my IdentityServer. Do I need a separate NuGet package? What license edition is required? And what .NET version do I need?",
+      "expected_output": "Clear statement that SAML is built into Duende.IdentityServer (no separate package), requires Standard (add-on), Advanced, or Custom Edition license, introduced in v8.0.",
+      "assertions": [
+        "States that no separate NuGet package is needed — SAML is built into Duende.IdentityServer",
+        "States that Standard (add-on), Advanced, or Custom Edition license is required",
+        "Mentions SAML support was introduced in version 8.0"
+      ],
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "I need to configure a SAML service provider but I'm getting validation errors. The SP entity ID is https://hr.example.com and the ACS URL is https://hr.example.com/sso. What are the common validation requirements I need to meet?",
+      "expected_output": "Explanation of the automatic validation layer: EntityId required, at least one ACS URL with HTTP-POST binding (not HTTP-Redirect), at least one AllowedScopes entry, and positive lifetime values. Invalid SPs are treated as non-existent.",
+      "files": [
+        "files/begin-state/Program.cs"
+      ],
+      "assertions": [
+        "Mentions that ACS URLs must use HTTP-POST binding (HTTP-Redirect is not supported for ACS)",
+        "States that AllowedScopes must contain at least one entry",
+        "Mentions that EntityId is required",
+        "Explains that invalid SPs are treated as non-existent (returns null from store)"
+      ]
+    }
+  ]
+}

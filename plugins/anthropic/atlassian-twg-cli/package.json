@@ -1,0 +1,26 @@
+{
+  "name": "atlassian-twg-cli",
+  "version": "1.0.3",
+  "description": "Teamwork Graph CLI is Atlassian's agent-first interface to your entire work context: Jira issues, Confluence pages, Bitbucket PRs, along with your connected third-party data sources. Purpose-built for coding agents like Pi (terminal or desktop), and powered by Atlassian's context graph. Try: \"draft a Jira issue from this PR and link it to the epic.\" Using Pi in the browser? Install the Atlassian Rovo MCP plugin instead. Run /twg-setup after install to connect Atlassian Teamwork Graph CLI to Pi.",
+  "keywords": [
+    "atlassian",
+    "twg",
+    "pi-package",
+    "skills"
+  ],
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Atlassian",
+    "url": "https://www.atlassian.com"
+  },
+  "homepage": "https://developer.atlassian.com/cloud/twg-cli/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atlassian-labs/twg-plugins.git"
+  },
+  "pi": {
+    "skills": [
+      "./skills"
+    ]
+  }
+}

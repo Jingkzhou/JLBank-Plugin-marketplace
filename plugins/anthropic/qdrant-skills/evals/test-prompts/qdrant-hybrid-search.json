@@ -1,0 +1,48 @@
+{
+  "name": "qdrant-hybrid-search",
+  "product_area": "hybrid search",
+  "skill_url": "https://skills.qdrant.tech/qdrant-search-quality/search-strategies/hybrid-search/SKILL.md",
+  "prompt": "We run hybrid search (dense + sparse) inside one large collection shared across all customers, partitioned by a tenant_id payload field. A customer asked whether their term statistics and scoring could be \"contaminated\" by other tenants' data. In a setup like ours, how does Qdrant actually scope the pieces of a hybrid query?",
+  "rubric": [
+    {
+      "type": "must",
+      "text": "Notes that on Qdrant 1.19 or newer the `idf` search param can scope IDF statistics to a payload-filtered corpus (e.g. tenant_id), giving per-tenant term statistics without shard-level partitioning"
+    },
+    {
+      "type": "must",
+      "text": "Notes that on version 1.18 and older, IDF statistics are not tenant-isolated; they are computed per shard, which can contaminate tenant A's statistics with tenant B's data in a multi-tenant collection"
+    },
+    {
+      "type": "must",
+      "text": "Indicates that if you are on version 1.19 or above and wish to use per-tenant IDF statistics, the tenant field has to be indexed"
+    },
+    {
+      "type": "must",
+      "text": "Explains hybrid search runs via the Query API with prefetches (each prefetch one search, combined in the outer query)"
+    },
+    {
+      "type": "bonus",
+      "text": "Notes that using the `idf` parameter on a vector without the IDF modifier returns an error"
+    },
+    {
+      "type": "bonus",
+      "text": "Notes prefetch runs per shard (limit x #shards retrieved under the hood, then merged by score)"
+    },
+    {
+      "type": "bonus",
+      "text": "Notes that if the corpus filter matches no points, IDF statistics do not fall back to shard-wide statistics. Instead, every term gets the same constant weight, so ranking degenerates to plain TF with no rarity signal."
+    },
+    {
+      "type": "bonus",
+      "text": "Recommends version upgrade to 1.19+"
+    },
+    {
+      "type": "bonus",
+      "text": "Points toward shard-level partitioning (e.g. a shard key per tenant) as the alternative when running 1.18 or older, or when isolation beyond term statistics is required"
+    },
+    {
+      "type": "avoid",
+      "text": "Presents shard-key partitioning as the only way to isolate term statistics, without mentioning the 1.19+ scoped `idf` search param"
+    }
+  ]
+}

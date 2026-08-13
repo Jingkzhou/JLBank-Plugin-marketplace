@@ -1,0 +1,553 @@
+//go:build integration || guest || terminal_pty
+
+package api_test
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"io"
+	"log"
+	"net/http"
+	"os"
+	"os/exec"
+	"regexp"
+	"runtime"
+	"strings"
+	"sync"
+	"time"
+
+	"github.com/JetBrains/teamcity-cli/api"
+	"github.com/joho/godotenv"
+	"github.com/moby/moby/api/types/container"
+	"github.com/testcontainers/testcontainers-go"
+	"github.com/testcontainers/testcontainers-go/network"
+	"github.com/testcontainers/testcontainers-go/wait"
+)
+
+const (
+	serverImage = "jetbrains/teamcity-server:latest"
+	agentImage  = "jetbrains/teamcity-agent:latest"
+	serverName  = "tc-test-server"
+	numAgents   = 1
+)
+
+// alwaysPull re-pulls both :latest images on CI agents (TEAMCITY_VERSION is set
+// there) so a stale Docker cache can't produce a server/agent version skew.
+var alwaysPull = os.Getenv("TEAMCITY_VERSION") != ""
+
+type testEnv struct {
+	Client    *api.Client
+	URL       string
+	Token     string
+	ProjectID string
+	ConfigID  string
+	Build     *api.Build
+
+	guestAuth      bool
+	ownsContainers bool
+	network        *testcontainers.DockerNetwork
+	server         testcontainers.Container
+	agents         []testcontainers.Container
+	ctx            context.Context
+}
+
+func (e *testEnv) Cleanup() {
+	if !e.ownsContainers {
+		return
+	}
+	if e.Client != nil {
+		agents, _, err := e.Client.GetAgents(api.AgentsOptions{})
+		if err == nil && len(agents.Agents) > 0 {
+			_ = e.Client.RebootAgent(e.ctx, agents.Agents[0].ID, true)
+		}
+	}
+	for _, a := range e.agents {
+		_ = a.Terminate(e.ctx)
+	}
+	if e.server != nil {
+		_ = e.server.Terminate(e.ctx)
+	}
+	if e.network != nil {
+		_ = e.network.Remove(e.ctx)
+	}
+}
+
+func setupTestEnv() (*testEnv, error) {
+	_ = godotenv.Load("../../.env")
+
+	url := os.Getenv("TEAMCITY_URL")
+	token := os.Getenv("TEAMCITY_TOKEN")
+
+	if guest := os.Getenv("TEAMCITY_GUEST"); guest == "1" || guest == "true" || guest == "yes" {
+		if url == "" {
+			url = "https://cli.teamcity.com"
+		}
+		client := api.NewGuestClient(url)
+		if _, err := client.GetServer(); err != nil {
+			return nil, fmt.Errorf("guest auth failed for %s: %w", url, err)
+		}
+		log.Printf("Using guest auth against %s", url)
+		env := &testEnv{
+			Client:    client,
+			URL:       url,
+			guestAuth: true,
+		}
+		if err := env.discoverTestData(); err != nil {
+			log.Println("Warning: could not discover test data:", err.Error())
+		}
+		return env, nil
+	}
+
+	if url != "" && token != "" {
+		client := api.NewClient(url, token)
+		if _, err := client.GetCurrentUser(); err == nil {
+			env := &testEnv{
+				Client:    client,
+				URL:       url,
+				Token:     token,
+				ProjectID: os.Getenv("TEAMCITY_TEST_PROJECT"),
+				ConfigID:  os.Getenv("TEAMCITY_TEST_CONFIG"),
+			}
+			if err := env.ensureBuild(); err != nil {
+				log.Println("Warning: could not ensure test build:", err.Error())
+			}
+			return env, nil
+		}
+		log.Println("Configured credentials invalid, falling back to testcontainers")
+	}
+
+	return startContainers()
+}
+
+func (e *testEnv) discoverTestData() error {
+	projects, _, err := e.Client.GetProjects(api.ProjectsOptions{Parent: "_Root", Limit: 5})
+	if err != nil {
+		return fmt.Errorf("list projects: %w", err)
+	}
+	for _, p := range projects.Projects {
+		if p.ID != "_Root" {
+			e.ProjectID = p.ID
+			break
+		}
+	}
+
+	if e.ProjectID != "" {
+		configs, _, err := e.Client.GetBuildTypes(api.BuildTypesOptions{Project: e.ProjectID, Limit: 5})
+		if err == nil && len(configs.BuildTypes) > 0 {
+			e.ConfigID = configs.BuildTypes[0].ID
+		}
+	}
+
+	if e.ConfigID != "" {
+		if err := e.ensureBuild(); err != nil {
+			log.Println("Warning: could not ensure test build:", err.Error())
+		}
+	}
+
+	log.Printf("Discovered: project=%s config=%s build=%v", e.ProjectID, e.ConfigID, e.Build != nil)
+	return nil
+}
+
+func startContainers() (*testEnv, error) {
+	ctx := context.Background()
+
+	provider, err := testcontainers.NewDockerProvider()
+	if err != nil {
+		return nil, fmt.Errorf("docker not available: %w", err)
+	}
+	defer provider.Close()
+
+	env := &testEnv{
+		ctx:       ctx,
+		ProjectID: "Sandbox",
+		ConfigID:  "Sandbox_Demo",
+	}
+
+	existing := findExistingServer(ctx)
+	if existing != nil {
+		log.Println("Reusing existing testcontainers...")
+		env.server = existing
+		host, _ := existing.Host(ctx)
+		port, _ := existing.MappedPort(ctx, "8111/tcp")
+		env.URL = fmt.Sprintf("http://%s:%s", host, port.Port())
+		env.Token = os.Getenv("TEAMCITY_TOKEN")
+		if env.Token == "" {
+			return nil, fmt.Errorf("existing container found but TEAMCITY_TOKEN not set")
+		}
+		env.Client = api.NewClient(env.URL, env.Token)
+		if err := env.ensureBuild(); err != nil {
+			log.Println("Warning: could not ensure test build:", err.Error())
+		}
+		return env, nil
+	}
+
+	env.ownsContainers = true
+	log.Println("Starting testcontainers...")
+
+	env.network, err = network.New(ctx,
+		network.WithCheckDuplicate(),
+		network.WithDriver("bridge"),
+	)
+	if err != nil {
+		return nil, fmt.Errorf("create network: %w", err)
+	}
+
+	log.Println("Starting TeamCity server...")
+	env.server, err = testcontainers.GenericContainer(ctx, testcontainers.GenericContainerRequest{
+		ContainerRequest: testcontainers.ContainerRequest{
+			Name:            serverName,
+			Image:           serverImage,
+			AlwaysPullImage: alwaysPull,
+			ExposedPorts:    []string{"8111/tcp"},
+			Networks:        []string{env.network.Name},
+			NetworkAliases: map[string][]string{
+				env.network.Name: {"teamcity-server"},
+			},
+			Env: map[string]string{
+				// Skip post-boot bundled-tool installs (each changes the agent
+				// distribution signature, triggering an auto-upgrade that restarts the
+				// agent mid-suite and cancels its builds) and widen the 120s inactivity
+				// window that unregisters agents missing polls under -race load.
+				"TEAMCITY_SERVER_OPTS": "-Dteamcity.installation.completed=true -Dteamcity.startup.maintenance=false -Dteamcity.licenseAgreement.accepted=true -Dteamcity.internal.server.oauth.pkce.enable=true -Dteamcity.tools.bundled.installOnStartup=false -Dteamcity.agent.inactive.threshold.secs=600",
+			},
+			WaitingFor: wait.ForHTTP("/app/rest/server/version").
+				WithPort("8111/tcp").
+				WithStatusCodeMatcher(func(status int) bool { return status == 200 || status == 401 }).
+				WithStartupTimeout(5 * time.Minute),
+		},
+		Started: true,
+	})
+	if err != nil {
+		env.Cleanup()
+		return nil, fmt.Errorf("start server: %w", err)
+	}
+
+	host, _ := env.server.Host(ctx)
+	port, _ := env.server.MappedPort(ctx, "8111/tcp")
+	env.URL = fmt.Sprintf("http://%s:%s", host, port.Port())
+	log.Println("Server running at:", env.URL)
+
+	superToken, err := getSuperuserToken(ctx, env.server)
+	if err != nil {
+		env.Cleanup()
+		return nil, fmt.Errorf("get superuser token: %w", err)
+	}
+
+	if err := acceptLicense(env.URL, superToken); err != nil {
+		env.Cleanup()
+		return nil, fmt.Errorf("accept license: %w", err)
+	}
+
+	env.Token, err = setupServer(env.URL, superToken, env.ProjectID, env.ConfigID)
+	if err != nil {
+		env.Cleanup()
+		return nil, fmt.Errorf("setup server: %w", err)
+	}
+
+	os.Setenv("TEAMCITY_URL", env.URL)
+	os.Setenv("TEAMCITY_TOKEN", env.Token)
+	os.Setenv("TEAMCITY_TEST_PROJECT", env.ProjectID)
+	os.Setenv("TEAMCITY_TEST_CONFIG", env.ConfigID)
+
+	env.Client = api.NewClient(env.URL, env.Token)
+
+	log.Printf("Starting %d TeamCity agent(s) in parallel...", numAgents)
+	type agentResult struct {
+		container testcontainers.Container
+		err       error
+	}
+	results := make([]agentResult, numAgents)
+	var wg sync.WaitGroup
+	for i := range numAgents {
+		wg.Go(func() {
+			name := fmt.Sprintf("tc-test-agent-%d", i+1)
+			c, err := testcontainers.GenericContainer(ctx, testcontainers.GenericContainerRequest{
+				ContainerRequest: testcontainers.ContainerRequest{
+					Name:            name,
+					Image:           agentImage,
+					AlwaysPullImage: alwaysPull,
+					Networks:        []string{env.network.Name},
+					Env:             map[string]string{"SERVER_URL": "http://teamcity-server:8111"},
+					Privileged:      true,
+					ConfigModifier: func(cfg *container.Config) {
+						cfg.Tty = true
+						cfg.OpenStdin = true
+						cfg.User = "root"
+						cfg.Entrypoint = []string{"sh", "-c", "iptables -I OUTPUT -d 169.254.169.254 -j REJECT 2>/dev/null; exec /run-services.sh"}
+					},
+				},
+				Started: true,
+			})
+			results[i] = agentResult{c, err}
+		})
+	}
+	wg.Wait()
+	for i, r := range results {
+		if r.err != nil {
+			env.Cleanup()
+			return nil, fmt.Errorf("start agent tc-test-agent-%d: %w", i+1, r.err)
+		}
+		env.agents = append(env.agents, r.container)
+	}
+
+	if err := waitForAgents(env.Client, numAgents); err != nil {
+		env.Cleanup()
+		return nil, fmt.Errorf("authorize agents: %w", err)
+	}
+
+	if err := env.ensureBuild(); err != nil {
+		log.Println("Warning: could not ensure test build:", err.Error())
+	}
+
+	return env, nil
+}
+
+func findExistingServer(ctx context.Context) testcontainers.Container {
+	containers, err := testcontainers.GenericContainer(ctx, testcontainers.GenericContainerRequest{
+		ContainerRequest: testcontainers.ContainerRequest{Name: serverName},
+		Reuse:            true,
+	})
+	if err != nil || containers == nil {
+		return nil
+	}
+	state, err := containers.State(ctx)
+	if err != nil || !state.Running {
+		return nil
+	}
+	return containers
+}
+
+func (e *testEnv) ensureBuild() error {
+	if e.ConfigID == "" {
+		return fmt.Errorf("config ID not set")
+	}
+
+	builds, _, err := e.Client.GetBuilds(context.Background(), api.BuildsOptions{BuildTypeID: e.ConfigID, State: "finished", Limit: 1})
+	if err != nil {
+		return err
+	}
+	if builds.Count > 0 {
+		e.Build = &builds.Builds[0]
+		log.Println("Using existing build:", e.Build.ID)
+		return nil
+	}
+
+	log.Println("Triggering new build...")
+	queued, err := e.Client.RunBuild(e.ConfigID, api.RunBuildOptions{Comment: "Test setup"})
+	if err != nil {
+		return err
+	}
+
+	ctx, cancel := context.WithTimeout(e.ctx, 5*time.Minute)
+	defer cancel()
+
+	build, err := e.Client.WaitForBuild(ctx, fmt.Sprintf("%d", queued.ID), api.WaitForBuildOptions{
+		Interval: 5 * time.Second,
+	})
+	if err != nil {
+		return fmt.Errorf("build timeout: %w", err)
+	}
+
+	e.Build = build
+	log.Println("Build finished:", build.Status)
+	return nil
+}
+
+func getSuperuserToken(ctx context.Context, container testcontainers.Container) (string, error) {
+	time.Sleep(2 * time.Second)
+	reader, err := container.Logs(ctx)
+	if err != nil {
+		return "", err
+	}
+	defer reader.Close()
+
+	logs, err := io.ReadAll(reader)
+	if err != nil {
+		return "", err
+	}
+
+	re := regexp.MustCompile(`Super user authentication token: (\d+)`)
+	if m := re.FindStringSubmatch(string(logs)); len(m) >= 2 {
+		return m[1], nil
+	}
+	return "", fmt.Errorf("token not found in logs")
+}
+
+func acceptLicense(serverURL, superToken string) error {
+	req, _ := http.NewRequest("POST", serverURL+"/showAgreement.html?agree=true&super="+superToken, nil)
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return err
+	}
+	resp.Body.Close()
+	time.Sleep(2 * time.Second)
+	return nil
+}
+
+func setupServer(serverURL, superToken, projectID, configID string) (string, error) {
+	client := api.NewClientWithBasicAuth(serverURL, "", superToken)
+
+	deadline := time.Now().Add(2 * time.Minute)
+	for time.Now().Before(deadline) {
+		if _, err := client.GetServer(); err == nil {
+			break
+		}
+		time.Sleep(3 * time.Second)
+	}
+
+	// Set internal server URL so build properties use the Docker network name
+	setServerURL(serverURL, superToken, "http://teamcity-server:8111")
+
+	if !client.ProjectExists(projectID) {
+		if _, err := client.CreateProject(api.CreateProjectRequest{ID: projectID, Name: "Sandbox"}); err != nil {
+			return "", err
+		}
+	}
+
+	if !client.BuildTypeExists(configID) {
+		if _, err := client.CreateBuildType(projectID, api.CreateBuildTypeRequest{ID: configID, Name: "Demo"}); err != nil {
+			return "", err
+		}
+		client.CreateBuildStep(configID, api.BuildStep{
+			Name: "Test",
+			Type: "simpleRunner",
+			Properties: api.PropertyList{
+				Property: []api.Property{
+					{Name: "script.content", Value: "echo Hello\necho 'test artifact content' > result.txt\nmkdir -p reports\necho 'report data' > reports/summary.txt"},
+					{Name: "use.custom.script", Value: "true"},
+				},
+			},
+		})
+		client.SetBuildTypeSetting(configID, "artifactRules", "result.txt\nreports => reports")
+	}
+
+	if !client.UserExists("admin") {
+		if _, err := client.CreateUser(api.CreateUserRequest{
+			Username: "admin",
+			Password: "admin123",
+			Roles:    api.RoleList{Role: []api.Role{{RoleID: "SYSTEM_ADMIN", Scope: "g"}}},
+		}); err != nil {
+			return "", err
+		}
+	}
+
+	adminClient := api.NewClientWithBasicAuth(serverURL, "admin", "admin123")
+	_ = adminClient.DeleteAPIToken("tc-cli-test")
+	token, err := adminClient.CreateAPIToken("tc-cli-test")
+	if err != nil {
+		return "", err
+	}
+	return token.Value, nil
+}
+
+func waitForAgents(client *api.Client, count int) error {
+	log.Printf("Waiting for %d agent(s)...", count)
+	authorized := map[int]bool{}
+	deadline := time.Now().Add(3 * time.Minute)
+	for time.Now().Before(deadline) {
+		agents, _, err := client.GetAgents(api.AgentsOptions{})
+		if err != nil {
+			time.Sleep(5 * time.Second)
+			continue
+		}
+		for _, a := range agents.Agents {
+			if !authorized[a.ID] {
+				log.Printf("Authorizing agent %d...", a.ID)
+				if err := client.AuthorizeAgent(a.ID, true); err == nil {
+					authorized[a.ID] = true
+				}
+			}
+		}
+		if len(authorized) >= count {
+			// A freshly registered agent gets an "upgrade" order when its plugins
+			// differ from the server's distribution; the upgrade restarts the agent
+			// at its next idle moment, so absorb it before tests queue builds.
+			if ok, err := agentsUpToDate(client, count); ok {
+				log.Printf("All %d agents authorized and up-to-date", count)
+				return nil
+			} else if err == nil {
+				log.Printf("Agents authorized, waiting for pending auto-upgrade...")
+			}
+		}
+		time.Sleep(5 * time.Second)
+	}
+	return fmt.Errorf("agent timeout: got %d of %d authorized and up-to-date", len(authorized), count)
+}
+
+// agentsUpToDate reports whether count authorized agents are connected with no pending auto-upgrade.
+func agentsUpToDate(client *api.Client, count int) (bool, error) {
+	resp, err := client.RawRequest(context.Background(), "GET",
+		"/app/rest/agents?locator=authorized:true&fields=count,agent(id,connected,uptodate)", nil, nil)
+	if err != nil {
+		return false, err
+	}
+	var list struct {
+		Agents []struct {
+			ID        int  `json:"id"`
+			Connected bool `json:"connected"`
+			Uptodate  bool `json:"uptodate"`
+		} `json:"agent"`
+	}
+	if err := json.Unmarshal(resp.Body, &list); err != nil {
+		return false, err
+	}
+	ready := 0
+	for _, a := range list.Agents {
+		if a.Connected && a.Uptodate {
+			ready++
+		}
+	}
+	return ready >= count, nil
+}
+
+func setServerURL(serverURL, superToken, internalURL string) {
+	req, err := http.NewRequest("PUT", serverURL+"/app/rest/server/rootUrl", strings.NewReader(internalURL))
+	if err != nil {
+		log.Printf("Warning: could not create request to set server URL: %v", err)
+		return
+	}
+	req.SetBasicAuth("", superToken)
+	req.Header.Set("Content-Type", "text/plain")
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		log.Printf("Warning: could not set server URL: %v", err)
+		return
+	}
+	resp.Body.Close()
+	if resp.StatusCode >= 300 {
+		log.Printf("Warning: set server URL returned %d", resp.StatusCode)
+		return
+	}
+	log.Printf("Set server root URL to %s", internalURL)
+}
+
+func copyBinaryToAgent(env *testEnv) error {
+	log.Println("Building CLI binary for agent...")
+
+	tmpDir, err := os.MkdirTemp("", "tc-cli-build")
+	if err != nil {
+		return fmt.Errorf("create temp dir: %w", err)
+	}
+	defer os.RemoveAll(tmpDir)
+
+	binaryPath := tmpDir + "/tc"
+	cmd := exec.Command("go", "build", "-o", binaryPath, "../tc")
+	cmd.Env = append(os.Environ(), "GOOS=linux", "GOARCH="+runtime.GOARCH, "CGO_ENABLED=0")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	if err := cmd.Run(); err != nil {
+		return fmt.Errorf("build binary: %w", err)
+	}
+
+	for i, agent := range env.agents {
+		log.Printf("Copying binary to agent container %d...", i+1)
+		if err := agent.CopyFileToContainer(env.ctx, binaryPath, "/usr/local/bin/teamcity", 0755); err != nil {
+			return fmt.Errorf("copy to agent %d: %w", i+1, err)
+		}
+	}
+
+	log.Printf("CLI binary installed on %d agents", len(env.agents))
+	return nil
+}

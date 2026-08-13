@@ -1,0 +1,34 @@
+{
+  "eval_id": 1,
+  "variant": "without_skill",
+  "assertions": [
+    {
+      "assertion": "Implements a TestAuthHandler that extends AuthenticationHandler<AuthenticationSchemeOptions>",
+      "pass": true,
+      "rationale": "TestAuthHandler extends AuthenticationHandler<AuthenticationSchemeOptions>"
+    },
+    {
+      "assertion": "Includes an ITestClaimsProvider (or equivalent) interface that allows setting claims per-test",
+      "pass": false,
+      "rationale": "Uses a static property TestClaims instead of an ITestClaimsProvider interface \u2014 no DI-based abstraction, static state is problematic for parallel tests"
+    },
+    {
+      "assertion": "The WebApplicationFactory registers the test auth scheme via AddAuthentication and AddScheme",
+      "pass": true,
+      "rationale": "AddAuthentication(\"Test\").AddScheme<...>() is registered"
+    },
+    {
+      "assertion": "Shows a test that calls ClearClaims (or equivalent) and asserts 401 Unauthorized",
+      "pass": true,
+      "rationale": "Sets TestClaims = null and asserts Unauthorized, though uses AuthenticateResult.Fail instead of NoResult"
+    },
+    {
+      "assertion": "Does NOT disable authorization entirely \u2014 authorization policies remain active",
+      "pass": true,
+      "rationale": "Only authentication is replaced; authorization middleware is not removed"
+    }
+  ],
+  "pass_count": 4,
+  "total_count": 5,
+  "score": 0.8
+}

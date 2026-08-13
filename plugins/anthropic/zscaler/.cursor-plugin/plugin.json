@@ -1,0 +1,36 @@
+{
+  "name": "zscaler",
+  "displayName": "Zscaler",
+  "version": "0.15.0",
+  "description": "Manage the Zscaler cloud security platform including ZPA (private access), ZIA (internet access), ZDX (digital experience), ZCC (client connector), EASM (attack surface management), and Z-Insights (security analytics). Includes guided skills for application onboarding, policy audits, incident investigation, and cross-product troubleshooting.",
+  "author": {
+    "name": "Zscaler",
+    "email": "devrel@zscaler.com"
+  },
+  "homepage": "https://github.com/zscaler/zscaler-mcp-server",
+  "repository": "https://github.com/zscaler/zscaler-mcp-server",
+  "license": "MIT",
+  "logo": "assets/logo.svg",
+  "keywords": [
+    "zscaler",
+    "mcp",
+    "security",
+    "zero-trust",
+    "zpa",
+    "zia",
+    "zdx",
+    "easm",
+    "cloud-security",
+    "skills"
+  ],
+  "category": "developer-tools",
+  "tags": [
+    "security",
+    "zero-trust",
+    "cloud-security",
+    "sase",
+    "mcp"
+  ],
+  "skills": "./skills/",
+  "rules": "./rules/"
+}

@@ -1,0 +1,25 @@
+{
+  "model": "claude-opus-4-20250514",
+  "eval_id": 8,
+  "mode": "with_skill",
+  "assertions": [
+    {
+      "assertion": "Output replaces 'using IdentityServer4.Models' with 'using Duende.IdentityServer.Models'",
+      "passed": true
+    },
+    {
+      "assertion": "Output preserves the Client definitions with ClientId, AllowedGrantTypes, ClientSecrets, and AllowedScopes intact",
+      "passed": true
+    },
+    {
+      "assertion": "Output preserves the ApiScope, ApiResource, and IdentityResource definitions",
+      "passed": true
+    },
+    {
+      "assertion": "Output maintains the Secret and GrantTypes usage (these types exist in Duende with the same API surface)",
+      "passed": true
+    }
+  ],
+  "passed": 4,
+  "total": 4
+}

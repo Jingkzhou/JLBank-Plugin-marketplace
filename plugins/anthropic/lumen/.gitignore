@@ -1,0 +1,33 @@
+# Build output
+bin/
+dist/
+./lumen
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+
+# Claude
+**/.claude/*.local.json
+.worktrees/
+
+lumen
+# The generic binary pattern above would otherwise hide the native package.
+!plugins/
+!plugins/lumen/
+!plugins/lumen/**
+
+bench-swe/bench-swe
+bench-swe/overview.txt
+
+**/.claude/worktrees
+**/.claire
+.worktrees
+
+# scripts/ test-only npm install (cross-spawn for spawn-semantics test)
+scripts/node_modules/
+scripts/package-lock.json

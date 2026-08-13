@@ -1,0 +1,29 @@
+{
+  "eval_id": 8,
+  "variant": "without_skill",
+  "assertions": [
+    {
+      "assertion": "Uses ISamlInteractionService injected via dependency injection",
+      "pass": false,
+      "rationale": "Does not use ISamlInteractionService. Uses IIdentityServerInteractionService which is for OIDC, not SAML."
+    },
+    {
+      "assertion": "Calls GetRequestContextAsync with the returnUrl parameter",
+      "pass": false,
+      "rationale": "Does not call GetRequestContextAsync. Calls GetAuthorizationContextAsync which is the OIDC method."
+    },
+    {
+      "assertion": "Checks if the returned context is non-null to determine if it's a SAML request",
+      "pass": false,
+      "rationale": "Checks authorization context for OIDC, not SAML context. Suggests manual URL parsing to detect SAML."
+    },
+    {
+      "assertion": "Accesses context.ServiceProvider or context.RequestedNameIdFormat for SP details",
+      "pass": false,
+      "rationale": "Does not access these properties. Suggests manual entity ID extraction from URL."
+    }
+  ],
+  "pass_count": 0,
+  "total_count": 4,
+  "score": 0.0
+}

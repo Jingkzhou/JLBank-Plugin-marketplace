@@ -1,0 +1,12 @@
+results: 10
+api.go:236-238  API (type)
+api.go:277-289  NewAPI (function)
+api.go:391-415  API.Register (method)
+api.go:1937-1960  API.serveWALReplayStatus+API.notifications+API.notificationsSSE (method)
+api.go:2001-2024  API.remoteRead+API.remoteWrite+API.otlpWrite (method)
+api.go:2124-2131  API.respond (method)
+manager.go:123-131  Options (type)
+scrape.go:677-683  scraper (interface)
+scrape.go:735-740  targetScraper.scrape (method)
+scrape.go:1370-1375  scrapeLoop.scrapeAndReport (method)
+

@@ -1,0 +1,29 @@
+{
+  "model": "claude-opus-4-20250514",
+  "eval_id": 5,
+  "mode": "with_skill",
+  "assertions": [
+    {
+      "assertion": "Response shows ApiScope as a top-level independent object rather than nested under ApiResource",
+      "passed": true
+    },
+    {
+      "assertion": "Response shows ApiResource.Scopes containing string scope names instead of Scope objects",
+      "passed": true
+    },
+    {
+      "assertion": "Response includes registering API scopes separately via AddInMemoryApiScopes or equivalent",
+      "passed": true
+    },
+    {
+      "assertion": "Response warns about data loss if using auto-generated EF Core migrations for the v3 to v4 ConfigurationDbContext schema change",
+      "passed": true
+    },
+    {
+      "assertion": "Response mentions the table renames from v3 to v4 (e.g., ApiClaims to ApiResourceClaims, ApiProperties to ApiResourceProperties, or similar)",
+      "passed": true
+    }
+  ],
+  "passed": 5,
+  "total": 5
+}

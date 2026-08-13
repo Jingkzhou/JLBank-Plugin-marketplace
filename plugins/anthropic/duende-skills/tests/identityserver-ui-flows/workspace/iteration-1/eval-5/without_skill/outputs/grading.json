@@ -1,0 +1,29 @@
+{
+  "eval_id": 5,
+  "variant": "without_skill",
+  "assertions": [
+    {
+      "assertion": "Program.cs configures opt.UserInteraction.ErrorUrl to a specific error page path",
+      "pass": true,
+      "rationale": "Sets opt.UserInteraction.ErrorUrl = '/Error'."
+    },
+    {
+      "assertion": "An error page calls GetErrorContextAsync(errorId) to retrieve error details from IIdentityServerInteractionService",
+      "pass": true,
+      "rationale": "Calls _interaction.GetErrorContextAsync(errorId)."
+    },
+    {
+      "assertion": "The error page displays the Error code and RequestId to the user but does not render ErrorDescription directly in the view",
+      "pass": false,
+      "rationale": "The view renders ErrorDescription directly as @Model.Description, violating the security requirement."
+    },
+    {
+      "assertion": "The error page logs the full error details including ErrorDescription using ILogger at Debug level",
+      "pass": false,
+      "rationale": "Logs at Error level, not Debug level."
+    }
+  ],
+  "pass_count": 2,
+  "total_count": 4,
+  "score": 0.5
+}

@@ -1,0 +1,221 @@
+# TeamCity CLI
+
+set quiet
+set windows-shell := ["powershell.exe", "-NoLogo", "-Command"]
+
+# Environment variables for recipes — exported via justfile syntax so they work
+# under any shell (sh on macOS/Linux, PowerShell on Windows).
+export TC_INSECURE_SKIP_WARN := "1"
+export SIGN := "true"
+export FINGERPRINT := "B46DC71E03FEEB7F89D1F2491F7A8F87B9D8F501"
+
+# Build the CLI binary
+build:
+    go build -o bin/teamcity ./tc
+
+# Format and lint the codebase
+lint:
+    go fmt ./...
+    go fix ./...
+    golangci-lint run --tests=false ./...
+
+# Install the locally built CLI to $GOPATH/bin
+install:
+    go install ./tc
+
+# gotestsum format: "pkgname" locally, override with GOTESTSUM_FORMAT=dots etc.
+gotestsum_format := env("GOTESTSUM_FORMAT", "pkgname")
+
+# Run unit tests
+unit:
+    gotestsum --format {{gotestsum_format}} -- -race -shuffle=on ./internal/config ./internal/output ./internal/cmd
+
+# Run all tests with coverage
+test:
+    gotestsum --format {{gotestsum_format}} -- -race -shuffle=on ./... -timeout 15m -tags=integration -coverprofile=coverage.out -coverpkg=./...
+
+# Run acceptance tests against cli.teamcity.com (guest auth)
+acceptance:
+    gotestsum --format {{gotestsum_format}} -- -tags=acceptance ./acceptance -timeout 10m
+
+# Run sandbox integration tests (requires npx, bubblewrap+socat on Linux)
+sandbox:
+    gotestsum --format {{gotestsum_format}} -- -tags=sandbox ./api -run TestSandbox -timeout 2m
+
+# Validate the bundled Claude skills against Anthropic's official limits (500 lines)
+skill:
+    npx --yes claude-skills-cli@0.0.22 validate --loose skills/teamcity-cli
+    npx --yes claude-skills-cli@0.0.22 validate --loose skills/migrate-to-teamcity
+
+# Remove build artifacts
+[confirm]
+clean:
+    rm -rf bin/ dist/ .env coverage.out
+
+# Regenerate CLI command reference in docs/topics/
+docs-generate:
+    go run scripts/generate-docs.go
+
+# Pull latest docs from JetBrains/teamcity-documentation
+docs-pull *args:
+    go run scripts/sync-docs.go pull {{args}}
+
+# Push local docs as a PR to JetBrains/teamcity-documentation
+docs-push *args:
+    go run scripts/sync-docs.go push {{args}}
+
+# Generate CLI screen gallery (docs/index.html)
+gallery:
+    go test -tags=gallery -run TestGenerateGallery github.com/JetBrains/teamcity-cli/internal/gallery -v -count=1
+
+# Run go generate
+generate:
+    go generate ./...
+
+# Build a local snapshot release
+snapshot:
+    goreleaser release --snapshot --clean --skip=publish
+
+# Test the release process without publishing
+release-dry-run:
+    goreleaser release --clean --skip=publish
+
+# Create and publish a signed release
+[confirm]
+release:
+    goreleaser release --clean
+
+# Record all documentation GIFs (both light and dark themes)
+record-gifs *args:
+    go run scripts/record-gifs.go {{args}}
+
+# Record only dark theme GIFs
+record-gifs-dark *args:
+    go run scripts/record-gifs.go --dark-only {{args}}
+
+# Record only light theme GIFs
+record-gifs-light *args:
+    go run scripts/record-gifs.go --light-only {{args}}
+
+# List available tape files for GIF recording
+list-tapes:
+    go run scripts/record-gifs.go --list
+
+# Build Writerside documentation using Docker (requires Rosetta enabled in Docker Desktop on Apple Silicon)
+docs-build:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    rm -rf docs-out
+    mkdir -p docs-out
+    echo "Building Writerside docs..."
+    docker run --rm --platform linux/amd64 \
+        -v "$(pwd):/opt/sources" \
+        -v "$(pwd)/docs-out:/opt/wrs-output" \
+        -e SOURCE_DIR=/opt/sources \
+        -e OUTPUT_DIR=/opt/wrs-output \
+        -e MODULE_INSTANCE=docs/teamcity-cli \
+        -e RUNNER=other \
+        jetbrains/writerside-builder:latest
+    echo "Build complete. Output in docs-out/"
+
+# Deploy docs to gh-pages branch (run docs-build first, or build from Writerside IDE into docs-out/)
+docs-deploy:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    # Find the webhelp zip from Docker build or IDE export
+    ZIP=$(find docs-out -name "webHelp*.zip" -print -quit 2>/dev/null || true)
+    if [[ -z "$ZIP" ]]; then
+        echo "Error: No build output found in docs-out/."
+        echo "Run 'just docs-build' or export from Writerside IDE into docs-out/."
+        exit 1
+    fi
+    SITE="docs-out/site"
+    rm -rf "$SITE"
+    mkdir -p "$SITE"
+    unzip -o "$ZIP" -d "$SITE"
+    echo "Extracted $(find "$SITE" -type f | wc -l | tr -d ' ') files."
+    # Deploy to gh-pages branch using a temporary worktree
+    ROOT="$(pwd)"
+    WORK=$(mktemp -d)
+    trap 'cd "$ROOT"; git worktree remove "$WORK" --force 2>/dev/null; rm -rf "$WORK"' EXIT
+    # Delete local gh-pages branch if it exists so we can create a fresh orphan
+    git branch -D gh-pages 2>/dev/null || true
+    git worktree add --detach "$WORK"
+    cd "$WORK"
+    git checkout --orphan gh-pages
+    git rm -rf . > /dev/null 2>&1 || true
+    cp -a "$ROOT/docs-out/site/." .
+    touch .nojekyll
+    git add -A
+    git commit -m "Deploy Writerside docs to GitHub Pages"
+    git push origin gh-pages --force
+    echo "Deployed to gh-pages branch."
+
+# Install Chocolatey CLI (requires mono)
+install-choco:
+    #!/usr/bin/env sh
+    set -eu
+    CHOCO_VERSION="2.4.3"
+    INSTALL_DIR="$HOME/.local/opt/chocolatey"
+    BIN_DIR="$HOME/.local/bin"
+    mkdir -p "$INSTALL_DIR" "$INSTALL_DIR/lib" "$BIN_DIR"
+    echo "Downloading Chocolatey v${CHOCO_VERSION}..."
+    curl -fsSL "https://github.com/chocolatey/choco/releases/download/${CHOCO_VERSION}/chocolatey.v${CHOCO_VERSION}.tar.gz" | \
+        tar -xz -C "$INSTALL_DIR"
+    cert-sync /etc/ssl/certs/ca-certificates.crt 2>/dev/null || true
+    printf '#!/bin/sh\nmono %s/choco.exe "$@"\n' "$INSTALL_DIR" > "$BIN_DIR/choco"
+    chmod +x "$BIN_DIR/choco"
+    echo "Installed choco $(choco --version) to $BIN_DIR/choco"
+    echo "Make sure $BIN_DIR is in your PATH"
+
+# Run skill evals (pass any pytest args: --task=X, --runs=3, -n 4, etc.)
+eval *args:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd evals
+    if command -v op &>/dev/null && [ -z "${CI:-}" ]; then
+        op run --env-file=.env -- uv run pytest tests/ -v {{args}}
+    else
+        uv run pytest tests/ -v {{args}}
+    fi
+
+# Harness unit tests only — no server, no API calls
+eval-unit *args:
+    cd evals && uv run pytest tests/test_checks.py -v {{args}}
+
+# Gate/report an experiment: paired lift ± CI (pass two results dirs to diff)
+eval-diff *args:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd evals
+    if command -v op &>/dev/null && [ -z "${CI:-}" ]; then
+        op run --env-file=.env -- uv run python scripts/compare.py {{args}}
+    else
+        uv run python scripts/compare.py {{args}}
+    fi
+
+# Install JetBrains codesign client (requires JB employee VPN)
+install-codesign:
+    #!/usr/bin/env sh
+    set -eu
+    BASE_URL="https://codesign-distribution.labs.jb.gg"
+    INSTALL_DIR="$HOME/.local/bin"
+    OS="$(uname -s)"
+    ARCH="$(uname -m)"
+    case "$ARCH" in \
+        x86_64) ARCH="amd64" ;; \
+        aarch64|arm64) ARCH="arm64" ;; \
+        *) echo "Unsupported architecture: $ARCH" && exit 1 ;; \
+    esac
+    case "$OS" in \
+        Darwin) BINARY="codesign-client-darwin-$ARCH" ;; \
+        Linux) BINARY="codesign-client-linux-$ARCH" ;; \
+        MINGW*|MSYS*|CYGWIN*) BINARY="codesign-client-windows-amd64.exe" ;; \
+        *) echo "Unsupported platform: $OS" && exit 1 ;; \
+    esac
+    mkdir -p "$INSTALL_DIR"
+    echo "Downloading $BINARY to $INSTALL_DIR/codesign-client..."
+    curl -fsSL "$BASE_URL/$BINARY" -o "$INSTALL_DIR/codesign-client"
+    chmod +x "$INSTALL_DIR/codesign-client"
+    echo "Installed codesign-client to $INSTALL_DIR/codesign-client"
+    echo "Make sure $INSTALL_DIR is in your PATH"

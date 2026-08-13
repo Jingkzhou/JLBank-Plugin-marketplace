@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-vuejs-ai-skills",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from vuejs-ai/skills.",
+  "author": {
+    "name": "vuejs-ai/skills"
+  }
+}

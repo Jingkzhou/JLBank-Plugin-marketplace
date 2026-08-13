@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-anthropics-claude-code",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from anthropics/claude-code.",
+  "author": {
+    "name": "anthropics/claude-code"
+  }
+}

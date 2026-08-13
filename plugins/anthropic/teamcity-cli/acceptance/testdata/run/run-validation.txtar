@@ -1,0 +1,17 @@
+# Test run subcommand input validation and error handling.
+
+# start without args (no link configured)
+! exec teamcity run start --no-input
+stderr 'job id is required'
+
+! exec teamcity run cancel --no-input
+stderr 'accepts 1 arg'
+
+! exec teamcity run list --limit -1 --no-input
+stderr 'must not be negative'
+
+! exec teamcity run list --status bogus --no-input
+stderr 'invalid status'
+
+! exec teamcity run list --since 2026-01-01 --until 2025-01-01 --no-input
+stderr 'is more recent than'

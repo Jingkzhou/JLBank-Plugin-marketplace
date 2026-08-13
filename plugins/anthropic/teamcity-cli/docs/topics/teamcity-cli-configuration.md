@@ -1,0 +1,621 @@
+[//]: # (title: Configuration)
+
+<show-structure for="chapter" depth="2"/>
+
+This page describes the `config` command, configuration file format, environment variables, and shell completion setup for TeamCity CLI.
+
+## Managing configuration with `teamcity config`
+
+The `config` command lets you view and modify CLI settings without editing the YAML file directly.
+
+### List all settings
+
+```Shell
+teamcity config list
+teamcity config list --json
+```
+
+### Get a setting
+
+```Shell
+teamcity config get default_server
+teamcity config get ro --server tc.example.com
+```
+
+### Set a setting
+
+```Shell
+# Switch default server
+teamcity config set default_server tc.example.com
+
+# Enable read-only mode for a specific server
+teamcity config set ro true --server tc.example.com
+
+# Enable guest auth for the default server
+teamcity config set guest true
+```
+
+### Available keys
+
+<table>
+<tr>
+<td>
+
+Key
+
+</td>
+<td>
+
+Scope
+
+</td>
+<td>
+
+Description
+
+</td>
+</tr>
+<tr>
+<td>
+
+`default_server`
+
+</td>
+<td>
+
+Global
+
+</td>
+<td>
+
+The default TeamCity server URL.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`guest`
+
+</td>
+<td>
+
+Per-server
+
+</td>
+<td>
+
+Enable guest authentication (no token needed). Use `--server` to target a specific server.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`ro`
+
+</td>
+<td>
+
+Per-server
+
+</td>
+<td>
+
+Enable read-only mode (blocks all write operations). Use `--server` to target a specific server.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`token_expiry`
+
+</td>
+<td>
+
+Per-server
+
+</td>
+<td>
+
+Token expiry timestamp (RFC 3339). Normally set by `auth login`.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`analytics`
+
+</td>
+<td>
+
+Global
+
+</td>
+<td>
+
+Enable or disable [anonymous usage statistics](teamcity-cli-analytics.md). Default: `true`. Set to `false` to opt out.
+
+</td>
+</tr>
+</table>
+
+Authentication fields (`token`, `user`) are managed by `teamcity auth login` / `teamcity auth logout` and cannot be set via `config set`.
+
+## Configuration file
+
+TeamCity CLI stores its configuration in a YAML file at `~/.config/tc/config.yml`. This file is created automatically when you run `teamcity auth login`.
+
+A typical configuration file looks like this:
+
+```yaml
+default_server: https://teamcity.example.com
+servers:
+  https://teamcity.example.com:
+    user: alice
+  https://teamcity-staging.example.com:
+    user: alice
+    guest: true
+  https://teamcity-prod.example.com:
+    user: alice
+    ro: true
+aliases:
+  rl: 'run list'
+  rw: 'run view $1 --web'
+  mine: 'run list --user=@me'
+```
+
+### Configuration fields
+
+<table>
+<tr>
+<td>
+
+Field
+
+</td>
+<td>
+
+Description
+
+</td>
+</tr>
+<tr>
+<td>
+
+`default_server`
+
+</td>
+<td>
+
+The server URL used when no `TEAMCITY_URL` environment variable is set. Updated automatically when you run `teamcity auth login`.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`servers`
+
+</td>
+<td>
+
+A map of server URLs to their settings. Each entry stores the `user` field (username on that server) and optionally `guest: true` for guest access, `ro: true` for read-only mode. Tokens are stored in the system keyring, not in this file, unless `--insecure-storage` was used during login.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`aliases`
+
+</td>
+<td>
+
+A map of alias names to their expansions. See [Aliases](teamcity-cli-aliases.md) for details.
+
+</td>
+</tr>
+</table>
+
+## Environment variables
+
+Environment variables override configuration file settings and are the recommended way to configure the CLI in CI/CD pipelines.
+
+<table>
+<tr>
+<td>
+
+Variable
+
+</td>
+<td>
+
+Description
+
+</td>
+</tr>
+<tr>
+<td>
+
+`TEAMCITY_URL`
+
+</td>
+<td>
+
+TeamCity server URL. Takes precedence over `default_server` in the config file.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`TEAMCITY_TOKEN`
+
+</td>
+<td>
+
+Access token for authentication. Takes precedence over the keyring and config file token.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`TEAMCITY_GUEST`
+
+</td>
+<td>
+
+Set to `1` to use guest authentication (read-only, no token needed). The CLI must be able to resolve the server URL (via `TEAMCITY_URL`, DSL detection, or the config file).
+
+</td>
+</tr>
+<tr>
+<td>
+
+`TEAMCITY_RO`
+
+</td>
+<td>
+
+Set to `1`, `true`, or `yes` to enable read-only mode. When enabled, all non-GET API requests (POST, PUT, DELETE) are blocked, preventing any modifications to the TeamCity server. Useful for monitoring scripts and dashboards. Can also be set per server in the config file with `ro: true`.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`TEAMCITY_DSL_DIR`
+
+</td>
+<td>
+
+Path to the Kotlin DSL directory. Overrides automatic detection of `.teamcity/` or `.tc/` directories.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`NO_COLOR`
+
+</td>
+<td>
+
+Disable colored output. Follows the [NO_COLOR standard](https://no-color.org/).
+
+</td>
+</tr>
+<tr>
+<td>
+
+`TEAMCITY_NO_COLOR`
+
+</td>
+<td>
+
+App-specific alternative to `NO_COLOR` for disabling colored output.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`TEAMCITY_ASCII`
+
+</td>
+<td>
+
+Restrict output to ASCII characters, replacing Unicode glyphs (status icons, arrows, tree connectors) with ASCII equivalents. Detected automatically on Windows consoles whose code page is not UTF-8; set this to force it elsewhere.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`TEAMCITY_NO_UPDATE`
+
+</td>
+<td>
+
+Set to `1`, `true`, or `yes` to disable automatic update checks. Update checks are also disabled automatically in CI environments and non-interactive terminals.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`TEAMCITY_HEADER_*`
+
+</td>
+<td>
+
+Add an HTTP header to every outgoing request. The suffix becomes the header name with underscores converted to hyphens, canonical-cased: `TEAMCITY_HEADER_FOO_BAR=baz` sends `Foo-Bar: baz`. Empty values are ignored; values containing CR/LF/NUL are dropped to prevent header injection. Header values are redacted in `--verbose` output.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`DO_NOT_TRACK`
+
+</td>
+<td>
+
+Set to `1`, `true`, `yes`, or `on` to disable [anonymous usage statistics](teamcity-cli-analytics.md). Follows the [industry convention](https://donottrack.sh/). Takes precedence over `TEAMCITY_ANALYTICS` and the config file.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`TEAMCITY_ANALYTICS`
+
+</td>
+<td>
+
+Set to `0`, `false`, `no`, or `off` to disable [anonymous usage statistics](teamcity-cli-analytics.md) for this CLI specifically. Takes precedence over the config file.
+
+</td>
+</tr>
+</table>
+
+Examples:
+
+<tabs>
+<tab title="macOS and Linux">
+
+```Shell
+export TEAMCITY_URL="https://teamcity.example.com"
+export TEAMCITY_TOKEN="your-access-token"
+```
+
+</tab>
+<tab title="Windows">
+
+PowerShell:
+
+```PowerShell
+$env:TEAMCITY_URL = "https://teamcity.example.com"
+$env:TEAMCITY_TOKEN = "your-access-token"
+```
+
+CMD:
+
+```Shell
+set TEAMCITY_URL=https://teamcity.example.com
+set TEAMCITY_TOKEN=your-access-token
+```
+
+</tab>
+</tabs>
+
+Setting `TERM=dumb` also disables colored output. Color is automatically disabled when output is not a terminal (for example, when piping to another command).
+
+### Extra HTTP headers (corporate proxies)
+
+If your TeamCity server sits behind an authenticating proxy such as **Cloudflare Access** or **Google IAP**, the proxy needs its own credentials on every request. `TEAMCITY_HEADER_*` lets you supply them via env vars without editing the config file. The CLI applies them to every API call, the auth login probe, the PKCE exchange, and the agent terminal WebSocket — anywhere a request might pass through the proxy.
+
+Header names follow these rules:
+
+- Suffix is uppercased after the prefix; underscores become hyphens; the result is canonical-cased.
+- `TEAMCITY_HEADER_CF_ACCESS_CLIENT_ID=value` → `Cf-Access-Client-Id: value`.
+- Empty values are skipped. Values containing CR/LF/NUL are dropped.
+- Values are redacted in `--verbose` output, regardless of header name.
+
+#### Cloudflare Access service token
+
+```Shell
+export TEAMCITY_HEADER_CF_ACCESS_CLIENT_ID="abc123.access"
+export TEAMCITY_HEADER_CF_ACCESS_CLIENT_SECRET="$(cat ~/.cf-access-secret)"
+teamcity run list
+```
+
+#### Google IAP
+
+IAP requires a fresh ID token signed by your service account. A small wrapper keeps the token current:
+
+```Shell
+teamcity-iap() {
+  export TEAMCITY_HEADER_PROXY_AUTHORIZATION="Bearer $(gcloud auth print-identity-token --audiences=$IAP_AUDIENCE)"
+  teamcity "$@"
+}
+
+teamcity-iap run list
+```
+
+#### Reverse-proxy SSO (SiteMinder, Kerberos/SPNEGO)
+
+If the proxy enforces SSO (for example, **CA/Broadcom SiteMinder**), it expects its own session cookie — a TeamCity token in the `Authorization` header means nothing to the proxy, so requests without the cookie get a `302` to the login IDP and never reach TeamCity. Send the session cookie as a header; the cookie name is whatever your proxy uses (`SMSESSION` for SiteMinder), not a fixed default.
+
+Mint the cookie with a tool that speaks your SSO handshake, then feed it in. `curl --negotiate` performs SPNEGO/Kerberos against your existing ticket (run `kinit` first):
+
+```Shell
+teamcity-sso() {
+  export TEAMCITY_HEADER_COOKIE="SMSESSION=$(
+    curl -s --negotiate -u : -c - "$TC_URL/app/rest/server" | awk '$6=="SMSESSION"{print $7}'
+  )"
+  teamcity "$@"
+}
+
+teamcity-sso run list
+```
+
+Adjust the fetch to your IDP (any command that yields the cookie works). Note: a stale cookie triggers the proxy's `302`, and Go strips `Cookie` on cross-host redirects — refreshing the cookie (as the wrapper does per call) avoids this.
+
+For repository-scoped configuration, set these in [direnv](https://direnv.net/) `.envrc` so they're only present when you `cd` into the project directory.
+
+## Global flags
+
+These flags are available on every command:
+
+<table>
+<tr>
+<td>
+
+Flag
+
+</td>
+<td>
+
+Description
+
+</td>
+</tr>
+<tr>
+<td>
+
+`-h`, `--help`
+
+</td>
+<td>
+
+Show help for the command.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`-v`, `--version`
+
+</td>
+<td>
+
+Show the CLI version.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`--no-color`
+
+</td>
+<td>
+
+Disable colored output.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`-q`, `--quiet`
+
+</td>
+<td>
+
+Suppress non-essential output. Mutually exclusive with `--verbose`.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`--verbose`
+
+</td>
+<td>
+
+Show detailed output, including debug information. Mutually exclusive with `--quiet`.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`--no-input`
+
+</td>
+<td>
+
+Disable interactive prompts. The CLI uses sensible defaults when a prompt would otherwise appear.
+
+</td>
+</tr>
+</table>
+
+## Shell completion
+
+TeamCity CLI supports tab completion for Bash, Zsh, Fish, and PowerShell. Completion covers commands, subcommands, flags, and in some cases values such as project and job IDs.
+
+<tabs>
+<tab title="Bash">
+
+```Shell
+teamcity completion bash > /etc/bash_completion.d/teamcity
+```
+
+If you do not have write access to `/etc/bash_completion.d/`, write to a user-level location and source it from your `.bashrc`:
+
+```Shell
+teamcity completion bash > ~/.teamcity-completion.bash
+echo 'source ~/.teamcity-completion.bash' >> ~/.bashrc
+```
+
+</tab>
+<tab title="Zsh">
+
+```Shell
+teamcity completion zsh > "${fpath[1]}/_teamcity"
+```
+
+Ensure your `~/.zshrc` includes `compinit`:
+
+```Shell
+autoload -Uz compinit && compinit
+```
+
+</tab>
+<tab title="Fish">
+
+```Shell
+teamcity completion fish > ~/.config/fish/completions/teamcity.fish
+```
+
+</tab>
+<tab title="PowerShell">
+
+```PowerShell
+teamcity completion powershell > teamcity.ps1
+. ./teamcity.ps1
+```
+
+To load completion automatically, add the output to your PowerShell profile.
+
+</tab>
+</tabs>
+
+<seealso>
+    <category ref="reference">
+        <a href="teamcity-cli-authentication.md">Authentication</a>
+        <a href="teamcity-cli-commands.md">Command reference</a>
+    </category>
+    <category ref="user-guide">
+        <a href="teamcity-cli-aliases.md">Aliases</a>
+    </category>
+</seealso>

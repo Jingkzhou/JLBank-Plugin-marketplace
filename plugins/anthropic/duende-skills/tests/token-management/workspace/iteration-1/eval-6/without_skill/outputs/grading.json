@@ -1,0 +1,29 @@
+{
+  "model": "claude-opus-4-20250514",
+  "eval_id": 6,
+  "mode": "without_skill",
+  "assertions": [
+    {
+      "assertion": "Output registers AddStackExchangeRedisCache with a Redis connection string for the distributed L2 cache tier",
+      "passed": true
+    },
+    {
+      "assertion": "Output sets CacheLifetimeBuffer to 120 in the AddClientCredentialsTokenManagement options",
+      "passed": true
+    },
+    {
+      "assertion": "Output implements IHybridCacheSerializer<ClientCredentialsToken> using IDataProtector for encryption",
+      "passed": false
+    },
+    {
+      "assertion": "Output registers the custom serializer via AddHybridCache().AddSerializer<ClientCredentialsToken, ...>()",
+      "passed": false
+    },
+    {
+      "assertion": "Output calls AddDataProtection() to enable the data protection provider",
+      "passed": false
+    }
+  ],
+  "passed": 2,
+  "total": 5
+}

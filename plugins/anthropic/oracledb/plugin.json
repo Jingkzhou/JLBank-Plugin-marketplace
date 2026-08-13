@@ -1,0 +1,18 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "oracledb",
+  "version": "0.2.6",
+  "description": "Connect, query, and interact with Oracle Databases and their data.",
+  "author": {
+    "name": "Google LLC",
+    "email": "data-cloud-ai-integrations@google.com"
+  },
+  "homepage": "https://cloud.google.com/solutions/oracle",
+  "repository": "https://github.com/gemini-cli-extensions/oracledb",
+  "license": "Apache-2.0",
+  "keywords": [
+    "oracle",
+    "database",
+    "sql"
+  ]
+}

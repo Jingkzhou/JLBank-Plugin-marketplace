@@ -1,0 +1,20 @@
+{
+  "name": "resend-skills",
+  "metadata": {
+    "description": "Resend email skills for Claude Code"
+  },
+  "owner": {
+    "name": "Resend",
+    "email": "support@resend.com"
+  },
+  "plugins": [
+    {
+      "name": "resend",
+      "description": "Send and receive emails, build with React Email, follow deliverability best practices",
+      "source": "./",
+      "category": "developer-tools",
+      "homepage": "https://resend.com",
+      "tags": ["email", "react-email", "deliverability", "transactional-email", "inbound-email", "mcp", "smtp", "notifications"]
+    }
+  ]
+}

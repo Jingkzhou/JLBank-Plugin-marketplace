@@ -1,0 +1,495 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "predicate": {
+    "builder": {
+      "id": "https://github.com/endorlabs/endor-labs-agent-kit"
+    },
+    "catalog": [
+      {
+        "bundles": 1,
+        "host": "claude-code",
+        "id": "ai-sast-remediation",
+        "source_recipe": "source/agents/ai-sast-remediation/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "claude-code",
+        "id": "cicd-posture",
+        "source_recipe": "source/agents/cicd-posture/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "claude-code",
+        "id": "configuration-automation",
+        "source_recipe": "source/agents/configuration-automation/recipe.yaml"
+      },
+      {
+        "bundles": 2,
+        "host": "claude-code",
+        "id": "dependency-reviewer",
+        "source_recipe": "source/agents/dependency-reviewer/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "claude-code",
+        "id": "findings-browser",
+        "source_recipe": "source/agents/findings-browser/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "claude-code",
+        "id": "malware-responder",
+        "source_recipe": "source/agents/malware-responder/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "claude-code",
+        "id": "oss-upgrade-investigator",
+        "source_recipe": "source/agents/oss-upgrade-investigator/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "claude-code",
+        "id": "remediation-planning",
+        "source_recipe": "source/agents/remediation-planning/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "claude-code",
+        "id": "sca-remediation",
+        "source_recipe": "source/agents/sca-remediation/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "claude-code",
+        "id": "troubleshooting",
+        "source_recipe": "source/agents/troubleshooting/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "claude-code",
+        "id": "vulnerability-explainer",
+        "source_recipe": "source/agents/vulnerability-explainer/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "claude-managed-agents",
+        "id": "cicd-posture",
+        "source_recipe": "source/agents/cicd-posture/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "claude-managed-agents",
+        "id": "configuration-automation",
+        "source_recipe": "source/agents/configuration-automation/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "claude-managed-agents",
+        "id": "dependency-reviewer",
+        "source_recipe": "source/agents/dependency-reviewer/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "claude-managed-agents",
+        "id": "findings-browser",
+        "source_recipe": "source/agents/findings-browser/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "claude-managed-agents",
+        "id": "malware-responder",
+        "source_recipe": "source/agents/malware-responder/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "claude-managed-agents",
+        "id": "oss-upgrade-investigator",
+        "source_recipe": "source/agents/oss-upgrade-investigator/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "claude-managed-agents",
+        "id": "troubleshooting",
+        "source_recipe": "source/agents/troubleshooting/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "claude-managed-agents",
+        "id": "vulnerability-explainer",
+        "source_recipe": "source/agents/vulnerability-explainer/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "codex",
+        "id": "ai-sast-remediation",
+        "source_recipe": "source/agents/ai-sast-remediation/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "codex",
+        "id": "cicd-posture",
+        "source_recipe": "source/agents/cicd-posture/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "codex",
+        "id": "configuration-automation",
+        "source_recipe": "source/agents/configuration-automation/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "codex",
+        "id": "dependency-reviewer",
+        "source_recipe": "source/agents/dependency-reviewer/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "codex",
+        "id": "findings-browser",
+        "source_recipe": "source/agents/findings-browser/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "codex",
+        "id": "malware-responder",
+        "source_recipe": "source/agents/malware-responder/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "codex",
+        "id": "oss-upgrade-investigator",
+        "source_recipe": "source/agents/oss-upgrade-investigator/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "codex",
+        "id": "remediation-planning",
+        "source_recipe": "source/agents/remediation-planning/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "codex",
+        "id": "sca-remediation",
+        "source_recipe": "source/agents/sca-remediation/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "codex",
+        "id": "troubleshooting",
+        "source_recipe": "source/agents/troubleshooting/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "codex",
+        "id": "vulnerability-explainer",
+        "source_recipe": "source/agents/vulnerability-explainer/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "gemini",
+        "id": "ai-sast-remediation",
+        "source_recipe": "source/agents/ai-sast-remediation/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "gemini",
+        "id": "cicd-posture",
+        "source_recipe": "source/agents/cicd-posture/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "gemini",
+        "id": "configuration-automation",
+        "source_recipe": "source/agents/configuration-automation/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "gemini",
+        "id": "dependency-reviewer",
+        "source_recipe": "source/agents/dependency-reviewer/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "gemini",
+        "id": "findings-browser",
+        "source_recipe": "source/agents/findings-browser/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "gemini",
+        "id": "malware-responder",
+        "source_recipe": "source/agents/malware-responder/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "gemini",
+        "id": "oss-upgrade-investigator",
+        "source_recipe": "source/agents/oss-upgrade-investigator/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "gemini",
+        "id": "remediation-planning",
+        "source_recipe": "source/agents/remediation-planning/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "gemini",
+        "id": "sca-remediation",
+        "source_recipe": "source/agents/sca-remediation/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "gemini",
+        "id": "troubleshooting",
+        "source_recipe": "source/agents/troubleshooting/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "gemini",
+        "id": "vulnerability-explainer",
+        "source_recipe": "source/agents/vulnerability-explainer/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "portable",
+        "id": "ai-sast-remediation",
+        "source_recipe": "source/agents/ai-sast-remediation/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "portable",
+        "id": "cicd-posture",
+        "source_recipe": "source/agents/cicd-posture/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "portable",
+        "id": "configuration-automation",
+        "source_recipe": "source/agents/configuration-automation/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "portable",
+        "id": "dependency-reviewer",
+        "source_recipe": "source/agents/dependency-reviewer/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "portable",
+        "id": "findings-browser",
+        "source_recipe": "source/agents/findings-browser/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "portable",
+        "id": "malware-responder",
+        "source_recipe": "source/agents/malware-responder/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "portable",
+        "id": "oss-upgrade-investigator",
+        "source_recipe": "source/agents/oss-upgrade-investigator/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "portable",
+        "id": "remediation-planning",
+        "source_recipe": "source/agents/remediation-planning/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "portable",
+        "id": "sca-remediation",
+        "source_recipe": "source/agents/sca-remediation/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "portable",
+        "id": "troubleshooting",
+        "source_recipe": "source/agents/troubleshooting/recipe.yaml"
+      },
+      {
+        "bundles": 1,
+        "host": "portable",
+        "id": "vulnerability-explainer",
+        "source_recipe": "source/agents/vulnerability-explainer/recipe.yaml"
+      }
+    ],
+    "generator": "endor-agent-kit",
+    "manifest_schema_version": 1,
+    "plugin_packages": [
+      {
+        "distribution_channel": "repository",
+        "host": "antigravity",
+        "included_agents": [
+          "ai-sast-remediation",
+          "cicd-posture",
+          "configuration-automation",
+          "dependency-reviewer",
+          "findings-browser",
+          "malware-responder",
+          "oss-upgrade-investigator",
+          "remediation-planning",
+          "sca-remediation",
+          "troubleshooting",
+          "vulnerability-explainer"
+        ],
+        "name": "endor-labs-agent-kit",
+        "path": "plugins/antigravity/endor-labs-agent-kit",
+        "version": "2.2.1"
+      },
+      {
+        "distribution_channel": "repository",
+        "host": "claude-code",
+        "included_agents": [
+          "ai-sast-remediation",
+          "cicd-posture",
+          "configuration-automation",
+          "dependency-reviewer",
+          "findings-browser",
+          "malware-responder",
+          "oss-upgrade-investigator",
+          "remediation-planning",
+          "sca-remediation",
+          "troubleshooting",
+          "vulnerability-explainer"
+        ],
+        "name": "ai-plugins",
+        "path": "plugins/claude/ai-plugins",
+        "version": "1.2.0"
+      },
+      {
+        "distribution_channel": "repository",
+        "host": "claude-code",
+        "included_agents": [
+          "ai-sast-remediation",
+          "cicd-posture",
+          "configuration-automation",
+          "dependency-reviewer",
+          "findings-browser",
+          "malware-responder",
+          "oss-upgrade-investigator",
+          "remediation-planning",
+          "sca-remediation",
+          "troubleshooting",
+          "vulnerability-explainer"
+        ],
+        "name": "endor-labs-agent-kit",
+        "path": "plugins/claude/endor-labs-agent-kit",
+        "version": "2.2.1"
+      },
+      {
+        "distribution_channel": "official-directory",
+        "host": "codex",
+        "included_agents": [
+          "ai-sast-remediation",
+          "cicd-posture",
+          "configuration-automation",
+          "dependency-reviewer",
+          "findings-browser",
+          "malware-responder",
+          "oss-upgrade-investigator",
+          "remediation-planning",
+          "sca-remediation",
+          "troubleshooting",
+          "vulnerability-explainer"
+        ],
+        "name": "endor-labs-agent-kit",
+        "path": "plugins/codex-directory/endor-labs-agent-kit",
+        "version": "2.2.1"
+      },
+      {
+        "distribution_channel": "repository",
+        "host": "codex",
+        "included_agents": [
+          "ai-sast-remediation",
+          "cicd-posture",
+          "configuration-automation",
+          "dependency-reviewer",
+          "findings-browser",
+          "malware-responder",
+          "oss-upgrade-investigator",
+          "remediation-planning",
+          "sca-remediation",
+          "troubleshooting",
+          "vulnerability-explainer"
+        ],
+        "name": "endor-labs-agent-kit",
+        "path": "plugins/codex/endor-labs-agent-kit",
+        "version": "2.2.1"
+      },
+      {
+        "distribution_channel": "repository",
+        "host": "cursor",
+        "included_agents": [
+          "ai-sast-remediation",
+          "cicd-posture",
+          "configuration-automation",
+          "dependency-reviewer",
+          "findings-browser",
+          "malware-responder",
+          "oss-upgrade-investigator",
+          "remediation-planning",
+          "sca-remediation",
+          "troubleshooting",
+          "vulnerability-explainer"
+        ],
+        "name": "endorlabs",
+        "path": ".",
+        "version": "2.2.1"
+      },
+      {
+        "distribution_channel": "repository",
+        "host": "cursor-sdk",
+        "included_agents": [
+          "ai-sast-remediation",
+          "cicd-posture",
+          "configuration-automation",
+          "dependency-reviewer",
+          "findings-browser",
+          "malware-responder",
+          "oss-upgrade-investigator",
+          "remediation-planning",
+          "sca-remediation",
+          "troubleshooting",
+          "vulnerability-explainer"
+        ],
+        "name": "endor-labs-agent-kit-cursor-sdk",
+        "path": "cursor-sdk",
+        "version": "2.2.1"
+      },
+      {
+        "distribution_channel": "repository",
+        "host": "gemini",
+        "included_agents": [
+          "ai-sast-remediation",
+          "cicd-posture",
+          "configuration-automation",
+          "dependency-reviewer",
+          "findings-browser",
+          "malware-responder",
+          "oss-upgrade-investigator",
+          "remediation-planning",
+          "sca-remediation",
+          "troubleshooting",
+          "vulnerability-explainer"
+        ],
+        "name": "endor-labs-agent-kit",
+        "path": "plugins/gemini/endor-labs-agent-kit",
+        "version": "2.2.1"
+      }
+    ]
+  },
+  "predicateType": "https://endorlabs.com/agent-kit/catalog-provenance/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "3cd3409e95709a1fd1cb1ab25629bddadef7703748f8e6380339fc003dc04c83"
+      },
+      "name": "manifest.json"
+    }
+  ]
+}

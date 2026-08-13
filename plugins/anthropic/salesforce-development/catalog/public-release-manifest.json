@@ -1,0 +1,837 @@
+{
+  "schemaVersion": "2.0",
+  "channel": "public-release",
+  "repository": "https://github.com/forcedotcom/sf-skills.git",
+  "commit": "7baeb07b36799eada4dce06d85664c0c16a269a8",
+  "releaseRef": "1.32.0",
+  "counts": {
+    "public": 102
+  },
+  "skills": [
+    {
+      "name": "agentforce-architecture-analyze",
+      "domain": "agentforce",
+      "skillMdSha256": "c8831cf24cf7631985bb560c736a13b259255dc668d053778800460bd685314b",
+      "treeSha256": "0193071ec59dc88c05ab8bf68bc212de2da82299dac04e39fc3433546e740319",
+      "accessCheck": null,
+      "examplePrompt": "Help me analyze Salesforce architecture."
+    },
+    {
+      "name": "agentforce-bot-upgrade",
+      "domain": "agentforce",
+      "skillMdSha256": "7324a9ff273c3672578fcb2aff0ac89732138140e6fdb16e7878b1562ff9aa5b",
+      "treeSha256": "c10f7ab33441c398e2cba96fa20ddf84e02f4b341c5b9380085d2658d17921e2",
+      "accessCheck": null,
+      "examplePrompt": "Help me upgrade Salesforce bot."
+    },
+    {
+      "name": "agentforce-d360-analyze",
+      "domain": "agentforce",
+      "skillMdSha256": "17bae30d5b5521a555b06c5d8574d8b34cac34715ba3a543d0fa52cf7a66b45e",
+      "treeSha256": "5311b4565c5366d01c7feeab6dc01678649e4625c1591eb67c29f373a57e0c86",
+      "accessCheck": null,
+      "examplePrompt": "Help me analyze Salesforce d360."
+    },
+    {
+      "name": "agentforce-generate",
+      "domain": "agentforce",
+      "skillMdSha256": "2bbef3cb40d7e21836562d34c07ede2babdcb7a0aa03079bc104d4f060d4e9d5",
+      "treeSha256": "d31b1c4fa2c984318ec65a76e37ee4f640c89bf9c083e2fa17ba2044f4bcb676",
+      "accessCheck": null,
+      "examplePrompt": "Build an Agentforce agent for order-status help."
+    },
+    {
+      "name": "agentforce-observe",
+      "domain": "agentforce",
+      "skillMdSha256": "b8b5055c05fe15d67ba4ceefa26c0c35e86270957e814aa94e3950e09c873921",
+      "treeSha256": "1b9013f9de8e1f71fa78ea85cad145693a32e71b0a4382448615c5c2e463bc74",
+      "accessCheck": null,
+      "examplePrompt": "Help me observe Salesforce agentforce."
+    },
+    {
+      "name": "agentforce-test",
+      "domain": "agentforce",
+      "skillMdSha256": "692c9fa7f3c7c630f6971a568152d6404a1dca97588bfa02accb43bfc27f34a3",
+      "treeSha256": "b9d980bbcde7e663caa7bf11e961de5f05e538e5ced074ad9c87a43182c3aeb2",
+      "accessCheck": null,
+      "examplePrompt": "Help me test Salesforce agentforce."
+    },
+    {
+      "name": "automation-flow-generate",
+      "domain": "automation",
+      "skillMdSha256": "b8403f5cfe15560e2f633b1634f454d179b000779f375d61e04921120a4f0b6f",
+      "treeSha256": "8db8bf65e1a5629a6c2d768938186a565c1f6a38d5801c89d46197671ab30cb5",
+      "accessCheck": null,
+      "examplePrompt": "When a record is created"
+    },
+    {
+      "name": "commerce-b2b-open-code-components-integrate",
+      "domain": "commerce",
+      "skillMdSha256": "f127d6c8c920ba0238e5b183f5d3ad61078ff14b4175d8ffa282ebfa8285565d",
+      "treeSha256": "7f7e0cf87df687f106b9486a1af641f486648d415bef08dac8b33a4ad18eef16",
+      "accessCheck": null,
+      "examplePrompt": "Integrate open code components"
+    },
+    {
+      "name": "commerce-b2b-open-code-components-replace",
+      "domain": "commerce",
+      "skillMdSha256": "83f12c7d308da8b6d9438e744401ff3aa76277174da72738fdcaab0a86a0ae4d",
+      "treeSha256": "95389798787946755e894fa0f37da8566dbd7e17bdec853636b848d8f6c54b1c",
+      "accessCheck": null,
+      "examplePrompt": "Replace OOTB components"
+    },
+    {
+      "name": "commerce-b2b-store-create",
+      "domain": "commerce",
+      "skillMdSha256": "07d92b74043e26fe208145c2b1beddcff54e77ff50c5574a53e652f80fcf09c5",
+      "treeSha256": "589410afadeddd268f2b15452f34012e90d04fe889fb027c80c8c788a45084bf",
+      "accessCheck": null,
+      "examplePrompt": "Help me create Salesforce b2b store."
+    },
+    {
+      "name": "data360-activate",
+      "domain": "data360",
+      "skillMdSha256": "e95926161f83cad3deb1d758c0db4bee1b87c0950438349fb864b9b6e9fa4e23",
+      "treeSha256": "13b2edd10c5325f4d43ae85af4605ae6b13799ba3fd51a65efafe8bd7940c778",
+      "accessCheck": null,
+      "examplePrompt": "Help me activate Salesforce data360."
+    },
+    {
+      "name": "data360-code-extension-generate",
+      "domain": "data360",
+      "skillMdSha256": "54db69aef31d3f76fdc1863818d9f806c8e166fee864a326dea8c4903bc36ff0",
+      "treeSha256": "2b5c36212dcaf47fbc981c571ed5da6a0e155064c22c906b54fe9f7ced64831f",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce code extension."
+    },
+    {
+      "name": "data360-connect",
+      "domain": "data360",
+      "skillMdSha256": "909a1c605c80c9f94c72fb68465f46dcb9374cb398ac0223b3779561111d940b",
+      "treeSha256": "7d1741f58843f2a940d8cae045fe62ce53ea5881cd756c92983bca9606940ead",
+      "accessCheck": null,
+      "examplePrompt": "Connect a data stream from my order system."
+    },
+    {
+      "name": "data360-harmonize",
+      "domain": "data360",
+      "skillMdSha256": "d0c7f14f14e6d3fa1ebf329d9a79127bdd21ac9f4859e7fb443ceffb499dc9f1",
+      "treeSha256": "aaaa780e4962de8ce8ad408a1fed7a2248265b486ae07cc47eac8200bb4bdf43",
+      "accessCheck": null,
+      "examplePrompt": "Help me harmonize Salesforce data360."
+    },
+    {
+      "name": "data360-orchestrate",
+      "domain": "data360",
+      "skillMdSha256": "598c6efdf1ae193a349ea071ef6d41bc40b1bc84e3838d59b093ab5448dd4f00",
+      "treeSha256": "9dbb5dae7efb627accc0ce419ee706d6f237c6275aa2f42fde5e0711385594a3",
+      "accessCheck": null,
+      "examplePrompt": "Help me orchestrate Salesforce data360."
+    },
+    {
+      "name": "data360-prepare",
+      "domain": "data360",
+      "skillMdSha256": "f1abccf7e9e07bf82dc1c71a5d25592ed36ed36fe93d80127dfa0c4bc0e461b4",
+      "treeSha256": "5dc66c3e9be02b2ac5b522619bb9efa6e433447cf8268bd44c8f780678578164",
+      "accessCheck": null,
+      "examplePrompt": "Help me prepare Salesforce data360."
+    },
+    {
+      "name": "data360-query",
+      "domain": "data360",
+      "skillMdSha256": "0024d050f284e80013ffeab0187c9fd2c74698f3247d456afeda8eb1ff638473",
+      "treeSha256": "0aa8f1bdb1e6cd7e7d24ba71acaa6c3f7a84808724ba51b36ffd47b228e19de2",
+      "accessCheck": null,
+      "examplePrompt": "Help me query Salesforce data360."
+    },
+    {
+      "name": "data360-schema-get",
+      "domain": "data360",
+      "skillMdSha256": "cfea108fc82035b1fae1a0e9bcece41a5d6454a00da85d1418144aec41acd009",
+      "treeSha256": "ef653f5bac3f949d39cc6dad960f7f77e89e6e17670f266340bd1b5c86ce374e",
+      "accessCheck": null,
+      "examplePrompt": "Help me get Salesforce schema."
+    },
+    {
+      "name": "data360-segment",
+      "domain": "data360",
+      "skillMdSha256": "4ff25e496a77a308bcbf28d03070866d07c4af503bdcfe374fda40be1b9ad315",
+      "treeSha256": "d7e5d85f49b65e89607eb992b468f8c5cabe06ed884629be58e0990948c1f3fa",
+      "accessCheck": null,
+      "examplePrompt": "Help me segment Salesforce data360."
+    },
+    {
+      "name": "design-systems-slds-apply",
+      "domain": "design-systems",
+      "skillMdSha256": "945816124adaf8a502061d759b45e4da0962235e54fba252936ed2cd867ad9e6",
+      "treeSha256": "d9b3fd8ed93e27e7377b1d9e23b45f8a0c49617d3986f8e35e2256f53ad2d64d",
+      "accessCheck": null,
+      "examplePrompt": "Build a modal"
+    },
+    {
+      "name": "design-systems-slds-validate",
+      "domain": "design-systems",
+      "skillMdSha256": "0922258d2999b48222a09074b3c9b2e635629503fe3522aa01815b69d22d556c",
+      "treeSha256": "9b2a515bc16e6fe35b3e5a646a1c377f4a3ea4e4734e2d9a51549c05c9c8cba3",
+      "accessCheck": null,
+      "examplePrompt": "Score my component"
+    },
+    {
+      "name": "design-systems-slds2-migrate",
+      "domain": "design-systems",
+      "skillMdSha256": "aa2b67267279c2c6965c7ef1aa3b056d12321a4a29dab1bb662bd1cc89ca5414",
+      "treeSha256": "93bf7ca1c46667adfa10ab81d695f4073b4933fa663d8b2514d8fb6ddcebcc8a",
+      "accessCheck": null,
+      "examplePrompt": "Help me migrate Salesforce slds2."
+    },
+    {
+      "name": "dx-app-analytics-query",
+      "domain": "dx",
+      "skillMdSha256": "e58f0f11eff309e2b345e5a8077bdede9c9f539abdc96231a577c3fa8ed69587",
+      "treeSha256": "6ac8c0279f37aeb7eef70175a2d7da650188f7267032e8f89eeb3a180ef732c6",
+      "accessCheck": null,
+      "examplePrompt": "Help me query Salesforce app analytics."
+    },
+    {
+      "name": "dx-code-analyzer-configure",
+      "domain": "dx",
+      "skillMdSha256": "38ed8f3ba805fa1db689ee9e66519c5108612c29d594cbe4ed06dc86950fb927",
+      "treeSha256": "d6575d3b12fc0b2fb90a6407a4af68648e4df925d369baf5b83b603b11862749",
+      "accessCheck": null,
+      "examplePrompt": "Set up code analyzer"
+    },
+    {
+      "name": "dx-code-analyzer-custom-rule-create",
+      "domain": "dx",
+      "skillMdSha256": "96b2801009c214b6700481eecf33061f2f9c8db4a0185e9c20e66efdd06372d1",
+      "treeSha256": "c9d0d949a4a26046d0f5fe50a0f76e3e9d44fac98c95832da91853e6ad45074c",
+      "accessCheck": null,
+      "examplePrompt": "Create a rule"
+    },
+    {
+      "name": "dx-code-analyzer-run",
+      "domain": "dx",
+      "skillMdSha256": "85f25690e0fe8a6f4b6cf4c36ea43ae63f2aa531006a1e189b9862a3b18eeb60",
+      "treeSha256": "aa5f2df427e8d1d74f8d2089ca460089daea44df430dbe2ec453a79b377f334e",
+      "accessCheck": null,
+      "examplePrompt": "Scan my code"
+    },
+    {
+      "name": "dx-devops-test-failures-analyze",
+      "domain": "dx",
+      "skillMdSha256": "96394f80f485d771809f26a534ba2387f2b97a9e6d30858ca22fd56ac8352a86",
+      "treeSha256": "5a7651cea7d44ce66f8e8cb8af44be9015e02c9f03ca5d095d1d5ba90e9913af",
+      "accessCheck": null,
+      "examplePrompt": "Help me analyze Salesforce devops test failures."
+    },
+    {
+      "name": "dx-devops-test-pipeline-configure",
+      "domain": "dx",
+      "skillMdSha256": "15d391ca3c5b744379fde7e2d8783aa9d7503778ae1fd7e4f55c921b8caf6cb6",
+      "treeSha256": "ae53f2832b218907c487030777bf3e579920b0d794df456481313d64778200a7",
+      "accessCheck": null,
+      "examplePrompt": "Help me configure Salesforce devops test pipeline."
+    },
+    {
+      "name": "dx-devops-test-suite-assignments-configure",
+      "domain": "dx",
+      "skillMdSha256": "00019782988eb36a457613c4863c1b82570d041833bba5bd9804241ee69b9a8e",
+      "treeSha256": "30c776add87f38bdac041bd6e5099d5f555cfe487dbead2661230401914480d0",
+      "accessCheck": null,
+      "examplePrompt": "Help me configure Salesforce devops test suite assignments."
+    },
+    {
+      "name": "dx-devops-test-suite-run",
+      "domain": "dx",
+      "skillMdSha256": "41ea74d5947287da7d23a3722e3b02783ba6c801d933aa863ce1e24c6274d952",
+      "treeSha256": "45eed5464593793e6d67400761efebfc556f425cd107336ba0c7ab31c5481039",
+      "accessCheck": null,
+      "examplePrompt": "Help me run Salesforce devops test suite."
+    },
+    {
+      "name": "dx-devops-work-item-manage",
+      "domain": "dx",
+      "skillMdSha256": "cea834538db9c189b44b1024d10d57754e838063517f0aebd2db91ff20c01026",
+      "treeSha256": "77bc67e26695431fe4284fda11b19d1bfc4b78b327edaacfdb390e63602fd442",
+      "accessCheck": null,
+      "examplePrompt": "Help me manage Salesforce devops work item."
+    },
+    {
+      "name": "dx-org-manage",
+      "domain": "dx",
+      "skillMdSha256": "9adabcb548f7ab6204f8b4d11cb189e15734288464380c30b9fd69decca21526",
+      "treeSha256": "d0b1e903a4ab6ef4c299836cf7186001d8a0c99d521cb8af5ab33a72efb9de4e",
+      "accessCheck": null,
+      "examplePrompt": "Create a snapshot"
+    },
+    {
+      "name": "dx-org-permission-set-assign",
+      "domain": "dx",
+      "skillMdSha256": "bfd1ff8cbd9c1ab09eed14fea927f01b5cf646f28cb394a5a17d6d838d2f668b",
+      "treeSha256": "279fab47a4016d95b7b390f4c450ae92ef89de0c4fd6685aaecfab5d6e118e9f",
+      "accessCheck": null,
+      "examplePrompt": "Help me assign Salesforce org permission set."
+    },
+    {
+      "name": "dx-org-switch",
+      "domain": "dx",
+      "skillMdSha256": "36a7906963e28c3865ea06e00820f173b963d66e98b3d817218069d96dac6f2b",
+      "treeSha256": "1e01ad0b7721683e2c226c41b4155c00faeede7f29f409056a7e8e397d53729c",
+      "accessCheck": null,
+      "examplePrompt": "Help me switch Salesforce org."
+    },
+    {
+      "name": "dx-org-trial-expiration-check",
+      "domain": "dx",
+      "skillMdSha256": "cf792909911206c016639863f5b5dce447a7e58a8693fa98d79c57606d1acc8a",
+      "treeSha256": "631e438f69309a4d8dbfa1c7309fa824d7dbf65246145e383774dbe141f93423",
+      "accessCheck": null,
+      "examplePrompt": "When does my trial expire"
+    },
+    {
+      "name": "dx-pkg-post-install-configure",
+      "domain": "dx",
+      "skillMdSha256": "f38ffdd8b19c1203654dc509f96e9f4d78adb290981050f0364bce5908c568df",
+      "treeSha256": "f499834836d34998209899aa4ca0984b79d8904eb1341d89425cddb069ef4a28",
+      "accessCheck": null,
+      "examplePrompt": "Configure LMA"
+    },
+    {
+      "name": "experience-cms-brand-apply",
+      "domain": "experience",
+      "skillMdSha256": "6a298f91f50e9afd69e8d9283ad83c6b25024806793cc54cbab3378c50bde94e",
+      "treeSha256": "abe568281e67a3c18b852be6630179c93227117922b8a8764f6663ef99b6c108",
+      "accessCheck": null,
+      "examplePrompt": "Apply my brand"
+    },
+    {
+      "name": "experience-content-media-search",
+      "domain": "experience",
+      "skillMdSha256": "bc0166899fc59d49e112e42b146b876a8f7eba6b8bfbdd5ce5cf75ae40720565",
+      "treeSha256": "b9a9479c536212f7d9ad2cfdb2a4c061d7d42f6a078bd5fdca0b12020fa07bdb",
+      "accessCheck": null,
+      "examplePrompt": "Search for logo"
+    },
+    {
+      "name": "experience-lwc-generate",
+      "domain": "experience",
+      "skillMdSha256": "3829ae9acc13d00b737083a4d1a0c540c625fefeb339bc7c1c3c5ba2f2e3af3a",
+      "treeSha256": "07e43772a1d078b8436ca1ba35c2788a557d6ce0e4853c9d5ac18fa7221bad1b",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce lwc."
+    },
+    {
+      "name": "experience-ui-bundle-agentforce-client-generate",
+      "domain": "experience",
+      "skillMdSha256": "842d5dbd90ce6c4aeba44bec37594b32d5412868e13e84dbd1ec608e077f6081",
+      "treeSha256": "03bb47b803286fe9b4e5cce37822e6a40bcf47f8277e4322ed0cf1099120ad70",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce ui bundle agentforce client."
+    },
+    {
+      "name": "experience-ui-bundle-app-coordinate",
+      "domain": "experience",
+      "skillMdSha256": "e891d4b6f4795b7c5d61a83212748754450df5efb0ba12294d5e4284a8f509e7",
+      "treeSha256": "f490a8cdb59a6b3c1531f493ea0ae2ef4da3f20fe5327bc972eab27ac9090777",
+      "accessCheck": null,
+      "examplePrompt": "Help me coordinate Salesforce ui bundle app."
+    },
+    {
+      "name": "experience-ui-bundle-custom-app-generate",
+      "domain": "experience",
+      "skillMdSha256": "163094bb82cc988af199e4e3ba8226e91bb9d13b9545188c2cfed39bf15f7a3d",
+      "treeSha256": "3d32a6042d588af6032facf99e755f343498324c031f27dfc9cd0bef2f12a62b",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce ui bundle custom app."
+    },
+    {
+      "name": "experience-ui-bundle-deploy",
+      "domain": "experience",
+      "skillMdSha256": "d92544304f41bdc3bde89bca524b7791a22de687f8affede58c09c6cc27b32b2",
+      "treeSha256": "eb9637efb27fb78e75d80818c4335593a0a90b444fb2dc3f60177c439d204c4a",
+      "accessCheck": null,
+      "examplePrompt": "Help me deploy Salesforce ui bundle."
+    },
+    {
+      "name": "experience-ui-bundle-features-generate",
+      "domain": "experience",
+      "skillMdSha256": "bf1455bd1ea0841542acd5f3feed8a2d5c57b071e07441214c981420ae9c5ac9",
+      "treeSha256": "fa0476c477f727e419d17974155c1e703266d152cb45b4b93ba2e5693ef375ac",
+      "accessCheck": [
+        {
+          "type": "license",
+          "value": "Experience Cloud (Customer Community / Customer Community Plus)"
+        },
+        {
+          "type": "orgPref",
+          "value": "Sites"
+        }
+      ],
+      "examplePrompt": "Help me generate Salesforce ui bundle features."
+    },
+    {
+      "name": "experience-ui-bundle-file-upload-generate",
+      "domain": "experience",
+      "skillMdSha256": "15bb2299ec9ad48bc71b90f62199115488f9869721252cfbe447f75e6321742e",
+      "treeSha256": "1994e93ede6a5356522e6f6408c65c7223e2a76eb44355e62a63fd40773372a1",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce ui bundle file upload."
+    },
+    {
+      "name": "experience-ui-bundle-frontend-generate",
+      "domain": "experience",
+      "skillMdSha256": "84df72ac9ee1b33a53b1b76fafb1068d660aefc8a73a1472d8378b253e92d2a7",
+      "treeSha256": "e7b2dc467bea8388b6a1023e2280ebf506927f868061a202544921c554a103df",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce ui bundle frontend."
+    },
+    {
+      "name": "experience-ui-bundle-metadata-generate",
+      "domain": "experience",
+      "skillMdSha256": "a5a30a85255dc50694715817ee5458a0f4ced3805caed37c7191aeeea7d5a42a",
+      "treeSha256": "1b2b77a64770aa2577973448d8c609e36b0cdb245be0d60ab1dda3ad62335ad4",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce ui bundle metadata."
+    },
+    {
+      "name": "experience-ui-bundle-project-generate",
+      "domain": "experience",
+      "skillMdSha256": "df2f296f57f817fba413074b1c1e465620ecc160c065bad2dc3f10dd5cb49918",
+      "treeSha256": "d35c8d265e4459c819cd0ff12f6067aa3cd2431897ec726f46a46361aff63e6f",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce ui bundle project."
+    },
+    {
+      "name": "experience-ui-bundle-salesforce-data-access",
+      "domain": "experience",
+      "skillMdSha256": "a171f4446706896d18e1f1503252b8232ad8ecae75abf38da1a106685f0b30c2",
+      "treeSha256": "40846a59ea355562b20a04cd656bb6349f143b4764c4d31cd4cce3659452c344",
+      "accessCheck": null,
+      "examplePrompt": "Help me access Salesforce ui bundle salesforce data."
+    },
+    {
+      "name": "experience-ui-bundle-site-generate",
+      "domain": "experience",
+      "skillMdSha256": "6e0f8d234c4c5df88d97aaa7125590dfadf208e07afccf1a1568d709a439295e",
+      "treeSha256": "cd02b49745a993038d5c027e91842a3b4afec0664a2a318af2c779efb4239fd1",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce ui bundle site."
+    },
+    {
+      "name": "external-diagram-mermaid-generate",
+      "domain": "external",
+      "skillMdSha256": "73f5c5e849828f860d6d3f14eb07a02908b4d5f59f5c2c7e60bf36161635143d",
+      "treeSha256": "c43649178025a461b931eab961b3998ebe041ab56b531fb3edeeedc7c7548a7c",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce diagram mermaid."
+    },
+    {
+      "name": "integration-connectivity-connected-app-configure",
+      "domain": "integration",
+      "skillMdSha256": "ca093aacb21f810b76670ff5a3338630e509dcd059bd16d7aec5b27886300acc",
+      "treeSha256": "26aeef50751265127d076190da3c04b3dc43c621ba1214e981cb14dac7688fb0",
+      "accessCheck": null,
+      "examplePrompt": "Help me configure Salesforce connectivity connected app."
+    },
+    {
+      "name": "integration-connectivity-generate",
+      "domain": "integration",
+      "skillMdSha256": "6a0c2eeef9f220b5b31cd2acb44495990e70e19904755579b4e34837e39b1a1d",
+      "treeSha256": "c65e4f4b19f1cec71fa73030be6686796a3f92ad3f325edac3748c91acbad83f",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce connectivity."
+    },
+    {
+      "name": "integration-eventing-cdc-configure",
+      "domain": "integration",
+      "skillMdSha256": "f323397263e6b69fa41832c617b09ad7316dedd8279a85697717def9c49c0ec4",
+      "treeSha256": "88929561c207c113019d3075f06b07b2a984d0d277a547c3f87a087a622a9920",
+      "accessCheck": null,
+      "examplePrompt": "Enable CDC"
+    },
+    {
+      "name": "integration-eventing-subscription-configure",
+      "domain": "integration",
+      "skillMdSha256": "5208d5fe51726401e8e0f239977c34265a47f14b0c9423c8c7d6143f170272ff",
+      "treeSha256": "a14de893a33fc4146f099793b11b5df9b4857017c46c2584fbf3d2799b6c3330",
+      "accessCheck": null,
+      "examplePrompt": "Help me configure Salesforce eventing subscription."
+    },
+    {
+      "name": "mobile-apps-create",
+      "domain": "mobile",
+      "skillMdSha256": "929ba91c2946e5ddeba5705b05a460935656cac380251984a03243cecc8420e7",
+      "treeSha256": "0b3dbb5dd66497406e10fd0e0174ee9f788dee525d9b3477ea6acc8c1cc7cb7c",
+      "accessCheck": null,
+      "examplePrompt": "Build a Salesforce iOS app"
+    },
+    {
+      "name": "mobile-platform-native-capabilities-integrate",
+      "domain": "mobile",
+      "skillMdSha256": "351e2797e5a2f410c2bc2019329e8639a97e60c070ef0b469d9a7099e442aa97",
+      "treeSha256": "e47266869bd28d3d7625805b202c0e670388419ccb21fd16a2de575799a8144f",
+      "accessCheck": null,
+      "examplePrompt": "Help me integrate Salesforce platform native capabilities."
+    },
+    {
+      "name": "mobile-platform-offline-validate",
+      "domain": "mobile",
+      "skillMdSha256": "e15359135061609cdaaf62ac49a1ed35e6905c00f71273adeeeef1913fabf887",
+      "treeSha256": "71779d345d5c9af6df56d5d1bf77738854eb8874c936f92a305e75e9353f5588",
+      "accessCheck": null,
+      "examplePrompt": "Help me validate Salesforce platform offline."
+    },
+    {
+      "name": "omnistudio-callable-apex-generate",
+      "domain": "omnistudio",
+      "skillMdSha256": "53f3f478bf44b4d131d1b79e968729938ef8c3f9d757d6a810a55eba511af027",
+      "treeSha256": "d9f43e0eb6edbfee595c3ebc80faa91590d5e8aefee53ed364dececc5dbfedce",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce callable apex."
+    },
+    {
+      "name": "omnistudio-datamapper-generate",
+      "domain": "omnistudio",
+      "skillMdSha256": "2d2cf67ecc351abdc9f18ff4ff7214a3d1a447c3466350826e44e903da8e6d3f",
+      "treeSha256": "1d598f970cc60bb497cf955daaa12704a5e889d0e399b9e336ac2de715492546",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce datamapper."
+    },
+    {
+      "name": "omnistudio-datapacks-deploy",
+      "domain": "omnistudio",
+      "skillMdSha256": "fdecbd4a00ce9b35381600422070d91bd6e8e44fc1c921f5c3d56a73a80a077d",
+      "treeSha256": "2dfae37505514425034609a81812063bffb66d0b00f28d588a64bb3f0e190022",
+      "accessCheck": null,
+      "examplePrompt": "Help me deploy Salesforce datapacks."
+    },
+    {
+      "name": "omnistudio-dependencies-analyze",
+      "domain": "omnistudio",
+      "skillMdSha256": "3e2babf5fca134991ec1fd796a1d6bf1c2d6896cc952f1ffac355261297e2869",
+      "treeSha256": "9a3d6d7f0491508882b0ca0da19d371bfddcb64429bbcc46fbb9a433ffc26ade",
+      "accessCheck": null,
+      "examplePrompt": "Help me analyze Salesforce dependencies."
+    },
+    {
+      "name": "omnistudio-epc-catalog-generate",
+      "domain": "omnistudio",
+      "skillMdSha256": "ea4ae75085fd711cd9aed38a832f925fafbce0f6f7c1e8249f7edb65feda49f4",
+      "treeSha256": "98aff7123ce271959186c78a984f099484a43ea6fe1aa57e67475b2d7880187e",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce epc catalog."
+    },
+    {
+      "name": "omnistudio-flexcard-generate",
+      "domain": "omnistudio",
+      "skillMdSha256": "0516b34d24b3eb97cf337792be06f835054ddfc7d9a61fb0d76f352cf5095ebd",
+      "treeSha256": "cc7199eccd1ae387d057df4d107d0a2d0101ee7302c53ee18e95cbd33956ed9d",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce flexcard."
+    },
+    {
+      "name": "omnistudio-integration-procedure-generate",
+      "domain": "omnistudio",
+      "skillMdSha256": "03732912305889bc9be1d98c7e15d7427047af2b400f8e46692b45da6d0f826f",
+      "treeSha256": "4d0222b627783eb2053924bc81eb4ef12877739d82e011c4bfd03edf4496d383",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce integration procedure."
+    },
+    {
+      "name": "omnistudio-omniscript-generate",
+      "domain": "omnistudio",
+      "skillMdSha256": "b6ec00c1606ba024228d46504a2013d3730b6e67c590829f82f3aa82f6f815fe",
+      "treeSha256": "eba0dd442250fef273ba08472d9b644000e226c11168f55f59393775eeec887b",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce omniscript."
+    },
+    {
+      "name": "platform-agentexchange-partner-offers-configure",
+      "domain": "platform",
+      "skillMdSha256": "adc8586d99fbfa1c956ad99bbbab957d1bd7b84ad49047081e5b18318eb6b1c3",
+      "treeSha256": "671b8fd78494b75080ff6a51f2ad758e7e207acc6a0db5d5bddf4f3f04dafbd9",
+      "accessCheck": null,
+      "examplePrompt": "Help me configure Salesforce agentexchange partner offers."
+    },
+    {
+      "name": "platform-agentsetup-categories-fetch",
+      "domain": "platform",
+      "skillMdSha256": "f338d8720b5a9476de55c1a8e9a5b0b92ec599854eb5ecdf13f256a70f817fb9",
+      "treeSha256": "81e7d65c6cba6f1c5b7d30f23267bd427b58b61842b33bd60eba511e45fc48f7",
+      "accessCheck": null,
+      "examplePrompt": "Help me fetch Salesforce agentsetup categories."
+    },
+    {
+      "name": "platform-apex-generate",
+      "domain": "platform",
+      "skillMdSha256": "6bd7e2812ba39a5d3990fa5b7d43ad3a4271642a9d64f2119faa257a5c89278a",
+      "treeSha256": "1be0d7973f3cb1589d7f68cd22e3f9339d7781bb5a8d91e93671e310ff3bd099",
+      "accessCheck": null,
+      "examplePrompt": "Create an Apex service to query Accounts."
+    },
+    {
+      "name": "platform-apex-logs-debug",
+      "domain": "platform",
+      "skillMdSha256": "8ab77dfca2e101116e742308e823f1dfcb87a423c3f8bb1ffb3e435b8886e44f",
+      "treeSha256": "496fb4be2be61064713a50ce5eb07555745cc7aa51357369a03909e4c2e2010a",
+      "accessCheck": null,
+      "examplePrompt": "Help me debug Salesforce apex logs."
+    },
+    {
+      "name": "platform-apex-test-generate",
+      "domain": "platform",
+      "skillMdSha256": "7ed0d88a1f131365af9fb719f49fcb07837890af57ed130a392bdeee110c49e4",
+      "treeSha256": "0859e1293a612a28bb390ff58dbd08558d55444daa5d7376486c352ec1108d92",
+      "accessCheck": null,
+      "examplePrompt": "Generate Apex tests for my selector class."
+    },
+    {
+      "name": "platform-apex-test-run",
+      "domain": "platform",
+      "skillMdSha256": "734ed7245d08db058b2cabe90144ad4541553be15b0e9a4ab8262ba10b0ec3a4",
+      "treeSha256": "980f1400fbee447e708b595f2dfb9a3048794e36b823f719acdd567acba734fb",
+      "accessCheck": null,
+      "examplePrompt": "Help me run Salesforce apex test."
+    },
+    {
+      "name": "platform-custom-application-generate",
+      "domain": "platform",
+      "skillMdSha256": "52527c0f7faf7a4b6adbba62bddb9c3b454dac8b90798c53b325a36272853b6e",
+      "treeSha256": "ae10dd8d9f1fe77811a3622452e13053e0326d45bfefc4aa51bd8d265b3b35b8",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce custom application."
+    },
+    {
+      "name": "platform-custom-field-generate",
+      "domain": "platform",
+      "skillMdSha256": "86300a6bcfa915810576b885258f80c16e8cfd9540b0ecb9daf8dae9064f983a",
+      "treeSha256": "b37e8879f55abd51ec03a935d5abb7fa16ce81b21c9f676382f7e641d9d5138a",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce custom field."
+    },
+    {
+      "name": "platform-custom-lightning-type-generate",
+      "domain": "platform",
+      "skillMdSha256": "8f0d0f42c1850b22a622802fdc3ef12b3ba3fa8ded83658ffa53db88fed1b1b9",
+      "treeSha256": "82e672f236390dca6430c37d9a6b25976e08c8a792a049338827cc8b44f5c01b",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce custom lightning type."
+    },
+    {
+      "name": "platform-custom-object-generate",
+      "domain": "platform",
+      "skillMdSha256": "2227de31cd2a343c6673b55b3f3395152463d652b2dfa44e06221f738e4bea06",
+      "treeSha256": "3c12dd464e6d8a31bcfcd90bcbfec2e46d9557e403e80a1fe086eda742d835c0",
+      "accessCheck": null,
+      "examplePrompt": "Create a custom object for service visits."
+    },
+    {
+      "name": "platform-custom-report-type-generate",
+      "domain": "platform",
+      "skillMdSha256": "31fa5fde3e0685cf1669856230d4f7ae307d9b91088a222a28ca847dc1759e5c",
+      "treeSha256": "b014a0c5ed1579f6d1fe088a905d7e146ca8a3ae434ed7fcf16385d5392c226c",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce custom report type."
+    },
+    {
+      "name": "platform-custom-tab-generate",
+      "domain": "platform",
+      "skillMdSha256": "a72d7e57d368799642a1287b18916ed91f9ffacd06b49be4733e192a10922d1d",
+      "treeSha256": "766634c3a8a7b583ccf3eeaafebafd287e212a2ba72980e015a443f3a89eef76",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce custom tab."
+    },
+    {
+      "name": "platform-data-manage",
+      "domain": "platform",
+      "skillMdSha256": "7aede67bcf2cbe1ab5a01aa6cfa4015bfc3a31d2c75f79aff8c359c7eb4842e0",
+      "treeSha256": "e4a1c6752ad33920498a5627fb80858853440d557dfd193df2ab41a5e6736d51",
+      "accessCheck": null,
+      "examplePrompt": "Help me manage Salesforce data."
+    },
+    {
+      "name": "platform-dataspace-access-configure",
+      "domain": "platform",
+      "skillMdSha256": "3c33073e4ff28230ddd444276ea3034715bf53db8a83c0028a2fb57b064e81a8",
+      "treeSha256": "b84c9042c438242cd348a50a767ee599f3f740cb7a5772c8d994d77618adaf23",
+      "accessCheck": null,
+      "examplePrompt": "Help me configure Salesforce dataspace access."
+    },
+    {
+      "name": "platform-docs-get",
+      "domain": "platform",
+      "skillMdSha256": "c559e03636860e4730acfdc365266e37b5ad851a8341e4f671b4369efcd34af8",
+      "treeSha256": "a2b74fa6851a04d8f70c254d1c659b7ef560b55a52bd83351229f2b34541d3e2",
+      "accessCheck": null,
+      "examplePrompt": "Help me get Salesforce docs."
+    },
+    {
+      "name": "platform-encryption-configure",
+      "domain": "platform",
+      "skillMdSha256": "d069f1f3a51f5960ac9723a2f66bc6974b083ab92baf18446f45433793ba6f44",
+      "treeSha256": "23a0a196984615514377a8d1f8e296c69360fd974c530c269880668d2df5696d",
+      "accessCheck": null,
+      "examplePrompt": "Help me configure Salesforce encryption."
+    },
+    {
+      "name": "platform-flexipage-generate",
+      "domain": "platform",
+      "skillMdSha256": "e0026a6e1a2131aa4f68dd1bb0cac44f9b2837acdde0947e8728fd6d3ed3568a",
+      "treeSha256": "06004211922a3383c745572d3ea7c5269d3ba4ca86bad0e7c523e9b1c0b766b1",
+      "accessCheck": null,
+      "examplePrompt": "Create a Lightning page"
+    },
+    {
+      "name": "platform-lightning-app-coordinate",
+      "domain": "platform",
+      "skillMdSha256": "e0610b3a4f718bff0b9ca53d3108e67ee60e12dbf576ba7288e8a228cbd7e682",
+      "treeSha256": "9102e04e5b3c0484cdb850ecfbd6c304c272f73495c9b911e85f0c3aa7ce7938",
+      "accessCheck": null,
+      "examplePrompt": "Help me coordinate Salesforce lightning app."
+    },
+    {
+      "name": "platform-lightning-type-widget-coordinate",
+      "domain": "platform",
+      "skillMdSha256": "0ef5542898290e005b5d197489b295266e08bb9888ec636c13c0398ba9d64b98",
+      "treeSha256": "e4ae9e188a9af624dac1eefcb4bb03970525b74868a30c370cb172f74462048c",
+      "accessCheck": null,
+      "examplePrompt": "Help me coordinate Salesforce lightning type widget."
+    },
+    {
+      "name": "platform-list-view-generate",
+      "domain": "platform",
+      "skillMdSha256": "3b8b022eaa70b9875a3173b085e23345d2c5373153fb48f298d43d6afac5c5b8",
+      "treeSha256": "b0b573c807533cd1fed81bd7e9f852f7fb6b0e8d8ffef8d14bf3638fb38ec831",
+      "accessCheck": null,
+      "examplePrompt": "I need a view that shows..."
+    },
+    {
+      "name": "platform-metadata-api-context-get",
+      "domain": "platform",
+      "skillMdSha256": "00912d132820080e10d7ec137b86e5ef4ec1bc491fab4bc5684fc8a13a005e21",
+      "treeSha256": "d4754d78ba5fcbf7b3a1b273465bd46ca6a4a2f200d061f8e3b17921cfb6c49c",
+      "accessCheck": null,
+      "examplePrompt": "Help me get Salesforce metadata api context."
+    },
+    {
+      "name": "platform-metadata-deploy",
+      "domain": "platform",
+      "skillMdSha256": "3fad9a41fbac4766c6f82ffdf4309c048dd70654803a90a0029260e9551e1fdb",
+      "treeSha256": "68c279c2e2796e2ef3fe49bc4bd5ff0be486a7b5b47db1aa961b3181a831f049",
+      "accessCheck": null,
+      "examplePrompt": "Deploy my local changes to the scratch org."
+    },
+    {
+      "name": "platform-metadata-retrieve",
+      "domain": "platform",
+      "skillMdSha256": "e71ef818721e49db91ee4c7af75d57fef55ffa0815fdea3b0685a60b8279c72d",
+      "treeSha256": "1fb214a4561953097be21ac6e03295fa421676f3b375b28343403d83bde39056",
+      "accessCheck": null,
+      "examplePrompt": "Help me retrieve Salesforce metadata."
+    },
+    {
+      "name": "platform-models-api-configure",
+      "domain": "platform",
+      "skillMdSha256": "0a7fa40427bcf6634310cf2c19c63a9e401824345fc11b6e3d22506680a8e779",
+      "treeSha256": "f11cba815fec32f427db16e45a201eca91a52f1635680b09494601bf4396571b",
+      "accessCheck": null,
+      "examplePrompt": "Help me configure Salesforce models api."
+    },
+    {
+      "name": "platform-permission-set-generate",
+      "domain": "platform",
+      "skillMdSha256": "030c1f3acf1d1042e824f0238e02aa3ac839ba953de680366289482ea42ea26e",
+      "treeSha256": "948ed4e25185a6d774ed959a141538fbe1ea7ca28e6a7b1ba9b7ef9e7623b1a6",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce permission set."
+    },
+    {
+      "name": "platform-policy-rule-generate",
+      "domain": "platform",
+      "skillMdSha256": "19d1a9490a1f0d2dbf116ae8f027a4b0110e9addf34b533fa1a0e5d27be6c019",
+      "treeSha256": "4a7a0611c60617d3465921404a9aa5afe1af14d1af12f6523e075528ec8e19eb",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce policy rule."
+    },
+    {
+      "name": "platform-sharing-owd-configure",
+      "domain": "platform",
+      "skillMdSha256": "4692c35818d34362460869a501c007fcae2e432c95d3fb2ffb3119283608156c",
+      "treeSha256": "f94ce3b3ddb734105a76718484618fadd1899b18988662d26945a7fde4463d91",
+      "accessCheck": null,
+      "examplePrompt": "Help me configure Salesforce sharing owd."
+    },
+    {
+      "name": "platform-sharing-rules-generate",
+      "domain": "platform",
+      "skillMdSha256": "28a29d1e91ba92b08e5883aea1cf3c0adc16142625684a3cc14d5026bd7f43af",
+      "treeSha256": "11b8c18a5109c00c6a3883e9a8b3616c1b8f79450fc8ffb655ef109bcde22e5f",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce sharing rules."
+    },
+    {
+      "name": "platform-soql-query",
+      "domain": "platform",
+      "skillMdSha256": "2c565a192069a6c6ef92fa3f6dd8a9faa82ab3554fc1612b603040c2c35f1e96",
+      "treeSha256": "94589831e815b329facf325654204440f4380e0e17578bddaec3f42c6caf8cf2",
+      "accessCheck": null,
+      "examplePrompt": "Query the ten largest open opportunities."
+    },
+    {
+      "name": "platform-tracing-agentforce-configure",
+      "domain": "platform",
+      "skillMdSha256": "9f6c2bd7283f603502b0aab498b08fc6aa58dbe21d0b23a12f8d496afc60ddec",
+      "treeSha256": "c6e92526502b18a021126e90f783c9d6fff1f530939682f6d5c623cbca6c5d5b",
+      "accessCheck": null,
+      "examplePrompt": "Help me configure Salesforce tracing agentforce."
+    },
+    {
+      "name": "platform-tracing-configure",
+      "domain": "platform",
+      "skillMdSha256": "838e98e291dcacdf8f8cd27b24fc78bd02213773998a922a3bea509de522b32e",
+      "treeSha256": "76472c9068494410ecb6ca99f15923423db67fd17eb7e023c916dc8e162ee19c",
+      "accessCheck": null,
+      "examplePrompt": "Help me configure Salesforce tracing."
+    },
+    {
+      "name": "platform-trust-archive-manage",
+      "domain": "platform",
+      "skillMdSha256": "5069d8567e1e07b6d1ee854daf56c5a1cf8862d983b1671dd6f0e67efd32dc6b",
+      "treeSha256": "55e1fc0a1d06fc0e386ba58aab29e89420dfce66469fd5604e9f142f9a56d8f8",
+      "accessCheck": null,
+      "examplePrompt": "Find records that were archived"
+    },
+    {
+      "name": "platform-validation-rule-generate",
+      "domain": "platform",
+      "skillMdSha256": "2631cfc7a45b7fc8370b33edb4f4bab3124947787f0d3535b2068cd63f1c8dd9",
+      "treeSha256": "5514f143a4ebe801012c9cba0c18ea6202cbbfd71cc58361bd1943ddb5ff687d",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce validation rule."
+    },
+    {
+      "name": "platform-value-set-generate",
+      "domain": "platform",
+      "skillMdSha256": "a926f60c3a867f0250967701e25b69e8ae7c723ac264afe7421a1475a1589ef9",
+      "treeSha256": "92cfb7968a24f613231dff508e2af1a0d9f6685e8181ba1f1b05dfe94d38dd96",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce value set."
+    },
+    {
+      "name": "platform-widget-generate",
+      "domain": "platform",
+      "skillMdSha256": "c09e1fa55ccfafff96537f08b6c6966a7adccaf9f8825406dd24f91d9bc69efe",
+      "treeSha256": "b17495be3f5f9dc93eb54249681f16e83e132d1b01c25d39081313e0f72ec793",
+      "accessCheck": null,
+      "examplePrompt": "Help me generate Salesforce widget."
+    },
+    {
+      "name": "sales-agentforce-pipeline-management-configure",
+      "domain": "sales",
+      "skillMdSha256": "eb67c124f966676a27eb722877033316404229dd614091fb584c276fc9d19ac5",
+      "treeSha256": "a05db55490ffcc9c9b9f5de280b4e3b2fabf6833d2feb4d69cb176b4c603484d",
+      "accessCheck": null,
+      "examplePrompt": "Help me configure Salesforce agentforce pipeline management."
+    }
+  ]
+}

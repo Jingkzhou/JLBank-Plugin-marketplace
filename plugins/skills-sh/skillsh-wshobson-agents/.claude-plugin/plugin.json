@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-wshobson-agents",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from wshobson/agents.",
+  "author": {
+    "name": "wshobson/agents"
+  }
+}

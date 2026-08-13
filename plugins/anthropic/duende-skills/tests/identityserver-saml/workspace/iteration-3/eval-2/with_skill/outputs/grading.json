@@ -1,0 +1,34 @@
+{
+  "eval_id": 2,
+  "variant": "with_skill",
+  "assertions": [
+    {
+      "assertion": "Warns against using in-memory stores in production",
+      "pass": true,
+      "rationale": "SKILL.md states: 'in-memory is for development only' and lists it as an anti-pattern."
+    },
+    {
+      "assertion": "Implements ISamlServiceProviderStore with FindByEntityIdAsync(string entityId, CancellationToken ct)",
+      "pass": true,
+      "rationale": "SKILL.md shows ISamlServiceProviderStore with FindByEntityIdAsync method signature."
+    },
+    {
+      "assertion": "Implements GetAllSamlServiceProvidersAsync returning IAsyncEnumerable<SamlServiceProvider>",
+      "pass": true,
+      "rationale": "SKILL.md shows GetAllSamlServiceProvidersAsync returning IAsyncEnumerable<SamlServiceProvider>."
+    },
+    {
+      "assertion": "Uses AddSamlServiceProviderStore<T>() for registration",
+      "pass": true,
+      "rationale": "SKILL.md shows: .AddSamlServiceProviderStore<MySamlSpStore>() for registration."
+    },
+    {
+      "assertion": "Shows AddSamlServiceProviderStoreCache<T>() for adding HybridCache layer",
+      "pass": true,
+      "rationale": "SKILL.md shows: .AddSamlServiceProviderStoreCache<MySamlSpStore>() with comment about HybridCache layer."
+    }
+  ],
+  "pass_count": 5,
+  "total_count": 5,
+  "score": 1.0
+}

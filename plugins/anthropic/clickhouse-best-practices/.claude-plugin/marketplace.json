@@ -1,0 +1,175 @@
+{
+  "name": "clickhouse-agent-skills",
+  "owner": {
+    "name": "ClickHouse"
+  },
+  "metadata": {
+    "description": "Official ClickHouse best practices for Claude Code",
+    "version": "0.3.0"
+  },
+  "plugins": [
+    {
+      "name": "clickhouse-best-practices",
+      "source": "./",
+      "description": "28 best practice rules for ClickHouse schema design, query optimization, and data ingestion — prioritized by impact",
+      "version": "0.3.0",
+      "author": {
+        "name": "ClickHouse Inc"
+      },
+      "homepage": "https://clickhouse.ai",
+      "repository": "https://github.com/ClickHouse/agent-skills",
+      "license": "Apache-2.0",
+      "keywords": [
+        "clickhouse",
+        "database",
+        "query-optimization",
+        "schema-design",
+        "best-practices"
+      ],
+      "category": "database"
+    },
+    {
+      "name": "clickhouse-architecture-advisor",
+      "source": "./skills/clickhouse-architecture-advisor/",
+      "description": "Workload-aware architecture decision skill for ClickHouse — ingestion strategies, partitioning, enrichment, upsert patterns, and pre-aggregation with explicit official/derived/field provenance",
+      "version": "0.1.0",
+      "author": {
+        "name": "ClickHouse Inc"
+      },
+      "homepage": "https://clickhouse.ai",
+      "repository": "https://github.com/ClickHouse/agent-skills",
+      "license": "Apache-2.0",
+      "keywords": [
+        "clickhouse",
+        "database",
+        "architecture",
+        "design",
+        "advisor"
+      ],
+      "category": "database"
+    },
+    {
+      "name": "clickhouse-js-node-troubleshooting",
+      "source": "./skills/clickhouse-js-node-troubleshooting/",
+      "description": "Troubleshooting guide for the ClickHouse Node.js client (@clickhouse/client) — socket hang-up/ECONNRESET, Keep-Alive, data type mismatches, read-only users, proxy/pathname URLs, TLS, compression, logging, and query parameters",
+      "version": "0.1.0",
+      "author": {
+        "name": "ClickHouse Inc"
+      },
+      "homepage": "https://clickhouse.ai",
+      "repository": "https://github.com/ClickHouse/agent-skills",
+      "license": "Apache-2.0",
+      "keywords": [
+        "clickhouse",
+        "nodejs",
+        "javascript",
+        "client",
+        "troubleshooting"
+      ],
+      "category": "database"
+    },
+    {
+      "name": "chdb-datastore",
+      "source": "./skills/chdb-datastore/",
+      "description": "Pandas-compatible DataStore API for chDB — same pandas API backed by ClickHouse for 10-100x faster filter/group/aggregate/join, with built-in readers for S3, MySQL, PostgreSQL, MongoDB, ClickHouse Cloud, Iceberg, and Delta Lake and cross-source DataFrame joins",
+      "version": "4.1.0",
+      "author": {
+        "name": "ClickHouse Inc"
+      },
+      "homepage": "https://clickhouse.ai",
+      "repository": "https://github.com/ClickHouse/agent-skills",
+      "license": "Apache-2.0",
+      "keywords": [
+        "chdb",
+        "clickhouse",
+        "pandas",
+        "dataframe",
+        "parquet",
+        "analytics"
+      ],
+      "category": "database"
+    },
+    {
+      "name": "chdb-sql",
+      "source": "./skills/chdb-sql/",
+      "description": "Embedded ClickHouse SQL engine for Python via chDB — run analytical SQL on parquet/csv/json files, URLs, S3, and remote databases (Postgres, MySQL, MongoDB, ClickHouse Cloud, Iceberg, Delta Lake) with Session for stateful pipelines, parametrized queries, UDFs, and cross-source joins",
+      "version": "4.1.0",
+      "author": {
+        "name": "ClickHouse Inc"
+      },
+      "homepage": "https://clickhouse.ai",
+      "repository": "https://github.com/ClickHouse/agent-skills",
+      "license": "Apache-2.0",
+      "keywords": [
+        "chdb",
+        "clickhouse",
+        "sql",
+        "analytics",
+        "parquet",
+        "embedded"
+      ],
+      "category": "database"
+    },
+    {
+      "name": "infra-clickhouse",
+      "source": "./skills/infra-clickhouse/",
+      "description": "Local and cloud workflows for running ClickHouse with clickhousectl — local development (install ClickHouse, start a server, create schemas, seed data) and ClickHouse Cloud deployment (authenticate, create a service, migrate schemas, connect an application), with a decision tree routing between them",
+      "version": "0.3.0",
+      "author": {
+        "name": "ClickHouse Inc"
+      },
+      "homepage": "https://clickhouse.ai",
+      "repository": "https://github.com/ClickHouse/agent-skills",
+      "license": "Apache-2.0",
+      "keywords": [
+        "clickhouse",
+        "clickhousectl",
+        "database",
+        "local-development",
+        "cloud",
+        "deployment"
+      ],
+      "category": "database"
+    },
+    {
+      "name": "infra-postgres",
+      "source": "./skills/infra-postgres/",
+      "description": "Local and cloud workflows for running Postgres with clickhousectl — local Docker-backed Postgres for development (start, psql client, .env wiring, lifecycle) and managed ClickHouse Cloud Postgres services, beta (authentication, service creation, connections and TLS, runtime config, read replicas, failover, point-in-time restore), with a decision tree routing between them",
+      "version": "0.1.0",
+      "author": {
+        "name": "ClickHouse Inc"
+      },
+      "homepage": "https://clickhouse.ai",
+      "repository": "https://github.com/ClickHouse/agent-skills",
+      "license": "Apache-2.0",
+      "keywords": [
+        "clickhouse",
+        "clickhousectl",
+        "postgres",
+        "database",
+        "cloud"
+      ],
+      "category": "database"
+    },
+    {
+      "name": "clickstack-otel-collector",
+      "source": "./skills/clickstack-otel-collector/",
+      "description": "Step-by-step workflow for wiring an OpenTelemetry collector into a Managed ClickStack service on ClickHouse Cloud — deploying a new local collector or configuring an existing one, creating a dedicated ingest user, sending synthetic telemetry, and verifying it in ClickStack",
+      "version": "0.6.0",
+      "author": {
+        "name": "ClickHouse Inc"
+      },
+      "homepage": "https://clickhouse.ai",
+      "repository": "https://github.com/ClickHouse/agent-skills",
+      "license": "Apache-2.0",
+      "keywords": [
+        "clickhouse",
+        "clickstack",
+        "opentelemetry",
+        "observability",
+        "collector"
+      ],
+      "category": "database"
+    }
+  ]
+}

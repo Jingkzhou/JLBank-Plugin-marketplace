@@ -1,0 +1,28 @@
+[
+  {
+    "scope": "marketplace metadata",
+    "change": "Removed root $schema and description fields for Claude Code 2.1.116 compatibility.",
+    "mirror_content_changed": false
+  },
+  {
+    "scope": "Anthropic marketplace entries",
+    "change": "Removed displayName from generated entries because Claude Code 2.1.116 rejects the newer field.",
+    "affected_plugins": [
+      "convex",
+      "hostinger",
+      "qodo"
+    ],
+    "mirror_content_changed": false
+  },
+  {
+    "scope": "skills.sh package entries",
+    "change": "Omitted homepage when the source identifier is not an absolute HTTP URL.",
+    "affected_plugins": [
+      "skillsh-agent-qq-com",
+      "skillsh-open-feishu-cn",
+      "skillsh-sentry-dev",
+      "skillsh-uizze-com"
+    ],
+    "mirror_content_changed": false
+  }
+]

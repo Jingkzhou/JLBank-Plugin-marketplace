@@ -1,0 +1,8 @@
+{
+  "name": "skillsh-samber-cc-skills-golang",
+  "version": "0.0.0-mirror",
+  "description": "JLBank mirror of popular skills from samber/cc-skills-golang.",
+  "author": {
+    "name": "samber/cc-skills-golang"
+  }
+}

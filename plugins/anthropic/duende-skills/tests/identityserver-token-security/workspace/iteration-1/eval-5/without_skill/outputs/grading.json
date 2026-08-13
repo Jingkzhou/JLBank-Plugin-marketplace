@@ -1,0 +1,29 @@
+{
+  "eval_id": 5,
+  "variant": "without_skill",
+  "assertions": [
+    {
+      "assertion": "Sets RequireRequestObject = true on the client",
+      "pass": true,
+      "rationale": "RequireRequestObject = true is set."
+    },
+    {
+      "assertion": "Configures a ClientSecret with Type set to IdentityServerConstants.SecretTypes.JsonWebKey or IdentityServerConstants.SecretTypes.X509CertificateBase64",
+      "pass": true,
+      "rationale": "Type = IdentityServerConstants.SecretTypes.JsonWebKey is used."
+    },
+    {
+      "assertion": "Explains that JAR wraps authorization request parameters in a signed JWT making them tamperproof",
+      "pass": true,
+      "rationale": "Explains JAR wraps parameters in signed JWT, tamperproof."
+    },
+    {
+      "assertion": "Mentions that the same key can be shared between client authentication (private_key_jwt) and JAR",
+      "pass": true,
+      "rationale": "Mentions same key for private_key_jwt and JAR."
+    }
+  ],
+  "pass_count": 4,
+  "total_count": 4,
+  "score": 1.0
+}

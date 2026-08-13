@@ -1,0 +1,65 @@
+[package]
+name = "memtrack"
+version = "1.4.0"
+edition = "2024"
+repository = "https://github.com/CodSpeedHQ/codspeed"
+publish = false
+
+[lib]
+name = "memtrack"
+path = "src/lib.rs"
+
+[[bin]]
+name = "codspeed-memtrack"
+path = "src/main.rs"
+required-features = ["ebpf"]
+
+[features]
+default = ["ebpf"]
+ebpf = ["dep:libbpf-rs", "dep:libbpf-cargo", "dep:vmlinux"]
+
+[dependencies]
+anyhow = { workspace = true }
+clap = { workspace = true }
+crossbeam-channel = { workspace = true }
+libc = { workspace = true }
+log = { workspace = true }
+env_logger = { workspace = true }
+serde_json = { workspace = true }
+serde = { workspace = true }
+runner-shared = { path = "../runner-shared" }
+ipc-channel = { workspace = true }
+static_assertions = "1.1"
+itertools = { workspace = true }
+paste = "1.0.15"
+libbpf-rs = { version = "0.26", features = ["vendored"], optional = true }
+object = { workspace = true }
+rayon = "1.12"
+parking_lot = "0.12"
+
+[build-dependencies]
+libbpf-cargo = { version = "0.26", optional = true }
+vmlinux = { git = "https://github.com/libbpf/vmlinux.h.git", rev = "991dd4b8dfd8c9d62ce8999521b24f61d9b7fc52", optional = true }
+bindgen = "0.72"
+
+[dev-dependencies]
+tempfile = { workspace = true }
+rstest = { workspace = true }
+test-log = { workspace = true }
+insta = { workspace = true }
+test-with = { workspace = true }
+
+[package.metadata.dist]
+targets = ["aarch64-unknown-linux-gnu", "x86_64-unknown-linux-gnu"]
+features = ["libbpf-rs/static"]
+
+[package.metadata.dist.dependencies.apt]
+build-essential = "*"
+pkgconf = "*"
+zlib1g-dev = "*"
+libbpf-dev = "*"
+
+# Required for the vendored feature
+autopoint = "*"
+bison = "*"
+flex = "*"

@@ -1,0 +1,289 @@
+use super::{ExecutionContext, ExecutorName, get_executor_from_mode, run_executor};
+use crate::api_client::CodSpeedAPIClient;
+use crate::binary_installer::ensure_binary_installed;
+use crate::binary_pins::{self, PinnedBinary};
+use crate::cli::exec::multi_targets;
+use crate::cli::run::logger::Logger;
+use crate::executor::config::BenchmarkTarget;
+use crate::executor::config::OrchestratorConfig;
+use crate::executor::helpers::profile_folder::create_profile_folder;
+use crate::prelude::*;
+use crate::run_environment::{self, RunEnvironment, RunEnvironmentProvider};
+use crate::runner_mode::RunnerMode;
+use crate::system::SystemInfo;
+use crate::upload::poll_results::poll_results;
+use crate::upload::{UploadResult, upload};
+use serde_json::Value;
+use std::collections::BTreeMap;
+use std::path::{Path, PathBuf};
+
+pub const EXEC_HARNESS_COMMAND: &str = "exec-harness";
+pub const EXEC_HARNESS_VERSION: &str = binary_pins::EXEC_HARNESS_VERSION;
+
+/// Shared orchestration state created once per CLI invocation.
+///
+/// Holds the run-level configuration, environment provider, system info, and logger.
+pub struct Orchestrator {
+    pub config: OrchestratorConfig,
+    pub system_info: SystemInfo,
+    pub provider: Box<dyn RunEnvironmentProvider>,
+    pub logger: Logger,
+}
+
+impl Orchestrator {
+    pub fn is_local(&self) -> bool {
+        self.provider.get_run_environment() == RunEnvironment::Local
+    }
+
+    pub async fn new(config: OrchestratorConfig, api_client: &CodSpeedAPIClient) -> Result<Self> {
+        let provider = run_environment::get_provider(&config, api_client).await?;
+        let system_info = SystemInfo::new()?;
+        let logger = Logger::new(provider.as_ref())?;
+
+        #[allow(deprecated)]
+        if config.modes.contains(&RunnerMode::Instrumentation) {
+            warn!(
+                "The 'instrumentation' runner mode is deprecated and will be removed in a future version. \
+                Please use 'simulation' instead."
+            );
+        }
+
+        Ok(Orchestrator {
+            config,
+            system_info,
+            provider,
+            logger,
+        })
+    }
+
+    /// Execute all benchmark targets for all configured modes, then upload results.
+    ///
+    /// Flattens all `(command, mode)` pairs into a single iteration:
+    /// - All `Exec` targets are combined into a single exec-harness command
+    /// - Each `Entrypoint` target produces its own command
+    /// - Each command is crossed with every configured mode
+    ///
+    /// Each `(command, mode)` pair gets its own profile folder. When the user
+    /// specifies `--profile-folder` and there are multiple pairs, deterministic
+    /// subdirectories (`<mode>-<index>`) are created under that folder.
+    pub async fn execute(
+        &self,
+        setup_cache_dir: Option<&Path>,
+        api_client: &mut CodSpeedAPIClient,
+    ) -> Result<()> {
+        // Build (command, label, uses_exec_harness) tuples while we still know the target type
+        let mut command_labels: Vec<(String, String, bool)> = vec![];
+
+        let exec_targets: Vec<&BenchmarkTarget> = self
+            .config
+            .targets
+            .iter()
+            .filter(|t| matches!(t, BenchmarkTarget::Exec { .. }))
+            .collect();
+
+        if !exec_targets.is_empty() {
+            ensure_binary_installed(
+                EXEC_HARNESS_COMMAND,
+                EXEC_HARNESS_VERSION,
+                PinnedBinary::ExecHarnessInstaller,
+            )
+            .await?;
+
+            let pipe_cmd = multi_targets::build_exec_targets_pipe_command(&exec_targets)?;
+            let label = match exec_targets.as_slice() {
+                [BenchmarkTarget::Exec { command, .. }] => {
+                    format!("Running `{}` with exec-harness", command.join(" "))
+                }
+                targets => format!("Running {} commands with exec-harness", targets.len()),
+            };
+            command_labels.push((pipe_cmd, label, true));
+        }
+
+        for target in &self.config.targets {
+            if let BenchmarkTarget::Entrypoint { command, .. } = target {
+                command_labels.push((command.clone(), command.clone(), false));
+            }
+        }
+
+        struct ExecutorTarget<'a> {
+            command: String,
+            mode: &'a RunnerMode,
+            label: String,
+            uses_exec_harness: bool,
+        }
+
+        // Flatten into (command, mode) run parts
+        let modes = &self.config.modes;
+        let run_parts: Vec<ExecutorTarget> = command_labels
+            .iter()
+            .flat_map(|(cmd, label, uses_exec_harness)| {
+                modes.iter().map(move |mode| {
+                    let executor_name = get_executor_from_mode(mode, None).name();
+                    ExecutorTarget {
+                        command: cmd.clone(),
+                        mode,
+                        label: format!(
+                            "{} {} - {label}",
+                            executor_name.icon(),
+                            executor_name.label()
+                        ),
+                        uses_exec_harness: *uses_exec_harness,
+                    }
+                })
+            })
+            .collect();
+
+        let total_parts = run_parts.len();
+        let mut all_completed_runs = vec![];
+
+        if !self.config.skip_run {
+            start_opened_group!("Running the benchmarks");
+        }
+
+        for (run_part_index, part) in run_parts.into_iter().enumerate() {
+            let config = self
+                .config
+                .executor_config_for_command(part.command, !part.uses_exec_harness);
+            let mut executor = get_executor_from_mode(part.mode, self.config.walltime_profiler);
+            let profile_folder =
+                self.resolve_profile_folder(&executor.name(), run_part_index, total_parts)?;
+
+            let ctx = ExecutionContext::new(config, profile_folder);
+
+            let rolling_buffer_label =
+                (!self.config.show_full_output).then_some(part.label.as_str());
+
+            run_executor(
+                executor.as_mut(),
+                self,
+                &ctx,
+                setup_cache_dir,
+                rolling_buffer_label,
+            )
+            .await?;
+
+            all_completed_runs.push((ctx, executor.name()));
+        }
+
+        if !self.config.skip_run {
+            end_group!();
+        }
+
+        self.upload_and_poll(all_completed_runs, api_client).await?;
+
+        Ok(())
+    }
+
+    /// Resolve the profile folder for a given run part.
+    ///
+    /// - Single run part + user-specified folder: use as-is
+    /// - Multiple run parts + user-specified folder: `<folder>/<executor>-<index>`
+    /// - No user-specified folder: create a random temp folder
+    fn resolve_profile_folder(
+        &self,
+        executor_name: &ExecutorName,
+        run_part_index: usize,
+        total_parts: usize,
+    ) -> Result<PathBuf> {
+        match (&self.config.profile_folder, total_parts) {
+            (Some(folder), 1) => Ok(folder.clone()),
+            (Some(folder), _) => {
+                let subfolder = folder.join(format!("{executor_name}-{run_part_index}"));
+                std::fs::create_dir_all(&subfolder).with_context(|| {
+                    format!(
+                        "Failed to create profile subfolder: {}",
+                        subfolder.display()
+                    )
+                })?;
+                Ok(subfolder)
+            }
+            (None, _) => create_profile_folder(),
+        }
+    }
+
+    /// Upload completed runs and poll results.
+    async fn upload_and_poll(
+        &self,
+        mut completed_runs: Vec<(ExecutionContext, ExecutorName)>,
+        api_client: &mut CodSpeedAPIClient,
+    ) -> Result<()> {
+        let skip_upload = self.config.skip_upload;
+
+        if !skip_upload {
+            start_group!("Uploading results");
+            let last_upload_result = self.upload_all(&mut completed_runs, api_client).await?;
+            end_group!();
+
+            if self.is_local() {
+                poll_results(
+                    api_client,
+                    &last_upload_result,
+                    &self.config.poll_results_options,
+                )
+                .await?;
+            }
+        } else {
+            debug!("Skipping upload of performance data");
+        }
+
+        Ok(())
+    }
+
+    /// Build the structured suffix that differentiates this upload within the run.
+    fn build_run_part_suffix(
+        executor_name: &ExecutorName,
+        run_part_index: usize,
+        total_runs: usize,
+    ) -> BTreeMap<String, Value> {
+        let mut suffix = BTreeMap::from([(
+            "executor".to_string(),
+            Value::from(executor_name.to_string()),
+        )]);
+        if total_runs > 1 {
+            suffix.insert("run-part-index".to_string(), Value::from(run_part_index));
+        }
+        suffix
+    }
+
+    pub async fn upload_all(
+        &self,
+        completed_runs: &mut [(ExecutionContext, ExecutorName)],
+        api_client: &mut CodSpeedAPIClient,
+    ) -> Result<UploadResult> {
+        let mut last_upload_result: Option<UploadResult> = None;
+
+        let total_runs = completed_runs.len();
+        for (run_part_index, (ctx, executor_name)) in completed_runs.iter_mut().enumerate() {
+            // OIDC tokens can expire quickly, so refresh just before each upload
+            self.provider.set_oidc_token(api_client).await?;
+
+            if total_runs > 1 {
+                info!("Uploading results {}/{total_runs}", run_part_index + 1);
+            }
+            let run_part_suffix =
+                Self::build_run_part_suffix(executor_name, run_part_index, total_runs);
+            let upload_result = upload(
+                self,
+                api_client,
+                ctx,
+                executor_name.clone(),
+                run_part_suffix,
+            )
+            .await?;
+            last_upload_result = Some(upload_result);
+        }
+        info!("Performance data uploaded");
+        if let Some(upload_result) = &last_upload_result {
+            info!(
+                "Linked repository: {}",
+                console::style(format!(
+                    "{}/{}",
+                    upload_result.owner, upload_result.repository
+                ))
+                .bold()
+            );
+        }
+
+        last_upload_result.ok_or_else(|| anyhow::anyhow!("No completed runs to upload"))
+    }
+}

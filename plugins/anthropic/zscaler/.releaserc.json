@@ -1,0 +1,39 @@
+{
+  "preset": "conventionalcommits",
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": ".github/set-version.sh ${nextRelease.version}",
+        "publishCmd": "uv pip install twine && uv build && python -m twine upload dist/* --username __token__ --password $PYPI_API_TOKEN"
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "pyproject.toml",
+          "README.md",
+          "src/zscaler_mcp/__init__.py",
+          ".claude-plugin/marketplace.json",
+          ".claude-plugin/plugin.json",
+          ".mcp.json",
+          ".cursor-plugin/plugin.json",
+          "gemini-extension.json",
+          "server.json",
+          "integrations/anthropic/manifest.json",
+          "docsrc/conf.py"
+        ],
+        "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
+        "successComment": ":tada: This ${issue.pull_request ? 'PR is included' : 'issue has been resolved'} in version ${nextRelease.version} :tada:\n\nThe release is available on [PyPI](https://pypi.org/project/zscaler-mcp/) and [GitHub release](https://github.com/zscaler/zscaler-mcp-server/releases/tag/v${nextRelease.version})\n\n> Posted by [semantic-release](https://github.com/semantic-release/semantic-release) bot"
+      }
+    ]
+  ]
+}

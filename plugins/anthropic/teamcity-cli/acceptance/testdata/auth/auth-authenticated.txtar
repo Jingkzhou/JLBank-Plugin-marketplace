@@ -1,0 +1,35 @@
+# Auth commands requiring authentication.
+[!has_token] skip 'requires authentication token'
+
+# Save token before clearing env vars
+env SAVED_TOKEN=$TEAMCITY_TOKEN
+
+# Env-based status shows "environment variable" as token source
+exec teamcity auth status --no-input
+stdout 'Logged in to'
+stdout 'cli.teamcity.com'
+stdout 'environment variable'
+stdout 'TeamCity'
+stdout 'API compatible'
+! stderr 'Error'
+
+# Login persists credentials to config
+exec teamcity auth login --server $TC_HOST --token $TEAMCITY_TOKEN --no-input
+! stderr 'Error'
+
+env TEAMCITY_URL=
+env TEAMCITY_TOKEN=
+exec teamcity auth status --no-input
+stdout 'Logged in to'
+stdout 'config.yml'
+! stderr 'Error'
+
+# Login with --insecure-storage also works
+exec teamcity auth login --server $TC_HOST --token $SAVED_TOKEN --insecure-storage --no-input
+! stderr 'Error'
+
+exec teamcity auth status --no-input
+stdout 'Logged in to'
+stdout 'config.yml'
+! stdout '(default)'
+! stderr 'Error'

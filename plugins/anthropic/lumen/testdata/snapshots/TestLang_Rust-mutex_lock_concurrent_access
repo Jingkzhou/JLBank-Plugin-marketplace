@@ -1,0 +1,12 @@
+results: 10
+tokio-mutex.rs:320-325  bounds (function)
+tokio-mutex.rs:495-518  Mutex (type)
+tokio-mutex.rs:557-566  Mutex (type)
+tokio-mutex.rs:582-588  Mutex (type)
+tokio-mutex.rs:596-618  Mutex (type)
+tokio-mutex.rs:705-716  Mutex (type)
+tokio-mutex.rs:743-751  Mutex (type)
+tokio-mutex.rs:1024-1035  OwnedMutexGuard (type)
+tokio-mutex.rs:1072-1083  OwnedMutexGuard (type)
+tokio-mutex.rs:1126-1135  OwnedMutexGuard (type)
+

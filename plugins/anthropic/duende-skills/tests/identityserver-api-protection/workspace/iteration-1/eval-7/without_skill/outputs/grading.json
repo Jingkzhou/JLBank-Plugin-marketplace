@@ -1,0 +1,29 @@
+{
+  "eval_id": 7,
+  "variant": "without_skill",
+  "assertions": [
+    {
+      "assertion": "Mentions audience mismatch as a common cause \u2014 Audience in JwtBearerOptions must match the ApiResource name in IdentityServer",
+      "pass": true,
+      "rationale": "Response mentions audience mismatch though doesn't specifically mention ApiResource name"
+    },
+    {
+      "assertion": "Mentions the importance of ValidTypes = ['at+jwt'] and warns about JWT confusion attacks without it",
+      "pass": false,
+      "rationale": "Response does not mention ValidTypes or JWT confusion attacks"
+    },
+    {
+      "assertion": "Mentions scope claim format inconsistency \u2014 space-delimited vs array \u2014 as a cause of silent authorization failures",
+      "pass": false,
+      "rationale": "Response does not mention scope claim format issues at all"
+    },
+    {
+      "assertion": "Mentions checking the middleware pipeline ordering (UseAuthentication before UseAuthorization)",
+      "pass": true,
+      "rationale": "Response covers middleware ordering"
+    }
+  ],
+  "pass_count": 2,
+  "total_count": 4,
+  "score": 0.5
+}
