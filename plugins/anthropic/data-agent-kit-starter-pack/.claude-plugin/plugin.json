@@ -1,7 +1,7 @@
 {
   "name": "dak",
   "version": "0.8.0",
-  "description": "This plugin provides a specialized suite of skills for data engineers and database practitioners working on Google Cloud. It acts as an expert assistant, allowing you to use natural language prompts in your preferred coding agent to architect complex data pipelines, transform data with dbt, write Spark and BigQuery SQL notebooks, and orchestrate end-to-end workflows across GCP's data ecosystem.",
+  "description": "该插件为在 Google Cloud 上工作的数据工程师和数据库从业人员提供了一套专门的技能。它充当专家助理，允许您在首选编码代理中使用自然语言提示来构建复杂的数据管道、使用 dbt 转换数据、编写 Spark 和 BigQuery SQL 笔记本，以及在 GCP 数据生态系统中编排端到端工作流程。",
   "author": {
     "name": "Google LLC",
     "email": "data-cloud-ai-integrations@google.com"

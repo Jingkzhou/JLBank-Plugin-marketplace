@@ -1,7 +1,7 @@
 {
   "name": "skillsh-open-feishu-cn",
   "version": "0.0.0-mirror",
-  "description": "JLBank mirror of popular skills from open.feishu.cn.",
+  "description": "JLBank 镜像的 skills.sh 技能集合，共收录 24 项技能。",
   "author": {
     "name": "open.feishu.cn"
   }

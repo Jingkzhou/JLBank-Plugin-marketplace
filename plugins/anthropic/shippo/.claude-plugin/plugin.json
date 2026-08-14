@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "shippo",
-  "description": "Shippo connects you to USPS, UPS, FedEx, DHL, and 40+ carriers, so you can handle a shipment end to end right inside Claude. Compare live rates and pick the cheapest or best option, buy and print labels (domestic and international, with customs declarations), validate and standardize addresses, and track packages across carriers. Just ask in plain language: rate-shop a parcel, buy the right label, check a delivery status, or confirm an address before you ship. Whether you run a store or just need to send a package, Shippo turns a pile of carrier accounts into one simple conversation.",
+  "description": "Shippo 将您与 USPS、UPS、FedEx、DHL 和 40 多家承运商连接起来，因此您可以在 Claude 内部处理端到端的货件。比较实时费率并选择最便宜或最好的选项，购买和打印标签（国内和国际，带有海关申报单），验证和标准化地址，以及跟踪承运商之间的包裹。只需用简单的语言询问即可：对包裹进行评分、购买正确的标签、检查递送状态或在发货前确认地址。无论您经营一家商店还是只需要寄送包裹，Shippo 都能将一堆承运人帐户变成一次简单的对话。",
   "version": "1.5.4",
   "author": {
     "name": "Shippo",

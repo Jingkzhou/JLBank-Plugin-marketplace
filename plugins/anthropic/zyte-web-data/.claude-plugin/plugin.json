@@ -1,6 +1,6 @@
 {
   "name": "zyte-web-data",
-  "description": "Zyte Web Data for Claude Code",
+  "description": "由 Zyte API 提供支持的 Claude Code 的网页抓取技能 — 抓取网站、生成并运行 Scrapy 蜘蛛、定义提取模式并发送到 Scrapy Cloud。",
   "version": "0.2.3",
   "homepage": "https://github.com/zytedata/claude-skills",
   "repository": "https://github.com/zytedata/claude-skills"

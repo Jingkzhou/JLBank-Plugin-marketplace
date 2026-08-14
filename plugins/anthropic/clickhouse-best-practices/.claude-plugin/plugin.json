@@ -1,7 +1,7 @@
 {
   "name": "clickhouse-best-practices",
   "version": "0.3.0",
-  "description": "28 best practice rules for ClickHouse schema design, query optimization, and data ingestion — prioritized by impact",
+  "description": "ClickHouse 模式设计、查询优化和数据摄取的 28 条最佳实践规则 - 按影响优先排序",
   "author": {
     "name": "ClickHouse Inc",
     "url": "https://clickhouse.com"

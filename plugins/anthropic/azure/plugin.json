@@ -1,6 +1,6 @@
 {
   "name": "azure",
-  "description": "Microsoft Azure MCP and Skills integration for cloud resource management, deployments, and Azure services. Manage your Azure infrastructure, monitor applications, and deploy resources directly from your development environment.",
+  "description": "将 Claude 转变为 Azure 专家。该插件集成了 Azure MCP 服务器和专门的 Azure 技能，超越了一般建议。它使 Claude 能够执行实际任务：列出资源、验证部署、诊断基础架构问题以及优化 50 多个 Azure 服务的成本。",
   "version": "1.2.27",
   "author": {
     "name": "Microsoft",

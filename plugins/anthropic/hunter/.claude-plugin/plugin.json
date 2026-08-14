@@ -1,6 +1,6 @@
 {
   "name": "hunter",
-  "description": "Find and verify professional email addresses, search contacts by domain, enrich company and person data, organize leads and lists, run outreach sequences, and push to your CRM -- directly in Claude.",
+  "description": "直接在 Claude 中查找并验证专业电子邮件地址、按域搜索联系人并丰富公司数据。",
   "version": "0.1.0",
   "author": {
     "name": "Hunter.io",

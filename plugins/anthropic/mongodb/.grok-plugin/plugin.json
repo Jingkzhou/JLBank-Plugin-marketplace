@@ -1,7 +1,7 @@
 {
   "name": "mongodb",
   "version": "1.2.0",
-  "description": "Connect to any MongoDB deployment (Community, Enterprise Advanced, local dev container via Atlas CLI or Atlas clusters) through a self-managed MongoDB MCP Server using your connection string. Explore data, manage collections, optimize queries, and generate reliable code with MongoDB best practices.",
+  "description": "MongoDB 的官方 Claude 插件（MCP 服务器 + 技能）。连接到数据库、探索数据、管理集合、优化查询、生成可靠的代码、实施最佳实践、开发高级功能等等。",
   "author": {
     "name": "MongoDB",
     "email": "agent-plugins@mongodb.com",

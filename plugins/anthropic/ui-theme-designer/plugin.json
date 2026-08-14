@@ -1,7 +1,7 @@
 {
     "name": "ui-theme-designer",
     "version": "2.0.0",
-    "description": "Plugin for coding agents working with UI theme designer. Bundles two skills: how-to and conceptual answers about UI theme designer on BTP, and questions about the SAP Design System and SAP Fiori design tokens — theme parameters and component-level parameter usage in UI5, UI5 Web Components, and Fundamental Styles.",
+    "description": "用于与 UI 主题设计器一起使用的编码代理的插件。捆绑两项技能：有关 BTP 上 UI 主题设计器的操作方法和概念性答案，以及有关 SAP 设计系统和 SAP Fiori 设计令牌的问题 - UI5、UI5 Web 组件和基本样式中的主题参数和组件级参数使用。",
     "author": {
         "name": "SAP SE"
     },

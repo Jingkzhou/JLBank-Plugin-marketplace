@@ -1,7 +1,7 @@
 {
   "name": "mdk-mcp",
   "version": "0.4.0",
-  "description": "Model Context Protocol (MCP) server for AI-assisted development of MDK applications.",
+  "description": "SAP 移动开发套件 (MDK) 的 MCP 服务器。利用 AI 辅助构建和修改 MDK 应用程序 — 模式查找、操作验证、规则编辑和项目脚手架。",
   "author": {
     "name": "SAP SE"
   },

@@ -1,6 +1,6 @@
 {
   "name": "fakechat",
-  "description": "Localhost iMessage-style web chat for Claude Code \u2014 test surface with file upload and edits. No tokens, no access control.",
+  "description": "用于测试通道通知流的本地主机网络聊天。没有令牌，没有访问控制，没有第三方服务。",
   "version": "0.0.1",
   "keywords": [
     "fakechat",

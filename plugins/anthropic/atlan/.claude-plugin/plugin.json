@@ -1,6 +1,6 @@
 {
   "name": "atlan",
-  "description": "Atlan context layer plugin for Claude Code. Search, explore, govern, and manage your data assets through natural language. Powered by the Atlan MCP server with semantic search, lineage traversal, glossary management, data quality rules, and more.",
+  "description": "Claude Code 的 Atlan 数据目录插件。通过自然语言搜索、探索、治理和管理您的数据资产。由 Atlan MCP 服务器提供支持，具有语义搜索、谱系遍历、词汇表管理、数据质量规则等功能。",
   "version": "1.0.0",
   "author": {
     "name": "Atlan",

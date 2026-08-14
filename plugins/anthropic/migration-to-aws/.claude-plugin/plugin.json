@@ -1,7 +1,7 @@
 {
   "name": "migration-to-aws",
   "version": "1.1.0",
-  "description": "This no-cost tool assesses your current cloud provider's usage, geography, and billing data to estimate and compare AWS services and pricing, and recommends migration or continued use of your current provider. AWS pricing is based on current published pricing and may vary over time. The tool may generate a .migration folder containing comparison and migration execution data, which you may delete upon completion or use to migrate to AWS.",
+  "description": "计划从 Google Cloud Platform（和 OpenAI/Gemini AI 工作负载）迁移到 AWS。分析您的基础设施即代码文件、应用程序代码和 GCP 计费数据，以发现资源、设计 AWS 架构、估算成本并生成迁移工件 — 包括 AI 提供商映射到 Amazon Bedrock。处理是本地的；您的数据保留在您的环境中。",
   "author": {
     "name": "Amazon Web Services"
   },

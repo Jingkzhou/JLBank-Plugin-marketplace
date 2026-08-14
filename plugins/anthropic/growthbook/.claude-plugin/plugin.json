@@ -1,7 +1,7 @@
 {
   "name": "growthbook",
   "version": "1.0.0",
-  "description": "A suite of agent skills for the full GrowthBook feature flag and experimentation lifecycle.",
+  "description": "一套用于完整 GrowthBook 功能标记和实验生命周期的代理技能。",
   "author": {
     "name": "GrowthBook",
     "url": "https://growthbook.io"

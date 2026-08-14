@@ -1,7 +1,7 @@
 {
     "name": "nvidia-skills",
     "version": "1.4.0",
-    "description": "Find the right NVIDIA skill for GPU acceleration, CUDA, AI agents, data loading, training, inference, robotics, Physical AI, Omniverse, simulation, and other NVIDIA-powered workflows.",
+    "description": "用于加速计算工作流程的 NVIDIA 代理技能 - 从通过 cuOpt Python API 进行 cuOpt 车辆路由优化（VRP、TSP、PDP）开始。",
     "displayName": "NVIDIA Skills",
     "author": {
         "name": "NVIDIA",

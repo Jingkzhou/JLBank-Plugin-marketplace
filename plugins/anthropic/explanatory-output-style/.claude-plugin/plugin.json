@@ -1,7 +1,7 @@
 {
   "name": "explanatory-output-style",
   "version": "1.0.0",
-  "description": "Adds educational insights about implementation choices and codebase patterns (mimics the deprecated Explanatory output style)",
+  "description": "添加有关实现选择和代码库模式的教育见解（模仿已弃用的解释性输出样式）",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"

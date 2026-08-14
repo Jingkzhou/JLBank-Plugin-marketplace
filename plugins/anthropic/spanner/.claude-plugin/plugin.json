@@ -1,7 +1,7 @@
 {
   "name": "spanner",
   "version": "0.3.4",
-  "description": "Connect and interact with Spanner data using natural language.",
+  "description": "使用自然语言连接 Spanner 数据并进行交互。",
   "author": {
     "name": "Google LLC",
     "email": "data-cloud-ai-integrations@google.com"

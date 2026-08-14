@@ -1,6 +1,6 @@
 {
   "name": "logrocket",
-  "description": "Connect Claude Code to LogRocket to query session replays, metrics, issues, and user behavior using natural language.",
+  "description": "将 Claude Code 连接到 LogRocket，以使用自然语言查询会话重播、指标、问题和用户行为。",
   "author": {
     "name": "LogRocket",
     "email": "support@logrocket.com"

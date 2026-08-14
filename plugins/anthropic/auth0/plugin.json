@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "auth0",
   "version": "2.1.0",
-  "description": "A unified Auth0 skill that routes developers to the right guidance for adding, securing, debugging, or migrating authentication in any app.",
+  "description": "企业级认证，易于实施。通过框架感知指导向任何应用程序添加登录、SSO、MFA 和访问控制。",
   "author": {
     "name": "Auth0",
     "email": "support@auth0.com",

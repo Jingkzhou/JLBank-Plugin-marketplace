@@ -1,7 +1,7 @@
 {
   "name": "dash0-agent-plugin",
   "version": "0.1.23",
-  "description": "OpenTelemetry observability for Claude Code sessions. Captures tool calls, LLM invocations, token usage, and errors as OTel traces.",
+  "description": "Claude Code 会话的 OpenTelemetry 可观测性。捕获工具调用、LLM 调用、令牌使用情况和错误作为 OTel 跟踪。将遥测数据发送到 Dash0 或任何与 OpenTelemetry 兼容的后端。",
   "author": {
     "name": "Dash0"
   },

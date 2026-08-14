@@ -2,7 +2,7 @@
   "author": {
     "name": "Amazon Web Services"
   },
-  "description": "Build full-stack apps with AWS Amplify Gen 2 using guided workflows for authentication, data models, storage, GraphQL APIs, and Lambda functions.",
+  "description": "使用 AWS Amplify Gen 2 使用身份验证、数据模型、存储、GraphQL API 和 Lambda 函数的引导工作流程构建全栈应用程序。",
   "homepage": "https://github.com/awslabs/agent-plugins",
   "keywords": [
     "aws",

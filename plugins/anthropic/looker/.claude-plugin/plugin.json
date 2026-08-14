@@ -1,7 +1,7 @@
 {
   "name": "looker",
   "version": "0.3.10",
-  "description": "Connect to Looker and interact with your data using LookML.",
+  "description": "连接到 Looker 并使用 LookML 与您的数据交互。",
   "author": {
     "name": "Google LLC",
     "email": "data-cloud-ai-integrations@google.com"

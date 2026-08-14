@@ -1,6 +1,6 @@
 {
   "name": "skill-creator",
-  "description": "Create new skills, improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, or benchmark skill performance with variance analysis.",
+  "description": "创造新技能、提高现有技能并衡量技能绩效。当用户想要从头开始创建技能、更新或优化现有技能、运行评估来测试技能或通过方差分析对技能性能进行基准测试时使用。",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"

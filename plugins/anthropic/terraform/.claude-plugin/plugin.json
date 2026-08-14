@@ -1,6 +1,6 @@
 {
   "name": "terraform",
-  "description": "The Terraform MCP Server provides seamless integration with Terraform ecosystem, enabling advanced automation and interaction capabilities for Infrastructure as Code (IaC) development.",
+  "description": "Terraform MCP 服务器提供与 Terraform 生态系统的无缝集成，为基础设施即代码 (IaC) 开发提供高级自动化和交互功能。",
   "author": {
     "name": "HashiCorp"
   }

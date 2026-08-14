@@ -1,0 +1,2522 @@
+[
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "42crunch-api-security-testing",
+    "path": "plugins/anthropic/42crunch-api-security-testing/.claude-plugin/plugin.json",
+    "original_description": "Catch API security issues during development: audit, scan, remediate, validate with AI guardrails in Claude Code.",
+    "localized_description": "使用 42Crunch 直接在 Claude Code 中自动化 API 安全 - 自动审核 OpenAPI 规范，检测与 OWASP API 安全风险（包括 BOLA/BFLA）相关的漏洞，并应用 AI 驱动的修复。它专为人工智能辅助开发工作流程而设计，通过审核->扫描->修复->验证循环提供连续的防护，确保 API 在部署前满足企业安全标准。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "adobe-for-creativity",
+    "path": "plugins/anthropic/adobe-for-creativity/.claude-plugin/plugin.json",
+    "original_description": "Brings together Adobe Creative Cloud tools for images, vectors, design, and video. Edit multiple assets at once, adapt for different platforms, and complete multi-step creative workflows for polished results.",
+    "localized_description": "利用 Adobe 的 AI 创意工具来编辑图像、自动化设计工作流程，并将创意愿景变为现实 — 从背景去除到矢量化和专业修饰。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "agent-sdk-dev",
+    "path": "plugins/anthropic/agent-sdk-dev/.claude-plugin/plugin.json",
+    "original_description": "Claude Agent SDK Development Plugin",
+    "localized_description": "用于与 Claude Agent SDK 配合使用的开发套件",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "agentforce-adlc",
+    "path": "plugins/anthropic/agentforce-adlc/.claude-plugin/plugin.json",
+    "original_description": "Agentforce Agent Development Life Cycle — author, discover, scaffold, deploy, test, secure, and optimize .agent files",
+    "localized_description": "Agentforce 代理开发生命周期 — 创作、发现、构建、部署、测试和优化 .agent 文件",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "ai-plugins",
+    "path": "plugins/anthropic/ai-plugins/.claude-plugin/plugin.json",
+    "original_description": "Endor Labs workflow agents and setup for Claude Code.",
+    "localized_description": "设置 endorctl 并使用 Endor Labs 扫描、确定优先级并修复整个软件供应链中的安全风险",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "aikido",
+    "path": "plugins/anthropic/aikido/.claude-plugin/plugin.json",
+    "original_description": "Aikido Security for Claude Code: scan code (SAST, secrets, IaC) and list all issues from your Aikido feed powered by the Aikido MCP server.",
+    "localized_description": "Aikido 安全扫描 Claude Code — 由 Aikido MCP 服务器提供支持的 SAST、秘密和 IaC 漏洞检测。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "airtable",
+    "path": "plugins/anthropic/airtable/.claude-plugin/plugin.json",
+    "original_description": "Airtable is the database and operations layer for your agents — whether running product, marketing, sales, ops, HR, or a custom business app. It combines structured data with multiplayer visual surfaces (grid, kanban, calendar, gallery, timeline) humans and agents share — plus sync integrations to Jira, Salesforce, Zendesk, Google Drive, and Databricks. Makes Claude fluent in Airtable: bases and schema, records, and collaboration UI. Bundles the official Airtable MCP server.",
+    "localized_description": "Airtable 是您的代理的数据库和运营层 - 无论是运行产品、营销、销售、运营、人力资源还是自定义业务应用程序。它将结构化数据与人类和代理共享的多人视觉界面（网格、看板、日历、图库、时间线）相结合，再加上与 Jira、Salesforce、Zendesk、Google Drive、Databricks 和其他堆栈的同步集成，所有这些都由企业治理提供支持。该插件使 Claude 能够流利地使用 Airtable：创建基础和架构、处理记录以及共享 UI 以进行协作。捆绑官方 Airtable MCP 服务器。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "airwallex-agentos",
+    "path": "plugins/anthropic/airwallex-agentos/.claude-plugin/plugin.json",
+    "original_description": "Bring Airwallex's global financial infrastructure to Claude. Orchestrate actions across your account in plain language, e.g., set up invoices from a PO, onboard suppliers from invoices, and check current cash position across currencies. AgentOS bundles pre-built finance Skills with MCP servers. A public CLI connects your agent to Airwallex's capabilities.",
+    "localized_description": "将 Airwallex 的全球金融基础设施带给 Claude。用简单的语言在您的帐户中协调操作，例如，从采购订单设置发票，从发票中加入供应商，以及检查跨货币的当前现金状况。 AgentOS 将预构建的财务技能与 MCP 服务器捆绑在一起。公共 CLI 将您的代理连接到 Airwallex 的功能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "airwallex-dev",
+    "path": "plugins/anthropic/airwallex-dev/.claude-plugin/plugin.json",
+    "original_description": "Airwallex integration skills for Claude. Code-generation workflows that scaffold, configure, and wire Airwallex APIs into your project.",
+    "localized_description": "在您自己的代码库中构建 Airwallex 支付集成。为 Airwallex 集成生成结帐、卡元素、登录和订阅计费代码，并将其连接到您的项目中：托管支付页面、插入和拆分卡元素、连接帐户 KYC 登录以及用于订阅和卡保存的计费托管结帐。还为人工智能提供商规划卡备案商家发起的流程，例如充值和自动充值。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "aiven",
+    "path": "plugins/anthropic/aiven/.claude-plugin/plugin.json",
+    "original_description": "Easily deploy managed PostgreSQL (pg), Kafka, OpenSearch, Clickhouse and other databases, streaming and apps. Free tier available, up and running in minutes.",
+    "localized_description": "轻松部署托管 PostgreSQL (pg)、Kafka、OpenSearch、Clickhouse 和其他数据库、流媒体和应用程序。提供免费套餐，几分钟内即可启动并运行。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "alloydb",
+    "path": "plugins/anthropic/alloydb/.claude-plugin/plugin.json",
+    "original_description": "Create, connect, and interact with an AlloyDB for PostgreSQL database and data.",
+    "localized_description": "创建、连接 AlloyDB for PostgreSQL 数据库和数据并与之交互。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "alloydb-omni",
+    "path": "plugins/anthropic/alloydb-omni/.claude-plugin/plugin.json",
+    "original_description": "Create, connect, and interact with an AlloyDB Omni database and data.",
+    "localized_description": "创建、连接 AlloyDB Omni 数据库和数据并与之交互。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "altimate-code",
+    "path": "plugins/anthropic/altimate-code/.claude-plugin/plugin.json",
+    "original_description": "Delegates dbt and warehouse work to altimate-code, a specialized CLI agent with 100+ purpose-built data tools (SQL analysis, column-level lineage, dbt build/test/run, warehouse profiling, FinOps, connectivity to Snowflake, BigQuery, Redshift, Databricks, Postgres, MySQL, DuckDB).",
+    "localized_description": "将 dbt 和仓库工作委托给 alttimate-code，这是一个专门的 CLI 代理，具有 100 多个专用数据工具（SQL 分析、列级沿袭、dbt 构建/测试/运行、仓库分析、FinOps、与 Snowflake、BigQuery、Redshift、Databricks、Postgres、MySQL、DuckDB 的连接）。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "amazon-location-service",
+    "path": "plugins/anthropic/amazon-location-service/.claude-plugin/plugin.json",
+    "original_description": "Guide developers through adding maps, places search, geocoding, routing, and other geospatial features with Amazon Location Service, including authentication setup, SDK integration, and best practices.",
+    "localized_description": "指导开发人员使用 Amazon Location Service 添加地图、地点搜索、地理编码、路由和其他地理空间功能，包括身份验证设置、SDK 集成和最佳实践。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "amplitude",
+    "path": "plugins/anthropic/amplitude/.claude-plugin/plugin.json",
+    "original_description": "Use Amplitude like an expert - instrument analytics, discover product opportunities, analyze charts, create dashboards, manage experiments, and understand users and accounts",
+    "localized_description": "使用 Amplitude 作为专家分析师 — 使用 Amplitude、发现产品机会、分析图表、创建仪表板、管理实验以及了解用户和帐户。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "apollo",
+    "path": "plugins/anthropic/apollo/.claude-plugin/plugin.json",
+    "original_description": "Prospect, enrich leads, load outreach sequences, and query sales analytics with Apollo.io — one-click MCP server integration for Claude Code and Cowork.",
+    "localized_description": "使用 Apollo.io 寻找潜在客户、丰富销售线索、加载外展序列并查询销售分析 — 适用于 Claude Code 和 Cowork 的一键式 MCP 服务器集成。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "apollo-skills",
+    "path": "plugins/anthropic/apollo-skills/.claude-plugin/plugin.json",
+    "original_description": "Agent skills for AI coding agents working with Apollo GraphQL tools and technologies",
+    "localized_description": "适用于 Claude Code 的 Apollo GraphQL 代理技能 — Apollo 客户端、服务器、联合、连接器、路由器、Rover CLI、iOS、Kotlin 和 Apollo MCP 服务器。涵盖架构设计、查询优化和 GraphQL 最佳实践。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "appwrite",
+    "path": "plugins/anthropic/appwrite/.claude-plugin/plugin.json",
+    "original_description": "Appwrite tools for Claude Code, including SDK skills, Appwrite MCP servers, and deployment commands.",
+    "localized_description": "Claude Code 的 Appwrite 工具，包括 SDK 技能、Appwrite MCP 服务器和部署命令。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "asana",
+    "path": "plugins/anthropic/asana/.claude-plugin/plugin.json",
+    "original_description": "Asana project management integration. Connects Claude Code to Asana's V2 MCP server (https://mcp.asana.com/v2/mcp) to create and manage tasks, search projects, update assignments, and track progress. Requires a one-time setup of your own Asana OAuth app — run /asana-setup after installing.",
+    "localized_description": "Asana 项目管理集成。将 Claude Code 连接到 Asana 的 V2 MCP 服务器以创建和管理任务、搜索项目、更新作业并跟踪进度。需要一次性 Asana OAuth 应用程序设置 - 安装后运行 /asana-setup。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "astronomer-data-agents",
+    "path": "plugins/anthropic/astronomer-data-agents/.claude-plugin/plugin.json",
+    "original_description": "Data engineering plugin - warehouse exploration, pipeline authoring, Airflow integration",
+    "localized_description": "Apache Airflow 和 Astronomer 的数据工程。使用最佳实践编写 DAG、调试管道故障、跟踪数据沿袭、配置文件表、将 Airflow 2 迁移到 3 以及管理本地和云部署。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "atlan",
+    "path": "plugins/anthropic/atlan/.claude-plugin/plugin.json",
+    "original_description": "Atlan context layer plugin for Claude Code. Search, explore, govern, and manage your data assets through natural language. Powered by the Atlan MCP server with semantic search, lineage traversal, glossary management, data quality rules, and more.",
+    "localized_description": "Claude Code 的 Atlan 数据目录插件。通过自然语言搜索、探索、治理和管理您的数据资产。由 Atlan MCP 服务器提供支持，具有语义搜索、谱系遍历、词汇表管理、数据质量规则等功能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "atlassian",
+    "path": "plugins/anthropic/atlassian/.claude-plugin/plugin.json",
+    "original_description": "Connect to Atlassian products including Jira and Confluence. Search and create issues, access documentation, manage sprints, and integrate your development workflow with Atlassian's collaboration tools.",
+    "localized_description": "连接到 Atlassian 产品，包括 Jira 和 Confluence。搜索和创建问题、访问文档、管理冲刺并将您的开发工作流程与 Atlassian 的协作工具集成。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "atlassian-twg-cli",
+    "path": "plugins/anthropic/atlassian-twg-cli/.claude-plugin/plugin.json",
+    "original_description": "Teamwork Graph CLI is Atlassian's agent-first interface to your entire work context: Jira issues, Confluence pages, Bitbucket PRs, along with your connected third-party data sources. Purpose-built for coding agents like Claude Code (terminal or desktop), and powered by Atlassian's context graph. Try: \"draft a Jira issue from this PR and link it to the epic.\" Using Claude Code in the browser? Install the Atlassian Rovo MCP plugin instead. Run /twg-setup after install to connect Atlassian Teamwork Graph CLI to Claude Code.",
+    "localized_description": "Teamwork Graph CLI 是 Atlassian 面向整个工作环境的代理优先界面：Jira 问题、Confluence 页面、Bitbucket PR 以及连接的第三方数据源。专为 Claude Code（终端或桌面）等编码代理而构建，并由 Atlassian 的上下文图提供支持。尝试：“从此 PR 中起草一个 Jira 问题并将其链接到史诗。”在浏览器中使用克劳德代码？请安装 Atlassian Rovo MCP 插件。安装后运行 /twg-setup 将 Atlassian Teamwork Graph CLI 连接到 Claude Code。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "atomic-agents",
+    "path": "plugins/anthropic/atomic-agents/.claude-plugin/plugin.json",
+    "original_description": "Skills plus explorer and reviewer subagents for building, scaffolding, debugging, understanding, and auditing applications with the Atomic Agents Python framework. Includes the umbrella `framework` skill, action-oriented `create-atomic-schema` / `create-atomic-agent` / `create-atomic-tool` / `create-atomic-context-provider` skills, the `troubleshoot` diagnostic skill, the `new-app` scaffolder (emits AGENTS.md + CLAUDE.md), progressive-disclosure reference material for prompts, orchestration, memory, hooks, providers, project structure, and testing, and isolated-context subagents for codebase mapping and code review.",
+    "localized_description": "使用原子代理框架构建人工智能代理的综合开发工作流程。包括用于模式设计、架构规划、代码审查和工具开发的专门代理。具有指导工作流程、渐进式披露技能和最佳实践验证。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "auth0",
+    "path": "plugins/anthropic/auth0/.claude-plugin/plugin.json",
+    "original_description": "A single unified Auth0 skill that detects your framework, feature, and tooling, then loads the right reference guides for adding authentication — login, MFA, Organizations, ACUL, custom domains, branding, JWT validation, migration, and debugging — to any app.",
+    "localized_description": "企业级认证，易于实施。通过框架感知指导向任何应用程序添加登录、SSO、MFA 和访问控制。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "aws-agents",
+    "path": "plugins/anthropic/aws-agents/.claude-plugin/plugin.json",
+    "original_description": "Build, deploy, and operate AI agents on AWS. Skills for scaffolding agents with Amazon Bedrock AgentCore (Strands, LangGraph), connecting tools via Gateway and MCP, multi-agent and A2A orchestration, memory, Cedar policies, evaluation, observability, debugging traces and logs, and production hardening (inbound auth, IAM, rate limiting, cold-start tuning).",
+    "localized_description": "在 AWS 上构建、部署和运行 AI 代理。使用 Amazon Bedrock AgentCore 搭建脚手架代理、连接工具、内存、策略、评估、调试和生产强化的技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "aws-agents-for-devsecops",
+    "path": "plugins/anthropic/aws-agents-for-devsecops/.claude-plugin/plugin.json",
+    "original_description": "Investigate incidents, review code and execute UAT for release readiness, scan code for vulnerabilities, and run penetration tests with AWS DevOps Agent and AWS Security Agent.",
+    "localized_description": "调查事件、审查代码并执行 UAT 来做好发布准备、扫描代码中的漏洞以及使用 AWS DevOps Agent 和 AWS Security Agent 运行渗透测试。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "aws-amplify",
+    "path": "plugins/anthropic/aws-amplify/.claude-plugin/plugin.json",
+    "original_description": "Build full-stack apps with AWS Amplify Gen 2 using guided workflows for authentication, data models, storage, GraphQL APIs, and Lambda functions.",
+    "localized_description": "使用 AWS Amplify Gen 2 使用身份验证、数据模型、存储、GraphQL API 和 Lambda 函数的引导工作流程构建全栈应用程序。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "aws-core",
+    "path": "plugins/anthropic/aws-core/.claude-plugin/plugin.json",
+    "original_description": "Build, deploy, and operate applications on AWS. Skills to author infrastructure-as-code (CDK, CloudFormation), use core services (Lambda, API Gateway, Step Functions, ECS/Fargate, ECR, IAM, Amazon Bedrock with Knowledge Bases and Guardrails, AWS Blocks), select and operate databases across relational, key-value, document, wide-column, graph, time-series, and in-memory engines (Aurora PostgreSQL/MySQL, Aurora DSQL, RDS, Oracle Database@AWS, DynamoDB, DocumentDB, Keyspaces, Neptune, Timestream, ElastiCache, and MemoryDB), and complete common tasks across observability (CloudWatch, X-Ray, CloudTrail, ADOT), messaging and streaming (SQS, SNS, EventBridge, Kinesis, MSK), AWS SDKs (boto3, JS v3, Swift), and cost optimization.",
+    "localized_description": "在 AWS 上构建、部署和运行应用程序。编写基础设施即代码、使用核心服务和完成常见任务的技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "aws-data-analytics",
+    "path": "plugins/anthropic/aws-data-analytics/.claude-plugin/plugin.json",
+    "original_description": "Data lake, analytics, search, and ETL workflows with S3 Tables, AWS Glue, Athena, and Amazon OpenSearch Service. Covers managed Iceberg tables on S3 Tables, ingestion from JDBC databases (Oracle, SQL Server, PostgreSQL, MySQL, RDS), Amazon Redshift, Snowflake, BigQuery, and DynamoDB, AWS Glue Data Catalog inventory and asset discovery, federated Athena queries, vector storage and semantic search on Amazon S3 Vectors, and Amazon OpenSearch Service and Serverless (migration from Solr/Elasticsearch, provisioning, vector/semantic/hybrid search, log analytics, trace analytics).",
+    "localized_description": "使用 S3 表、AWS Glue 和 Athena 的数据湖、分析和 ETL 工作流程。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "aws-dev-toolkit",
+    "path": "plugins/anthropic/aws-dev-toolkit/.claude-plugin/plugin.json",
+    "original_description": "[DEPRECATED] AWS Dev Toolkit is no longer maintained. Startup-specific guidance is available in AWS Startup Advisor; install aws-startup-advisor@claude-plugins-official. For general-purpose AWS guidance, use Agent Toolkit for AWS (aws configure agent-toolkit). This AWS Dev Toolkit plugin will stop receiving updates and will be removed from the marketplace. Existing installs continue to function during the transition; install AWS Startup Advisor to keep receiving startup guidance.",
+    "localized_description": "AWS 开发工具包 — 34 项技能、11 个代理和 3 个 MCP 服务器，用于在 AWS 上构建、迁移和执行架构审查。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "aws-serverless",
+    "path": "plugins/anthropic/aws-serverless/.claude-plugin/plugin.json",
+    "original_description": "Design, build, deploy, test, and debug serverless applications with AWS Serverless services.",
+    "localized_description": "使用 AWS Serverless 服务设计、构建、部署、测试和调试无服务器应用程序。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "aws-startup-advisor",
+    "path": "plugins/anthropic/aws-startup-advisor/.claude-plugin/plugin.json",
+    "original_description": "Personalized AWS guidance built on patterns from 350,000+ startups—architecture, cost, security, and migration, from day-one account setup to production-ready infrastructure. Includes AWS Activate credits eligibility and 60+ exclusive startup offers. Built by AWS Startup Solutions Architects, with multi-account, multi-region support.",
+    "localized_description": "面向初创公司的个性化架构、成本、安全性和迁移指南。从第一天的帐户设置和安全基线到生产就绪的基础设施、成本优化等。包括 AWS Activate 积分资格、60 多项独家启动优惠以及多账户多区域支持。基于 AWS 初创公司解决方案架构师的专业知识和超过 350,000 家初创公司的模式。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "aws-transform",
+    "path": "plugins/anthropic/aws-transform/.claude-plugin/plugin.json",
+    "original_description": "Migrate, modernize, and upgrade codebases to AWS. Transforms .NET Framework to .NET 8/10, mainframe COBOL to Java, VMware VMs to EC2, SQL Server to Aurora, and upgrades Java/Python/Node.js versions and AWS SDKs. AWS Transform - continuous modernization analyzes codebases for tech debt, security issues, and upgrade opportunities, then remediates them.",
+    "localized_description": "将代码库迁移、现代化和升级到 AWS。将 .NET Framework 转换为 .NET 8/10、大型机 COBOL 转换为 Java、VMware VM 转换为 EC2、SQL Server 转换为 Aurora，并升级 Java/Python/Node.js 版本和 AWS SDK。 AWS Transform - 持续现代化分析代码库的技术债务、安全问题和升级机会，然后进行修复。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "azure",
+    "path": "plugins/anthropic/azure/.claude-plugin/plugin.json",
+    "original_description": "Microsoft Azure MCP and Skills integration for cloud resource management, deployments, and Azure services. Manage your Azure infrastructure, monitor applications, and deploy resources directly from Claude Code.",
+    "localized_description": "将 Claude 转变为 Azure 专家。该插件集成了 Azure MCP 服务器和专门的 Azure 技能，超越了一般建议。它使 Claude 能够执行实际任务：列出资源、验证部署、诊断基础架构问题以及优化 50 多个 Azure 服务的成本。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "azure-cosmos-db-assistant",
+    "path": "plugins/anthropic/azure-cosmos-db-assistant/.claude-plugin/plugin.json",
+    "original_description": "Azure Cosmos DB plugin for Claude Code. Includes 73 best-practice rules across 10 categories covering data modeling, partition key design, query optimization, SDK usage, indexing, throughput management, global distribution, monitoring, design patterns, and vector search. No external services or configuration required. Optional MCP Toolkit integration available for live database operations.",
+    "localized_description": "Azure Cosmos DB 专家助理 — 数据建模、查询优化、性能调整和最佳实践。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "azure-sql-developer",
+    "path": "plugins/anthropic/azure-sql-developer/.claude-plugin/plugin.json",
+    "original_description": "Agent skills for Azure SQL Developer, the Azure SQL Database engine running locally in a container. Teaches your agent to run the engine, connect, migrate, scaffold, build RAG, wire CI, and go local-to-cloud, using the real Private Preview image instead of the SQL Server image.",
+    "localized_description": "Azure SQL Developer（在容器中本地运行的 Azure SQL 数据库引擎）的代理技能。教您的代理使用真正的私有预览映像而不是 SQL Server 映像来运行引擎、连接、迁移、搭建脚手架、构建 RAG、连接 CI 以及从本地到云。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "base44",
+    "path": "plugins/anthropic/base44/.claude-plugin/plugin.json",
+    "original_description": "Build and deploy Base44 full-stack apps with CLI project management and JavaScript/TypeScript SDK development skills",
+    "localized_description": "使用 CLI 项目管理和 JavaScript/TypeScript SDK 开发技能构建和部署 Base44 全栈应用程序",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "bigdata-com",
+    "path": "plugins/anthropic/bigdata-com/.claude-plugin/plugin.json",
+    "original_description": "Financial research and market intelligence on stocks, companies, sectors, and economies. Run valuation snapshots, peer comparables, and investment memos; preview, digest, and analyze earnings (quality, reactions, surprises); assess risk, monitor catalysts, and review competitive moats and governance. Covers thematic and sector research, cross-sector and regional comparisons, country and macro analysis, G7 benchmarking, scenario analysis, and company briefs. Powered by Bigdata MCP.",
+    "localized_description": "官方 Bigdata.com 插件提供由 Bigdata MCP 提供支持的金融研究、分析和情报工具。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "bigquery-data-analytics",
+    "path": "plugins/anthropic/bigquery-data-analytics/.claude-plugin/plugin.json",
+    "original_description": "Connect, query, and generate data insights for BigQuery datasets and data.",
+    "localized_description": "连接、查询 BigQuery 数据集和数据并生成数据见解。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "boltz",
+    "path": "plugins/anthropic/boltz/.claude-plugin/plugin.json",
+    "original_description": "Predict structures, screen molecules and proteins, and design binders with Boltz from Claude Code.",
+    "localized_description": "使用 Claude Code 的 Boltz 预测结构、筛选分子和蛋白质并设计结合物。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "box",
+    "path": "plugins/anthropic/box/.claude-plugin/plugin.json",
+    "original_description": "Box Plugin for Claude Code to help with Box Platform integrations including content workflows, shared links, webhooks, metadata, and Box AI retrieval.",
+    "localized_description": "直接从 Claude Code 处理您的 Box 内容 — 搜索文件、组织文件夹、与您的团队协作，并使用 Box AI 来回答问题、总结文档和提取数据，而无需离开您的工作流程。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "brightdata-plugin",
+    "path": "plugins/anthropic/brightdata-plugin/.claude-plugin/plugin.json",
+    "original_description": "Web scraping, Google search, structured data extraction, and MCP server integration powered by Bright Data. Includes 21 skills: scrape any webpage as markdown (with bot detection/CAPTCHA bypass), search Google with structured JSON results, extract data from 40+ websites (Amazon, LinkedIn, Instagram, TikTok, YouTube, and more), orchestrate Bright Data's 60+ MCP tools, Bright Data CLI for terminal-based scraping/search/data extraction/zone management, real-time competitive intelligence (competitor snapshots, pricing comparison, review mining, hiring signals, market landscape mapping), built-in best practices for Web Unlocker, SERP API, Web Scraper API, and Browser API, proxy integration code for Datacenter/ISP/Residential/Mobile networks, Python SDK best practices for the brightdata-sdk package, JavaScript/TypeScript SDK best practices for the @brightdata/sdk package, Discover API for intent-ranked semantic web search (trigger/poll, relevance scoring, parsed page content), deep multi-source cited research briefs, RAG and search-engine pipelines built on Discover (live retrieval and vector ingestion), scraper builder for any website, AI-generated Scraper Studio scrapers (`bdata scraper create` / `bdata scraper run`), SEO audits with live web data, social listening and brand reputation monitoring (sentiment and themes across Reddit/X/Instagram/TikTok/YouTube/reviews), shopping price comparison across Amazon/Walmart/eBay/Best Buy/Google Shopping (find the cheapest in-stock offer, region-aware), agent onboarding, design system mirroring, and Browser API session debugging.",
+    "localized_description": "由 Bright Data 提供支持的网页抓取、Google 搜索、结构化数据提取和 MCP 服务器集成。包括 7 项技能：以 Markdown 方式抓取任何网页（通过机器人检测/验证码绕过）、使用结构化 JSON 结果搜索 Google、从 40 多个网站（Amazon、LinkedIn、Instagram、TikTok、YouTube 等）提取数据、编排 Bright Data 的 60 多个 MCP 工具、Web Unlocker、SERP API、Web Scraper API 和浏览器 API 的内置最佳实践、针对 Brightda 的 Python SDK 最佳实践...",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "browser-use",
+    "path": "plugins/anthropic/browser-use/.claude-plugin/plugin.json",
+    "original_description": "Give Claude a real browser — your Chrome or a Browser Use Cloud browser. Use it whenever a task involves a website or web app: browsing, scraping and data extraction, filling forms, testing sites, taking screenshots, automating web workflows.",
+    "localized_description": "给 Claude 一个真正的浏览器 - 您的 Chrome 或浏览器使用云浏览器。当任务涉及网站或网络应用程序时，请使用它：浏览、抓取和数据提取、填写表单、测试网站、截取屏幕截图、自动化网络工作流程。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "build-with-wordpress",
+    "path": "plugins/anthropic/build-with-wordpress/.claude-plugin/plugin.json",
+    "original_description": "Craft production-grade WordPress sites and applications. Everything from themes and plugins to commerce and deployment.",
+    "localized_description": "制作生产级 WordPress 网站和应用程序。从主题和插件到商业和部署的一切。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "buildkite",
+    "path": "plugins/anthropic/buildkite/.claude-plugin/plugin.json",
+    "original_description": "Official Buildkite skills for Claude Code, Cursor, and other AI coding agents — pipelines, migration, preflight, agent runtime, CLI, and API",
+    "localized_description": "适用于 Claude Code、Cursor 和其他 AI 编码代理的官方 Buildkite 技能 — 管道、迁移、预检、代理运行时、CLI 和 API",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "canva",
+    "path": "plugins/anthropic/canva/.claude-plugin/plugin.json",
+    "original_description": "Create, edit, review, resize, and brand-check Canva designs with the Canva MCP server.",
+    "localized_description": "使用 Canva MCP 服务器创建、编辑、审查、调整大小和品牌检查 Canva 设计。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "carbone-skill",
+    "path": "plugins/anthropic/carbone-skill/.claude-plugin/plugin.json",
+    "original_description": "Official Carbone skill — complete templating language reference covering tags, loops, conditions, formatters, aggregators, PDF form filling (AcroForm), format support and conversion, and all template formats (DOCX, XLSX, PPTX, ODT, HTML, Markdown, PDF, CSV, TXT, SVG, IDML)",
+    "localized_description": "官方 Carbone 技能 — 完整的模板语言参考，涵盖标签、循环、条件、格式化程序、聚合器和所有输出格式（DOCX、XLSX、PPTX、ODT、HTML、Markdown、PDF）",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "carta-cap-table",
+    "path": "plugins/anthropic/carta-cap-table/.claude-plugin/plugin.json",
+    "original_description": "Carta Cap Table plugin — skills and hooks for querying cap tables, grants, SAFEs, 409A valuations, waterfall scenarios, and more",
+    "localized_description": "Carta Cap Table 插件 — 用于查询上限表、拨款、SAFE、409A 估值、瀑布情景等的技能和挂钩",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "carta-crm",
+    "path": "plugins/anthropic/carta-crm/.claude-plugin/plugin.json",
+    "original_description": "Manage the Carta CRM conversationally — search, add, update, and enrich investors, companies, contacts, deals, notes, and fundraisings via the Carta CRM MCP Server",
+    "localized_description": "以对话方式管理 Carta CRM — 通过 Carta CRM MCP 服务器搜索、添加、更新和充实投资者、公司、联系人、交易、注释和筹款。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "carta-investors",
+    "path": "plugins/anthropic/carta-investors/.claude-plugin/plugin.json",
+    "original_description": "Carta Investors plugin — write-capable skills for querying and updating investors data, performance benchmarks, regulatory reporting, AGM deck generation, brand extraction, and more via the Carta MCP server",
+    "localized_description": "Carta Investors 插件 — 通过 Carta MCP 服务器查询投资者数据、绩效基准、监管报告、年度股东大会甲板生成、品牌提取等的技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "catalyst-by-zoho",
+    "path": "plugins/anthropic/catalyst-by-zoho/.claude-plugin/plugin.json",
+    "original_description": "Official Claude Code plugin for Catalyst by Zoho — full-stack serverless cloud platform. With Skills that covers all services, SDKs, CLI, architecture patterns, pricing, migration guides, and Zoho MCP tool-based resource management.",
+    "localized_description": "Zoho Catalyst 的官方 Claude 代码插件 — 全栈无服务器云平台。拥有涵盖所有服务、SDK、CLI、架构模式、定价、迁移指南和基于 Zoho MCP 工具的资源管理的技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "cds-mcp",
+    "path": "plugins/anthropic/cds-mcp/.claude-plugin/plugin.json",
+    "original_description": "Model Context Protocol (MCP) server for AI-assisted development of CAP applications.",
+    "localized_description": "AI 辅助开发 SAP Cloud 应用程序编程模型 (CAP) 项目。搜索 CDS 模型和 CAP 文档。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "chrome-devtools-mcp",
+    "path": "plugins/anthropic/chrome-devtools-mcp/.claude-plugin/plugin.json",
+    "original_description": "Reliable automation, in-depth debugging, and performance analysis in Chrome using Chrome DevTools and Puppeteer",
+    "localized_description": "从您的编码代理控制和检查实时 Chrome 浏览器。记录性能跟踪、分析网络请求、使用源映射堆栈跟踪检查控制台消息，并使用 Puppeteer 自动执行浏览器操作。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "circle-skills",
+    "path": "plugins/anthropic/circle-skills/.claude-plugin/plugin.json",
+    "original_description": "Ship stablecoin apps faster. Best-practice skills for USDC payments, cross-chain transfers, wallets, and smart contracts — plus Circle's MCP server for real-time SDK and documentation guidance.",
+    "localized_description": "更快地发布稳定币应用程序。 USDC 支付、跨链转账、钱包和智能合约的最佳实践技能，以及用于实时 SDK 和文档指导的 Circle 的 MCP 服务器。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "circleback",
+    "path": "plugins/anthropic/circleback/.claude-plugin/plugin.json",
+    "original_description": "Circleback conversational context integration. Search and access meetings, emails, calendar events, and more.",
+    "localized_description": "Circleback 对话上下文集成。搜索和访问会议、电子邮件、日历活动等。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "ckeditor",
+    "path": "plugins/anthropic/ckeditor/.claude-plugin/plugin.json",
+    "original_description": "Install, configure, and integrate CKEditor 5 (free and premium) in any JavaScript project.",
+    "localized_description": "在任何 JavaScript 项目中安装、配置和集成 CKEditor 5（免费和高级）。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "claude-code-setup",
+    "path": "plugins/anthropic/claude-code-setup/.claude-plugin/plugin.json",
+    "original_description": "Analyze codebases and recommend tailored Claude Code automations such as hooks, skills, MCP servers, and subagents.",
+    "localized_description": "分析代码库并推荐定制的 Claude 代码自动化，例如挂钩、技能、MCP 服务器和子代理。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "claude-md-management",
+    "path": "plugins/anthropic/claude-md-management/.claude-plugin/plugin.json",
+    "original_description": "Tools to maintain and improve CLAUDE.md files - audit quality, capture session learnings, and keep project memory current.",
+    "localized_description": "用于维护和改进 CLAUDE.md 文件的工具 - 审核质量、捕获会话学习内容并保持项目内存最新。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "claude-security",
+    "path": "plugins/anthropic/claude-security/.claude-plugin/plugin.json",
+    "original_description": "Deep vulnerability scanning of your own code, run entirely inside your Claude Code session at a chosen effort tier, with every finding challenged before it is reported and the verification tally computed in code. Turns surviving findings into targeted patches, each verified by a panel of agents, that you apply when you choose. See the plugin README for the tiers, the report format, and the trust model.",
+    "localized_description": "对您自己的代码进行深度漏洞扫描，完全在您的 Claude Code 会话中以选定的工作级别运行，每个发现都会在报告之前受到质疑，并在代码中计算验证计数。将幸存的发现转化为有针对性的补丁，每个补丁都由一组代理验证，您可以在选择时应用。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "clickhouse",
+    "path": "plugins/anthropic/clickhouse/.claude-plugin/plugin.json",
+    "original_description": "ClickHouse Claude Code plugin: skills (ClickHouse best practices), rules and MCP.",
+    "localized_description": "将 Claude 连接到您的 ClickHouse Cloud 数据库。浏览组织、服务、数据库和表架构。针对您的数据运行只读 SQL 查询并获得即时分析答案。监控服务备份、审查计费成本并检查 ClickPipe 配置 - 所有这些都通过自然对话进行。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "clickhouse-best-practices",
+    "path": "plugins/anthropic/clickhouse-best-practices/.claude-plugin/plugin.json",
+    "original_description": "28 best practice rules for ClickHouse schema design, query optimization, and data ingestion — prioritized by impact",
+    "localized_description": "ClickHouse 模式设计、查询优化和数据摄取的 28 条最佳实践规则 - 按影响优先排序",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "cloud-sql-mysql",
+    "path": "plugins/anthropic/cloud-sql-mysql/.claude-plugin/plugin.json",
+    "original_description": "Connect and interact with a Cloud SQL for MySQL database and data.",
+    "localized_description": "连接 Cloud SQL for MySQL 数据库和数据并与之交互。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "cloud-sql-postgresql",
+    "path": "plugins/anthropic/cloud-sql-postgresql/.claude-plugin/plugin.json",
+    "original_description": "Create, connect, and interact with a Cloud SQL for PostgreSQL database and data.",
+    "localized_description": "创建、连接 Cloud SQL for PostgreSQL 数据库和数据并与之交互。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "cloud-sql-sqlserver",
+    "path": "plugins/anthropic/cloud-sql-sqlserver/.claude-plugin/plugin.json",
+    "original_description": "Connect to Cloud SQL for SQL Server",
+    "localized_description": "连接到 Cloud SQL for SQL Server",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "cloudflare",
+    "path": "plugins/anthropic/cloudflare/.claude-plugin/plugin.json",
+    "original_description": "Skills for the Cloudflare developer platform: Workers, Durable Objects, Agents SDK, MCP servers, Wrangler CLI, and web performance",
+    "localized_description": "Cloudflare 开发者平台的技能：Workers、Durable Objects、Agents SDK、MCP 服务器、Wrangler CLI 和 Web 性能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "cloudinary",
+    "path": "plugins/anthropic/cloudinary/.claude-plugin/plugin.json",
+    "original_description": "Use Cloudinary directly in Claude. Upload, manage, optimize, and transform images and videos at scale using natural language.",
+    "localized_description": "直接在Claude中使用Cloudinary。通过自然对话来管理资产、应用转换、优化媒体等。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "cockroachdb",
+    "path": "plugins/anthropic/cockroachdb/.claude-plugin/plugin.json",
+    "original_description": "Connect Claude Code directly to your CockroachDB clusters for hands-on database work — explore schemas, write optimized SQL, debug queries, and manage distributed database clusters. This plugin provides tools across MCP backends (self-hosted MCP Toolbox and managed CockroachDB Cloud MCP Server), specialized agents (DBA, Developer, Operator), skills across operational domains, and built-in safety hooks.",
+    "localized_description": "将 Claude Code 直接连接到您的 CockroachDB 集群以进行数据库实践工作 - 探索模式、编写优化的 SQL、调试查询以及管理分布式数据库集群。该插件提供跨两个活动 MCP 后端（自托管 MCP Toolbox 和托管 CockroachDB Cloud MCP 服务器）的 14 个工具、三个专业代理（DBA、开发人员、操作员）、跨 6 个操作域的 32 种技能以及内置安全挂钩。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "code-modernization",
+    "path": "plugins/anthropic/code-modernization/.claude-plugin/plugin.json",
+    "original_description": "Modernize legacy codebases (COBOL, legacy Java/C++/.NET, monolith web apps) with a structured preflight / assess / map / extract-rules / brief / (reimagine | transform | uplift) / harden / status workflow. Cross-stack rewrites, greenfield reimagining, and same-stack version uplifts (e.g. .NET Framework → .NET 8); an interactive topology viewer; specialist agents; and optional dynamic-workflow orchestration with adversarial verification.",
+    "localized_description": "通过结构化预检/评估/映射/提取规则/简要/重新构想/转换/强化工作流程、交互式拓扑查看器和专家审核代理，对遗留代码库（COBOL、遗留Java/C++、整体式Web应用程序）进行现代化改造",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "code-review",
+    "path": "plugins/anthropic/code-review/.claude-plugin/plugin.json",
+    "original_description": "Automated code review for pull requests using multiple specialized agents with confidence-based scoring",
+    "localized_description": "使用多个专门代理对拉取请求进行自动代码审查，并通过基于置信度的评分来过滤误报",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "code-simplifier",
+    "path": "plugins/anthropic/code-simplifier/.claude-plugin/plugin.json",
+    "original_description": "Agent that simplifies and refines code for clarity, consistency, and maintainability while preserving functionality",
+    "localized_description": "代理可以简化和细化代码，以实现清晰度、一致性和可维护性，同时保留功能。重点关注最近修改的代码。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "coderabbit",
+    "path": "plugins/anthropic/coderabbit/.claude-plugin/plugin.json",
+    "original_description": "AI-powered code review in Claude Code, powered by CodeRabbit",
+    "localized_description": "您的代码审查合作伙伴。 CodeRabbit 使用专门的 AI 架构和 40 多个集成静态分析器提供外部验证，提供捕获错误、安全漏洞、逻辑错误和边缘情况的不同视角。通过 AST 解析和代码图关系进行上下文感知分析。自动将 CLAUDE.md 和项目编码指南纳入评论中。在编写或修改代码之后、提交之前、实现复杂或安全敏感逻辑时，或者当第二意见会增加对更改的信心时，非常有用。返回具体的结果以及可以立即应用的建议修复。免费使用。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "codspeed",
+    "path": "plugins/anthropic/codspeed/.claude-plugin/plugin.json",
+    "original_description": "CodSpeed plugin for Claude Code helping with performance measurement and optimization.",
+    "localized_description": "CodSpeed 是一款一体化性能测试工具包。深入研究基准测试结果、火焰图和性能比较 — 为 Claude 提供精细的分析上下文，以查明瓶颈并通过 CodSpeed MCP 服务器自动迭代性能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "commit-commands",
+    "path": "plugins/anthropic/commit-commands/.claude-plugin/plugin.json",
+    "original_description": "Streamline your git workflow with simple commands for committing, pushing, and creating pull requests",
+    "localized_description": "git commit 工作流程的命令，包括提交、推送和 PR 创建",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "confidence",
+    "path": "plugins/anthropic/confidence/.claude-plugin/plugin.json",
+    "original_description": "Access Confidence feature flags, experiments, and migration tools directly from Claude Code.",
+    "localized_description": "直接从 Claude Code 访问 Confidence 功能标志、实验和迁移工具。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "context7",
+    "path": "plugins/anthropic/context7/.claude-plugin/plugin.json",
+    "original_description": "Upstash Context7 MCP server for up-to-date documentation lookup. Connects to Context7's hosted remote MCP server (https://mcp.context7.com/mcp) — no local Node.js or npx required — to pull version-specific documentation and code examples directly from source repositories into your LLM context. Works anonymously out of the box; set CONTEXT7_API_KEY for higher rate limits.",
+    "localized_description": "Upstash Context7 MCP 服务器用于最新文档查找。连接到 Context7 的托管远程 MCP 服务器 (https://mcp.context7.com/mcp) — 无需本地 Node.js 或 npx — 将特定于版本的文档和代码示例直接从源存储库提取到您的 LLM 上下文中。开箱即用，匿名工作；设置 CONTEXT7_API_KEY 以获得更高的速率限制。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "convex",
+    "path": "plugins/anthropic/convex/.claude-plugin/plugin.json",
+    "original_description": "Bundled design + quickstart skills, code-writing and code-review subagents, lint guard + end-of-turn verify hooks, runtime-error and OCC-insights monitors, and MCP server for live deployment introspection. The quickstart scaffolds a running app from one sentence and builds it live LOCALLY, narrated in chat; the convex-reviewer subagent audits Convex functions for auth, validators, and performance. Build reactive, type-safe backends on one platform — schema, real-time, file storage, scheduled jobs, and AI agents.",
+    "localized_description": "Claude Code 的官方 Convex 插件，具有捆绑的 Convex 技能、用于代码编写的凸专家子代理、运行时错误监视器以及用于后端开发、模式设计、实时功能、身份验证、文件存储、计划作业和 AI 代理的 MCP 访问。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "crowdsec",
+    "path": "plugins/anthropic/crowdsec/.claude-plugin/plugin.json",
+    "original_description": "Operational skill for installing, configuring, operating, and debugging CrowdSec (cscli, LAPI/CAPI, hub, bouncers, WAF/AppSec) across bare-metal, Docker, and Kubernetes.",
+    "localized_description": "跨裸机、Docker 和 Kubernetes 安装、配置、操作和调试 CrowdSec（cscli、LAPI/CAPI、集线器、保镖、WAF/AppSec）的操作技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "crowdstrike-falcon-foundry",
+    "path": "plugins/anthropic/crowdstrike-falcon-foundry/.claude-plugin/plugin.json",
+    "original_description": "CrowdStrike Falcon Foundry development skills for building cybersecurity applications on the Falcon platform. Includes UI development, collections, functions, workflows, API integration, security patterns, and debugging workflows. Swagger 2.0 specs are auto-converted to OpenAPI 3.0 via npx swagger2openapi (requires Node.js; network call to npm registry).",
+    "localized_description": "CrowdStrike Falcon Foundry 在 Falcon 平台上构建网络安全应用程序的开发技能。包括 UI 开发、集合、函数、工作流程、API 集成、安全模式和调试工作流程。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "crowdstrike-falcon-fusion",
+    "path": "plugins/anthropic/crowdstrike-falcon-fusion/.claude-plugin/plugin.json",
+    "original_description": "CrowdStrike Falcon Fusion skills for authoring, deploying, and executing Fusion workflows. Includes live action discovery, YAML authoring with schema validation, workflow import and release, execution monitoring, and Falcon Next-Gen SIEM lookup files.",
+    "localized_description": "CrowdStrike Falcon Fusion 创作、部署和执行 Fusion 工作流程的技能。包括实时操作发现、带有架构验证的 YAML 创作、工作流程导入和发布、执行监控以及 Falcon Next-Gen SIEM 查找文件。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "cwc-makers",
+    "path": "plugins/anthropic/cwc-makers/.claude-plugin/plugin.json",
+    "original_description": "Seamless onboarding for the Code-with-Claude Makers Cardputer: one /maker-setup command clones the build-with-claude repo, flashes UIFlow firmware, and installs the Claude Buddy app bundle onto a freshly-plugged-in M5Stack Cardputer-Adv.",
+    "localized_description": "使用一个 /maker-setup 命令装载 Code-with-Claude Makers Cardputer — 克隆 build-with-claude 存储库、刷新 UIFlow 固件并安装 Claude Buddy 应用程序包。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "dash0",
+    "path": "plugins/anthropic/dash0/.claude-plugin/plugin.json",
+    "original_description": "OpenTelemetry observability for Claude Code sessions. Captures tool calls, LLM invocations, token usage, and errors as OTel traces.",
+    "localized_description": "Claude Code 会话的 OpenTelemetry 可观测性。捕获工具调用、LLM 调用、令牌使用情况和错误作为 OTel 跟踪。将遥测数据发送到 Dash0 或任何与 OpenTelemetry 兼容的后端。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "data",
+    "path": "plugins/anthropic/data/.claude-plugin/plugin.json",
+    "original_description": "Data engineering plugin - warehouse exploration, pipeline authoring, Airflow integration",
+    "localized_description": "Apache Airflow 和 Astronomer 的数据工程。使用最佳实践编写 DAG、调试管道故障、跟踪数据沿袭、配置文件表、将 Airflow 2 迁移到 3 以及管理本地和云部署。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "data-agent-kit-starter-pack",
+    "path": "plugins/anthropic/data-agent-kit-starter-pack/.claude-plugin/plugin.json",
+    "original_description": "This plugin provides a specialized suite of skills for data engineers and database practitioners working on Google Cloud. It acts as an expert assistant, allowing you to use natural language prompts in your preferred coding agent to architect complex data pipelines, transform data with dbt, write Spark and BigQuery SQL notebooks, and orchestrate end-to-end workflows across GCP's data ecosystem.",
+    "localized_description": "该插件为在 Google Cloud 上工作的数据工程师和数据库从业人员提供了一套专门的技能。它充当专家助理，允许您在首选编码代理中使用自然语言提示来构建复杂的数据管道、使用 dbt 转换数据、编写 Spark 和 BigQuery SQL 笔记本，以及在 GCP 数据生态系统中编排端到端工作流程。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "data-engineering",
+    "path": "plugins/anthropic/data-engineering/.claude-plugin/plugin.json",
+    "original_description": "Data engineering plugin - warehouse exploration, pipeline authoring, Airflow integration",
+    "localized_description": "数据工程插件 - 仓库探索、管道创作、Airflow 集成",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "databases-on-aws",
+    "path": "plugins/anthropic/databases-on-aws/.claude-plugin/plugin.json",
+    "original_description": "Expert database guidance for the AWS database portfolio. Design schemas, execute queries, handle migrations, and choose the right database for your workload.",
+    "localized_description": "AWS 数据库产品组合的专家数据库指南。设计架构、执行查询、处理迁移并为您的工作负载选择正确的数据库。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "databricks",
+    "path": "plugins/anthropic/databricks/.claude-plugin/plugin.json",
+    "original_description": "Databricks skills for the CLI, Apps, Lakebase, Model Serving, Lakeflow Jobs, Spark Declarative Pipelines, Declarative Automation Bundles (DABs), and classic-to-serverless migration.",
+    "localized_description": "针对 CLI、应用程序、Lakebase、模型服务、Lakeflow 作业、Spark 声明式管道、声明式自动化捆绑包 (DAB) 以及经典到无服务器迁移的 Databricks 技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "datadog",
+    "path": "plugins/anthropic/datadog/.claude-plugin/plugin.json",
+    "original_description": "Use Datadog directly in Claude Code through a preconfigured Datadog MCP server. Query logs, metrics, traces, dashboards, and more through natural conversation. This plugin is in preview.",
+    "localized_description": "通过预配置的 Datadog MCP 服务器直接在 Claude Code 中使用 Datadog。通过自然对话查询日志、指标、跟踪、仪表板等。该插件处于预览状态。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "datahub-skills",
+    "path": "plugins/anthropic/datahub-skills/.claude-plugin/plugin.json",
+    "original_description": "DataHub development and interaction toolkit with connector planning, PR review, catalog search, metadata enrichment, lineage tracing, data quality management, and connection setup skills",
+    "localized_description": "DataHub 开发和交互工具包，包含连接器规划、PR 审查、目录搜索、元数据丰富、沿袭跟踪、数据质量管理和连接设置技能",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "dataproc",
+    "path": "plugins/anthropic/dataproc/.claude-plugin/plugin.json",
+    "original_description": "Manage Dataproc clusters and jobs.",
+    "localized_description": "管理 Dataproc 集群和作业。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "datarobot-agent-skills",
+    "path": "plugins/anthropic/datarobot-agent-skills/.claude-plugin/plugin.json",
+    "original_description": "DataRobot skills for AI/ML workflows — model training, deployment, predictions, feature engineering, monitoring, explainability, data preparation, App Framework CI/CD, and external agent monitoring.",
+    "localized_description": "AI/ML 工作流程的 DataRobot 技能 — 模型训练、部署、预测、特征工程、监控、可解释性、数据准备、应用程序框架 CI/CD 和外部代理监控。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "dataverse",
+    "path": "plugins/anthropic/dataverse/.claude-plugin/plugin.json",
+    "original_description": "Microsoft Dataverse plugin for coding agents — powering CRUD, bulk data operations, advanced queries, schema lifecycle, and environment management through intelligent skills that unify MCP, CLI, and SDK workflows.",
+    "localized_description": "使用 Dataverse MCP、PAC CLI 和 Python SDK 构建、分析和管理 Microsoft Dataverse 的代理技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "deepeval",
+    "path": "plugins/anthropic/deepeval/.claude-plugin/plugin.json",
+    "original_description": "Skills for adding DeepEval evaluations, tracing, datasets, Confident AI reports, and iterative improvement loops to AI applications.",
+    "localized_description": "将 DeepEval 评估、跟踪、数据集、Confident AI 报告和迭代改进循环添加到 AI 应用程序的技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "deploy-on-aws",
+    "path": "plugins/anthropic/deploy-on-aws/.claude-plugin/plugin.json",
+    "original_description": "Deploy applications to AWS with architecture recommendations, cost estimates, and IaC deployment. Generate validated AWS architecture diagrams as draw.io XML.",
+    "localized_description": "通过架构建议、成本估算和 IaC 部署将应用程序部署到 AWS。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "desktop-commander",
+    "path": "plugins/anthropic/desktop-commander/.claude-plugin/plugin.json",
+    "original_description": "MCP server for terminal commands, process management, and file operations across text files, code, PDF, DOCX, Excel, images, and structured data",
+    "localized_description": "MCP 服务器用于跨文本、代码、PDF、DOCX、Excel、图像和结构化数据的终端命令、流程管理和文件操作。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "discord",
+    "path": "plugins/anthropic/discord/.claude-plugin/plugin.json",
+    "original_description": "Discord channel for Claude Code — messaging bridge with built-in access control. Manage pairing, allowlists, and policy via /discord:access.",
+    "localized_description": "带有内置访问控制的 Discord 消息传递桥。通过 /discord:access 管理配对、白名单和策略。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "dominodatalab",
+    "path": "plugins/anthropic/dominodatalab/.claude-plugin/plugin.json",
+    "original_description": "Full Domino Data Lab platform support — workspaces, jobs, model deployment, experiment tracking, GenAI tracing, Spark/Ray/Dask, and app deployment for data science teams",
+    "localized_description": "完整的 Domino 数据实验室平台支持 — 工作区、作业、模型部署、实验跟踪、GenAI 跟踪、Spark/Ray/Dask 以及数据科学团队的应用程序部署",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "dropbox",
+    "path": "plugins/anthropic/dropbox/.claude-plugin/plugin.json",
+    "original_description": "The Dropbox plugin for Claude connects your Dropbox files directly to Claude, so you can search, organize, save generated content, and create sharing links without switching tools. It respects your existing Dropbox permissions, and Claude only works with files you already have access to.",
+    "localized_description": "Claude 的 Dropbox 插件将您的 Dropbox 文件直接连接到 Claude，因此您可以搜索、组织、保存生成的内容以及创建共享链接，而无需切换工具。它尊重您现有的 Dropbox 权限，并且 Claude 仅处理您已经有权访问的文件。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "duckdb-skills",
+    "path": "plugins/anthropic/duckdb-skills/.claude-plugin/plugin.json",
+    "original_description": "DuckDB-powered skills for Claude Code: read any data file, attach and query DuckDB databases, search DuckDB/DuckLake docs, search past session logs, and install/update DuckDB extensions.",
+    "localized_description": "Claude Code 的 DuckDB 支持技能：读取任何数据文件、附加和查询 DuckDB 数据库、搜索 DuckDB/DuckLake 文档、搜索过去的会话日志以及安装/更新 DuckDB 扩展。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "duende-skills",
+    "path": "plugins/anthropic/duende-skills/.claude-plugin/plugin.json",
+    "original_description": "Duende development skills and agents for Claude Code — covering OAuth/OIDC protocols, IdentityServer, token management, ASP.NET Core authentication/authorization, BFF patterns, and secure identity architecture",
+    "localized_description": "Duende 开发技能和 Claude Code 代理 — 涵盖 OAuth/OIDC 协议、IdentityServer、令牌管理、ASP.NET Core 身份验证/授权、BFF 模式和安全身份架构",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "exa",
+    "path": "plugins/anthropic/exa/.claude-plugin/plugin.json",
+    "original_description": "Exa web search, content fetching, and multi-step research via MCP tools and skills.",
+    "localized_description": "Exa AI 网络搜索、深度研究和内容提取。提供用于综合网络搜索、人员发现、公司研究、学术论文等的 MCP 工具和研究技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "explanatory-output-style",
+    "path": "plugins/anthropic/explanatory-output-style/.claude-plugin/plugin.json",
+    "original_description": "Adds educational insights about implementation choices and codebase patterns (mimics the deprecated Explanatory output style)",
+    "localized_description": "添加有关实现选择和代码库模式的教育见解（模仿已弃用的解释性输出样式）",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "expo",
+    "path": "plugins/anthropic/expo/.claude-plugin/plugin.json",
+    "original_description": "Official Expo skills for building, deploying, upgrading, and debugging Expo apps",
+    "localized_description": "使用 Expo 构建、部署、升级和调试 React Native 应用程序的官方 Expo 技能。涵盖使用 Expo Router、SwiftUI 和 Jetpack Compose 组件进行 UI 开发、Tailwind CSS 设置、API 路由、数据获取、CI/CD 工作流程、App Store 和 Play Store 部署、SDK 升级、DOM 组件和开发客户端分发。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "fakechat",
+    "path": "plugins/anthropic/fakechat/.claude-plugin/plugin.json",
+    "original_description": "Localhost iMessage-style web chat for Claude Code — test surface with file upload and edits. No tokens, no access control.",
+    "localized_description": "用于测试通道通知流的本地主机网络聊天。没有令牌，没有访问控制，没有第三方服务。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "fastly-agent-toolkit",
+    "path": "plugins/anthropic/fastly-agent-toolkit/.claude-plugin/plugin.json",
+    "original_description": "Fastly development tools and platform skills",
+    "localized_description": "快速开发工具和平台技能",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "feature-dev",
+    "path": "plugins/anthropic/feature-dev/.claude-plugin/plugin.json",
+    "original_description": "Comprehensive feature development workflow with specialized agents for codebase exploration, architecture design, and quality review",
+    "localized_description": "全面的功能开发工作流程，具有用于代码库探索、架构设计和质量审查的专门代理",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "fiftyone",
+    "path": "plugins/anthropic/fiftyone/.claude-plugin/plugin.json",
+    "original_description": "Build high-quality datasets and computer vision models. Visualize datasets, analyze models, find duplicates, run inference, evaluate predictions, and develop custom plugins.",
+    "localized_description": "构建高质量的数据集和计算机视觉模型。可视化数据集、分析模型、查找重复项、运行推理、评估预测以及开发自定义插件。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "figma",
+    "path": "plugins/anthropic/figma/.claude-plugin/plugin.json",
+    "original_description": "Plugin that includes the Figma MCP server and Skills for common workflows",
+    "localized_description": "Figma 设计平台集成。访问设计文件、提取组件信息、读取设计标记并将设计转换为代码。弥合设计和开发工作流程之间的差距。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "firebase",
+    "path": "plugins/anthropic/firebase/.claude-plugin/plugin.json",
+    "original_description": "Google Firebase MCP integration. Manage Firestore databases, authentication, cloud functions, hosting, and storage. Build and manage your Firebase backend directly from your development workflow.",
+    "localized_description": "Google Firebase MCP 集成。管理 Firestore 数据库、身份验证、云功能、托管和存储。直接从您的开发工作流程构建和管理您的 Firebase 后端。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "firecrawl",
+    "path": "plugins/anthropic/firecrawl/.claude-plugin/plugin.json",
+    "original_description": "Scrape, search, crawl, and map the web with a single command.",
+    "localized_description": "由 Firecrawl 提供支持的网络抓取和爬行。将任何网站转变为干净的、可供法学硕士使用的降价或结构化数据。抓取单个页面、爬行整个网站、搜索网络并提取结构化信息。包括用于自主多源数据收集的人工智能代理 - 只需描述您需要的内容，它就会自动查找、导航和提取。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "firestore-native",
+    "path": "plugins/anthropic/firestore-native/.claude-plugin/plugin.json",
+    "original_description": "Connect and interact with Firestore databases, collections, and documents.",
+    "localized_description": "连接 Firestore 数据库、集合和文档并与之交互。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "forge-skills",
+    "path": "plugins/anthropic/forge-skills/.claude-plugin/plugin.json",
+    "original_description": "Forge app builder skill bundle with Forge MCP configuration for Atlassian Forge workflows.",
+    "localized_description": "Atlassian Forge 的专注于 Forge 的技能和 MCP 配置：支架和部署应用程序（forge 创建、模板、开发空间）、为 Rovo Search/Rovo Chat 构建 Teamwork Graph 连接器、预部署审查、系统调试，以及通过 MCP 进行 Forge 文档和 Atlassian Design System 查找。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "frontend-design",
+    "path": "plugins/anthropic/frontend-design/.claude-plugin/plugin.json",
+    "original_description": "Frontend design skill for UI/UX implementation",
+    "localized_description": "创建具有高设计质量的独特的生产级前端界面。生成富有创意、精美的代码，避免通用人工智能美学。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "fullstory",
+    "path": "plugins/anthropic/fullstory/.claude-plugin/plugin.json",
+    "original_description": "Connect Claude to Fullstory to query behavioral analytics, session replays, and customer experience insights.",
+    "localized_description": "将 Claude 连接到 Fullstory 以查询行为分析、会话重播和客户体验见解。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "github",
+    "path": "plugins/anthropic/github/.claude-plugin/plugin.json",
+    "original_description": "Official GitHub MCP server for repository management. Create issues, manage pull requests, review code, search repositories, and interact with GitHub's full API directly from Claude Code.",
+    "localized_description": "用于存储库管理的官方 GitHub MCP 服务器。创建问题、管理拉取请求、审查代码、搜索存储库，并直接从 Claude Code 与 GitHub 的完整 API 进行交互。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "gitkraken",
+    "path": "plugins/anthropic/gitkraken/.claude-plugin/plugin.json",
+    "original_description": "This plugin gives Claude access to your real Git and project context: commits, branches, pull requests, and issues across every repo you work in. Ask the agent a question about your work, and it answers from what's actually in your history and your trackers, not what it can guess from the open file.\n\nWorks with GitHub, GitLab, Azure DevOps, Bitbucket, and Jira.",
+    "localized_description": "使 Claude 能够访问您的真实 Git 和项目上下文：提交、分支、拉取请求以及您工作的每个存储库中的问题。可与 GitHub、GitLab、Azure DevOps、Bitbucket 和 Jira 配合使用。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "gitlab",
+    "path": "plugins/anthropic/gitlab/.claude-plugin/plugin.json",
+    "original_description": "GitLab DevOps platform integration. Manage repositories, merge requests, CI/CD pipelines, issues, and wikis. Full access to GitLab's comprehensive DevOps lifecycle tools.",
+    "localized_description": "GitLab DevOps 平台集成。管理存储库、合并请求、CI/CD 管道、问题和 wiki。完全访问 GitLab 的综合 DevOps 生命周期工具。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "google-cloud-storage",
+    "path": "plugins/anthropic/google-cloud-storage/.claude-plugin/plugin.json",
+    "original_description": "Official Google Cloud Storage (GCS) plugin. Manage buckets and objects, transfer data, and configure MCP, FUSE, IAM, security, lifecycle rules, signed URLs, Terraform, and the CLI.",
+    "localized_description": "官方 Google 云存储 (GCS) 插件。管理存储桶和对象、传输数据以及配置 MCP、FUSE、IAM、安全性、生命周期规则、签名 URL、Terraform 和 CLI。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "grafana-assistant",
+    "path": "plugins/anthropic/grafana-assistant/.claude-plugin/plugin.json",
+    "original_description": "Skills and rules for developing and using the Grafana Assistant app and CLI.",
+    "localized_description": "开发和使用 Grafana Assistant 应用程序和 CLI 的技能和规则。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "grafana-cloud-mcp",
+    "path": "plugins/anthropic/grafana-cloud-mcp/.claude-plugin/plugin.json",
+    "original_description": "Hosted MCP server for AI-assisted Grafana Cloud observability — no local installation required.",
+    "localized_description": "用于 AI 辅助 Grafana Cloud 可观测性的托管 MCP 服务器 - 无需本地安装。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "grafana-mcp",
+    "path": "plugins/anthropic/grafana-mcp/.claude-plugin/plugin.json",
+    "original_description": "MCP server for AI-assisted Grafana dashboard, datasource, alerting, and incident management.",
+    "localized_description": "用于 AI 辅助 Grafana 仪表板、数据源、警报和事件管理的 MCP 服务器。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "greptile",
+    "path": "plugins/anthropic/greptile/.claude-plugin/plugin.json",
+    "original_description": "AI code review agent for GitHub and GitLab. View and resolve Greptile's PR review comments directly from Claude Code.",
+    "localized_description": "人工智能驱动的代码库搜索和理解。使用自然语言查询您的存储库，以查找相关代码、了解依赖关系并获取有关代码库架构的上下文答案。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "growthbook",
+    "path": "plugins/anthropic/growthbook/.claude-plugin/plugin.json",
+    "original_description": "A suite of agent skills for the full GrowthBook feature flag and experimentation lifecycle.",
+    "localized_description": "一套用于完整 GrowthBook 功能标记和实验生命周期的代理技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "honeycomb",
+    "path": "plugins/anthropic/honeycomb/.claude-plugin/plugin.json",
+    "original_description": "Skills, agents, and workflows for Honeycomb observability — query patterns, production investigations, SLOs, OpenTelemetry instrumentation, and Beeline migration. Designed to complement the Honeycomb MCP server.",
+    "localized_description": "Honeycomb 可观测性的技能、代理和工作流程 — 查询模式、生产调查、SLO、OpenTelemetry 仪器和 Beeline 迁移。旨在补充 Honeycomb MCP 服务器。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "hookify",
+    "path": "plugins/anthropic/hookify/.claude-plugin/plugin.json",
+    "original_description": "Easily create hooks to prevent unwanted behaviors by analyzing conversation patterns",
+    "localized_description": "通过分析对话模式或明确的指令，轻松创建自定义挂钩以防止不良行为。通过简单的 Markdown 文件定义规则。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "hostinger",
+    "path": "plugins/anthropic/hostinger/.claude-plugin/plugin.json",
+    "original_description": "Deploy, manage and monitor Hostinger services — Websites, Domains & DNS, Ecommerce, Email, Email Marketing, WordPress, Subscriptions & Payments, and VPS. Authenticate via browser (OAuth)",
+    "localized_description": "部署、管理和监控 Hostinger 服务 — 网站、域名、电子商务、电子邮件营销、订阅和付款以及 VPS。通过浏览器 (OAuth) 或 API 令牌进行身份验证。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "huggingface-skills",
+    "path": "plugins/anthropic/huggingface-skills/.claude-plugin/plugin.json",
+    "original_description": "Core Hugging Face Hub operations through the hf CLI, including skill installation, repo management, jobs, datasets, models, Spaces, and discovery.",
+    "localized_description": "构建、训练、评估和使用开源 AI 模型、数据集和空间。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "hunter",
+    "path": "plugins/anthropic/hunter/.claude-plugin/plugin.json",
+    "original_description": "Find and verify professional email addresses, search contacts by domain, enrich company and person data, organize leads and lists, run outreach sequences, and push to your CRM -- directly in Claude.",
+    "localized_description": "直接在 Claude 中查找并验证专业电子邮件地址、按域搜索联系人并丰富公司数据。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "hyperframes",
+    "path": "plugins/anthropic/hyperframes/.claude-plugin/plugin.json",
+    "original_description": "HyperFrames by HeyGen. Write HTML, render video. Compositions, GSAP and runtime adapter animations, captions, voiceovers, audio-reactive visuals, and website capture for HyperFrames.",
+    "localized_description": "HeyGen 的 HyperFrames。编写 HTML，渲染视频。合成、GSAP 和运行时适配器动画、字幕、画外音、音频反应视觉效果以及 HyperFrames 的网站到视频捕获。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "idmp-plugin",
+    "path": "plugins/anthropic/idmp-plugin/.claude-plugin/plugin.json",
+    "original_description": "TDengine IDMP plugin with packaged skills for discovery, schema inspection, and safe operational workflows.",
+    "localized_description": "TDengine IDMP 插件具有用于发现、模式检查和安全操作工作流程的打包技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "imessage",
+    "path": "plugins/anthropic/imessage/.claude-plugin/plugin.json",
+    "original_description": "iMessage channel for Claude Code — reads chat.db directly, sends via AppleScript. Built-in access control; manage pairing, allowlists, and policy via /imessage:access.",
+    "localized_description": "具有内置访问控制的 iMessage 消息传递桥。直接读取chat.db，通过AppleScript发送。通过 /imessage:access 管理配对、白名单和策略。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "intercom",
+    "path": "plugins/anthropic/intercom/.claude-plugin/plugin.json",
+    "original_description": "Intercom integration for Claude Code. Search conversations, analyze customer support patterns, look up contacts and companies, and install the Intercom Messenger. Connect your Intercom workspace to get real-time insights from customer data.",
+    "localized_description": "Claude Code 的对讲集成。搜索对话、分析客户支持模式、查找联系人和公司以及安装 Intercom Messenger。连接您的 Intercom 工作区，从客户数据中获取实时见解。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "jfrog",
+    "path": "plugins/anthropic/jfrog/.claude-plugin/plugin.json",
+    "original_description": "Official JFrog plugin. Connect Claude Code to JFrog to manage, secure, and govern your software supply chain. Give agents the context to build secure, compliant software.",
+    "localized_description": "使用 Claude Code 的 JFrog 平台：Artifactory 存储库和工件、安全发现和暴露、目录包安全和下载、跨 SDLC 的工作流程以及平台管理。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "knowledge-catalog",
+    "path": "plugins/anthropic/knowledge-catalog/.claude-plugin/plugin.json",
+    "original_description": "Connect to Knowledge Catalog to discover, manage, monitor, and govern data and AI artifacts across your data platform",
+    "localized_description": "连接到知识目录以发现、管理、监控和治理整个数据平台上的数据和 AI 工件",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "langfuse",
+    "path": "plugins/anthropic/langfuse/.claude-plugin/plugin.json",
+    "original_description": "Skills for working with Langfuse, the open-source LLM engineering platform for tracing, prompt management, and evaluation.",
+    "localized_description": "使用 Langfuse 的技能，Langfuse 是一个用于跟踪、即时管理和评估的开源 LLM 工程平台。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "langfuse-observability",
+    "path": "plugins/anthropic/langfuse-observability/.claude-plugin/plugin.json",
+    "original_description": "The Langfuse x Claude Code Observability Plugin",
+    "localized_description": "用于 Claude Code 的 Langfuse 可观测性插件 — 捕获并将跟踪、跨度和会话遥测数据从 Claude Code 导出到 Langfuse，以进行 LLM 监控、调试和评估",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "laravel-boost",
+    "path": "plugins/anthropic/laravel-boost/.claude-plugin/plugin.json",
+    "original_description": "Laravel development toolkit MCP server. Provides intelligent assistance for Laravel applications including Artisan commands, Eloquent queries, routing, migrations, and framework-specific code generation.",
+    "localized_description": "Laravel 开发工具包 MCP 服务器。为 Laravel 应用程序提供智能帮助，包括 Artisan 命令、Eloquent 查询、路由、迁移和特定于框架的代码生成。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "learning-output-style",
+    "path": "plugins/anthropic/learning-output-style/.claude-plugin/plugin.json",
+    "original_description": "Interactive learning mode that requests meaningful code contributions at decision points (mimics the unshipped Learning output style)",
+    "localized_description": "交互式学习模式，在决策点请求有意义的代码贡献（模仿未交付的学习输出风格）",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "legalzoom",
+    "path": "plugins/anthropic/legalzoom/.claude-plugin/plugin.json",
+    "original_description": "LegalZoom Plugin - AI-powered business legal assistance with contract review and attorney consultation",
+    "localized_description": "满足商业和个人需求的律师指导和法律工具。人工智能驱动的文件审查可以识别关键风险和重要条款，建议何时聘请律师，并在需要专业知识时转至 LegalZoom 网络。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "linear",
+    "path": "plugins/anthropic/linear/.claude-plugin/plugin.json",
+    "original_description": "Linear issue tracking integration. Create issues, manage projects, update statuses, search across workspaces, and streamline your software development workflow with Linear's modern issue tracker.",
+    "localized_description": "线性问题跟踪集成。使用 Linear 的现代问题跟踪器创建问题、管理项目、更新状态、跨工作区搜索以及简化您的软件开发工作流程。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "liquid-lsp",
+    "path": "plugins/anthropic/liquid-lsp/.claude-plugin/plugin.json",
+    "original_description": "LSP integration for Shopify Liquid templates via the Shopify CLI theme language server",
+    "localized_description": "通过 Shopify CLI 主题语言服务器进行 Shopify Liquid 模板的 LSP 集成。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "liquid-skills",
+    "path": "plugins/anthropic/liquid-skills/.claude-plugin/plugin.json",
+    "original_description": "Liquid language fundamentals, CSS/JS/HTML coding standards, and WCAG accessibility patterns for Shopify themes",
+    "localized_description": "Shopify 主题的 Liquid 语言基础知识、CSS/JS/HTML 编码标准和 WCAG 可访问性模式",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "logfire",
+    "path": "plugins/anthropic/logfire/.claude-plugin/plugin.json",
+    "original_description": "Add Logfire observability to Python applications with auto-instrumentation for FastAPI, httpx, asyncpg, SQLAlchemy, and more",
+    "localized_description": "通过针对 FastAPI、httpx、asyncpg、SQLAlchemy 等的自动检测，将 Logfire 可观察性添加到 Python 应用程序",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "logrocket",
+    "path": "plugins/anthropic/logrocket/.claude-plugin/plugin.json",
+    "original_description": "Connect Claude Code to LogRocket to query session replays, metrics, issues, and user behavior using natural language.",
+    "localized_description": "将 Claude Code 连接到 LogRocket，以使用自然语言查询会话重播、指标、问题和用户行为。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "looker",
+    "path": "plugins/anthropic/looker/.claude-plugin/plugin.json",
+    "original_description": "Connect to Looker and interact with your data using LookML.",
+    "localized_description": "连接到 Looker 并使用 LookML 与您的数据交互。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "lovable",
+    "path": "plugins/anthropic/lovable/.claude-plugin/plugin.json",
+    "original_description": "Build, iterate on, deploy, and manage Lovable apps from Claude Code. Bundles the official Lovable MCP server (remote, OAuth 2.1) and adds focused commands for the common build/iterate/database workflows, with credit- and publish-safety prompts.",
+    "localized_description": "通过 Claude Code 构建、迭代、部署和管理 Lovable 应用程序。捆绑官方 Lovable MCP 服务器（远程，OAuth 2.1），并为常见构建/迭代/数据库工作流程添加集中命令，并带有信用和发布安全提示。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "lumen",
+    "path": "plugins/anthropic/lumen/.claude-plugin/plugin.json",
+    "original_description": "Precise local semantic code search via MCP. Indexes your codebase with Go AST parsing, embeds with Ollama or LM Studio, and exposes vector search to Claude through an MCP server — no cloud, no npm.",
+    "localized_description": "通过 MCP 进行精确的本地语义代码搜索。使用 Go AST 解析为您的代码库建立索引，嵌入 Ollama 或 LM Studio，并通过 MCP 服务器向 Claude 公开矢量搜索 — 无需云，无需 npm。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "lusha",
+    "path": "plugins/anthropic/lusha/.claude-plugin/plugin.json",
+    "original_description": "Connect Lusha to Claude to pull verified B2B data, contact data, and company data — including verified emails, direct dials, mobile numbers, and real-time buying signals — straight into your conversation. Lusha is the B2B data layer behind 300M+ verified contacts, used for sales intelligence, prospecting, data enrichment, and lead enrichment across sales, marketing, and RevOps workflows. Backed by GDPR, CCPA, SOC 2 Type II, and ISO 27701 compliance. Perfect for building prospect lists, researching accounts before a call, qualifying inbound leads, and natural language prospecting inside Claude.\n\nUse Lusha to:\n- Find contacts and decision makers by role, company, industry, or seniority — \"Find 10 VPs of RevOps at Series B SaaS companies in NYC\"\n- Pull verified emails, direct dials, and mobile numbers with 98% email deliverability and 85% phone accuracy — \"Get the verified work email and mobile number for the Head of Marketing at Notion\"\n- Enrich CRM records and inbound leads with firmographics, technographics, headcount, revenue, and buying signals — \"Enrich these 25 webinar signup domains with industry, tech stack, and recent hiring signals\"\n- Track signals across target accounts — funding rounds, leadership hires, hiring surges, and tech stack changes — \"Show me the buying signals from the last 90 days for these 15 accounts\"\n- Find lookalike accounts based on your closed-won customers — \"Find 20 companies that look like these 5 customers\"",
+    "localized_description": "使用 Lusha 的 B2B 情报平台（经过验证的电话号码、公司信号和相似定位）来寻找、丰富和构建可通话的潜在客户列表。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "mapbox",
+    "path": "plugins/anthropic/mapbox/.claude-plugin/plugin.json",
+    "original_description": "Mapbox skills and MCP servers for building location-aware applications with AI. Includes geospatial tools, style management, and patterns for web, iOS, Android, and AI agent frameworks.",
+    "localized_description": "Mapbox 技能和 MCP 服务器，用于使用 AI 构建位置感知应用程序。包括地理空间工具、样式管理以及 Web、iOS、Android 和 AI 代理框架的模式。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "math-olympiad",
+    "path": "plugins/anthropic/math-olympiad/.claude-plugin/plugin.json",
+    "original_description": "Solve competition math (IMO, Putnam, USAMO) with adversarial verification that catches what self-verification misses. Fresh-context verifiers attack proofs with specific failure patterns. Calibrated abstention over bluffing.",
+    "localized_description": "通过对抗性验证来解决竞赛数学（IMO、Putnam、USAMO），该验证可以捕获自我验证遗漏的内容。新上下文验证者使用特定的失败模式来攻击证明。对虚张声势的校准弃权。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "mattpocock-skills",
+    "path": "plugins/anthropic/mattpocock-skills/.claude-plugin/plugin.json",
+    "original_description": "Matt Pocock's agent skills for real engineering — grilling, spec/ticket flows, TDD, code review, domain modelling and more. Plug-and-play, not vibe coding.",
+    "localized_description": "马特·波科克 (Matt Pocock) 的真实工程代理技能 — 烧烤、规格/票据流程、TDD、代码审查、领域建模等等。即插即用，而不是振动编码。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "mcp-apps",
+    "path": "plugins/anthropic/mcp-apps/.claude-plugin/plugin.json",
+    "original_description": "Claude Code skill for building MCP Apps with interactive UIs",
+    "localized_description": "使用 MCP Apps SDK 创建 MCP 应用程序的技能",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "mcp-server-dev",
+    "path": "plugins/anthropic/mcp-server-dev/.claude-plugin/plugin.json",
+    "original_description": "Skills for designing and building MCP servers that work seamlessly with Claude — guides you through deployment models (remote HTTP, MCPB, local), tool design patterns, auth, and interactive MCP apps.",
+    "localized_description": "设计和构建与 Claude 无缝协作的 MCP 服务器的技能。指导您完成部署模型（远程 HTTP、MCPB、本地）、工具设计模式、身份验证和交互式 MCP 应用程序。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "mcp-tunnels",
+    "path": "plugins/anthropic/mcp-tunnels/.claude-plugin/plugin.json",
+    "original_description": "Connect Claude to a private MCP server through an Anthropic MCP tunnel. Drives the Docker Compose quickstart end to end: certificates, proxy config, cloudflared, and a verifiable sample server.",
+    "localized_description": "通过 Anthropic MCP 隧道将 Claude 连接到专用 MCP 服务器。 /create-docker-mcp-tunnel 命令端到端驱动 Docker Compose 快速入门：证书、代理配置、cloudflared 和可验证的示例服务器。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "mercadopago",
+    "path": "plugins/anthropic/mercadopago/.claude-plugin/plugin.json",
+    "original_description": "Mercado Pago integration toolkit for Claude Code. One agent routes to four skills: mp-integrate (full wizard for Checkout Pro, Checkout API, Bricks, QR Code, Point, Subscriptions, Marketplace, Wallet Connect — plus /mp-integrate migrate to upgrade legacy Instore integrations to the Orders API), mp-webhooks (HMAC-validated receiver scaffold + diagnostics), mp-test-setup (test users, credentials, and test cards for AR/BR/MX/CO/CL), and mp-review (quality and security checklist before going live). Scaffolding works without MCP auth; live docs, credential lookup, and test-user creation use the official Mercado Pago MCP server.",
+    "localized_description": "Mercado Pago 全产品集成工具包。一个代理路由到四种编排技能（mp-集成向导、mp-webhooks、mp-test-setup、mp-review），这些技能从官方 Mercado Pago MCP 服务器实时提取每个端点、负载和代码片段。 MCP 必须始终保持连接 — 没有离线模式。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "mergify",
+    "path": "plugins/anthropic/mergify/.claude-plugin/plugin.json",
+    "original_description": "Skills for the Mergify CLI: manage merge queues, stacked pull requests, Test Insights (flaky tests, quarantine), merge protections, and Mergify configuration directly from the terminal.",
+    "localized_description": "Mergify CLI 的技能：管理合并队列、堆叠拉取请求、测试见解（片状测试、隔离）、合并保护以及直接从终端进行 Mergify 配置。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "microsoft-docs",
+    "path": "plugins/anthropic/microsoft-docs/.claude-plugin/plugin.json",
+    "original_description": "Access official Microsoft documentation, API references, and code samples for Azure, .NET, Windows, and more.",
+    "localized_description": "访问 Azure、.NET、Windows 等的官方 Microsoft 文档、API 参考和代码示例。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "migration-to-aws",
+    "path": "plugins/anthropic/migration-to-aws/.claude-plugin/plugin.json",
+    "original_description": "This no-cost tool assesses your current cloud provider's usage, geography, and billing data to estimate and compare AWS services and pricing, and recommends migration or continued use of your current provider. AWS pricing is based on current published pricing and may vary over time. The tool may generate a .migration folder containing comparison and migration execution data, which you may delete upon completion or use to migrate to AWS.",
+    "localized_description": "计划从 Google Cloud Platform（和 OpenAI/Gemini AI 工作负载）迁移到 AWS。分析您的基础设施即代码文件、应用程序代码和 GCP 计费数据，以发现资源、设计 AWS 架构、估算成本并生成迁移工件 — 包括 AI 提供商映射到 Amazon Bedrock。处理是本地的；您的数据保留在您的环境中。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "miro",
+    "path": "plugins/anthropic/miro/.claude-plugin/plugin.json",
+    "original_description": "Secure access to Miro boards. Enables AI to read board context, create diagrams, and generate code with enterprise-grade security.",
+    "localized_description": "安全访问 Miro 板。使 AI 能够读取电路板上下文、创建图表并生成具有企业级安全性的代码。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "mlflow",
+    "path": "plugins/anthropic/mlflow/.claude-plugin/plugin.json",
+    "original_description": "Skills for tracing, evaluating, and improving AI agents with MLflow. Supports the full agent improvement loop: instrument → trace → evaluate → iterate → validate.",
+    "localized_description": "使用 MLflow 跟踪、评估和改进 AI 代理的技能。支持完整的代理改进循环：仪器→跟踪→评估→迭代→验证。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "modern-web-guidance",
+    "path": "plugins/anthropic/modern-web-guidance/.claude-plugin/plugin.json",
+    "original_description": "Keep your coding agent up to date with the latest web best practices",
+    "localized_description": "让您的编码代理了解最新的网络最佳实践",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "monday-crm",
+    "path": "plugins/anthropic/monday-crm/.claude-plugin/plugin.json",
+    "original_description": "Run your sales pipeline in monday CRM from plain language. Start the day with a ranked deal briefing, build a forecast, turn meeting notes into deal updates, set up a CRM workspace from scratch, keep your data clean, manage sequences end-to-end, log calls and meetings to timelines, analyze team activity and rep performance, and set up automations — every result written straight back into monday. Built on the official monday MCP connector.",
+    "localized_description": "用简单的语言运行周一的 CRM。从头开始构建管道，以排序的交易简报开始新的一天，启动预测仪表板，审计委员会的健康状况，批量清理混乱的数据，并将会议记录转化为交易更新。每项技能都会在周一作为真正的更新、文档或仪表板写回。基于官方星期一 MCP 连接器构建。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "mongodb",
+    "path": "plugins/anthropic/mongodb/.claude-plugin/plugin.json",
+    "original_description": "Connect to any MongoDB deployment (Community, Enterprise Advanced, local dev container via Atlas CLI or Atlas clusters) through a self-managed MongoDB MCP Server using your connection string. Explore data, manage collections, optimize queries, and generate reliable code with MongoDB best practices.",
+    "localized_description": "MongoDB 的官方 Claude 插件（MCP 服务器 + 技能）。连接到数据库、探索数据、管理集合、优化查询、生成可靠的代码、实施最佳实践、开发高级功能等等。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "mongodb-atlas",
+    "path": "plugins/anthropic/mongodb-atlas/.claude-plugin/plugin.json",
+    "original_description": "Connect to MongoDB Atlas clusters only through the Atlas Managed MCP Server. Sign in with your Atlas account to explore data, manage collections, optimize queries, generate reliable code with MongoDB best practices, and manage Atlas resources such as clusters, projects, database users, and network access.\n\nIf you are running a different MongoDB deployment or want to run a local MongoDB MCP Server, install the MongoDB (Self-Managed MCP) plugin instead.",
+    "localized_description": "仅通过 Atlas Managed MCP Server 连接到 MongoDB Atlas 集群。使用您的 Atlas 帐户登录，探索数据、管理集合、优化查询、利用 MongoDB 最佳实践生成可靠的代码，以及管理 Atlas 资源，例如集群、项目、数据库用户和网络访问。如果您正在运行不同的 MongoDB 部署或想要运行本地 MongoDB MCP 服务器，请安装 MongoDB（自管理 MCP）插件。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "neon",
+    "path": "plugins/anthropic/neon/.claude-plugin/plugin.json",
+    "original_description": "Manage your Neon backend with the Neon agent skills and the Neon MCP Server: Lakebase Postgres, branching, Object Storage, Functions, and the AI Gateway",
+    "localized_description": "使用 neon-postgres 代理技能和 Neon MCP 服务器管理您的 Neon 项目和数据库。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "netlify-skills",
+    "path": "plugins/anthropic/netlify-skills/.claude-plugin/plugin.json",
+    "original_description": "Netlify platform skills for Claude Code",
+    "localized_description": "Claude Code 的 Netlify 平台技能 — 函数、边缘函数、blob、数据库、图像 CDN、表单、配置、CLI、框架、缓存、AI 网关和部署。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "newrelic",
+    "path": "plugins/anthropic/newrelic/.claude-plugin/plugin.json",
+    "original_description": "New Relic observability intelligence for Claude Code. Investigate APM performance, analyze cloud costs, debug Kubernetes, write NRQL queries, and respond to alerts — all from your terminal using New Relic telemetry data.",
+    "localized_description": "克劳德代码的新遗物可观察性智能。研究 APM 性能、分析云成本、调试 Kubernetes、编写 NRQL 查询以及响应警报 - 所有这些都可以使用 New Relic 遥测数据从您的终端进行。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "nightvision",
+    "path": "plugins/anthropic/nightvision/.claude-plugin/plugin.json",
+    "original_description": "Skills for working with NightVision, a DAST and API Discovery platform that finds exploitable vulnerabilities in web applications and REST APIs",
+    "localized_description": "使用 NightVision 的技能，NightVision 是一个 DAST 和 API 发现平台，可查找 Web 应用程序和 REST API 中的可利用漏洞",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "nimble",
+    "path": "plugins/anthropic/nimble/.claude-plugin/plugin.json",
+    "original_description": "Live web search for AI agents. Find current pages, read any URL, and run research agents that work across many sources and return findings with citations. Includes reusable Extraction Templates for consistently shaped records from known sites, and Web Search Agents for research, enrichment, and dataset building.",
+    "localized_description": "Nimble Web 数据工具包 — 搜索、提取、映射、抓取 Web 并使用结构化数据代理",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "noibu",
+    "path": "plugins/anthropic/noibu/.claude-plugin/plugin.json",
+    "original_description": "Connects Claude to the Noibu MCP server",
+    "localized_description": "Noibu 插件专为电子商务而构建，通过 Noibu 将 Claude 直接连接到商店的会话、错误和转化数据，以及将洞察力付诸实践的营销、支持和商务平台，从而弥合了客户体验和收入之间的差距。超越分析：揭示造成收入损失的因素，在整个堆栈中采取行动，构建工作流程以实现端到端工作自动化。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "notion",
+    "path": "plugins/anthropic/notion/.claude-plugin/plugin.json",
+    "original_description": "Notion Skills + Notion MCP server packaged as a Claude Code plugin.",
+    "localized_description": "概念工作区集成。搜索页面、创建和更新文档、管理数据库以及直接从 Claude Code 访问团队的知识库，以实现无缝的文档工作流程。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "nvidia-skills",
+    "path": "plugins/anthropic/nvidia-skills/.claude-plugin/plugin.json",
+    "original_description": "Find the right NVIDIA skill for GPU acceleration, CUDA, AI agents, data loading, training, inference, robotics, Physical AI, Omniverse, simulation, and other NVIDIA-powered workflows.",
+    "localized_description": "用于加速计算工作流程的 NVIDIA 代理技能 - 从通过 cuOpt Python API 进行 cuOpt 车辆路由优化（VRP、TSP、PDP）开始。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "oracle-ai-data-platform-workbench-databricks-migrator",
+    "path": "plugins/anthropic/oracle-ai-data-platform-workbench-databricks-migrator/.claude-plugin/plugin.json",
+    "original_description": "Drive the Oracle AI Data Platform (AIDP) Databricks Migration Toolkit in natural language. Self-contained — the full Python engine (scripts/, aidp_compat/) ships bundled under engine/ and is invoked from skills via ${CLAUDE_PLUGIN_ROOT}/engine/scripts/. Teaches Claude how to plan and execute an automated end-to-end migration of Databricks (Unity Catalog / HMS) notebooks, jobs, schedules, and catalog DDL onto AIDP — Pass-1 dependency resolution + Pass-2 cell-by-cell execute/verify/fix on a live AIDP cluster using Claude with tool use. Covers job_migrate.py orchestration, catalog migration (18 DDL rewrite rules: 3-part→2-part name flatten, s3://→oci:// via bucket-map, source-format preserved with delta.* property scrub), workflow DAG manifest building, fixup_cell rewind, pre-migration data-availability checks, write-redirect sandbox schema, and the acceptance-contract pattern for batch/streaming convergence. Bundles 10 skills, 4 slash commands, 2 reviewer agents, and 4 reference docs + an env-coords template (cli-map, ddl-rewrite-rules, gotchas, job-report-format + env-coords.template.md).",
+    "localized_description": "以自然语言驱动 Oracle AI Data Platform (AIDP) Databricks 迁移工具包。计划和执行笔记本、作业、计划和目录 DDL 的自动化 Databricks → AIDP 迁移 — 使用 Claude 在实时 AIDP 集群上进行第 1 阶段依赖项重写 + 第 2 阶段逐单元执行/验证/修复。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "oracle-ai-data-platform-workbench-engineer-agent",
+    "path": "plugins/anthropic/oracle-ai-data-platform-workbench-engineer-agent/.claude-plugin/plugin.json",
+    "original_description": "Operate the entire Oracle AI Data Platform (AIDP) Workbench in natural language — a 37-skill agent (not a single-engine orchestrator). Discovers your catalog into a grounding cache (FK/join hints + value dictionaries), turns plain English into accurate Spark SQL, and runs the full lakehouse SQL lifecycle (CREATE/INSERT/UPDATE/DELETE/MERGE/OPTIMIZE/VACUUM/DESCRIBE HISTORY/time-travel on the Spark/Delta lakehouse). Ingests files, profiles data and sets quality rules, authors and repairs cron pipelines, provisions clusters (Compute/AI Compute), and debugs via the Spark UI. Governs the platform (roles + per-resource permissions, credential store, Delta Sharing, audit logs, user settings; plus native Git, bundles, and MLOps/MLflow in Preview) and ships AI — Agent Flows across 13 node types with guardrails (content moderation, prompt-attack prevention, PII detection), Knowledge Base RAG, high-code LangGraph/aidputils agents, and reusable Tools. A semantic model + verified-query repository are matched before free generation for accuracy. Signature differentiators: LLM-in-SQL via ai_generate('openai.gpt-5.4', '<prompt>') and cross-source federation in one Spark session. Runs via the official Oracle aidp CLI with an oci raw-request REST fallback — under either api_key or oci-session-token auth. Additive to your Oracle stack.",
+    "localized_description": "Claude Code 的 Oracle AI Data Platform (AIDP) Workbench 工程师代理 — 一个拥有 37 项技能的代理，可以用自然语言操作完整的 Spark/Delta Lakehouse。将您的目录发现为基础缓存，将简单的英语转换为准确的 Spark SQL，并运行生命周期（CREATE/INSERT/UPDATE/DELETE/MERGE、OPTIMIZE/VACUUM、时间旅行）。摄取文件、分析数据并设置质量规则、编写和修复管道、配置集群并通过 Spark UI 进行调试。管理平台（角色、凭证存储、增量共享、审核日志）以及本机 Git、捆绑包和 MLOps/MLflow。通过官方 Oracle aidp CLI 运行。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "oracle-ai-data-platform-workbench-spark-connectors",
+    "path": "plugins/anthropic/oracle-ai-data-platform-workbench-spark-connectors/.claude-plugin/plugin.json",
+    "original_description": "Oracle AI Data Platform Workbench Spark connectors for Claude Code. 25 connector skills covering Oracle, OCI, SaaS, JDBC, object storage, streaming, REST, Excel, and multi-cloud data sources, including dedicated Azure SQL, NetSuite, and read-only AIDP Snowflake connector guidance.",
+    "localized_description": "适用于 Claude Code 的 Oracle AI Data Platform Workbench Spark 连接器。涵盖客户通常需要的每个数据源工作台的 18 种连接器技能：通过钱包/IAM-DB-Token/API-key 实现的 Oracle 自治数据库系列 (ALH/ADW/ATP)、ExaCS、Fusion ERP REST、Fusion BICC、EPM 云规划、Essbase 21c、OCI Streaming (Kafka)、OCI 对象存储、Apache Iceberg 以及外部系统（PostgreSQL、MySQL/HeatWave、SQL Server、Snowflake、Azure ADLS Gen2、AWS） S3、通用 REST、自定义 JDBC、Excel）。在工作台 `tpcds` 集群 (Spark 3.5.0) 上进行实时验证：21 个测试行中有 17 个通过/4 个按原样交付。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "oracledb",
+    "path": "plugins/anthropic/oracledb/.claude-plugin/plugin.json",
+    "original_description": "Connect, query, and interact with Oracle Databases and their data.",
+    "localized_description": "连接、查询 Oracle 数据库及其数据并与之交互。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "outputai",
+    "path": "plugins/anthropic/outputai/.claude-plugin/plugin.json",
+    "original_description": "Workflow development tools",
+    "localized_description": "适用于 Claude Code 的 Output.ai 工作流程开发工具包。添加 5 名专业代理（规划者、构建者、调试者、提示编写者、质量审核者）、40 多种斜线命令技能（涵盖脚手架、调试、评估和凭证管理），以及自动加载输出 SDK 约定的 SessionStart 挂钩，以便 Claude 在第一次提示之前了解框架。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "pagerduty",
+    "path": "plugins/anthropic/pagerduty/.claude-plugin/plugin.json",
+    "original_description": "A collection of Claude Code plugins developed by PagerDuty for pre-commit risk assessment and PagerDuty skill creation for AI agents (Early Access).",
+    "localized_description": "通过 PagerDuty 风险评分和事件关联来增强代码质量和安全性。在发货前根据历史事件数据和地面部署风险对提交前差异进行评分。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "paypal",
+    "path": "plugins/anthropic/paypal/.claude-plugin/plugin.json",
+    "original_description": "PayPal development plugin for Claude — integrate payments, subscriptions, invoices, disputes, and more using PayPal's APIs and MCP server",
+    "localized_description": "Claude 的 PayPal 开发插件 — 使用 PayPal 的 API 和 MCP 服务器集成支付、订阅、发票、争议等",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "pigment",
+    "path": "plugins/anthropic/pigment/.claude-plugin/plugin.json",
+    "original_description": "Analyze business data and build planning models in your Pigment workspace",
+    "localized_description": "通过自然语言分析业务数据并构建自定义 Pigment 模型、指标和看板。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "pinecone",
+    "path": "plugins/anthropic/pinecone/.claude-plugin/plugin.json",
+    "original_description": "Pinecone vector database integration. Streamline your Pinecone development with powerful tools for managing vector indexes, querying data, and rapid prototyping. Use slash commands like /quickstart to generate AGENTS.md files and initialize Python projects and /query to quickly explore indexes. Access the Pinecone MCP server for creating, describing, upserting and querying indexes with Claude. Perfect for developers building semantic search, RAG applications, recommendation systems, and other vector-based applications with Pinecone.",
+    "localized_description": "松果矢量数据库集成。使用用于管理矢量索引、查询数据和快速原型设计的强大工具简化您的 Pinecone 开发。使用 /quickstart 等斜杠命令生成 AGENTS.md 文件并初始化 Python 项目和 /query 来快速探索索引。访问 Pinecone MCP 服务器，与 Claude 一起创建、描述、更新插入和查询索引。非常适合使用 Pinecone 构建语义搜索、RAG 应用程序、推荐系统和其他基于矢量的应用程序的开发人员。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "pixeltable",
+    "path": "plugins/anthropic/pixeltable/.claude-plugin/plugin.json",
+    "original_description": "Build multimodal AI applications with Pixeltable -- tables, computed columns, embedding search, UDFs, tool-calling agents, and 25+ AI provider integrations.",
+    "localized_description": "使用 Pixeltable 构建多模式 AI 应用程序 - 表、计算列、嵌入搜索、UDF、工具调用代理和超过 25 个 AI 提供商集成。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "planetscale",
+    "path": "plugins/anthropic/planetscale/.claude-plugin/plugin.json",
+    "original_description": "An authenticated hosted MCP server that accesses your PlanetScale organizations, databases, branches, schema, and Insights data.",
+    "localized_description": "经过身份验证的托管 MCP 服务器，用于访问您的 PlanetScale 组织、数据库、分支、架构和 Insights 数据。查询您的数据、显示慢速查询并获取组织和帐户信息。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "playground",
+    "path": "plugins/anthropic/playground/.claude-plugin/plugin.json",
+    "original_description": "Creates interactive HTML playgrounds — self-contained single-file explorers with visual controls, live preview, and prompt output with copy button",
+    "localized_description": "创建交互式 HTML 游乐场 — 具有视觉控件、实时预览和带有复制按钮的提示输出的独立单文件资源管理器。包括设计游乐场、数据浏览器、概念图和文档评论的模板。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "playwright",
+    "path": "plugins/anthropic/playwright/.claude-plugin/plugin.json",
+    "original_description": "Browser automation and end-to-end testing MCP server by Microsoft. Enables Claude to interact with web pages, take screenshots, fill forms, click elements, and perform automated browser testing workflows.",
+    "localized_description": "Microsoft 的浏览器自动化和端到端测试 MCP 服务器。使 Claude 能够与网页交互、截取屏幕截图、填写表单、单击元素以及执行自动化浏览器测试工作流程。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "plugin-dev",
+    "path": "plugins/anthropic/plugin-dev/.claude-plugin/plugin.json",
+    "original_description": "Plugin development toolkit with skills for creating agents, commands, hooks, MCP integrations, and comprehensive plugin structure guidance",
+    "localized_description": "用于开发 Claude Code 插件的综合工具包。包括 7 项专业技能，涵盖挂钩、MCP 集成、命令、代理和最佳实践。人工智能辅助插件创建和验证。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "posthog",
+    "path": "plugins/anthropic/posthog/.claude-plugin/plugin.json",
+    "original_description": "Access PostHog analytics, feature flags, experiments, error tracking, and insights directly from your AI coding tool. Optionally capture Claude Code sessions to PostHog LLM Analytics.",
+    "localized_description": "直接从 Claude Code 访问 PostHog 分析、功能标记、实验、错误跟踪和见解。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "postiz",
+    "path": "plugins/anthropic/postiz/.claude-plugin/plugin.json",
+    "original_description": "Social media automation CLI for scheduling posts, managing integrations, uploading media, and tracking analytics across 28+ platforms including X, LinkedIn, Reddit, YouTube, TikTok, Instagram, and more",
+    "localized_description": "社交媒体自动化 CLI，用于跨 28 个以上平台（包括 X、LinkedIn、Reddit、YouTube、TikTok、Instagram 等）安排帖子、管理集成、上传媒体和跟踪分析",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "postman",
+    "path": "plugins/anthropic/postman/.claude-plugin/plugin.json",
+    "original_description": "Full API lifecycle management for Claude Code. Sync collections, generate client code, discover APIs, run tests, create mocks, publish docs, and audit security. Powered by the Postman MCP Server.",
+    "localized_description": "Claude Code 的完整 API 生命周期管理。同步集合、生成客户端代码、发现 API、运行测试、创建模拟、发布文档和审核安全性。由 Postman MCP 服务器提供支持。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "pr-review-toolkit",
+    "path": "plugins/anthropic/pr-review-toolkit/.claude-plugin/plugin.json",
+    "original_description": "Comprehensive PR review agents specializing in comments, tests, error handling, type design, code quality, and code simplification",
+    "localized_description": "全面的 PR 审查代理，专门从事评论、测试、错误处理、类型设计、代码质量和代码简化",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "preset-cli-skills",
+    "path": "plugins/anthropic/preset-cli-skills/.claude-plugin/plugin.json",
+    "original_description": "Preset CLI skills for explicit shell, scripting, and CI/CD workflows driven by the `sup` CLI (PyPI package `superset-sup`). Use only for CLI workflows; do not use for MCP-only work or as a substitute for direct API calls when the user wants HTTP/SDK code.",
+    "localized_description": "预设 CLI 技能，用于由“sup” CLI（PyPI 包“superset-sup”）驱动的显式 shell、脚本和 CI/CD 工作流程。仅用于 CLI 工作流程；当用户需要 HTTP/SDK 代码时，请勿用于仅 MCP 的工作或作为直接 API 调用的替代品。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "prisma",
+    "path": "plugins/anthropic/prisma/.claude-plugin/plugin.json",
+    "original_description": "Prisma MCP integration for Postgres database management, schema migrations, SQL queries, and connection string management. Provision Prisma Postgres databases, run migrations, and interact with your data directly.",
+    "localized_description": "Prisma MCP 集成用于 Postgres 数据库管理、架构迁移、SQL 查询和连接字符串管理。配置 Prisma Postgres 数据库、运行迁移并直接与数据交互。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "project-artifact",
+    "path": "plugins/anthropic/project-artifact/.claude-plugin/plugin.json",
+    "original_description": "Generate and publish a project status artifact — an opinionated, tabbed status page (overview & success criteria, the workstream sequence, next steps, plus background / plan / risks & open questions / decisions-FAQ when they earn a tab) published via the built-in Artifact tool to a default-private claude.ai page the user can share with teammates. Each artifact is backed by a per-project config, so 'refresh the artifact' re-gathers live state, redeploys the same URL, and reports only the delta. Domain-neutral, with a software specialization for projects whose workstreams are pull requests. Needs the built-in Artifact tool (claude.ai login).",
+    "localized_description": "生成并发布一个实时项目状态页面——概述和成功标准、工作流顺序和后续步骤——作为由每个项目配置支持的可共享 claude.ai 工件，因此刷新重新收集实时状态，重新部署相同的 URL，并仅报告增量。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "pydantic-ai",
+    "path": "plugins/anthropic/pydantic-ai/.claude-plugin/plugin.json",
+    "original_description": "Build production-grade AI agents with Pydantic AI — tools, capabilities, structured output, streaming, and testing patterns",
+    "localized_description": "从一开始就编写准确的 Pydantic AI 代码。代理、工具、结构化输出、流媒体和多代理应用程序的最新模式、决策树和常见问题。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "qdrant-skills",
+    "path": "plugins/anthropic/qdrant-skills/.claude-plugin/plugin.json",
+    "original_description": "Agent skills for Qdrant vector search: scaling, performance optimization, search quality, monitoring, deployment, edge, model migration, multitenancy, version upgrades, and SDK usage",
+    "localized_description": "Qdrant 矢量搜索的代理技能，涵盖 Python、TypeScript、Rust、Go、.NET 和 Java 的扩展、性能优化、搜索质量、监控、部署、模型迁移、版本升级和 SDK 使用。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "qodo",
+    "path": "plugins/anthropic/qodo/.claude-plugin/plugin.json",
+    "original_description": "Shift-left code review skills that bring Qodo's quality standards and code review capabilities into your local development workflow. Catch issues before commit, enforce organizational standards, and resolve PR feedback directly in your agent.",
+    "localized_description": "Qodo Skills 提供了一个精选的可重用 AI 代理功能库，可扩展 Claude 的软件开发工作流程功能。每项技能都旨在无缝集成到您的开发流程中，从而支持代码质量检查、自动化测试、安全扫描和合规性验证等任务。技能适用于整个 SDLC（从 IDE 到 CI/CD），确保标准一致并尽早发现问题。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "qt-development-skills",
+    "path": "plugins/anthropic/qt-development-skills/.claude-plugin/plugin.json",
+    "original_description": "Agentic engineering skills for Qt software development, including Qt C++/QML code review, QML coding, and Qt C++/QML code documentation. Bundles the hosted Qt Documentation MCP server for live Qt API lookups. These skills use AI and can make mistakes. Always double-check the output carefully.",
+    "localized_description": "Qt 软件开发的代理工程技能 - Qt C++/QML 代码审查、QML 编码和 Qt C++/QML 代码文档。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "quarkus-agent",
+    "path": "plugins/anthropic/quarkus-agent/.claude-plugin/plugin.json",
+    "original_description": "MCP server for AI coding agents to create, manage, and interact with Quarkus applications. Provides tools for project scaffolding, dev mode lifecycle, extension skills, Dev MCP proxy, and documentation search.",
+    "localized_description": "MCP 服务器，用于 AI 编码代理创建、管理 Quarkus 应用程序并与 Quarkus 应用程序交互。提供用于项目脚手架、开发模式生命周期、扩展技能、Dev MCP 代理和文档搜索的工具。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "railway",
+    "path": "plugins/anthropic/railway/.claude-plugin/plugin.json",
+    "original_description": "Railway agent skills and hosted MCP server for deploying, configuring, monitoring, and troubleshooting apps and infrastructure on Railway from Claude Code. Manage services, environments, deployments, databases, object storage, networking, and observability.",
+    "localized_description": "在铁路上部署和管理应用程序、数据库和基础设施。涵盖项目设置、部署、环境配置、网络、故障排除和监控。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "ralph-loop",
+    "path": "plugins/anthropic/ralph-loop/.claude-plugin/plugin.json",
+    "original_description": "Continuous self-referential AI loops for interactive iterative development, implementing the Ralph Wiggum technique. Run Claude in a while-true loop with the same prompt until task completion.",
+    "localized_description": "用于迭代开发的交互式自参考 AI 循环，实施 Ralph Wiggum 技术。克劳德反复执行同一任务，查看其先前的工作，直到完成。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "rc",
+    "path": "plugins/anthropic/rc/.claude-plugin/plugin.json",
+    "original_description": "Set up RevenueCat, integrate it, and access data.",
+    "localized_description": "直接从 Claude Code 配置 RevenueCat 项目、应用程序、产品、权利和产品。无需离开开发工作流程即可管理您的应用内购买后端。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "redis-development",
+    "path": "plugins/anthropic/redis-development/.claude-plugin/plugin.json",
+    "original_description": "Redis development best practices — data structures, query engine, vector search, caching, and performance optimization",
+    "localized_description": "Redis 开发最佳实践——数据结构、查询引擎、向量搜索、缓存和性能优化",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "remember",
+    "path": "plugins/anthropic/remember/.claude-plugin/plugin.json",
+    "original_description": "Continuous memory for Claude Code. Extracts, summarizes, and compresses conversations into tiered daily logs. Claude remembers what you did yesterday.",
+    "localized_description": "克劳德代码的连续记忆。提取、总结对话并将其压缩为分层的每日日志。克劳德记得你昨天做了什么。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "render",
+    "path": "plugins/anthropic/render/.claude-plugin/plugin.json",
+    "original_description": "Deploy, debug, and monitor applications on Render. Includes skills, an agent, slash commands, a render.yaml validation hook, and the Render MCP server preconfigured over OAuth.",
+    "localized_description": "在 Render 上部署、调试和监控应用程序。包括技能、代理、斜线命令和 render.yaml 验证挂钩。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "resend",
+    "path": "plugins/anthropic/resend/.claude-plugin/plugin.json",
+    "original_description": "Send and receive emails, build with React Email, follow deliverability best practices",
+    "localized_description": "使用 Resend 发送和接收电子邮件的代理技能 - 电子邮件 API 集成、代理收件箱、CLI、React Email 组件和交付最佳实践。包括重新发送 MCP 服务器。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "revenuecat",
+    "path": "plugins/anthropic/revenuecat/.claude-plugin/plugin.json",
+    "original_description": "Set up RevenueCat, integrate it, and access data.",
+    "localized_description": "直接从 Claude Code 配置 RevenueCat 项目、应用程序、产品、权利和产品。无需离开开发工作流程即可管理您的应用内购买后端。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "rill",
+    "path": "plugins/anthropic/rill/.claude-plugin/plugin.json",
+    "original_description": "Skills for developing and querying projects in the Rill business intelligence platform",
+    "localized_description": "在Rill商业智能平台中开发和查询项目的技能",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "rootly",
+    "path": "plugins/anthropic/rootly/.claude-plugin/plugin.json",
+    "original_description": "Full-lifecycle incident management from your IDE. Prevent incidents before deploy, respond in real-time, and learn from post-mortems -- powered by Rootly.",
+    "localized_description": "全生命周期事件管理：部署安全、事件响应、待命管理和回顾。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "runway-api",
+    "path": "plugins/anthropic/runway-api/.claude-plugin/plugin.json",
+    "original_description": "Video generation at scale. Generate videos, images, and audio with Runway's API — batch ad campaigns, product videos, multishot stories, and creative iteration. Supports seedance2, gen4.5, veo3, Nano, Banana Pro, and more.",
+    "localized_description": "大规模视频生成。使用 Runway 的 API 生成视频、图像和音频 — 批量广告活动、产品视频、多镜头故事和创意迭代。支持seedance2、gen4.5、veo3、Nano、Banana Pro 等。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "sagemaker-ai",
+    "path": "plugins/anthropic/sagemaker-ai/.claude-plugin/plugin.json",
+    "original_description": "Build, train, and deploy AI models with deep AWS AI/ML expertise brought directly into your coding assistants, covering the surface area of Amazon SageMaker AI.",
+    "localized_description": "将深厚的 AWS AI/ML 专业知识直接引入您的编码助手中，构建、训练和部署 AI 模型，涵盖 Amazon SageMaker AI 的表面区域。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "salesforce-development",
+    "path": "plugins/anthropic/salesforce-development/.claude-plugin/plugin.json",
+    "original_description": "Build Salesforce apps and agents using these core building blocks: metadata, Apex, deploy/retrieve, security, reporting, and generated installed-versus-available capability discovery.",
+    "localized_description": "使用以下核心构建块构建 Salesforce 应用程序和代理：元数据、Apex、部署/检索、安全性、报告以及生成的已安装与可用功能发现。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "sanity",
+    "path": "plugins/anthropic/sanity/.claude-plugin/plugin.json",
+    "original_description": "Sanity plugin for Claude Code with MCP server, agent skills, agent rules, and slash commands.",
+    "localized_description": "Sanity 内容平台与 MCP 服务器、代理技能和斜杠命令集成。查询和创作内容、构建和优化 GROQ 查询、设计架构以及设置可视化编辑。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "sap-cds-mcp",
+    "path": "plugins/anthropic/sap-cds-mcp/.claude-plugin/plugin.json",
+    "original_description": "Model Context Protocol (MCP) server for AI-assisted development of CAP applications.",
+    "localized_description": "AI 辅助开发 SAP Cloud 应用程序编程模型 (CAP) 项目。搜索 CDS 模型和 CAP 文档。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "sap-fiori-mcp-server",
+    "path": "plugins/anthropic/sap-fiori-mcp-server/.claude-plugin/plugin.json",
+    "original_description": "MCP server for SAP Fiori development tools for Claude Code. Build and modify SAP Fiori applications with AI assistance.",
+    "localized_description": "用于 Claude Code 的 SAP Fiori 开发工具的 MCP 服务器。在 AI 协助下构建和修改 SAP Fiori 应用程序。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "sap-hana-cli",
+    "path": "plugins/anthropic/sap-hana-cli/.claude-plugin/plugin.json",
+    "original_description": "150+ SAP HANA database tools for AI assistants. Query tables, import/export data, profile data quality, compare schemas, manage backups, monitor performance, and more. Connects to SAP HANA Cloud and on-premise databases.",
+    "localized_description": "150 多个适用于 AI 助手的 SAP HANA 数据库工具。查询表、导入/导出数据、分析数据质量、比较模式、管理备份、监控性能等等。连接到 SAP HANA Cloud 和本地数据库。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "sap-mdk-server",
+    "path": "plugins/anthropic/sap-mdk-server/.claude-plugin/plugin.json",
+    "original_description": "Model Context Protocol (MCP) server for AI-assisted development of MDK applications.",
+    "localized_description": "SAP 移动开发套件 (MDK) 的 MCP 服务器。利用 AI 辅助构建和修改 MDK 应用程序 — 模式查找、操作验证、规则编辑和项目脚手架。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "save-to-spotify",
+    "path": "plugins/anthropic/save-to-spotify/.claude-plugin/plugin.json",
+    "original_description": "Create polished audio episodes with TTS narration, rich timelines, cover images, and save them to Spotify via the save-to-spotify CLI.",
+    "localized_description": "使用 TTS 旁白、丰富的时间线、封面图像创建精美的音频剧集，并通过“保存到 spotify”CLI 将其保存到 Spotify。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "security-guidance",
+    "path": "plugins/anthropic/security-guidance/.claude-plugin/plugin.json",
+    "original_description": "Security review for Claude-generated code. Pattern-based warnings on edits, LLM-powered diff review on Stop, and an agentic commit reviewer that catches injection, XSS, SSRF, hardcoded secrets, and 25+ other vulnerability classes.",
+    "localized_description": "对 Claude 生成的代码进行安全审查。基于模式的编辑警告、LLM 支持的 Stop 差异审查，以及捕获注入、XSS、SSRF、硬编码机密和 25 多个其他漏洞类别的代理提交审查器。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "semgrep",
+    "path": "plugins/anthropic/semgrep/.claude-plugin/plugin.json",
+    "original_description": "Semgrep Guardian: Scans agent-generated code for security vulnerabilities.",
+    "localized_description": "Semgrep 实时捕获安全漏洞，并指导 Claude 从头开始编写安全代码。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "sentry",
+    "path": "plugins/anthropic/sentry/.claude-plugin/plugin.json",
+    "original_description": "Sentry Plugin for Claude Code to help with debugging including MCP and skill capabilities.",
+    "localized_description": "Sentry 错误监控集成。直接从开发环境访问错误报告、分析堆栈跟踪、按指纹搜索问题以及调试生产错误。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "sentry-cli",
+    "path": "plugins/anthropic/sentry-cli/.claude-plugin/plugin.json",
+    "original_description": "Skills for using the Sentry CLI to interact with Sentry from the command line",
+    "localized_description": "使用Sentry CLI从命令行与Sentry交互的技巧",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "serena",
+    "path": "plugins/anthropic/serena/.claude-plugin/plugin.json",
+    "original_description": "Semantic code analysis MCP server providing intelligent code understanding, refactoring suggestions, and codebase navigation through language server protocol integration.",
+    "localized_description": "语义代码分析 MCP 服务器通过语言服务器协议集成提供智能代码理解、重构建议和代码库导航。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "servicenow-sdk",
+    "path": "plugins/anthropic/servicenow-sdk/.claude-plugin/plugin.json",
+    "original_description": "Create, edit, and deploy ServiceNow applications with the Fluent SDK effortlessly through Claude AI",
+    "localized_description": "通过 Claude AI 使用 Fluent SDK 轻松创建、编辑和部署 ServiceNow 应用程序。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "shippo",
+    "path": "plugins/anthropic/shippo/.claude-plugin/plugin.json",
+    "original_description": "Shippo connects you to USPS, UPS, FedEx, DHL, and 40+ carriers, so you can handle a shipment end to end right inside Claude. Compare live rates and pick the cheapest or best option, buy and print labels (domestic and international, with customs declarations), validate and standardize addresses, and track packages across carriers. Just ask in plain language: rate-shop a parcel, buy the right label, check a delivery status, or confirm an address before you ship. Whether you run a store or just need to send a package, Shippo turns a pile of carrier accounts into one simple conversation.",
+    "localized_description": "Shippo 将您与 USPS、UPS、FedEx、DHL 和 40 多家承运商连接起来，因此您可以在 Claude 内部处理端到端的货件。比较实时费率并选择最便宜或最好的选项，购买和打印标签（国内和国际，带有海关申报单），验证和标准化地址，以及跟踪承运商之间的包裹。只需用简单的语言询问即可：对包裹进行评分、购买正确的标签、检查递送状态或在发货前确认地址。无论您经营一家商店还是只需要寄送包裹，Shippo 都能将一堆承运人帐户变成一次简单的对话。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "shopify-ai-toolkit",
+    "path": "plugins/anthropic/shopify-ai-toolkit/.claude-plugin/plugin.json",
+    "original_description": "Shopify developer tools for Claude Code — search Shopify docs, generate and validate GraphQL, Liquid, and UI extension code. Skill scripts send usage telemetry (queries, code, model/client identifiers) to shopify.dev by default; set OPT_OUT_INSTRUMENTATION=true to disable.",
+    "localized_description": "Shopify 的 AI 工具包提供了 18 种用于在 Shopify 平台上构建的开发技能，涵盖文档搜索、API 模式访问、GraphQL 和 Liquid 代码验证、Hydrogen 店面、Polaris UI 扩展、通过 CLI 进行商店管理以及针对开发人员和商家的入职指导。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "skill-creator",
+    "path": "plugins/anthropic/skill-creator/.claude-plugin/plugin.json",
+    "original_description": "Create new skills, improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, or benchmark skill performance with variance analysis.",
+    "localized_description": "创造新技能、提高现有技能并衡量技能绩效。当用户想要从头开始创建技能、更新或优化现有技能、运行评估来测试技能或通过方差分析对技能性能进行基准测试时使用。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "slack",
+    "path": "plugins/anthropic/slack/.claude-plugin/plugin.json",
+    "original_description": "Bring Slack into your AI tools with a Slack MCP server and Slack skills",
+    "localized_description": "Slack 工作区集成。在编码时搜索消息、访问频道、阅读主题并与团队的通信保持联系。快速查找相关讨论和背景。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "snowflake-cortex-code",
+    "path": "plugins/anthropic/snowflake-cortex-code/.claude-plugin/plugin.json",
+    "original_description": "Automatically route Snowflake prompts from Claude Code to Cortex Code for execution.",
+    "localized_description": "自动将 Snowflake 提示从 Claude Code 路由到 Cortex Code 来执行。提供用于代码审查和任务委派的斜线命令，以及路由、运行和设置的技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "sonarqube",
+    "path": "plugins/anthropic/sonarqube/.claude-plugin/plugin.json",
+    "original_description": "SonarQube is the AI code quality and security verification platform used by millions of developers to catch bugs, vulnerabilities, and leaked secrets. This plugin enforces those standards in the agent coding loop: 7,500+ distinct issue types, secrets scanning, agentic analysis, and quality gates across 40+ languages.",
+    "localized_description": "在代理编码循环中自动实施 SonarQube 代码质量和安全性 — 超过 40 种语言的 7,000 多个规则、秘密扫描、代理分析和质量门。 PostToolUse 挂钩在每次文件编辑后运行分析。工具前秘密扫描可防止 450 多种模式达到法学硕士。斜线命令可以按需访问质量门状态、覆盖范围、重复和依赖性风险。包括 SonarQube CLI、MCP 服务器、技能、挂钩和斜线命令。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "sonatype-guide",
+    "path": "plugins/anthropic/sonatype-guide/.claude-plugin/plugin.json",
+    "original_description": "Sonatype Guide MCP server for software supply chain intelligence and dependency security analysis. Scan dependencies for vulnerabilities, get version recommendations, and check component quality metrics.",
+    "localized_description": "Sonatype Guide MCP 服务器，用于软件供应链智能和依赖性安全。分析漏洞的依赖关系，获取安全版本建议，并检查组件质量指标。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "sourcegraph",
+    "path": "plugins/anthropic/sourcegraph/.claude-plugin/plugin.json",
+    "original_description": "Use Sourcegraph MCP from Claude Code for code search, navigation, history, and Deep Search.",
+    "localized_description": "跨代码库的代码搜索和理解。跨存储库搜索、读取和跟踪引用；分析重构影响；通过提交和差异搜索调查事件；运行有针对性的安全扫描。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "spanner",
+    "path": "plugins/anthropic/spanner/.claude-plugin/plugin.json",
+    "original_description": "Connect and interact with Spanner data using natural language.",
+    "localized_description": "使用自然语言连接 Spanner 数据并进行交互。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "spotify-ads-api",
+    "path": "plugins/anthropic/spotify-ads-api/.claude-plugin/plugin.json",
+    "original_description": "Manage Spotify ad campaigns with natural language. Create campaigns, ad sets, ads, pull reports, and handle OAuth — all through conversation.",
+    "localized_description": "使用自然语言管理 Spotify 广告活动。创建营销活动、广告组、广告、提取报告并处理 OAuth — 全部通过对话进行。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "stackhawk-api",
+    "path": "plugins/anthropic/stackhawk-api/.claude-plugin/plugin.json",
+    "original_description": "Query the StackHawk platform API for security posture reporting, findings analysis, and app management. Uses the combined hawk CLI (hawk op …) for all platform queries.",
+    "localized_description": "查询 StackHawk 平台 API 以进行安全态势报告、结果分析和应用程序管理。指导代理完成身份验证、数据检索和结果呈现。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "stackhawk-hawkscan",
+    "path": "plugins/anthropic/stackhawk-hawkscan/.claude-plugin/plugin.json",
+    "original_description": "Configure, run, and interpret HawkScan DAST results inside Claude Code. Generates stackhawk.yml configs, runs scans via CLI or Docker, and transforms security findings into prioritized fix tasks for your coding agent.",
+    "localized_description": "在 Claude Code 中配置、运行和解释 HawkScan DAST 结果。生成 stackhawk.yml 配置，通过 CLI 或 Docker 运行扫描，并将安全发现转换为编码代理的优先修复任务。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "streaming-skills-plugin",
+    "path": "plugins/anthropic/streaming-skills-plugin/.claude-plugin/plugin.json",
+    "original_description": "Skills for streaming application developers, covering Kafka and Flink client libraries and Schema Registry",
+    "localized_description": "流应用程序开发人员的技能，涵盖 Kafka 和 Flink 客户端库和架构注册表",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "stripe",
+    "path": "plugins/anthropic/stripe/.claude-plugin/plugin.json",
+    "original_description": "Stripe development plugin for Claude",
+    "localized_description": "Claude 的 Stripe 开发插件",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "sumup",
+    "path": "plugins/anthropic/sumup/.claude-plugin/plugin.json",
+    "original_description": "Skills for SumUp payment integrations across terminal and online checkout flows",
+    "localized_description": "SumUp 跨终端和在线结帐流程的支付集成。使用 SumUp 读卡器构建 Android 和 iOS POS 应用程序，使用服务器 SDK 和结帐小部件进行在线结帐，并通过云 API 远程控制读卡器。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "supabase",
+    "path": "plugins/anthropic/supabase/.claude-plugin/plugin.json",
+    "original_description": "Official Supabase plugin for Claude Code with bundled Supabase skills and MCP access for project management, database work, auth, storage, and Postgres best practices.",
+    "localized_description": "Supabase MCP 集成用于数据库操作、身份验证、存储和实时订阅。管理您的 Supabase 项目、运行 SQL 查询并直接与后端交互。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "superdesign",
+    "path": "plugins/anthropic/superdesign/.claude-plugin/plugin.json",
+    "original_description": "Design or redesign frontend UI and marketing graphics on the Superdesign infinite canvas. Reads your codebase for context, sets up a design system, and generates branchable design drafts you refine.",
+    "localized_description": "在 Superdesign 无限画布上设计或重新设计前端 UI 和营销图形。读取您的代码库以了解上下文，建立设计系统，并生成您改进的可分支设计草案。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "superpowers",
+    "path": "plugins/anthropic/superpowers/.claude-plugin/plugin.json",
+    "original_description": "Core skills library for Claude Code: TDD, debugging, collaboration patterns, and proven techniques",
+    "localized_description": "Superpowers 教授 Claude 头脑风暴、子代理驱动开发以及内置代码审查、系统调试和红/绿 TDD。此外，它还教克劳德如何创作和测试新技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "synthflow",
+    "path": "plugins/anthropic/synthflow/.claude-plugin/plugin.json",
+    "original_description": "Connects Claude Code to the Synthflow AI voice-agent platform through its hosted MCP server, with skills for reviewing calls and auditing agent prompts, plus a docs-search connector.",
+    "localized_description": "通过其托管的 MCP 服务器将 Claude Code 连接到 Synthflow AI 语音代理平台，具有审查呼叫和审核代理提示的技能以及文档搜索连接器。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "tavily",
+    "path": "plugins/anthropic/tavily/.claude-plugin/plugin.json",
+    "original_description": "Build AI applications with real-time web data using Tavily's search, extract, crawl, and research APIs.",
+    "localized_description": "使用 Tavily 的搜索、提取、爬网和研究 API，利用实时 Web 数据构建 AI 应用程序。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "teamcity-cli",
+    "path": "plugins/anthropic/teamcity-cli/.claude-plugin/plugin.json",
+    "original_description": "Agent skill for interacting with TeamCity CI/CD using the teamcity CLI. Enables Claude to explore builds, view logs, start jobs, manage queues, agents, and more.",
+    "localized_description": "使用 teamcity CLI 与 TeamCity CI/CD 交互的代理技能。使 Claude 能够探索构建、查看日志、启动作业、管理队列、代理等。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "telegram",
+    "path": "plugins/anthropic/telegram/.claude-plugin/plugin.json",
+    "original_description": "Telegram channel for Claude Code — messaging bridge with built-in access control. Manage pairing, allowlists, and policy via /telegram:access.",
+    "localized_description": "具有内置访问控制的 Telegram 消息传递桥。通过 /telegram:access 管理配对、白名单和策略。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "terraform",
+    "path": "plugins/anthropic/terraform/.claude-plugin/plugin.json",
+    "original_description": "The Terraform MCP Server provides seamless integration with Terraform ecosystem, enabling advanced automation and interaction capabilities for Infrastructure as Code (IaC) development.",
+    "localized_description": "Terraform MCP 服务器提供与 Terraform 生态系统的无缝集成，为基础设施即代码 (IaC) 开发提供高级自动化和交互功能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "togetherai-skills",
+    "path": "plugins/anthropic/togetherai-skills/.claude-plugin/plugin.json",
+    "original_description": "Agent Skills for Together AI platform — inference, training, embeddings, audio, video, images, function calling, and infrastructure",
+    "localized_description": "Together AI 平台的代理技能 — 推理、训练、嵌入、音频、视频、图像、函数调用和基础设施。涵盖无服务器聊天完成、图像/视频生成、微调、批量推理、评估、沙箱、专用端点和 GPU 集群。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "twilio-developer-kit",
+    "path": "plugins/anthropic/twilio-developer-kit/.claude-plugin/plugin.json",
+    "original_description": "Complete set of Twilio skills. Covers Setup, Planner, Product, and Guardrail skills across SMS, Voice, WhatsApp, AI agents, Conversation Orchestrator, and 30+ products.",
+    "localized_description": "Twilio Skills 为 AI 编码代理提供程序知识 - 使用哪些 API、按什么顺序以及要避免什么。涵盖短信、语音、WhatsApp、Verify、SendGrid、Compliance 等 30 多种产品。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "unreal-engine-skills-for-claude-code",
+    "path": "plugins/anthropic/unreal-engine-skills-for-claude-code/.claude-plugin/plugin.json",
+    "original_description": "Control Unreal Editor directly from Claude Code via MCP. Hundreds of tools exposed via Unreal's ToolsetRegistry across 30+ toolsets: actors, blueprints, materials, Niagara, Control Rigs, Sequencer, State Trees, widgets, Gameplay Ability System, automation testing, and more.",
+    "localized_description": "通过 MCP 从 Claude Code 直接控制虚幻编辑器。通过 Unreal 的 ToolsetRegistry 公开了 30 多个工具集中的数百个工具：演员、蓝图、材质、Niagara、控制装置、序列器、状态树、小部件、游戏能力系统、自动化测试等等。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "valtown",
+    "path": "plugins/anthropic/valtown/.claude-plugin/plugin.json",
+    "original_description": "Build and deploy on Val Town. Bundles the Val Town MCP server and platform skills (HTTP vals, cron/intervals, SQLite, email, OAuth, React UI, third-party integrations).",
+    "localized_description": "在瓦尔镇上构建并部署。捆绑 Val Town MCP 服务器和平台技能（HTTP vals、cron/intervals、SQLite、电子邮件、OAuth、React UI、第三方集成、模板）。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "vanta",
+    "path": "plugins/anthropic/vanta/.claude-plugin/plugin.json",
+    "original_description": "Vanta MCP server integration for Claude Code",
+    "localized_description": "Vanta 插件通过 Vanta MCP 服务器将 Claude Code 连接到 Vanta 的安全和合规平台。它将 Vanta 的测试特定修复智能与您的本地存储库上下文相结合，帮助您更快地修复合规性故障。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "vanta-mcp-plugin",
+    "path": "plugins/anthropic/vanta-mcp-plugin/.claude-plugin/plugin.json",
+    "original_description": "Vanta MCP server integration for Claude Code",
+    "localized_description": "Vanta 插件通过 Vanta MCP 服务器将 Claude Code 连接到 Vanta 的安全和合规平台。它将 Vanta 的测试特定修复智能与您的本地存储库上下文相结合，帮助您更快地修复合规性故障。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "vercel",
+    "path": "plugins/anthropic/vercel/.claude-plugin/plugin.json",
+    "original_description": "Build and deploy web apps and agents",
+    "localized_description": "Vercel 部署平台集成。管理部署、检查构建状态、访问日志、配置域并直接从 Claude Code 控制您的前端基础设施。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "vibe-prospecting",
+    "path": "plugins/anthropic/vibe-prospecting/.claude-plugin/plugin.json",
+    "original_description": "Power your chat with B2B data to create lead lists, research companies, personalize your outreach, and more. Search any company or professional to access emails, phone numbers, roles, growth signals, tech stack details, business events, website changes, and more.",
+    "localized_description": "Vibe Prospecting 将 Claude 连接到实时 B2B 公司和联系人数据，以便用户可以大规模搜索、匹配、丰富、过滤和导出潜在客户。它将自然语言请求转化为结构化的 GTM 工作流程，用于 Claude Cowork 和 Claude Code 内的潜在客户开发、CRM 丰富、公司研究、高管发现和多步骤勘探自动化。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "vsql-extension-builder",
+    "path": "plugins/anthropic/vsql-extension-builder/.claude-plugin/plugin.json",
+    "original_description": "Builds a VillageSQL extension for MySQL end-to-end through a 7-phase persona-driven workflow. Commonly used to port PostgreSQL extensions to MySQL.",
+    "localized_description": "通过 7 阶段角色驱动的工作流程为 MySQL 端到端构建 VillageSQL 扩展。通常用于将 PostgreSQL 扩展移植到 MySQL。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "windsor-ai",
+    "path": "plugins/anthropic/windsor-ai/.claude-plugin/plugin.json",
+    "original_description": "Connect Claude Code to 325+ business data sources via Windsor.ai. Query marketing, sales, CRM, ecommerce, finance, and analytics data from Google Ads, Meta, HubSpot, Salesforce, Shopify, Stripe, and hundreds more — directly from your terminal.",
+    "localized_description": "通过 Windsor.ai 将 Claude Code 连接到 325 多个业务数据源。直接从您的终端查询来自 Google Ads、Meta、HubSpot、Salesforce、Shopify、Stripe 等数百个数据的营销、销售、CRM、电子商务、财务和分析数据。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "wix",
+    "path": "plugins/anthropic/wix/.claude-plugin/plugin.json",
+    "original_description": "Build, manage, and deploy Wix sites and apps. Includes CLI development skills and Wix MCP server for site management, eCommerce, CMS, dashboard extensions, and more.",
+    "localized_description": "构建、管理和部署 Wix 站点和应用程序。使用 Wix 设计系统的仪表板扩展、后端 API、站点小部件和服务插件的 CLI 开发技能，以及用于站点管理的 MCP 服务器。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "workos",
+    "path": "plugins/anthropic/workos/.claude-plugin/plugin.json",
+    "original_description": "WorkOS integration skills for AuthKit, SSO, Directory Sync, RBAC, Vault, Audit Logs, migrations, and API references.",
+    "localized_description": "AuthKit、SSO、目录同步、RBAC、Vault、审核日志、迁移和 API 参考的 WorkOS 集成技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "youdotcom-agent-skills",
+    "path": "plugins/anthropic/youdotcom-agent-skills/.claude-plugin/plugin.json",
+    "original_description": "You.com skills for search, contents, research, finance, and integration discovery with MCP, ARD, API-key, OAuth, and MPP/x402 payment guidance.",
+    "localized_description": "You.com 代理的网络搜索、引用研究和内容提取技能。 Vercel AI SDK、Claude Agent SDK、OpenAI Agents SDK、crewAI、LangChain、Microsoft Teams.ai、直接 REST API 和 bash CLI 的引导集成。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "zapier",
+    "path": "plugins/anthropic/zapier/.claude-plugin/plugin.json",
+    "original_description": "Connect 9,000+ apps to your AI workflow. Discover, enable, and execute Zapier actions directly from your client.",
+    "localized_description": "将 8,000 多个应用程序连接到您的 AI 工作流程。直接从您的客户端发现、启用和执行 Zapier 操作。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "zilliz",
+    "path": "plugins/anthropic/zilliz/.claude-plugin/plugin.json",
+    "original_description": "Manage Zilliz Cloud clusters and Milvus vector databases from Claude Code using the zilliz-cli.",
+    "localized_description": "Zilliz Cloud 管理插件，具有 14 项技能，涵盖集群生命周期、集合模式、向量搜索、索引调整、批量导入、RBAC、备份和监控。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "zoom-plugin",
+    "path": "plugins/anthropic/zoom-plugin/.claude-plugin/plugin.json",
+    "original_description": "Claude plugin for planning, registering, building, and debugging Zoom integrations across Marketplace apps, REST APIs, SDKs, webhooks, bots, and MCP workflows",
+    "localized_description": "Claude 插件，用于规划、构建和调试跨 REST API、SDK、Webhook、机器人和 MCP 工作流程的 Zoom 集成。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "zoominfo",
+    "path": "plugins/anthropic/zoominfo/.claude-plugin/plugin.json",
+    "original_description": "Connect AI agents to ZoomInfo's verified GTM context graph: 100M companies, 300M professional contacts, buyer intent signals, and real-time scoops. Build prospect lists, enrich records, deep research key organizations, find decision-makers, and prioritize accounts by intent. The B2B sales intelligence layer for Claude and any MCP-compatible agent.",
+    "localized_description": "搜索公司和联系人、丰富潜在客户、查找相似者并获得人工智能排名的联系人推荐。预构建的技能将多个 ZoomInfo 工具链接到完整的 B2B 销售工作流程中。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "zscaler",
+    "path": "plugins/anthropic/zscaler/.claude-plugin/plugin.json",
+    "original_description": "Manage Zscaler cloud security platform including ZPA (private access), ZIA (internet access), ZDX (digital experience), ZCC (client connector), EASM (attack surface), and Z-Insights (analytics). Create and manage policies, troubleshoot connectivity, audit security configurations, and investigate incidents across the full Zscaler ecosystem.",
+    "localized_description": "管理 Zscaler 云安全平台，包括 ZPA（私有访问）、ZIA（互联网访问）、ZDX（数字体验）、ZCC（客户端连接器）、EASM（攻击面）和 Z-Insights（分析）。创建和管理策略、排除连接故障、审核安全配置以及调查整个 Zscaler 生态系统中的事件。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "zyte-web-data",
+    "path": "plugins/anthropic/zyte-web-data/.claude-plugin/plugin.json",
+    "original_description": "Zyte Web Data for Claude Code",
+    "localized_description": "由 Zyte API 提供支持的 Claude Code 的网页抓取技能 — 抓取网站、生成并运行 Scrapy 蜘蛛、定义提取模式并发送到 Scrapy Cloud。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "skills.sh",
+    "plugin": "skillsh-anthropics-skills",
+    "path": "plugins/skills-sh/skillsh-anthropics-skills/.claude-plugin/plugin.json",
+    "original_description": "JLBank 镜像的 skills.sh 技能集合，包含 1 项技能：frontend-design。",
+    "localized_description": "JLBank 镜像的 skills.sh 技能集合，共收录 1 项技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "skills.sh",
+    "plugin": "skillsh-mattpocock-skills",
+    "path": "plugins/skills-sh/skillsh-mattpocock-skills/.claude-plugin/plugin.json",
+    "original_description": "JLBank 镜像的 skills.sh 技能集合，包含 8 项技能：grill-me、grill-with-docs、improve-codebase-architecture、tdd、setup-matt-pocock-skills、handoff、triage、prototype。",
+    "localized_description": "JLBank 镜像的 skills.sh 技能集合，共收录 8 项技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "skills.sh",
+    "plugin": "skillsh-microsoft-azure-skills",
+    "path": "plugins/skills-sh/skillsh-microsoft-azure-skills/.claude-plugin/plugin.json",
+    "original_description": "JLBank 镜像的 skills.sh 技能集合，包含 13 项技能：microsoft-foundry、azure-diagnostics、azure-ai、azure-deploy、azure-prepare、azure-validate、azure-storage、entra-app-registration、appinsights-instrumentation、azure-resource-lookup、azure-compliance、azure-aigateway、azure-kusto。",
+    "localized_description": "JLBank 镜像的 skills.sh 技能集合，共收录 13 项技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "skills.sh",
+    "plugin": "skillsh-open-feishu-cn",
+    "path": "plugins/skills-sh/skillsh-open-feishu-cn/.claude-plugin/plugin.json",
+    "original_description": "JLBank 镜像的 skills.sh 技能集合，包含 24 项技能：lark-doc、lark-approval、lark-base、lark-drive、lark-shared、lark-calendar、lark-im、lark-contact、lark-sheets、lark-wiki、lark-event、lark-attendance、lark-minutes、lark-openapi-explorer、lark-whiteboard、lark-mail、lark-task、lark-slides、lark-skill-maker、lark-vc、lark-workflow-meeting-summary、lark-workflow-standup-report、lark-okr、lark-markdown。",
+    "localized_description": "JLBank 镜像的 skills.sh 技能集合，共收录 24 项技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "skills.sh",
+    "plugin": "skillsh-vercel-labs-agent-browser",
+    "path": "plugins/skills-sh/skillsh-vercel-labs-agent-browser/.claude-plugin/plugin.json",
+    "original_description": "JLBank 镜像的 skills.sh 技能集合，包含 1 项技能：agent-browser。",
+    "localized_description": "JLBank 镜像的 skills.sh 技能集合，共收录 1 项技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "skills.sh",
+    "plugin": "skillsh-vercel-labs-agent-skills",
+    "path": "plugins/skills-sh/skillsh-vercel-labs-agent-skills/.claude-plugin/plugin.json",
+    "original_description": "JLBank 镜像的 skills.sh 技能集合，包含 2 项技能：vercel-react-best-practices、web-design-guidelines。",
+    "localized_description": "JLBank 镜像的 skills.sh 技能集合，共收录 2 项技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "skills.sh",
+    "plugin": "skillsh-vercel-labs-skills",
+    "path": "plugins/skills-sh/skillsh-vercel-labs-skills/.claude-plugin/plugin.json",
+    "original_description": "JLBank 镜像的 skills.sh 技能集合，包含 1 项技能：find-skills。",
+    "localized_description": "JLBank 镜像的 skills.sh 技能集合，共收录 1 项技能。",
+    "reason": "Grok 优先读取插件目录 manifest 的 description；保留上游文件结构，仅将本地镜像的展示元数据中文化。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "alloydb",
+    "path": "plugins/anthropic/alloydb/plugin.json",
+    "original_description": "Create, connect, and interact with an AlloyDB for PostgreSQL database and data.",
+    "localized_description": "创建、连接 AlloyDB for PostgreSQL 数据库和数据并与之交互。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "alloydb-omni",
+    "path": "plugins/anthropic/alloydb-omni/plugin.json",
+    "original_description": "Create, connect, and interact with an AlloyDB Omni database and data.",
+    "localized_description": "创建、连接 AlloyDB Omni 数据库和数据并与之交互。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "auth0",
+    "path": "plugins/anthropic/auth0/plugin.json",
+    "original_description": "A unified Auth0 skill that routes developers to the right guidance for adding, securing, debugging, or migrating authentication in any app.",
+    "localized_description": "企业级认证，易于实施。通过框架感知指导向任何应用程序添加登录、SSO、MFA 和访问控制。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "aws-agents",
+    "path": "plugins/anthropic/aws-agents/plugin.json",
+    "original_description": "Build, deploy, and operate AI agents on AWS. Skills for scaffolding agents with Amazon Bedrock AgentCore (Strands, LangGraph), connecting tools via Gateway and MCP, multi-agent and A2A orchestration, memory, Cedar policies, evaluation, observability, debugging traces and logs, and production hardening.",
+    "localized_description": "在 AWS 上构建、部署和运行 AI 代理。使用 Amazon Bedrock AgentCore 搭建脚手架代理、连接工具、内存、策略、评估、调试和生产强化的技能。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "aws-agents-for-devsecops",
+    "path": "plugins/anthropic/aws-agents-for-devsecops/plugin.json",
+    "original_description": "Investigate incidents, review code and execute UAT for release readiness, scan code for vulnerabilities, and run penetration tests with AWS DevOps Agent and AWS Security Agent.",
+    "localized_description": "调查事件、审查代码并执行 UAT 来做好发布准备、扫描代码中的漏洞以及使用 AWS DevOps Agent 和 AWS Security Agent 运行渗透测试。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "aws-core",
+    "path": "plugins/anthropic/aws-core/plugin.json",
+    "original_description": "Build, deploy, and operate applications on AWS. Skills to author infrastructure-as-code (CDK, CloudFormation), use core services (Lambda, API Gateway, Step Functions, ECS/Fargate, ECR, IAM, Amazon Bedrock with Knowledge Bases and Guardrails, AWS Blocks), select and operate databases across relational, key-value, document, wide-column, graph, time-series, and in-memory engines, and complete common tasks across observability, messaging and streaming, AWS SDKs, and cost optimization.",
+    "localized_description": "在 AWS 上构建、部署和运行应用程序。编写基础设施即代码、使用核心服务和完成常见任务的技能。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "aws-data-analytics",
+    "path": "plugins/anthropic/aws-data-analytics/plugin.json",
+    "original_description": "Data lake, analytics, and ETL workflows with S3 Tables, AWS Glue, and Athena. Covers managed Iceberg tables on S3 Tables, ingestion from JDBC databases, Amazon Redshift, Snowflake, BigQuery, and DynamoDB, AWS Glue Data Catalog inventory and asset discovery, federated Athena queries, and vector storage and semantic search on Amazon S3 Vectors.",
+    "localized_description": "使用 S3 表、AWS Glue 和 Athena 的数据湖、分析和 ETL 工作流程。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "azure",
+    "path": "plugins/anthropic/azure/plugin.json",
+    "original_description": "Microsoft Azure MCP and Skills integration for cloud resource management, deployments, and Azure services. Manage your Azure infrastructure, monitor applications, and deploy resources directly from your development environment.",
+    "localized_description": "将 Claude 转变为 Azure 专家。该插件集成了 Azure MCP 服务器和专门的 Azure 技能，超越了一般建议。它使 Claude 能够执行实际任务：列出资源、验证部署、诊断基础架构问题以及优化 50 多个 Azure 服务的成本。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "bigquery-data-analytics",
+    "path": "plugins/anthropic/bigquery-data-analytics/plugin.json",
+    "original_description": "Connect, query, and generate data insights for BigQuery datasets and data.",
+    "localized_description": "连接、查询 BigQuery 数据集和数据并生成数据见解。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "box",
+    "path": "plugins/anthropic/box/plugin.json",
+    "original_description": "Box plugin for working with Box content, building Box Platform integrations, and using Box AI.",
+    "localized_description": "直接从 Claude Code 处理您的 Box 内容 — 搜索文件、组织文件夹、与您的团队协作，并使用 Box AI 来回答问题、总结文档和提取数据，而无需离开您的工作流程。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "cloud-sql-mysql",
+    "path": "plugins/anthropic/cloud-sql-mysql/plugin.json",
+    "original_description": "Connect and interact with a Cloud SQL for MySQL database and data.",
+    "localized_description": "连接 Cloud SQL for MySQL 数据库和数据并与之交互。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "cloud-sql-postgresql",
+    "path": "plugins/anthropic/cloud-sql-postgresql/plugin.json",
+    "original_description": "Create, connect, and interact with a Cloud SQL for PostgreSQL database and data.",
+    "localized_description": "创建、连接 Cloud SQL for PostgreSQL 数据库和数据并与之交互。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "cloud-sql-sqlserver",
+    "path": "plugins/anthropic/cloud-sql-sqlserver/plugin.json",
+    "original_description": "Connect to Cloud SQL for SQL Server",
+    "localized_description": "连接到 Cloud SQL for SQL Server",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "coderabbit",
+    "path": "plugins/anthropic/coderabbit/plugin.json",
+    "original_description": "AI-powered code review and review-comment autofix, powered by CodeRabbit.",
+    "localized_description": "您的代码审查合作伙伴。 CodeRabbit 使用专门的 AI 架构和 40 多个集成静态分析器提供外部验证，提供捕获错误、安全漏洞、逻辑错误和边缘情况的不同视角。通过 AST 解析和代码图关系进行上下文感知分析。自动将 CLAUDE.md 和项目编码指南纳入评论中。在编写或修改代码之后、提交之前、实现复杂或安全敏感逻辑时，或者当第二意见会增加对更改的信心时，非常有用。返回具体的结果以及可以立即应用的建议修复。免费使用。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "data-agent-kit-starter-pack",
+    "path": "plugins/anthropic/data-agent-kit-starter-pack/plugin.json",
+    "original_description": "This plugin provides a specialized suite of skills for data engineers and database practitioners working on Google Cloud. It acts as an expert assistant, allowing you to use natural language prompts in your preferred coding agent to architect complex data pipelines, transform data with dbt, write Spark and BigQuery SQL notebooks, and orchestrate end-to-end workflows across GCP's data ecosystem.",
+    "localized_description": "该插件为在 Google Cloud 上工作的数据工程师和数据库从业人员提供了一套专门的技能。它充当专家助理，允许您在首选编码代理中使用自然语言提示来构建复杂的数据管道、使用 dbt 转换数据、编写 Spark 和 BigQuery SQL 笔记本，以及在 GCP 数据生态系统中编排端到端工作流程。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "dataproc",
+    "path": "plugins/anthropic/dataproc/plugin.json",
+    "original_description": "Manage Dataproc clusters and jobs.",
+    "localized_description": "管理 Dataproc 集群和作业。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "exa",
+    "path": "plugins/anthropic/exa/plugin.json",
+    "original_description": "A Model Context Protocol server with Exa for web search, code search, and web crawling. Provides real-time web searches with configurable tool selection, allowing users to enable or disable specific search capabilities.",
+    "localized_description": "Exa AI 网络搜索、深度研究和内容提取。提供用于综合网络搜索、人员发现、公司研究、学术论文等的 MCP 工具和研究技能。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "fastly-agent-toolkit",
+    "path": "plugins/anthropic/fastly-agent-toolkit/plugin.json",
+    "original_description": "Fastly development tools and platform skills",
+    "localized_description": "快速开发工具和平台技能",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "firestore-native",
+    "path": "plugins/anthropic/firestore-native/plugin.json",
+    "original_description": "Connect and interact with Firestore databases, collections, and documents.",
+    "localized_description": "连接 Firestore 数据库、集合和文档并与之交互。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "forge-skills",
+    "path": "plugins/anthropic/forge-skills/plugin.json",
+    "original_description": "Forge app builder skill bundle with Forge MCP integration for Atlassian Forge workflows.",
+    "localized_description": "Atlassian Forge 的专注于 Forge 的技能和 MCP 配置：支架和部署应用程序（forge 创建、模板、开发空间）、为 Rovo Search/Rovo Chat 构建 Teamwork Graph 连接器、预部署审查、系统调试，以及通过 MCP 进行 Forge 文档和 Atlassian Design System 查找。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "fullstory",
+    "path": "plugins/anthropic/fullstory/plugin.json",
+    "original_description": "Connect VSCode to Fullstory to query behavioral analytics, session replays, and customer experience insights.",
+    "localized_description": "将 Claude 连接到 Fullstory 以查询行为分析、会话重播和客户体验见解。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "google-cloud-storage",
+    "path": "plugins/anthropic/google-cloud-storage/plugin.json",
+    "original_description": "Official Google Cloud Storage (GCS) plugin. Manage buckets and objects, transfer data, and configure MCP, FUSE, IAM, security, lifecycle rules, signed URLs, Terraform, and the CLI.",
+    "localized_description": "官方 Google 云存储 (GCS) 插件。管理存储桶和对象、传输数据以及配置 MCP、FUSE、IAM、安全性、生命周期规则、签名 URL、Terraform 和 CLI。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "knowledge-catalog",
+    "path": "plugins/anthropic/knowledge-catalog/plugin.json",
+    "original_description": "Connect to Knowledge Catalog to discover, manage, monitor, and govern data and AI artifacts across your data platform",
+    "localized_description": "连接到知识目录以发现、管理、监控和治理整个数据平台上的数据和 AI 工件",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "looker",
+    "path": "plugins/anthropic/looker/plugin.json",
+    "original_description": "Connect to Looker and interact with your data using LookML.",
+    "localized_description": "连接到 Looker 并使用 LookML 与您的数据交互。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "mongodb",
+    "path": "plugins/anthropic/mongodb/.grok-plugin/plugin.json",
+    "original_description": "Connect to any MongoDB deployment (Community, Enterprise Advanced, local dev container via Atlas CLI or Atlas clusters) through a self-managed MongoDB MCP Server using your connection string. Explore data, manage collections, optimize queries, and generate reliable code with MongoDB best practices.",
+    "localized_description": "MongoDB 的官方 Claude 插件（MCP 服务器 + 技能）。连接到数据库、探索数据、管理集合、优化查询、生成可靠的代码、实施最佳实践、开发高级功能等等。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "mongodb-atlas",
+    "path": "plugins/anthropic/mongodb-atlas/.grok-plugin/plugin.json",
+    "original_description": "Connect to MongoDB Atlas clusters only through the Atlas Managed MCP Server. Sign in with your Atlas account to explore data, manage collections, optimize queries, generate reliable code with MongoDB best practices, and manage Atlas resources such as clusters, projects, database users, and network access.\n\nIf you are running a different MongoDB deployment or want to run a local MongoDB MCP Server, install the MongoDB (Self-Managed MCP) plugin instead.",
+    "localized_description": "仅通过 Atlas Managed MCP Server 连接到 MongoDB Atlas 集群。使用您的 Atlas 帐户登录，探索数据、管理集合、优化查询、利用 MongoDB 最佳实践生成可靠的代码，以及管理 Atlas 资源，例如集群、项目、数据库用户和网络访问。如果您正在运行不同的 MongoDB 部署或想要运行本地 MongoDB MCP 服务器，请安装 MongoDB（自管理 MCP）插件。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "netlify-skills",
+    "path": "plugins/anthropic/netlify-skills/.grok-plugin/plugin.json",
+    "original_description": "Netlify platform skills — functions, edge functions, blobs, database, identity, image CDN, forms, config, CLI, frameworks, caching, AI gateway, and deployment",
+    "localized_description": "Claude Code 的 Netlify 平台技能 — 函数、边缘函数、blob、数据库、图像 CDN、表单、配置、CLI、框架、缓存、AI 网关和部署。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "nimble",
+    "path": "plugins/anthropic/nimble/plugin.json",
+    "original_description": "Live web search for AI agents. Find current pages, read any URL, and run research agents that work across many sources and return findings with citations. Includes reusable Extraction Templates for consistently shaped records from known sites, and Web Search Agents for research, enrichment, and dataset building.",
+    "localized_description": "Nimble Web 数据工具包 — 搜索、提取、映射、抓取 Web 并使用结构化数据代理",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "oracledb",
+    "path": "plugins/anthropic/oracledb/plugin.json",
+    "original_description": "Connect, query, and interact with Oracle Databases and their data.",
+    "localized_description": "连接、查询 Oracle 数据库及其数据并与之交互。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "railway",
+    "path": "plugins/anthropic/railway/.grok-plugin/plugin.json",
+    "original_description": "Railway agent skills and hosted MCP server for deploying, configuring, monitoring, and troubleshooting apps and infrastructure on Railway from Grok. Manage services, environments, deployments, databases, object storage, networking, and observability.",
+    "localized_description": "在铁路上部署和管理应用程序、数据库和基础设施。涵盖项目设置、部署、环境配置、网络、故障排除和监控。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "rc",
+    "path": "plugins/anthropic/rc/plugin.json",
+    "original_description": "Set up RevenueCat, integrate it, and access data.",
+    "localized_description": "直接从 Claude Code 配置 RevenueCat 项目、应用程序、产品、权利和产品。无需离开开发工作流程即可管理您的应用内购买后端。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "resend",
+    "path": "plugins/anthropic/resend/plugin.json",
+    "original_description": "Send and receive emails, build with React Email, follow deliverability best practices",
+    "localized_description": "使用 Resend 发送和接收电子邮件的代理技能 - 电子邮件 API 集成、代理收件箱、CLI、React Email 组件和交付最佳实践。包括重新发送 MCP 服务器。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "revenuecat",
+    "path": "plugins/anthropic/revenuecat/plugin.json",
+    "original_description": "Set up RevenueCat, integrate it, and access data.",
+    "localized_description": "直接从 Claude Code 配置 RevenueCat 项目、应用程序、产品、权利和产品。无需离开开发工作流程即可管理您的应用内购买后端。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "shopify-ai-toolkit",
+    "path": "plugins/anthropic/shopify-ai-toolkit/plugin.json",
+    "original_description": "Shopify developer tools for GitHub Copilot — search Shopify docs, generate and validate GraphQL, Liquid, and UI extension code. Skill scripts send usage telemetry (queries, code, model/client identifiers) to shopify.dev by default; set OPT_OUT_INSTRUMENTATION=true to disable.",
+    "localized_description": "Shopify 的 AI 工具包提供了 18 种用于在 Shopify 平台上构建的开发技能，涵盖文档搜索、API 模式访问、GraphQL 和 Liquid 代码验证、Hydrogen 店面、Polaris UI 扩展、通过 CLI 进行商店管理以及针对开发人员和商家的入职指导。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "sonarqube",
+    "path": "plugins/anthropic/sonarqube/plugin.json",
+    "original_description": "SonarQube is the AI code quality and security verification platform used by millions of developers to catch bugs, vulnerabilities, and leaked secrets. This plugin enforces those standards in the agent coding loop: 7,500+ distinct issue types, secrets scanning, agentic analysis, and quality gates across 40+ languages.",
+    "localized_description": "在代理编码循环中自动实施 SonarQube 代码质量和安全性 — 超过 40 种语言的 7,000 多个规则、秘密扫描、代理分析和质量门。 PostToolUse 挂钩在每次文件编辑后运行分析。工具前秘密扫描可防止 450 多种模式达到法学硕士。斜线命令可以按需访问质量门状态、覆盖范围、重复和依赖性风险。包括 SonarQube CLI、MCP 服务器、技能、挂钩和斜线命令。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "spanner",
+    "path": "plugins/anthropic/spanner/plugin.json",
+    "original_description": "Connect and interact with Spanner data using natural language.",
+    "localized_description": "使用自然语言连接 Spanner 数据并进行交互。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "spotify-ads-api",
+    "path": "plugins/anthropic/spotify-ads-api/plugin.json",
+    "original_description": "Manage Spotify ad campaigns with natural language. Create campaigns, ad sets, and ads, pull reports, upload creative assets, and handle OAuth — all through conversation.",
+    "localized_description": "使用自然语言管理 Spotify 广告活动。创建营销活动、广告组、广告、提取报告并处理 OAuth — 全部通过对话进行。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "ui-theme-designer",
+    "path": "plugins/anthropic/ui-theme-designer/plugin.json",
+    "original_description": "Plugin for coding agents working with UI theme designer. Bundles two skills: how-to and conceptual answers about UI theme designer on BTP, and questions about the SAP Design System and SAP Fiori design tokens — theme parameters and component-level parameter usage in UI5, UI5 Web Components, and Fundamental Styles.",
+    "localized_description": "用于与 UI 主题设计器一起使用的编码代理的插件。捆绑两项技能：有关 BTP 上 UI 主题设计器的操作方法和概念性答案，以及有关 SAP 设计系统和 SAP Fiori 设计令牌的问题 - UI5、UI5 Web 组件和基本样式中的主题参数和组件级参数使用。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "ui5",
+    "path": "plugins/anthropic/ui5/plugin.json",
+    "original_description": "SAPUI5 / OpenUI5 plugin for coding agents. Creates and validates UI5 projects, accesses API documentation, runs UI5 linter, retrieves development guidelines and best practices for UI5 development.",
+    "localized_description": "用于编码代理的 SAPUI5 / OpenUI5 插件。创建和验证 UI5 项目、访问 API 文档、运行 UI5 linter、获取 UI5 开发的开发指南和最佳实践。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "ui5-modernization",
+    "path": "plugins/anthropic/ui5-modernization/plugin.json",
+    "original_description": "Complete UI5 modernization toolkit with workflow and specialized fix patterns for modernizing SAPUI5/OpenUI5 applications",
+    "localized_description": "完整的 UI5 现代化工具包，包含用于现代化 SAPUI5/OpenUI5 应用程序的工作流程和专门的修复模式。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "ui5-typescript-conversion",
+    "path": "plugins/anthropic/ui5-typescript-conversion/plugin.json",
+    "original_description": "SAPUI5 / OpenUI5 plugin for coding agents. Converts JavaScript-based UI5 projects to TypeScript.",
+    "localized_description": "用于编码代理的 SAPUI5 / OpenUI5 插件。将基于 JavaScript 的 UI5 项目转换为 TypeScript。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "vsql-extension-builder",
+    "path": "plugins/anthropic/vsql-extension-builder/plugin.json",
+    "original_description": "Skills for VillageSQL development — install and verify a server, and build VEF extensions end-to-end through a 7-phase workflow.",
+    "localized_description": "通过 7 阶段角色驱动的工作流程为 MySQL 端到端构建 VillageSQL 扩展。通常用于将 PostgreSQL 扩展移植到 MySQL。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  },
+  {
+    "kind": "anthropic-marketplace",
+    "plugin": "wix",
+    "path": "plugins/anthropic/wix/plugin.json",
+    "original_description": "Build, manage, and deploy Wix sites and apps. Includes CLI development skills and Wix MCP server for site management, eCommerce, CMS, dashboard extensions, and more.",
+    "localized_description": "构建、管理和部署 Wix 站点和应用程序。使用 Wix 设计系统的仪表板扩展、后端 API、站点小部件和服务插件的 CLI 开发技能，以及用于站点管理的 MCP 服务器。",
+    "reason": "Grok 按 plugin.json、.grok-plugin/plugin.json、.claude-plugin/plugin.json 顺序读取描述；本地镜像的展示元数据需要中文。"
+  }
+]

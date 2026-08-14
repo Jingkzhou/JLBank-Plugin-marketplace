@@ -2,7 +2,7 @@
   "name": "salesforce-development",
   "displayName": "Salesforce Development",
   "version": "1.10.0",
-  "description": "Build Salesforce apps and agents using these core building blocks: metadata, Apex, deploy/retrieve, security, reporting, and generated installed-versus-available capability discovery.",
+  "description": "使用以下核心构建块构建 Salesforce 应用程序和代理：元数据、Apex、部署/检索、安全性、报告以及生成的已安装与可用功能发现。",
   "author": { "name": "Salesforce", "url": "https://github.com/forcedotcom/sf-skills" },
   "license": "Apache-2.0",
   "homepage": "https://github.com/forcedotcom/sf-skills/tree/main/plugins/builder/salesforce-development",

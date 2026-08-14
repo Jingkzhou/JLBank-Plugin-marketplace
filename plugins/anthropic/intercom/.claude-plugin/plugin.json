@@ -1,6 +1,6 @@
 {
   "name": "intercom",
-  "description": "Intercom integration for Claude Code. Search conversations, analyze customer support patterns, look up contacts and companies, and install the Intercom Messenger. Connect your Intercom workspace to get real-time insights from customer data.",
+  "description": "Claude Code 的对讲集成。搜索对话、分析客户支持模式、查找联系人和公司以及安装 Intercom Messenger。连接您的 Intercom 工作区，从客户数据中获取实时见解。",
   "version": "0.1.0",
   "author": {
     "name": "Intercom",

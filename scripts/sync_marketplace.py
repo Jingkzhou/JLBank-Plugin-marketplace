@@ -31,6 +31,8 @@ WORK = ROOT / ".sync-work"
 CATALOG = ROOT / "catalog"
 PLUGINS = ROOT / "plugins"
 MARKETPLACE_PATH = ROOT / ".claude-plugin" / "marketplace.json"
+SKILLS_METADATA_PATH = CATALOG / "skills-sh-metadata.json"
+ANTHROPIC_DESCRIPTION_ZH_PATH = CATALOG / "anthropic-description-zh.json"
 
 ANTHROPIC_REPOSITORY = "https://github.com/anthropics/claude-plugins-official"
 ANTHROPIC_API = "https://api.github.com/repos/anthropics/claude-plugins-official"
@@ -531,28 +533,102 @@ def marketplace_entry(original: Dict[str, Any], local_path: str) -> Dict[str, An
     return result
 
 
+def load_anthropic_descriptions_zh() -> Dict[str, str]:
+    if not ANTHROPIC_DESCRIPTION_ZH_PATH.is_file():
+        return {}
+    value = json.loads(ANTHROPIC_DESCRIPTION_ZH_PATH.read_text(encoding="utf-8"))
+    if not isinstance(value, dict) or any(not isinstance(key, str) or not isinstance(description, str) for key, description in value.items()):
+        raise RuntimeError("Anthropic 中文描述目录必须是字符串到字符串的对象")
+    return value
+
+
+def localize_plugin_manifest_descriptions(
+    anthropic_catalog: Optional[Dict[str, Any]], provenance: List[Dict[str, Any]]
+) -> None:
+    """Apply local Chinese display metadata after mirroring upstream plugins."""
+    def manifest_path(plugin_dir: pathlib.Path) -> Optional[pathlib.Path]:
+        for relative in ("plugin.json", ".grok-plugin/plugin.json", ".claude-plugin/plugin.json"):
+            candidate = plugin_dir / relative
+            if candidate.is_file():
+                return candidate
+        return None
+
+    descriptions = load_anthropic_descriptions_zh()
+    if anthropic_catalog:
+        for entry in anthropic_catalog.get("plugins", []):
+            description = descriptions.get(entry.get("name"))
+            manifest = manifest_path(PLUGINS / "anthropic" / entry["name"])
+            if description and manifest:
+                value = json.loads(manifest.read_text(encoding="utf-8"))
+                value["description"] = description
+                write_json(manifest, value)
+
+    for record in provenance:
+        if record.get("kind") != "skills.sh" or record.get("status") != "mirrored":
+            continue
+        manifest = manifest_path(ROOT / record["local_path"])
+        if not manifest:
+            continue
+        value = json.loads(manifest.read_text(encoding="utf-8"))
+        skill_count = len(record.get("skills", []))
+        value["description"] = f"JLBank 镜像的 skills.sh 技能集合，共收录 {skill_count} 项技能。"
+        write_json(manifest, value)
+
+
+def load_skills_metadata() -> Dict[str, Dict[str, str]]:
+    if not SKILLS_METADATA_PATH.is_file():
+        return {}
+    value = json.loads(SKILLS_METADATA_PATH.read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise RuntimeError("skills.sh metadata must be an object")
+    return value
+
+
 def build_marketplace(
     anthropic_catalog: Optional[Dict[str, Any]], provenance: List[Dict[str, Any]]
 ) -> None:
     by_name = {item["name"]: item for item in provenance if item.get("status") == "mirrored"}
     plugins: List[Dict[str, Any]] = []
+
+    metadata_by_skill = load_skills_metadata()
+    anthropic_descriptions_zh = load_anthropic_descriptions_zh()
+    ranked_skills: List[Tuple[Dict[str, Any], Dict[str, Any], Dict[str, str]]] = []
+    for record in provenance:
+        if record.get("kind") != "skills.sh" or record.get("status") != "mirrored":
+            continue
+        for skill in record.get("skills", []):
+            ranked_skills.append((record, skill, metadata_by_skill.get(skill["skill"], {})))
+    for record, skill, metadata in sorted(ranked_skills, key=lambda item: item[1].get("rank", 10**9)):
+        local_path = pathlib.PurePosixPath(record["local_path"])
+        skill_path = pathlib.PurePosixPath(skill["local_skill_path"])
+        relative_skill = skill_path.relative_to(local_path)
+        capability_type = metadata.get("capability_type", "开发与工程")
+        category = metadata.get("category", "development")
+        description = metadata.get("description_zh", "提供可复用的智能体技能能力。")
+        installs = int(skill.get("installs", 0))
+        rank = int(skill.get("rank", 0))
+        skills_entry = {
+            "name": f"skillsh-{safe_name(skill['skill'])}",
+            "description": f"能力类型：{capability_type}；下载次数：{installs:,}；skills.sh 排名：第 {rank} 名。{description}",
+            "author": {"name": skill.get("source", record.get("upstream_repository", "skills.sh"))},
+            "source": f"./{record['local_path']}",
+            "skills": [f"./{relative_skill.as_posix()}"],
+            "category": category,
+        }
+        homepage = record.get("upstream_repository")
+        if isinstance(homepage, str) and homepage.startswith(("http://", "https://")):
+            skills_entry["homepage"] = homepage
+        plugins.append(skills_entry)
+
     if anthropic_catalog:
         for entry in anthropic_catalog["plugins"]:
             record = by_name.get(entry["name"])
             if record:
-                plugins.append(marketplace_entry(entry, record["local_path"]))
-    for record in sorted(provenance, key=lambda item: item.get("name", "")):
-        if record.get("kind") == "skills.sh" and record.get("status") == "mirrored":
-            skills_entry = {
-                    "name": record["name"],
-                    "description": f"Popular skills mirrored from {record['upstream_repository']}.",
-                    "source": f"./{record['local_path']}",
-                    "category": "development",
-                }
-            homepage = record.get("upstream_repository")
-            if isinstance(homepage, str) and homepage.startswith(("http://", "https://")):
-                skills_entry["homepage"] = homepage
-            plugins.append(skills_entry)
+                localized = marketplace_entry(entry, record["local_path"])
+                description_zh = anthropic_descriptions_zh.get(entry["name"])
+                if description_zh:
+                    localized["description"] = description_zh
+                plugins.append(localized)
     names = [entry["name"] for entry in plugins]
     if len(names) != len(set(names)):
         raise RuntimeError("generated marketplace contains duplicate plugin names")
@@ -562,7 +638,7 @@ def build_marketplace(
             "name": "jlbank-plugin-marketplace",
             "owner": {"name": "JLBank"},
             "metadata": {
-                "description": "JLBank internal mirror of public Claude Code plugins and popular Agent Skills."
+                "description": "吉林银行内部公共 Claude Code 插件与常用 Agent Skills 镜像市场。"
             },
             "plugins": plugins,
         },
@@ -612,7 +688,7 @@ def main() -> None:
     parser.add_argument("--all", action="store_true", help="Synchronize every configured source.")
     parser.add_argument("--anthropic", action="store_true", help="Mirror Anthropic's official marketplace.")
     parser.add_argument("--skills-sh", action="store_true", help="Mirror the skills.sh all-time leaderboard.")
-    parser.add_argument("--skills-limit", type=int, default=600)
+    parser.add_argument("--skills-limit", type=int, default=50)
     parser.add_argument(
         "--skills-source",
         action="append",
@@ -717,6 +793,7 @@ def main() -> None:
     report["failures"] = all_failed
     report["failed_records"] = len(all_failed)
     write_json(report_path, report)
+    localize_plugin_manifest_descriptions(anthropic_catalog, provenance)
     build_marketplace(anthropic_catalog, provenance)
     build_inventory_reports(provenance)
     if report["failures"]:

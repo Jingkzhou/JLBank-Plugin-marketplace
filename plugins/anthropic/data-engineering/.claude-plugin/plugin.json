@@ -1,7 +1,7 @@
 {
   "name": "astronomer-data",
   "version": "0.1.0",
-  "description": "Data engineering plugin - warehouse exploration, pipeline authoring, Airflow integration",
+  "description": "数据工程插件 - 仓库探索、管道创作、Airflow 集成",
   "hooks": {
     "SessionStart": [
       {

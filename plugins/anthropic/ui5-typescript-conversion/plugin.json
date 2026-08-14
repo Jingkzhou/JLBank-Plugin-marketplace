@@ -1,7 +1,7 @@
 {
     "name": "ui5-typescript-conversion",
     "version": "0.1.8",
-    "description": "SAPUI5 / OpenUI5 plugin for coding agents. Converts JavaScript-based UI5 projects to TypeScript.",
+    "description": "用于编码代理的 SAPUI5 / OpenUI5 插件。将基于 JavaScript 的 UI5 项目转换为 TypeScript。",
     "author": {
         "name": "SAP SE"
     },

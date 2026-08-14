@@ -1,6 +1,6 @@
 {
   "name": "hana-cli",
-  "description": "150+ SAP HANA database tools for AI assistants. Query tables, import/export data, profile data quality, compare schemas, manage backups, monitor performance, and more. Connects to SAP HANA Cloud and on-premise databases.",
+  "description": "150 多个适用于 AI 助手的 SAP HANA 数据库工具。查询表、导入/导出数据、分析数据质量、比较模式、管理备份、监控性能等等。连接到 SAP HANA Cloud 和本地数据库。",
   "version": "1.0.0",
   "author": {
     "name": "SAP",

@@ -1,6 +1,6 @@
 {
   "name": "discord",
-  "description": "Discord channel for Claude Code \u2014 messaging bridge with built-in access control. Manage pairing, allowlists, and policy via /discord:access.",
+  "description": "带有内置访问控制的 Discord 消息传递桥。通过 /discord:access 管理配对、白名单和策略。",
   "version": "0.0.4",
   "keywords": [
     "discord",

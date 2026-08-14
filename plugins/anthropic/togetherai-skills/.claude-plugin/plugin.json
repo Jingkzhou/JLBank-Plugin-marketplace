@@ -1,6 +1,6 @@
 {
   "name": "togetherai-skills",
-  "description": "Agent Skills for Together AI platform — inference, training, embeddings, audio, video, images, function calling, and infrastructure",
+  "description": "Together AI 平台的代理技能 — 推理、训练、嵌入、音频、视频、图像、函数调用和基础设施。涵盖无服务器聊天完成、图像/视频生成、微调、批量推理、评估、沙箱、专用端点和 GPU 集群。",
   "version": "1.0.0",
   "author": { "name": "Together AI" },
   "homepage": "https://github.com/togethercomputer/skills",

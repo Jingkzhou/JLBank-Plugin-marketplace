@@ -4,12 +4,638 @@
     "name": "JLBank"
   },
   "metadata": {
-    "description": "JLBank internal mirror of public Claude Code plugins and popular Agent Skills."
+    "description": "吉林银行内部公共 Claude Code 插件与常用 Agent Skills 镜像市场。"
   },
   "plugins": [
     {
+      "name": "skillsh-find-skills",
+      "description": "能力类型：技能发现；下载次数：2,925,772；skills.sh 排名：第 1 名。发现并安装适合当前任务的 Agent Skills。",
+      "author": {
+        "name": "vercel-labs/skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-vercel-labs-skills",
+      "skills": [
+        "./skills/find-skills"
+      ],
+      "category": "development",
+      "homepage": "https://github.com/vercel-labs/skills"
+    },
+    {
+      "name": "skillsh-grill-me",
+      "description": "能力类型：方案评审；下载次数：838,147；skills.sh 排名：第 2 名。通过连续提问打磨方案或设计。",
+      "author": {
+        "name": "mattpocock/skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-mattpocock-skills",
+      "skills": [
+        "./skills/grill-me"
+      ],
+      "category": "productivity",
+      "homepage": "https://github.com/mattpocock/skills"
+    },
+    {
+      "name": "skillsh-frontend-design",
+      "description": "能力类型：前端设计；下载次数：769,774；skills.sh 排名：第 3 名。为前端界面提供有辨识度的视觉设计、排版和风格指导。",
+      "author": {
+        "name": "anthropics/skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-anthropics-skills",
+      "skills": [
+        "./skills/frontend-design"
+      ],
+      "category": "design",
+      "homepage": "https://github.com/anthropics/skills"
+    },
+    {
+      "name": "skillsh-grill-with-docs",
+      "description": "能力类型：方案与文档；下载次数：713,224；skills.sh 排名：第 4 名。通过连续提问完善方案，并同步生成 ADR 与术语表。",
+      "author": {
+        "name": "mattpocock/skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-mattpocock-skills",
+      "skills": [
+        "./skills/grill-with-docs"
+      ],
+      "category": "productivity",
+      "homepage": "https://github.com/mattpocock/skills"
+    },
+    {
+      "name": "skillsh-improve-codebase-architecture",
+      "description": "能力类型：架构设计；下载次数：688,002；skills.sh 排名：第 5 名。扫描代码库识别架构深化机会，并生成可视化改进报告。",
+      "author": {
+        "name": "mattpocock/skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-mattpocock-skills",
+      "skills": [
+        "./skills/improve-codebase-architecture"
+      ],
+      "category": "development",
+      "homepage": "https://github.com/mattpocock/skills"
+    },
+    {
+      "name": "skillsh-tdd",
+      "description": "能力类型：测试开发；下载次数：664,866；skills.sh 排名：第 6 名。以测试驱动开发方式编写功能和修复问题。",
+      "author": {
+        "name": "mattpocock/skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-mattpocock-skills",
+      "skills": [
+        "./skills/tdd"
+      ],
+      "category": "testing",
+      "homepage": "https://github.com/mattpocock/skills"
+    },
+    {
+      "name": "skillsh-agent-browser",
+      "description": "能力类型：浏览器自动化；下载次数：662,337；skills.sh 排名：第 7 名。通过浏览器自动化完成网页访问、填写、点击、抓取与测试。",
+      "author": {
+        "name": "vercel-labs/agent-browser"
+      },
+      "source": "./plugins/skills-sh/skillsh-vercel-labs-agent-browser",
+      "skills": [
+        "./skills/agent-browser"
+      ],
+      "category": "automation",
+      "homepage": "https://github.com/vercel-labs/agent-browser"
+    },
+    {
+      "name": "skillsh-vercel-react-best-practices",
+      "description": "能力类型：前端开发；下载次数：626,998；skills.sh 排名：第 8 名。提供 React 和 Next.js 性能优化规范与审查建议。",
+      "author": {
+        "name": "vercel-labs/agent-skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-vercel-labs-agent-skills",
+      "skills": [
+        "./skills/vercel-react-best-practices"
+      ],
+      "category": "development",
+      "homepage": "https://github.com/vercel-labs/agent-skills"
+    },
+    {
+      "name": "skillsh-setup-matt-pocock-skills",
+      "description": "能力类型：工程配置；下载次数：611,746；skills.sh 排名：第 9 名。为仓库初始化工程技能所需的问题跟踪、标签和文档结构。",
+      "author": {
+        "name": "mattpocock/skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-mattpocock-skills",
+      "skills": [
+        "./skills/setup-matt-pocock-skills"
+      ],
+      "category": "development",
+      "homepage": "https://github.com/mattpocock/skills"
+    },
+    {
+      "name": "skillsh-handoff",
+      "description": "能力类型：协作交接；下载次数：574,601；skills.sh 排名：第 10 名。将当前对话整理为供其他智能体继续使用的交接文档。",
+      "author": {
+        "name": "mattpocock/skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-mattpocock-skills",
+      "skills": [
+        "./skills/handoff"
+      ],
+      "category": "productivity",
+      "homepage": "https://github.com/mattpocock/skills"
+    },
+    {
+      "name": "skillsh-triage",
+      "description": "能力类型：需求管理；下载次数：572,643；skills.sh 排名：第 11 名。对 Issue 和 PR 进行分类、核验、追问并形成可执行简报。",
+      "author": {
+        "name": "mattpocock/skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-mattpocock-skills",
+      "skills": [
+        "./skills/triage"
+      ],
+      "category": "productivity",
+      "homepage": "https://github.com/mattpocock/skills"
+    },
+    {
+      "name": "skillsh-lark-doc",
+      "description": "能力类型：文档协作；下载次数：564,613；skills.sh 排名：第 12 名。读取、创建、编辑飞书云文档和知识库文档，并处理附件。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-doc"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-lark-approval",
+      "description": "能力类型：审批管理；下载次数：564,568；skills.sh 排名：第 13 名。查询、处理、搜索和发起飞书审批流程。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-approval"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-lark-base",
+      "description": "能力类型：多维表格；下载次数：564,460；skills.sh 排名：第 14 名。管理飞书多维表格的表、字段、记录、视图、权限和工作流。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-base"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-lark-drive",
+      "description": "能力类型：文件管理；下载次数：564,265；skills.sh 排名：第 15 名。管理飞书云盘文件和文件夹，支持上传、下载、移动、权限与版本操作。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-drive"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-lark-shared",
+      "description": "能力类型：认证授权；下载次数：564,147；skills.sh 排名：第 16 名。处理 lark-cli 登录、身份、业务域权限、缺少权限和授权撤销。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-shared"
+      ],
+      "category": "security"
+    },
+    {
+      "name": "skillsh-lark-calendar",
+      "description": "能力类型：日历会议；下载次数：564,087；skills.sh 排名：第 17 名。查看和管理飞书日程、参会人、忙闲状态及会议室预订。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-calendar"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-lark-im",
+      "description": "能力类型：即时通讯；下载次数：564,060；skills.sh 排名：第 18 名。收发飞书消息、搜索聊天记录并管理群聊、文件和交互卡片。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-im"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-lark-contact",
+      "description": "能力类型：通讯录；下载次数：563,963；skills.sh 排名：第 19 名。查询和解析飞书联系人、组织信息、用户状态及可见智能体。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-contact"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-lark-sheets",
+      "description": "能力类型：电子表格；下载次数：563,815；skills.sh 排名：第 20 名。创建和操作飞书电子表格，支持单元格、公式、图表、透视表和批量更新。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-sheets"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-lark-wiki",
+      "description": "能力类型：知识库；下载次数：563,735；skills.sh 排名：第 21 名。管理飞书知识空间、成员、节点层级和知识库快捷方式。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-wiki"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-lark-event",
+      "description": "能力类型：事件订阅；下载次数：563,693；skills.sh 排名：第 22 名。通过 lark-cli 监听和消费飞书消息、审批、任务、会议等实时事件。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-event"
+      ],
+      "category": "automation"
+    },
+    {
+      "name": "skillsh-lark-attendance",
+      "description": "能力类型：考勤管理；下载次数：563,691；skills.sh 排名：第 23 名。查询用户自己的飞书考勤打卡记录。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-attendance"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-lark-minutes",
+      "description": "能力类型：会议纪要；下载次数：563,625；skills.sh 排名：第 24 名。搜索、读取、编辑和管理飞书妙记及其音视频和纪要产物。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-minutes"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-lark-openapi-explorer",
+      "description": "能力类型：OpenAPI 探索；下载次数：563,578；skills.sh 排名：第 25 名。从官方文档库探索并调用未被 lark-cli 封装的飞书原生 OpenAPI。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-openapi-explorer"
+      ],
+      "category": "development"
+    },
+    {
+      "name": "skillsh-lark-whiteboard",
+      "description": "能力类型：画板协作；下载次数：563,572；skills.sh 排名：第 26 名。查询、导出和编辑飞书云文档中的画板内容。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-whiteboard"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-lark-mail",
+      "description": "能力类型：邮件管理；下载次数：563,519；skills.sh 排名：第 27 名。起草、发送、回复、搜索和管理飞书邮件及邮件规则。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-mail"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-lark-task",
+      "description": "能力类型：任务管理；下载次数：563,496；skills.sh 排名：第 28 名。创建和管理飞书任务、清单、子任务、协作者、附件和任务智能体。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-task"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-lark-slides",
+      "description": "能力类型：演示文稿；下载次数：563,398；skills.sh 排名：第 29 名。创建、读取和编辑飞书幻灯片及其页面。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-slides"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-lark-skill-maker",
+      "description": "能力类型：技能开发；下载次数：563,356；skills.sh 排名：第 30 名。将飞书 API 操作封装为可复用的 lark-cli 自定义 Skill。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-skill-maker"
+      ],
+      "category": "development"
+    },
+    {
+      "name": "skillsh-lark-vc",
+      "description": "能力类型：视频会议；下载次数：563,268；skills.sh 排名：第 31 名。查询实时和历史飞书视频会议、会议内容、纪要及参会人信息。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-vc"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-lark-workflow-meeting-summary",
+      "description": "能力类型：会议工作流；下载次数：563,168；skills.sh 排名：第 32 名。汇总指定时间范围内的会议纪要并生成结构化报告。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-workflow-meeting-summary"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-lark-workflow-standup-report",
+      "description": "能力类型：日程摘要；下载次数：563,158；skills.sh 排名：第 33 名。编排日历和任务信息，生成指定日期的日程与未完成任务摘要。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-workflow-standup-report"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-prototype",
+      "description": "能力类型：原型设计；下载次数：560,409；skills.sh 排名：第 34 名。快速构建一次性原型，验证设计问题、状态模型或交互逻辑。",
+      "author": {
+        "name": "mattpocock/skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-mattpocock-skills",
+      "skills": [
+        "./skills/prototype"
+      ],
+      "category": "design",
+      "homepage": "https://github.com/mattpocock/skills"
+    },
+    {
+      "name": "skillsh-lark-okr",
+      "description": "能力类型：目标管理；下载次数：544,231；skills.sh 排名：第 35 名。管理飞书 OKR 周期、目标、关键结果、对齐关系和进展记录。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-okr"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "skillsh-web-design-guidelines",
+      "description": "能力类型：界面审查；下载次数：536,760；skills.sh 排名：第 36 名。按照 Web 界面规范审查 UI 代码、可访问性和用户体验。",
+      "author": {
+        "name": "vercel-labs/agent-skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-vercel-labs-agent-skills",
+      "skills": [
+        "./skills/web-design-guidelines"
+      ],
+      "category": "design",
+      "homepage": "https://github.com/vercel-labs/agent-skills"
+    },
+    {
+      "name": "skillsh-lark-markdown",
+      "description": "能力类型：Markdown 文档；下载次数：529,356；skills.sh 排名：第 37 名。查看、创建、上传、编辑和比较 Markdown 文件。",
+      "author": {
+        "name": "open.feishu.cn"
+      },
+      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
+      "skills": [
+        "./skills/lark-markdown"
+      ],
+      "category": "development"
+    },
+    {
+      "name": "skillsh-microsoft-foundry",
+      "description": "能力类型：AI 平台；下载次数：524,928；skills.sh 排名：第 38 名。端到端管理 Microsoft Foundry 智能体、评估、提示词优化、模型微调和部署。",
+      "author": {
+        "name": "microsoft/azure-skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-microsoft-azure-skills",
+      "skills": [
+        "./skills/microsoft-foundry"
+      ],
+      "category": "development",
+      "homepage": "https://github.com/microsoft/azure-skills"
+    },
+    {
+      "name": "skillsh-azure-diagnostics",
+      "description": "能力类型：云运维诊断；下载次数：519,612；skills.sh 排名：第 39 名。使用 Azure Monitor、资源运行状况和 AppLens 安全排查 Azure 生产问题。",
+      "author": {
+        "name": "microsoft/azure-skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-microsoft-azure-skills",
+      "skills": [
+        "./skills/azure-diagnostics"
+      ],
+      "category": "monitoring",
+      "homepage": "https://github.com/microsoft/azure-skills"
+    },
+    {
+      "name": "skillsh-azure-ai",
+      "description": "能力类型：AI 服务；下载次数：519,391；skills.sh 排名：第 40 名。使用 Azure AI Search、Speech、OpenAI 和 Document Intelligence 等服务。",
+      "author": {
+        "name": "microsoft/azure-skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-microsoft-azure-skills",
+      "skills": [
+        "./skills/azure-ai"
+      ],
+      "category": "development",
+      "homepage": "https://github.com/microsoft/azure-skills"
+    },
+    {
+      "name": "skillsh-azure-deploy",
+      "description": "能力类型：云部署；下载次数：519,258；skills.sh 排名：第 41 名。执行已准备好的 Azure 应用部署，并处理 azd、Terraform 和 Bicep 部署恢复。",
+      "author": {
+        "name": "microsoft/azure-skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-microsoft-azure-skills",
+      "skills": [
+        "./skills/azure-deploy"
+      ],
+      "category": "deployment",
+      "homepage": "https://github.com/microsoft/azure-skills"
+    },
+    {
+      "name": "skillsh-azure-prepare",
+      "description": "能力类型：云环境准备；下载次数：519,074；skills.sh 排名：第 42 名。为 Azure azd 项目准备 azure.yaml、基础设施和 Dockerfile。",
+      "author": {
+        "name": "microsoft/azure-skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-microsoft-azure-skills",
+      "skills": [
+        "./skills/azure-prepare"
+      ],
+      "category": "deployment",
+      "homepage": "https://github.com/microsoft/azure-skills"
+    },
+    {
+      "name": "skillsh-azure-validate",
+      "description": "能力类型：发布验证；下载次数：518,787；skills.sh 排名：第 43 名。在部署前验证 Azure 配置、基础设施、RBAC、托管身份和部署前置条件。",
+      "author": {
+        "name": "microsoft/azure-skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-microsoft-azure-skills",
+      "skills": [
+        "./skills/azure-validate"
+      ],
+      "category": "testing",
+      "homepage": "https://github.com/microsoft/azure-skills"
+    },
+    {
+      "name": "skillsh-azure-storage",
+      "description": "能力类型：云存储；下载次数：518,344；skills.sh 排名：第 44 名。提供 Azure Blob、文件、队列、表存储和 Data Lake 的使用指导。",
+      "author": {
+        "name": "microsoft/azure-skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-microsoft-azure-skills",
+      "skills": [
+        "./skills/azure-storage"
+      ],
+      "category": "database",
+      "homepage": "https://github.com/microsoft/azure-skills"
+    },
+    {
+      "name": "skillsh-entra-app-registration",
+      "description": "能力类型：身份认证；下载次数：518,088；skills.sh 排名：第 45 名。指导 Microsoft Entra 应用注册、OAuth 2.0、API 权限和 MSAL 集成。",
+      "author": {
+        "name": "microsoft/azure-skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-microsoft-azure-skills",
+      "skills": [
+        "./skills/entra-app-registration"
+      ],
+      "category": "security",
+      "homepage": "https://github.com/microsoft/azure-skills"
+    },
+    {
+      "name": "skillsh-appinsights-instrumentation",
+      "description": "能力类型：应用可观测性；下载次数：517,854；skills.sh 排名：第 46 名。指导 Web 应用接入 Azure Application Insights、遥测 SDK 和 APM 模式。",
+      "author": {
+        "name": "microsoft/azure-skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-microsoft-azure-skills",
+      "skills": [
+        "./skills/appinsights-instrumentation"
+      ],
+      "category": "monitoring",
+      "homepage": "https://github.com/microsoft/azure-skills"
+    },
+    {
+      "name": "skillsh-azure-resource-lookup",
+      "description": "能力类型：云资源查询；下载次数：517,771；skills.sh 排名：第 47 名。跨订阅和资源组查找、列出和展示 Azure 资源，并支持资源图查询。",
+      "author": {
+        "name": "microsoft/azure-skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-microsoft-azure-skills",
+      "skills": [
+        "./skills/azure-resource-lookup"
+      ],
+      "category": "monitoring",
+      "homepage": "https://github.com/microsoft/azure-skills"
+    },
+    {
+      "name": "skillsh-azure-compliance",
+      "description": "能力类型：合规安全；下载次数：517,717；skills.sh 排名：第 48 名。使用 azqr 和 Key Vault 检查执行 Azure 合规、安全和证书有效期审计。",
+      "author": {
+        "name": "microsoft/azure-skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-microsoft-azure-skills",
+      "skills": [
+        "./skills/azure-compliance"
+      ],
+      "category": "security",
+      "homepage": "https://github.com/microsoft/azure-skills"
+    },
+    {
+      "name": "skillsh-azure-aigateway",
+      "description": "能力类型：AI 网关；下载次数：517,577；skills.sh 排名：第 49 名。配置 Azure API Management 作为 AI 模型、MCP 工具和智能体的 AI 网关。",
+      "author": {
+        "name": "microsoft/azure-skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-microsoft-azure-skills",
+      "skills": [
+        "./skills/azure-aigateway"
+      ],
+      "category": "security",
+      "homepage": "https://github.com/microsoft/azure-skills"
+    },
+    {
+      "name": "skillsh-azure-kusto",
+      "description": "能力类型：数据分析；下载次数：517,499；skills.sh 排名：第 50 名。使用 KQL 查询和分析 Azure Data Explorer、日志、遥测与时间序列数据。",
+      "author": {
+        "name": "microsoft/azure-skills"
+      },
+      "source": "./plugins/skills-sh/skillsh-microsoft-azure-skills",
+      "skills": [
+        "./skills/azure-kusto"
+      ],
+      "category": "monitoring",
+      "homepage": "https://github.com/microsoft/azure-skills"
+    },
+    {
       "name": "42crunch-api-security-testing",
-      "description": "Automate API security directly in Claude Code with 42Crunch - automatically audit OpenAPI specs, detect vulnerabilities aligned with OWASP API Security risks (including BOLA/BFLA), and apply AI-powered fixes. Designed for AI-assisted development workflows, it provides continuous guardrails through an audit->scan->remediate->validate loop, ensuring APIs meet enterprise security standards before deployment.",
+      "description": "使用 42Crunch 直接在 Claude Code 中自动化 API 安全 - 自动审核 OpenAPI 规范，检测与 OWASP API 安全风险（包括 BOLA/BFLA）相关的漏洞，并应用 AI 驱动的修复。它专为人工智能辅助开发工作流程而设计，通过审核->扫描->修复->验证循环提供连续的防护，确保 API 在部署前满足企业安全标准。",
       "author": {
         "name": "42Crunch"
       },
@@ -19,7 +645,7 @@
     },
     {
       "name": "adobe-for-creativity",
-      "description": "Harness Adobe's creative AI-powered tools to edit images, automate design workflows, and bring creative visions to life — from background removal to vectorization and professional retouching.",
+      "description": "利用 Adobe 的 AI 创意工具来编辑图像、自动化设计工作流程，并将创意愿景变为现实 — 从背景去除到矢量化和专业修饰。",
       "author": {
         "name": "Adobe"
       },
@@ -29,7 +655,7 @@
     },
     {
       "name": "agent-sdk-dev",
-      "description": "Development kit for working with the Claude Agent SDK",
+      "description": "用于与 Claude Agent SDK 配合使用的开发套件",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -40,26 +666,26 @@
     },
     {
       "name": "agentforce-adlc",
-      "description": "Agentforce Agent Development Life Cycle — author, discover, scaffold, deploy, test, and optimize .agent files",
+      "description": "Agentforce 代理开发生命周期 — 创作、发现、构建、部署、测试和优化 .agent 文件",
       "category": "development",
       "homepage": "https://github.com/SalesforceAIResearch/agentforce-adlc",
       "source": "./plugins/anthropic/agentforce-adlc"
     },
     {
       "name": "ai-plugins",
-      "description": "Set up endorctl and use Endor Labs to scan, prioritize, and fix security risks across your software supply chain",
+      "description": "设置 endorctl 并使用 Endor Labs 扫描、确定优先级并修复整个软件供应链中的安全风险",
       "homepage": "https://www.endorlabs.com",
       "source": "./plugins/anthropic/ai-plugins"
     },
     {
       "name": "aikido",
-      "description": "Aikido Security scanning for Claude Code — SAST, secrets, and IaC vulnerability detection powered by the Aikido MCP server.",
+      "description": "Aikido 安全扫描 Claude Code — 由 Aikido MCP 服务器提供支持的 SAST、秘密和 IaC 漏洞检测。",
       "homepage": "https://github.com/AikidoSec/aikido-claude-plugin",
       "source": "./plugins/anthropic/aikido"
     },
     {
       "name": "airtable",
-      "description": "Airtable is the database and operations layer for your agents — whether running product, marketing, sales, ops, HR, or a custom business app. It combines structured data with multiplayer visual surfaces (grid, kanban, calendar, gallery, timeline) humans and agents share — plus sync integrations to Jira, Salesforce, Zendesk, Google Drive, Databricks, and the rest of your stack, all backed by enterprise governance. This plugin makes Claude fluent in Airtable: creating bases and schema, working with records, and sharing UI for collaboration. Bundles the official Airtable MCP server.",
+      "description": "Airtable 是您的代理的数据库和运营层 - 无论是运行产品、营销、销售、运营、人力资源还是自定义业务应用程序。它将结构化数据与人类和代理共享的多人视觉界面（网格、看板、日历、图库、时间线）相结合，再加上与 Jira、Salesforce、Zendesk、Google Drive、Databricks 和其他堆栈的同步集成，所有这些都由企业治理提供支持。该插件使 Claude 能够流利地使用 Airtable：创建基础和架构、处理记录以及共享 UI 以进行协作。捆绑官方 Airtable MCP 服务器。",
       "author": {
         "name": "Airtable"
       },
@@ -69,7 +695,7 @@
     },
     {
       "name": "airwallex-agentos",
-      "description": "Bring Airwallex's global financial infrastructure to Claude. Orchestrate actions across your account in plain language, e.g., set up invoices from a PO, onboard suppliers from invoices, and check current cash position across currencies. AgentOS bundles pre-built finance Skills with MCP servers. A public CLI connects your agent to Airwallex's capabilities.",
+      "description": "将 Airwallex 的全球金融基础设施带给 Claude。用简单的语言在您的帐户中协调操作，例如，从采购订单设置发票，从发票中加入供应商，以及检查跨货币的当前现金状况。 AgentOS 将预构建的财务技能与 MCP 服务器捆绑在一起。公共 CLI 将您的代理连接到 Airwallex 的功能。",
       "author": {
         "name": "Airwallex"
       },
@@ -79,7 +705,7 @@
     },
     {
       "name": "airwallex-dev",
-      "description": "Build Airwallex payment integrations in your own codebase. Generates the checkout, card-element, onboarding, and subscription-billing code for an Airwallex integration and wires it into your project: Hosted Payment Page, Drop-in and Split Card elements, connected-account KYC onboarding, and Billing Hosted Checkout for subscriptions and card-saving. Also plans card-on-file merchant-initiated flows for AI providers such as top-ups and auto-recharge.",
+      "description": "在您自己的代码库中构建 Airwallex 支付集成。为 Airwallex 集成生成结帐、卡元素、登录和订阅计费代码，并将其连接到您的项目中：托管支付页面、插入和拆分卡元素、连接帐户 KYC 登录以及用于订阅和卡保存的计费托管结帐。还为人工智能提供商规划卡备案商家发起的流程，例如充值和自动充值。",
       "author": {
         "name": "Airwallex"
       },
@@ -89,7 +715,7 @@
     },
     {
       "name": "aiven",
-      "description": "Easily deploy managed PostgreSQL (pg), Kafka, OpenSearch, Clickhouse and other databases, streaming and apps. Free tier available, up and running in minutes.",
+      "description": "轻松部署托管 PostgreSQL (pg)、Kafka、OpenSearch、Clickhouse 和其他数据库、流媒体和应用程序。提供免费套餐，几分钟内即可启动并运行。",
       "author": {
         "name": "Aiven"
       },
@@ -99,7 +725,7 @@
     },
     {
       "name": "alloydb",
-      "description": "Create, connect, and interact with an AlloyDB for PostgreSQL database and data.",
+      "description": "创建、连接 AlloyDB for PostgreSQL 数据库和数据并与之交互。",
       "author": {
         "name": "Google LLC"
       },
@@ -109,7 +735,7 @@
     },
     {
       "name": "alloydb-omni",
-      "description": "Create, connect, and interact with an AlloyDB Omni database and data.",
+      "description": "创建、连接 AlloyDB Omni 数据库和数据并与之交互。",
       "author": {
         "name": "Google LLC"
       },
@@ -119,7 +745,7 @@
     },
     {
       "name": "altimate-code",
-      "description": "Delegates dbt and warehouse work to altimate-code, a specialized CLI agent with 100+ purpose-built data tools (SQL analysis, column-level lineage, dbt build/test/run, warehouse profiling, FinOps, connectivity to Snowflake, BigQuery, Redshift, Databricks, Postgres, MySQL, DuckDB).",
+      "description": "将 dbt 和仓库工作委托给 alttimate-code，这是一个专门的 CLI 代理，具有 100 多个专用数据工具（SQL 分析、列级沿袭、dbt 构建/测试/运行、仓库分析、FinOps、与 Snowflake、BigQuery、Redshift、Databricks、Postgres、MySQL、DuckDB 的连接）。",
       "author": {
         "name": "AltimateAI"
       },
@@ -129,14 +755,14 @@
     },
     {
       "name": "amazon-location-service",
-      "description": "Guide developers through adding maps, places search, geocoding, routing, and other geospatial features with Amazon Location Service, including authentication setup, SDK integration, and best practices.",
+      "description": "指导开发人员使用 Amazon Location Service 添加地图、地点搜索、地理编码、路由和其他地理空间功能，包括身份验证设置、SDK 集成和最佳实践。",
       "category": "location",
       "homepage": "https://github.com/awslabs/agent-plugins",
       "source": "./plugins/anthropic/amazon-location-service"
     },
     {
       "name": "amd-skills",
-      "description": "AMD's verified Agent Skills in one plugin: route image/audio through local AI on Ryzen AI, serve LLMs on AMD Instinct GPUs with vLLM, and analyze GPU kernel and PyTorch trace performance.",
+      "description": "AMD 在一个插件中验证了代理技能：通过 Ryzen AI 上的本地 AI 路由图像/音频，使用 vLLM 在 AMD Instinct GPU 上为 LLM 提供服务，并分析 GPU 内核和 PyTorch 跟踪性能。",
       "author": {
         "name": "AMD"
       },
@@ -153,14 +779,14 @@
     },
     {
       "name": "amplitude",
-      "description": "Use Amplitude as an expert analyst — instrument Amplitude, discover product opportunities, analyze charts, create dashboards, manage experiments, and understand users and accounts.",
+      "description": "使用 Amplitude 作为专家分析师 — 使用 Amplitude、发现产品机会、分析图表、创建仪表板、管理实验以及了解用户和帐户。",
       "category": "monitoring",
       "homepage": "https://github.com/amplitude/mcp-marketplace",
       "source": "./plugins/anthropic/amplitude"
     },
     {
       "name": "apollo",
-      "description": "Prospect, enrich leads, load outreach sequences, and query sales analytics with Apollo.io — one-click MCP server integration for Claude Code and Cowork.",
+      "description": "使用 Apollo.io 寻找潜在客户、丰富销售线索、加载外展序列并查询销售分析 — 适用于 Claude Code 和 Cowork 的一键式 MCP 服务器集成。",
       "author": {
         "name": "Apollo.io"
       },
@@ -170,7 +796,7 @@
     },
     {
       "name": "apollo-skills",
-      "description": "Apollo GraphQL agent skills for Claude Code — Apollo Client, Server, Federation, Connectors, Router, Rover CLI, iOS, Kotlin, and the Apollo MCP server. Covers schema design, query optimization, and GraphQL best practices.",
+      "description": "适用于 Claude Code 的 Apollo GraphQL 代理技能 — Apollo 客户端、服务器、联合、连接器、路由器、Rover CLI、iOS、Kotlin 和 Apollo MCP 服务器。涵盖架构设计、查询优化和 GraphQL 最佳实践。",
       "author": {
         "name": "Apollo GraphQL"
       },
@@ -180,7 +806,7 @@
     },
     {
       "name": "appwrite",
-      "description": "Appwrite tools for Claude Code, including SDK skills, Appwrite MCP servers, and deployment commands.",
+      "description": "Claude Code 的 Appwrite 工具，包括 SDK 技能、Appwrite MCP 服务器和部署命令。",
       "author": {
         "name": "Appwrite"
       },
@@ -190,34 +816,34 @@
     },
     {
       "name": "asana",
-      "description": "Asana project management integration. Connects Claude Code to Asana's V2 MCP server to create and manage tasks, search projects, update assignments, and track progress. Requires a one-time Asana OAuth app setup — run /asana-setup after installing.",
+      "description": "Asana 项目管理集成。将 Claude Code 连接到 Asana 的 V2 MCP 服务器以创建和管理任务、搜索项目、更新作业并跟踪进度。需要一次性 Asana OAuth 应用程序设置 - 安装后运行 /asana-setup。",
       "category": "productivity",
       "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/asana",
       "source": "./plugins/anthropic/asana"
     },
     {
       "name": "astronomer-data-agents",
-      "description": "Data engineering for Apache Airflow and Astronomer. Author DAGs with best practices, debug pipeline failures, trace data lineage, profile tables, migrate Airflow 2 to 3, and manage local and cloud deployments.",
+      "description": "Apache Airflow 和 Astronomer 的数据工程。使用最佳实践编写 DAG、调试管道故障、跟踪数据沿袭、配置文件表、将 Airflow 2 迁移到 3 以及管理本地和云部署。",
       "category": "development",
       "homepage": "https://github.com/astronomer/agents",
       "source": "./plugins/anthropic/astronomer-data-agents"
     },
     {
       "name": "atlan",
-      "description": "Atlan data catalog plugin for Claude Code. Search, explore, govern, and manage your data assets through natural language. Powered by the Atlan MCP server with semantic search, lineage traversal, glossary management, data quality rules, and more.",
+      "description": "Claude Code 的 Atlan 数据目录插件。通过自然语言搜索、探索、治理和管理您的数据资产。由 Atlan MCP 服务器提供支持，具有语义搜索、谱系遍历、词汇表管理、数据质量规则等功能。",
       "homepage": "https://docs.atlan.com/",
       "source": "./plugins/anthropic/atlan"
     },
     {
       "name": "atlassian",
-      "description": "Connect to Atlassian products including Jira and Confluence. Search and create issues, access documentation, manage sprints, and integrate your development workflow with Atlassian's collaboration tools.",
+      "description": "连接到 Atlassian 产品，包括 Jira 和 Confluence。搜索和创建问题、访问文档、管理冲刺并将您的开发工作流程与 Atlassian 的协作工具集成。",
       "category": "productivity",
       "homepage": "https://github.com/atlassian/atlassian-mcp-server",
       "source": "./plugins/anthropic/atlassian"
     },
     {
       "name": "atlassian-twg-cli",
-      "description": "Teamwork Graph CLI is Atlassian's agent-first interface to your entire work context: Jira issues, Confluence pages, Bitbucket PRs, along with your connected third-party data sources. Purpose-built for coding agents like Claude Code (terminal or desktop), and powered by Atlassian's context graph. Try: \"draft a Jira issue from this PR and link it to the epic.\" Using Claude Code in the browser? Install the Atlassian Rovo MCP plugin instead. Run /twg-setup after install to connect Atlassian Teamwork Graph CLI to Claude Code.",
+      "description": "Teamwork Graph CLI 是 Atlassian 面向整个工作环境的代理优先界面：Jira 问题、Confluence 页面、Bitbucket PR 以及连接的第三方数据源。专为 Claude Code（终端或桌面）等编码代理而构建，并由 Atlassian 的上下文图提供支持。尝试：“从此 PR 中起草一个 Jira 问题并将其链接到史诗。”在浏览器中使用克劳德代码？请安装 Atlassian Rovo MCP 插件。安装后运行 /twg-setup 将 Atlassian Teamwork Graph CLI 连接到 Claude Code。",
       "author": {
         "name": "Atlassian"
       },
@@ -227,7 +853,7 @@
     },
     {
       "name": "atomic-agents",
-      "description": "Comprehensive development workflow for building AI agents with the Atomic Agents framework. Includes specialized agents for schema design, architecture planning, code review, and tool development. Features guided workflows, progressive-disclosure skills, and best practice validation.",
+      "description": "使用原子代理框架构建人工智能代理的综合开发工作流程。包括用于模式设计、架构规划、代码审查和工具开发的专门代理。具有指导工作流程、渐进式披露技能和最佳实践验证。",
       "category": "development",
       "homepage": "https://github.com/BrainBlend-AI/atomic-agents",
       "tags": [
@@ -237,7 +863,7 @@
     },
     {
       "name": "auth0",
-      "description": "Enterprise-grade auth, easy to implement. Add login, SSO, MFA, and access control to any app with framework-aware guidance.",
+      "description": "企业级认证，易于实施。通过框架感知指导向任何应用程序添加登录、SSO、MFA 和访问控制。",
       "author": {
         "name": "Auth0",
         "url": "https://auth0.com"
@@ -248,7 +874,7 @@
     },
     {
       "name": "aws-agents",
-      "description": "Build, deploy, and operate AI agents on AWS. Skills for scaffolding agents with Amazon Bedrock AgentCore, connecting tools, memory, policies, evaluation, debugging, and production hardening.",
+      "description": "在 AWS 上构建、部署和运行 AI 代理。使用 Amazon Bedrock AgentCore 搭建脚手架代理、连接工具、内存、策略、评估、调试和生产强化的技能。",
       "author": {
         "name": "Amazon Web Services"
       },
@@ -258,7 +884,7 @@
     },
     {
       "name": "aws-agents-for-devsecops",
-      "description": "Investigate incidents, review code and execute UAT for release readiness, scan code for vulnerabilities, and run penetration tests with AWS DevOps Agent and AWS Security Agent.",
+      "description": "调查事件、审查代码并执行 UAT 来做好发布准备、扫描代码中的漏洞以及使用 AWS DevOps Agent 和 AWS Security Agent 运行渗透测试。",
       "author": {
         "name": "Amazon Web Services"
       },
@@ -268,14 +894,14 @@
     },
     {
       "name": "aws-amplify",
-      "description": "Build full-stack apps with AWS Amplify Gen 2 using guided workflows for authentication, data models, storage, GraphQL APIs, and Lambda functions.",
+      "description": "使用 AWS Amplify Gen 2 使用身份验证、数据模型、存储、GraphQL API 和 Lambda 函数的引导工作流程构建全栈应用程序。",
       "category": "development",
       "homepage": "https://github.com/awslabs/agent-plugins",
       "source": "./plugins/anthropic/aws-amplify"
     },
     {
       "name": "aws-core",
-      "description": "Build, deploy, and operate applications on AWS. Skills to author infrastructure-as-code, use core services, and complete common tasks.",
+      "description": "在 AWS 上构建、部署和运行应用程序。编写基础设施即代码、使用核心服务和完成常见任务的技能。",
       "author": {
         "name": "Amazon Web Services"
       },
@@ -285,7 +911,7 @@
     },
     {
       "name": "aws-data-analytics",
-      "description": "Data lake, analytics, and ETL workflows with S3 Tables, AWS Glue, and Athena.",
+      "description": "使用 S3 表、AWS Glue 和 Athena 的数据湖、分析和 ETL 工作流程。",
       "author": {
         "name": "Amazon Web Services"
       },
@@ -295,7 +921,7 @@
     },
     {
       "name": "aws-dev-toolkit",
-      "description": "AWS development toolkit — 34 skills, 11 agents, and 3 MCP servers for building, migrating, and performing architecture reviews on AWS.",
+      "description": "AWS 开发工具包 — 34 项技能、11 个代理和 3 个 MCP 服务器，用于在 AWS 上构建、迁移和执行架构审查。",
       "author": {
         "name": "aws-samples"
       },
@@ -305,14 +931,14 @@
     },
     {
       "name": "aws-serverless",
-      "description": "Design, build, deploy, test, and debug serverless applications with AWS Serverless services.",
+      "description": "使用 AWS Serverless 服务设计、构建、部署、测试和调试无服务器应用程序。",
       "category": "development",
       "homepage": "https://github.com/awslabs/agent-plugins",
       "source": "./plugins/anthropic/aws-serverless"
     },
     {
       "name": "aws-startup-advisor",
-      "description": "Personalized architecture, cost, security, and migration guidance for startups. From day-one account setup and security baselines to production-ready infrastructure, cost optimization, and beyond. Includes AWS Activate Credits eligibility, 60+ exclusive startup offers, and multi-account multi-region support. Built on expertise from AWS Startup Solutions Architects and patterns from 350,000+ startups.",
+      "description": "面向初创公司的个性化架构、成本、安全性和迁移指南。从第一天的帐户设置和安全基线到生产就绪的基础设施、成本优化等。包括 AWS Activate 积分资格、60 多项独家启动优惠以及多账户多区域支持。基于 AWS 初创公司解决方案架构师的专业知识和超过 350,000 家初创公司的模式。",
       "author": {
         "name": "Amazon Web Services"
       },
@@ -322,7 +948,7 @@
     },
     {
       "name": "aws-transform",
-      "description": "Migrate, modernize, and upgrade codebases to AWS. Transforms .NET Framework to .NET 8/10, mainframe COBOL to Java, VMware VMs to EC2, SQL Server to Aurora, and upgrades Java/Python/Node.js versions and AWS SDKs. AWS Transform - continuous modernization analyzes codebases for tech debt, security issues, and upgrade opportunities, then remediates them.",
+      "description": "将代码库迁移、现代化和升级到 AWS。将 .NET Framework 转换为 .NET 8/10、大型机 COBOL 转换为 Java、VMware VM 转换为 EC2、SQL Server 转换为 Aurora，并升级 Java/Python/Node.js 版本和 AWS SDK。 AWS Transform - 持续现代化分析代码库的技术债务、安全问题和升级机会，然后进行修复。",
       "author": {
         "name": "Amazon Web Services"
       },
@@ -332,21 +958,21 @@
     },
     {
       "name": "azure",
-      "description": "Transform Claude into an Azure expert. This plugin integrates the Azure MCP server and specialized Azure skills to move beyond generic advice. It enables Claude to perform real-world tasks: listing resources, validating deployments, diagnosing infrastructure issues, and optimizing costs across 50+ Azure services.",
+      "description": "将 Claude 转变为 Azure 专家。该插件集成了 Azure MCP 服务器和专门的 Azure 技能，超越了一般建议。它使 Claude 能够执行实际任务：列出资源、验证部署、诊断基础架构问题以及优化 50 多个 Azure 服务的成本。",
       "category": "deployment",
       "homepage": "https://github.com/microsoft/azure-skills",
       "source": "./plugins/anthropic/azure"
     },
     {
       "name": "azure-cosmos-db-assistant",
-      "description": "Expert assistant for Azure Cosmos DB — data modeling, query optimization, performance tuning, and best practices.",
+      "description": "Azure Cosmos DB 专家助理 — 数据建模、查询优化、性能调整和最佳实践。",
       "category": "database",
       "homepage": "https://github.com/AzureCosmosDB/cosmosdb-claude-code-plugin",
       "source": "./plugins/anthropic/azure-cosmos-db-assistant"
     },
     {
       "name": "azure-sql-developer",
-      "description": "Agent skills for Azure SQL Developer, the Azure SQL Database engine running locally in a container. Teaches your agent to run the engine, connect, migrate, scaffold, build RAG, wire CI, and go local-to-cloud, using the real Private Preview image instead of the SQL Server image.",
+      "description": "Azure SQL Developer（在容器中本地运行的 Azure SQL 数据库引擎）的代理技能。教您的代理使用真正的私有预览映像而不是 SQL Server 映像来运行引擎、连接、迁移、搭建脚手架、构建 RAG、连接 CI 以及从本地到云。",
       "author": {
         "name": "Microsoft"
       },
@@ -356,14 +982,14 @@
     },
     {
       "name": "base44",
-      "description": "Build and deploy Base44 full-stack apps with CLI project management and JavaScript/TypeScript SDK development skills",
+      "description": "使用 CLI 项目管理和 JavaScript/TypeScript SDK 开发技能构建和部署 Base44 全栈应用程序",
       "category": "development",
       "homepage": "https://docs.base44.com",
       "source": "./plugins/anthropic/base44"
     },
     {
       "name": "bigdata-com",
-      "description": "Official Bigdata.com plugin providing financial research, analytics, and intelligence tools powered by Bigdata MCP.",
+      "description": "官方 Bigdata.com 插件提供由 Bigdata MCP 提供支持的金融研究、分析和情报工具。",
       "author": {
         "name": "RavenPack"
       },
@@ -373,7 +999,7 @@
     },
     {
       "name": "bigquery-data-analytics",
-      "description": "Connect, query, and generate data insights for BigQuery datasets and data.",
+      "description": "连接、查询 BigQuery 数据集和数据并生成数据见解。",
       "author": {
         "name": "Google LLC"
       },
@@ -383,7 +1009,7 @@
     },
     {
       "name": "boltz",
-      "description": "Predict structures, screen molecules and proteins, and design binders with Boltz from Claude Code.",
+      "description": "使用 Claude Code 的 Boltz 预测结构、筛选分子和蛋白质并设计结合物。",
       "author": {
         "name": "Boltz"
       },
@@ -393,7 +1019,7 @@
     },
     {
       "name": "box",
-      "description": "Work with your Box content directly from Claude Code — search files, organize folders, collaborate with your team, and use Box AI to answer questions, summarize documents, and extract data without leaving your workflow.",
+      "description": "直接从 Claude Code 处理您的 Box 内容 — 搜索文件、组织文件夹、与您的团队协作，并使用 Box AI 来回答问题、总结文档和提取数据，而无需离开您的工作流程。",
       "category": "productivity",
       "skills": [
         "./skills/box",
@@ -407,13 +1033,13 @@
     },
     {
       "name": "brightdata-plugin",
-      "description": "Web scraping, Google search, structured data extraction, and MCP server integration powered by Bright Data. Includes 7 skills: scrape any webpage as markdown (with bot detection/CAPTCHA bypass), search Google with structured JSON results, extract data from 40+ websites (Amazon, LinkedIn, Instagram, TikTok, YouTube, and more), orchestrate Bright Data's 60+ MCP tools, built-in best practices for Web Unlocker, SERP API, Web Scraper API, and Browser API, Python SDK best practices for the brightda...",
+      "description": "由 Bright Data 提供支持的网页抓取、Google 搜索、结构化数据提取和 MCP 服务器集成。包括 7 项技能：以 Markdown 方式抓取任何网页（通过机器人检测/验证码绕过）、使用结构化 JSON 结果搜索 Google、从 40 多个网站（Amazon、LinkedIn、Instagram、TikTok、YouTube 等）提取数据、编排 Bright Data 的 60 多个 MCP 工具、Web Unlocker、SERP API、Web Scraper API 和浏览器 API 的内置最佳实践、针对 Brightda 的 Python SDK 最佳实践...",
       "homepage": "https://docs.brightdata.com",
       "source": "./plugins/anthropic/brightdata-plugin"
     },
     {
       "name": "browser-use",
-      "description": "Give Claude a real browser — your Chrome or a Browser Use Cloud browser. Use it whenever a task involves a website or web app: browsing, scraping and data extraction, filling forms, testing sites, taking screenshots, automating web workflows.",
+      "description": "给 Claude 一个真正的浏览器 - 您的 Chrome 或浏览器使用云浏览器。当任务涉及网站或网络应用程序时，请使用它：浏览、抓取和数据提取、填写表单、测试网站、截取屏幕截图、自动化网络工作流程。",
       "author": {
         "name": "Browser Use"
       },
@@ -423,7 +1049,7 @@
     },
     {
       "name": "buildkite",
-      "description": "Official Buildkite skills for Claude Code, Cursor, and other AI coding agents — pipelines, migration, preflight, agent runtime, CLI, and API",
+      "description": "适用于 Claude Code、Cursor 和其他 AI 编码代理的官方 Buildkite 技能 — 管道、迁移、预检、代理运行时、CLI 和 API",
       "author": {
         "name": "Buildkite"
       },
@@ -433,7 +1059,7 @@
     },
     {
       "name": "canva",
-      "description": "Create, edit, review, resize, and brand-check Canva designs with the Canva MCP server.",
+      "description": "使用 Canva MCP 服务器创建、编辑、审查、调整大小和品牌检查 Canva 设计。",
       "author": {
         "name": "Canva"
       },
@@ -443,7 +1069,7 @@
     },
     {
       "name": "carbone-skill",
-      "description": "Official Carbone skill — complete templating language reference covering tags, loops, conditions, formatters, aggregators, and all output formats (DOCX, XLSX, PPTX, ODT, HTML, Markdown, PDF)",
+      "description": "官方 Carbone 技能 — 完整的模板语言参考，涵盖标签、循环、条件、格式化程序、聚合器和所有输出格式（DOCX、XLSX、PPTX、ODT、HTML、Markdown、PDF）",
       "author": {
         "name": "Carbone"
       },
@@ -453,7 +1079,7 @@
     },
     {
       "name": "carta-cap-table",
-      "description": "Carta Cap Table plugin — skills and hooks for querying cap tables, grants, SAFEs, 409A valuations, waterfall scenarios, and more",
+      "description": "Carta Cap Table 插件 — 用于查询上限表、拨款、SAFE、409A 估值、瀑布情景等的技能和挂钩",
       "author": {
         "name": "Carta Engineering"
       },
@@ -463,7 +1089,7 @@
     },
     {
       "name": "carta-crm",
-      "description": "Manage the Carta CRM conversationally — search, add, update, and enrich investors, companies, contacts, deals, notes, and fundraisings via the Carta CRM MCP Server.",
+      "description": "以对话方式管理 Carta CRM — 通过 Carta CRM MCP 服务器搜索、添加、更新和充实投资者、公司、联系人、交易、注释和筹款。",
       "author": {
         "name": "Carta Engineering"
       },
@@ -473,7 +1099,7 @@
     },
     {
       "name": "carta-investors",
-      "description": "Carta Investors plugin — skills for querying investor data, performance benchmarks, regulatory reporting, AGM deck generation, brand extraction, and more via the Carta MCP Server.",
+      "description": "Carta Investors 插件 — 通过 Carta MCP 服务器查询投资者数据、绩效基准、监管报告、年度股东大会甲板生成、品牌提取等的技能。",
       "author": {
         "name": "Carta Engineering"
       },
@@ -483,7 +1109,7 @@
     },
     {
       "name": "catalyst-by-zoho",
-      "description": "Official Claude Code plugin for Catalyst by Zoho — full-stack serverless cloud platform. With Skills that covers all services, SDKs, CLI, architecture patterns, pricing, migration guides, and Zoho MCP tool-based resource management.",
+      "description": "Zoho Catalyst 的官方 Claude 代码插件 — 全栈无服务器云平台。拥有涵盖所有服务、SDK、CLI、架构模式、定价、迁移指南和基于 Zoho MCP 工具的资源管理的技能。",
       "author": {
         "name": "Catalyst by Zoho"
       },
@@ -493,7 +1119,7 @@
     },
     {
       "name": "cds-mcp",
-      "description": "AI-assisted development of SAP Cloud Application Programming Model (CAP) projects. Search CDS models and CAP documentation.",
+      "description": "AI 辅助开发 SAP Cloud 应用程序编程模型 (CAP) 项目。搜索 CDS 模型和 CAP 文档。",
       "author": {
         "name": "SAP SE",
         "email": "ospo@sap.com",
@@ -505,14 +1131,14 @@
     },
     {
       "name": "chrome-devtools-mcp",
-      "description": "Control and inspect a live Chrome browser from your coding agent. Record performance traces, analyze network requests, check console messages with source-mapped stack traces, and automate browser actions with Puppeteer.",
+      "description": "从您的编码代理控制和检查实时 Chrome 浏览器。记录性能跟踪、分析网络请求、使用源映射堆栈跟踪检查控制台消息，并使用 Puppeteer 自动执行浏览器操作。",
       "category": "development",
       "homepage": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
       "source": "./plugins/anthropic/chrome-devtools-mcp"
     },
     {
       "name": "circle-skills",
-      "description": "Ship stablecoin apps faster. Best-practice skills for USDC payments, cross-chain transfers, wallets, and smart contracts — plus Circle's MCP server for real-time SDK and documentation guidance.",
+      "description": "更快地发布稳定币应用程序。 USDC 支付、跨链转账、钱包和智能合约的最佳实践技能，以及用于实时 SDK 和文档指导的 Circle 的 MCP 服务器。",
       "author": {
         "name": "Circle"
       },
@@ -522,14 +1148,14 @@
     },
     {
       "name": "circleback",
-      "description": "Circleback conversational context integration. Search and access meetings, emails, calendar events, and more.",
+      "description": "Circleback 对话上下文集成。搜索和访问会议、电子邮件、日历活动等。",
       "category": "productivity",
       "homepage": "https://github.com/circlebackai/claude-code-plugin.git",
       "source": "./plugins/anthropic/circleback"
     },
     {
       "name": "ckeditor",
-      "description": "Install, configure, and integrate CKEditor 5 (free and premium) in any JavaScript project.",
+      "description": "在任何 JavaScript 项目中安装、配置和集成 CKEditor 5（免费和高级）。",
       "author": {
         "name": "CKEditor (CKSource)"
       },
@@ -539,7 +1165,7 @@
     },
     {
       "name": "clangd-lsp",
-      "description": "C/C++ language server (clangd) for code intelligence",
+      "description": "用于代码智能的 C/C++ 语言服务器 (clangd)",
       "version": "1.0.0",
       "author": {
         "name": "Anthropic",
@@ -570,7 +1196,7 @@
     },
     {
       "name": "claude-code-setup",
-      "description": "Analyze codebases and recommend tailored Claude Code automations such as hooks, skills, MCP servers, and subagents.",
+      "description": "分析代码库并推荐定制的 Claude 代码自动化，例如挂钩、技能、MCP 服务器和子代理。",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -581,7 +1207,7 @@
     },
     {
       "name": "claude-md-management",
-      "description": "Tools to maintain and improve CLAUDE.md files - audit quality, capture session learnings, and keep project memory current.",
+      "description": "用于维护和改进 CLAUDE.md 文件的工具 - 审核质量、捕获会话学习内容并保持项目内存最新。",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -592,7 +1218,7 @@
     },
     {
       "name": "claude-security",
-      "description": "Deep vulnerability scanning of your own code, run entirely inside your Claude Code session at a chosen effort tier, with every finding challenged before it is reported and the verification tally computed in code. Turns surviving findings into targeted patches, each verified by a panel of agents, that you apply when you choose.",
+      "description": "对您自己的代码进行深度漏洞扫描，完全在您的 Claude Code 会话中以选定的工作级别运行，每个发现都会在报告之前受到质疑，并在代码中计算验证计数。将幸存的发现转化为有针对性的补丁，每个补丁都由一组代理验证，您可以在选择时应用。",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -603,7 +1229,7 @@
     },
     {
       "name": "clickhouse",
-      "description": "Connect Claude to your ClickHouse Cloud databases. Browse organizations, services, databases, and table schemas. Run read-only SQL queries against your data and get instant analytical answers. Monitor service backups, review billing costs, and inspect ClickPipe configurations - all through natural conversation.",
+      "description": "将 Claude 连接到您的 ClickHouse Cloud 数据库。浏览组织、服务、数据库和表架构。针对您的数据运行只读 SQL 查询并获得即时分析答案。监控服务备份、审查计费成本并检查 ClickPipe 配置 - 所有这些都通过自然对话进行。",
       "author": {
         "name": "ClickHouse"
       },
@@ -613,7 +1239,7 @@
     },
     {
       "name": "clickhouse-best-practices",
-      "description": "28 best practice rules for ClickHouse schema design, query optimization, and data ingestion — prioritized by impact",
+      "description": "ClickHouse 模式设计、查询优化和数据摄取的 28 条最佳实践规则 - 按影响优先排序",
       "author": {
         "name": "ClickHouse Inc"
       },
@@ -623,7 +1249,7 @@
     },
     {
       "name": "cloud-sql-mysql",
-      "description": "Connect and interact with a Cloud SQL for MySQL database and data.",
+      "description": "连接 Cloud SQL for MySQL 数据库和数据并与之交互。",
       "author": {
         "name": "Google LLC"
       },
@@ -633,7 +1259,7 @@
     },
     {
       "name": "cloud-sql-postgresql",
-      "description": "Create, connect, and interact with a Cloud SQL for PostgreSQL database and data.",
+      "description": "创建、连接 Cloud SQL for PostgreSQL 数据库和数据并与之交互。",
       "author": {
         "name": "Google LLC"
       },
@@ -643,7 +1269,7 @@
     },
     {
       "name": "cloud-sql-sqlserver",
-      "description": "Connect to Cloud SQL for SQL Server",
+      "description": "连接到 Cloud SQL for SQL Server",
       "author": {
         "name": "Google LLC"
       },
@@ -653,20 +1279,20 @@
     },
     {
       "name": "cloudflare",
-      "description": "Skills for the Cloudflare developer platform: Workers, Durable Objects, Agents SDK, MCP servers, Wrangler CLI, and web performance.",
+      "description": "Cloudflare 开发者平台的技能：Workers、Durable Objects、Agents SDK、MCP 服务器、Wrangler CLI 和 Web 性能。",
       "category": "deployment",
       "homepage": "https://github.com/cloudflare/skills",
       "source": "./plugins/anthropic/cloudflare"
     },
     {
       "name": "cloudinary",
-      "description": "Use Cloudinary directly in Claude. Manage assets, apply transformations, optimize media, and more through natural conversation.",
+      "description": "直接在Claude中使用Cloudinary。通过自然对话来管理资产、应用转换、优化媒体等。",
       "homepage": "https://cloudinary.com/documentation",
       "source": "./plugins/anthropic/cloudinary"
     },
     {
       "name": "cockroachdb",
-      "description": "Connect Claude Code directly to your CockroachDB clusters for hands-on database work — explore schemas, write optimized SQL, debug queries, and manage distributed database clusters. This plugin provides 14 tools across two active MCP backends (self-hosted MCP Toolbox and managed CockroachDB Cloud MCP Server), three specialized agents (DBA, Developer, Operator), 32 skills across 6 operational domains, and built-in safety hooks.",
+      "description": "将 Claude Code 直接连接到您的 CockroachDB 集群以进行数据库实践工作 - 探索模式、编写优化的 SQL、调试查询以及管理分布式数据库集群。该插件提供跨两个活动 MCP 后端（自托管 MCP Toolbox 和托管 CockroachDB Cloud MCP 服务器）的 14 个工具、三个专业代理（DBA、开发人员、操作员）、跨 6 个操作域的 32 种技能以及内置安全挂钩。",
       "author": {
         "name": "Cockroach Labs"
       },
@@ -676,7 +1302,7 @@
     },
     {
       "name": "code-modernization",
-      "description": "Modernize legacy codebases (COBOL, legacy Java/C++, monolith web apps) with a structured preflight / assess / map / extract-rules / brief / reimagine / transform / harden workflow, an interactive topology viewer, and specialist review agents",
+      "description": "通过结构化预检/评估/映射/提取规则/简要/重新构想/转换/强化工作流程、交互式拓扑查看器和专家审核代理，对遗留代码库（COBOL、遗留Java/C++、整体式Web应用程序）进行现代化改造",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -687,7 +1313,7 @@
     },
     {
       "name": "code-review",
-      "description": "Automated code review for pull requests using multiple specialized agents with confidence-based scoring to filter false positives",
+      "description": "使用多个专门代理对拉取请求进行自动代码审查，并通过基于置信度的评分来过滤误报",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -698,7 +1324,7 @@
     },
     {
       "name": "code-simplifier",
-      "description": "Agent that simplifies and refines code for clarity, consistency, and maintainability while preserving functionality. Focuses on recently modified code.",
+      "description": "代理可以简化和细化代码，以实现清晰度、一致性和可维护性，同时保留功能。重点关注最近修改的代码。",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -709,14 +1335,14 @@
     },
     {
       "name": "coderabbit",
-      "description": "Your code review partner. CodeRabbit provides external validation using a specialized AI architecture and 40+ integrated static analyzers—offering a different perspective that catches bugs, security vulnerabilities, logic errors, and edge cases. Context-aware analysis via AST parsing and codegraph relationships. Automatically incorporates CLAUDE.md and project coding guidelines into reviews. Useful after writing or modifying code, before commits, when implementing complex or security-sensitive logic, or when a second opinion would increase confidence in the changes. Returns specific findings with suggested fixes that can be applied immediately. Free to use.",
+      "description": "您的代码审查合作伙伴。 CodeRabbit 使用专门的 AI 架构和 40 多个集成静态分析器提供外部验证，提供捕获错误、安全漏洞、逻辑错误和边缘情况的不同视角。通过 AST 解析和代码图关系进行上下文感知分析。自动将 CLAUDE.md 和项目编码指南纳入评论中。在编写或修改代码之后、提交之前、实现复杂或安全敏感逻辑时，或者当第二意见会增加对更改的信心时，非常有用。返回具体的结果以及可以立即应用的建议修复。免费使用。",
       "category": "productivity",
       "homepage": "https://github.com/coderabbitai/skills",
       "source": "./plugins/anthropic/coderabbit"
     },
     {
       "name": "codspeed",
-      "description": "CodSpeed is the all-in-one performance testing toolkit. Dive into benchmarking results, flamegraphs, and performance comparisons — give Claude granular profiling context to pinpoint bottlenecks and autonomously iterate on performance via the CodSpeed MCP server.",
+      "description": "CodSpeed 是一款一体化性能测试工具包。深入研究基准测试结果、火焰图和性能比较 — 为 Claude 提供精细的分析上下文，以查明瓶颈并通过 CodSpeed MCP 服务器自动迭代性能。",
       "author": {
         "name": "CodSpeed"
       },
@@ -726,7 +1352,7 @@
     },
     {
       "name": "commit-commands",
-      "description": "Commands for git commit workflows including commit, push, and PR creation",
+      "description": "git commit 工作流程的命令，包括提交、推送和 PR 创建",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -737,7 +1363,7 @@
     },
     {
       "name": "confidence",
-      "description": "Access Confidence feature flags, experiments, and migration tools directly from Claude Code.",
+      "description": "直接从 Claude Code 访问 Confidence 功能标志、实验和迁移工具。",
       "author": {
         "name": "Spotify Confidence"
       },
@@ -747,7 +1373,7 @@
     },
     {
       "name": "context7",
-      "description": "Upstash Context7 MCP server for up-to-date documentation lookup. Connects to Context7's hosted remote MCP server (https://mcp.context7.com/mcp) — no local Node.js or npx required — to pull version-specific documentation and code examples directly from source repositories into your LLM context. Works anonymously out of the box; set CONTEXT7_API_KEY for higher rate limits.",
+      "description": "Upstash Context7 MCP 服务器用于最新文档查找。连接到 Context7 的托管远程 MCP 服务器 (https://mcp.context7.com/mcp) — 无需本地 Node.js 或 npx — 将特定于版本的文档和代码示例直接从源存储库提取到您的 LLM 上下文中。开箱即用，匿名工作；设置 CONTEXT7_API_KEY 以获得更高的速率限制。",
       "author": {
         "name": "Upstash"
       },
@@ -760,7 +1386,7 @@
     },
     {
       "name": "convex",
-      "description": "Official Convex plugin for Claude Code with bundled Convex skills, the convex-expert subagent for code-writing, a runtime-error monitor, and MCP access for backend development, schema design, real-time features, auth, file storage, scheduled jobs, and AI agents.",
+      "description": "Claude Code 的官方 Convex 插件，具有捆绑的 Convex 技能、用于代码编写的凸专家子代理、运行时错误监视器以及用于后端开发、模式设计、实时功能、身份验证、文件存储、计划作业和 AI 代理的 MCP 访问。",
       "author": {
         "name": "Convex",
         "url": "https://convex.dev"
@@ -788,7 +1414,7 @@
     },
     {
       "name": "crowdsec",
-      "description": "Operational skill for installing, configuring, operating, and debugging CrowdSec (cscli, LAPI/CAPI, hub, bouncers, WAF/AppSec) across bare-metal, Docker, and Kubernetes.",
+      "description": "跨裸机、Docker 和 Kubernetes 安装、配置、操作和调试 CrowdSec（cscli、LAPI/CAPI、集线器、保镖、WAF/AppSec）的操作技能。",
       "author": {
         "name": "CrowdSec"
       },
@@ -798,7 +1424,7 @@
     },
     {
       "name": "crowdstrike-falcon-foundry",
-      "description": "CrowdStrike Falcon Foundry development skills for building cybersecurity applications on the Falcon platform. Includes UI development, collections, functions, workflows, API integration, security patterns, and debugging workflows.",
+      "description": "CrowdStrike Falcon Foundry 在 Falcon 平台上构建网络安全应用程序的开发技能。包括 UI 开发、集合、函数、工作流程、API 集成、安全模式和调试工作流程。",
       "author": {
         "name": "CrowdStrike"
       },
@@ -808,7 +1434,7 @@
     },
     {
       "name": "crowdstrike-falcon-fusion",
-      "description": "CrowdStrike Falcon Fusion skills for authoring, deploying, and executing Fusion workflows. Includes live action discovery, YAML authoring with schema validation, workflow import and release, execution monitoring, and Falcon Next-Gen SIEM lookup files.",
+      "description": "CrowdStrike Falcon Fusion 创作、部署和执行 Fusion 工作流程的技能。包括实时操作发现、带有架构验证的 YAML 创作、工作流程导入和发布、执行监控以及 Falcon Next-Gen SIEM 查找文件。",
       "author": {
         "name": "CrowdStrike"
       },
@@ -818,7 +1444,7 @@
     },
     {
       "name": "csharp-lsp",
-      "description": "C# language server for code intelligence",
+      "description": "用于代码智能的 C# 语言服务器",
       "version": "1.0.0",
       "author": {
         "name": "Anthropic",
@@ -838,7 +1464,7 @@
     },
     {
       "name": "cwc-makers",
-      "description": "Onboard a Code-with-Claude Makers Cardputer with one /maker-setup command — clones the build-with-claude repo, flashes UIFlow firmware, and installs the Claude Buddy app bundle.",
+      "description": "使用一个 /maker-setup 命令装载 Code-with-Claude Makers Cardputer — 克隆 build-with-claude 存储库、刷新 UIFlow 固件并安装 Claude Buddy 应用程序包。",
       "version": "1.0.0",
       "author": {
         "name": "Anthropic",
@@ -850,7 +1476,7 @@
     },
     {
       "name": "dash0",
-      "description": "OpenTelemetry observability for Claude Code sessions. Captures tool calls, LLM invocations, token usage, and errors as OTel traces. Send telemetry to Dash0 or any OpenTelemetry-compatible backend.",
+      "description": "Claude Code 会话的 OpenTelemetry 可观测性。捕获工具调用、LLM 调用、令牌使用情况和错误作为 OTel 跟踪。将遥测数据发送到 Dash0 或任何与 OpenTelemetry 兼容的后端。",
       "author": {
         "name": "Dash0"
       },
@@ -860,14 +1486,14 @@
     },
     {
       "name": "data",
-      "description": "Data engineering for Apache Airflow and Astronomer. Author DAGs with best practices, debug pipeline failures, trace data lineage, profile tables, migrate Airflow 2 to 3, and manage local and cloud deployments.",
+      "description": "Apache Airflow 和 Astronomer 的数据工程。使用最佳实践编写 DAG、调试管道故障、跟踪数据沿袭、配置文件表、将 Airflow 2 迁移到 3 以及管理本地和云部署。",
       "category": "development",
       "homepage": "https://github.com/astronomer/agents",
       "source": "./plugins/anthropic/data"
     },
     {
       "name": "data-agent-kit-starter-pack",
-      "description": "This plugin provides a specialized suite of skills for data engineers and database practitioners working on Google Cloud. It acts as an expert assistant, allowing you to use natural language prompts in your preferred coding agent to architect complex data pipelines, transform data with dbt, write Spark and BigQuery SQL notebooks, and orchestrate end-to-end workflows across GCP's data ecosystem.",
+      "description": "该插件为在 Google Cloud 上工作的数据工程师和数据库从业人员提供了一套专门的技能。它充当专家助理，允许您在首选编码代理中使用自然语言提示来构建复杂的数据管道、使用 dbt 转换数据、编写 Spark 和 BigQuery SQL 笔记本，以及在 GCP 数据生态系统中编排端到端工作流程。",
       "author": {
         "name": "Google LLC"
       },
@@ -877,20 +1503,20 @@
     },
     {
       "name": "data-engineering",
-      "description": "Data engineering plugin - warehouse exploration, pipeline authoring, Airflow integration",
+      "description": "数据工程插件 - 仓库探索、管道创作、Airflow 集成",
       "homepage": "https://github.com/astronomer/agents",
       "source": "./plugins/anthropic/data-engineering"
     },
     {
       "name": "databases-on-aws",
-      "description": "Expert database guidance for the AWS database portfolio. Design schemas, execute queries, handle migrations, and choose the right database for your workload.",
+      "description": "AWS 数据库产品组合的专家数据库指南。设计架构、执行查询、处理迁移并为您的工作负载选择正确的数据库。",
       "category": "database",
       "homepage": "https://github.com/awslabs/agent-plugins",
       "source": "./plugins/anthropic/databases-on-aws"
     },
     {
       "name": "databricks",
-      "description": "Databricks skills for the CLI, Apps, Lakebase, Model Serving, Lakeflow Jobs, Spark Declarative Pipelines, Declarative Automation Bundles (DABs), and classic-to-serverless migration.",
+      "description": "针对 CLI、应用程序、Lakebase、模型服务、Lakeflow 作业、Spark 声明式管道、声明式自动化捆绑包 (DAB) 以及经典到无服务器迁移的 Databricks 技能。",
       "author": {
         "name": "Databricks"
       },
@@ -900,7 +1526,7 @@
     },
     {
       "name": "datadog",
-      "description": "Use Datadog directly in Claude Code through a preconfigured Datadog MCP server. Query logs, metrics, traces, dashboards, and more through natural conversation. This plugin is in preview.",
+      "description": "通过预配置的 Datadog MCP 服务器直接在 Claude Code 中使用 Datadog。通过自然对话查询日志、指标、跟踪、仪表板等。该插件处于预览状态。",
       "author": {
         "name": "Datadog"
       },
@@ -910,7 +1536,7 @@
     },
     {
       "name": "datahub-skills",
-      "description": "DataHub development and interaction toolkit with connector planning, PR review, catalog search, metadata enrichment, lineage tracing, data quality management, and connection setup skills",
+      "description": "DataHub 开发和交互工具包，包含连接器规划、PR 审查、目录搜索、元数据丰富、沿袭跟踪、数据质量管理和连接设置技能",
       "author": {
         "name": "DataHub"
       },
@@ -920,7 +1546,7 @@
     },
     {
       "name": "dataproc",
-      "description": "Manage Dataproc clusters and jobs.",
+      "description": "管理 Dataproc 集群和作业。",
       "author": {
         "name": "Google LLC"
       },
@@ -930,7 +1556,7 @@
     },
     {
       "name": "datarobot-agent-skills",
-      "description": "DataRobot skills for AI/ML workflows — model training, deployment, predictions, feature engineering, monitoring, explainability, data preparation, App Framework CI/CD, and external agent monitoring.",
+      "description": "AI/ML 工作流程的 DataRobot 技能 — 模型训练、部署、预测、特征工程、监控、可解释性、数据准备、应用程序框架 CI/CD 和外部代理监控。",
       "author": {
         "name": "DataRobot"
       },
@@ -940,14 +1566,14 @@
     },
     {
       "name": "dataverse",
-      "description": "Agent skills for building on, analyzing, and managing Microsoft Dataverse — with Dataverse MCP, PAC CLI, and Python SDK.",
+      "description": "使用 Dataverse MCP、PAC CLI 和 Python SDK 构建、分析和管理 Microsoft Dataverse 的代理技能。",
       "category": "database",
       "homepage": "https://github.com/microsoft/Dataverse-skills",
       "source": "./plugins/anthropic/dataverse"
     },
     {
       "name": "deepeval",
-      "description": "Skills for adding DeepEval evaluations, tracing, datasets, Confident AI reports, and iterative improvement loops to AI applications.",
+      "description": "将 DeepEval 评估、跟踪、数据集、Confident AI 报告和迭代改进循环添加到 AI 应用程序的技能。",
       "author": {
         "name": "Confident AI",
         "email": "open-source@confident-ai.com"
@@ -958,14 +1584,14 @@
     },
     {
       "name": "deploy-on-aws",
-      "description": "Deploy applications to AWS with architecture recommendations, cost estimates, and IaC deployment.",
+      "description": "通过架构建议、成本估算和 IaC 部署将应用程序部署到 AWS。",
       "category": "deployment",
       "homepage": "https://github.com/awslabs/agent-plugins",
       "source": "./plugins/anthropic/deploy-on-aws"
     },
     {
       "name": "desktop-commander",
-      "description": "MCP server for terminal commands, process management, and file operations across text, code, PDF, DOCX, Excel, images, and structured data.",
+      "description": "MCP 服务器用于跨文本、代码、PDF、DOCX、Excel、图像和结构化数据的终端命令、流程管理和文件操作。",
       "author": {
         "name": "Desktop Commander"
       },
@@ -975,13 +1601,13 @@
     },
     {
       "name": "discord",
-      "description": "Discord messaging bridge with built-in access control. Manage pairing, allowlists, and policy via /discord:access.",
+      "description": "带有内置访问控制的 Discord 消息传递桥。通过 /discord:access 管理配对、白名单和策略。",
       "category": "productivity",
       "source": "./plugins/anthropic/discord"
     },
     {
       "name": "dominodatalab",
-      "description": "Full Domino Data Lab platform support — workspaces, jobs, model deployment, experiment tracking, GenAI tracing, Spark/Ray/Dask, and app deployment for data science teams",
+      "description": "完整的 Domino 数据实验室平台支持 — 工作区、作业、模型部署、实验跟踪、GenAI 跟踪、Spark/Ray/Dask 以及数据科学团队的应用程序部署",
       "author": {
         "name": "Domino Data Lab"
       },
@@ -991,7 +1617,7 @@
     },
     {
       "name": "dropbox",
-      "description": "The Dropbox plugin for Claude connects your Dropbox files directly to Claude, so you can search, organize, save generated content, and create sharing links without switching tools. It respects your existing Dropbox permissions, and Claude only works with files you already have access to.",
+      "description": "Claude 的 Dropbox 插件将您的 Dropbox 文件直接连接到 Claude，因此您可以搜索、组织、保存生成的内容以及创建共享链接，而无需切换工具。它尊重您现有的 Dropbox 权限，并且 Claude 仅处理您已经有权访问的文件。",
       "author": {
         "name": "Dropbox"
       },
@@ -1001,7 +1627,7 @@
     },
     {
       "name": "duckdb-skills",
-      "description": "DuckDB-powered skills for Claude Code: read any data file, attach and query DuckDB databases, search DuckDB/DuckLake docs, search past session logs, and install/update DuckDB extensions.",
+      "description": "Claude Code 的 DuckDB 支持技能：读取任何数据文件、附加和查询 DuckDB 数据库、搜索 DuckDB/DuckLake 文档、搜索过去的会话日志以及安装/更新 DuckDB 扩展。",
       "author": {
         "name": "DuckDB Foundation"
       },
@@ -1011,7 +1637,7 @@
     },
     {
       "name": "duende-skills",
-      "description": "Duende development skills and agents for Claude Code — covering OAuth/OIDC protocols, IdentityServer, token management, ASP.NET Core authentication/authorization, BFF patterns, and secure identity architecture",
+      "description": "Duende 开发技能和 Claude Code 代理 — 涵盖 OAuth/OIDC 协议、IdentityServer、令牌管理、ASP.NET Core 身份验证/授权、BFF 模式和安全身份架构",
       "author": {
         "name": "Duende Software"
       },
@@ -1021,7 +1647,7 @@
     },
     {
       "name": "exa",
-      "description": "Exa AI web search, deep research, and content extraction. Provides MCP tools and research skills for comprehensive web search, people discovery, company research, academic papers, and more.",
+      "description": "Exa AI 网络搜索、深度研究和内容提取。提供用于综合网络搜索、人员发现、公司研究、学术论文等的 MCP 工具和研究技能。",
       "author": {
         "name": "Exa"
       },
@@ -1031,7 +1657,7 @@
     },
     {
       "name": "explanatory-output-style",
-      "description": "Adds educational insights about implementation choices and codebase patterns (mimics the deprecated Explanatory output style)",
+      "description": "添加有关实现选择和代码库模式的教育见解（模仿已弃用的解释性输出样式）",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -1042,26 +1668,26 @@
     },
     {
       "name": "expo",
-      "description": "Official Expo skills for building, deploying, upgrading, and debugging React Native apps with Expo. Covers UI development with Expo Router, SwiftUI and Jetpack Compose components, Tailwind CSS setup, API routes, data fetching, CI/CD workflows, App Store and Play Store deployment, SDK upgrades, DOM components, and dev client distribution.",
+      "description": "使用 Expo 构建、部署、升级和调试 React Native 应用程序的官方 Expo 技能。涵盖使用 Expo Router、SwiftUI 和 Jetpack Compose 组件进行 UI 开发、Tailwind CSS 设置、API 路由、数据获取、CI/CD 工作流程、App Store 和 Play Store 部署、SDK 升级、DOM 组件和开发客户端分发。",
       "category": "development",
       "homepage": "https://github.com/expo/skills/blob/main/plugins/expo/README.md",
       "source": "./plugins/anthropic/expo"
     },
     {
       "name": "fakechat",
-      "description": "Localhost web chat for testing the channel notification flow. No tokens, no access control, no third-party service.",
+      "description": "用于测试通道通知流的本地主机网络聊天。没有令牌，没有访问控制，没有第三方服务。",
       "category": "development",
       "source": "./plugins/anthropic/fakechat"
     },
     {
       "name": "fastly-agent-toolkit",
-      "description": "Fastly development tools and platform skills",
+      "description": "快速开发工具和平台技能",
       "homepage": "https://github.com/fastly/fastly-agent-toolkit/blob/main/README.md",
       "source": "./plugins/anthropic/fastly-agent-toolkit"
     },
     {
       "name": "feature-dev",
-      "description": "Comprehensive feature development workflow with specialized agents for codebase exploration, architecture design, and quality review",
+      "description": "全面的功能开发工作流程，具有用于代码库探索、架构设计和质量审查的专门代理",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -1072,34 +1698,34 @@
     },
     {
       "name": "fiftyone",
-      "description": "Build high-quality datasets and computer vision models. Visualize datasets, analyze models, find duplicates, run inference, evaluate predictions, and develop custom plugins.",
+      "description": "构建高质量的数据集和计算机视觉模型。可视化数据集、分析模型、查找重复项、运行推理、评估预测以及开发自定义插件。",
       "homepage": "https://docs.voxel51.com/",
       "source": "./plugins/anthropic/fiftyone"
     },
     {
       "name": "figma",
-      "description": "Figma design platform integration. Access design files, extract component information, read design tokens, and translate designs into code. Bridge the gap between design and development workflows.",
+      "description": "Figma 设计平台集成。访问设计文件、提取组件信息、读取设计标记并将设计转换为代码。弥合设计和开发工作流程之间的差距。",
       "category": "design",
       "homepage": "https://github.com/figma/mcp-server-guide",
       "source": "./plugins/anthropic/figma"
     },
     {
       "name": "firebase",
-      "description": "Google Firebase MCP integration. Manage Firestore databases, authentication, cloud functions, hosting, and storage. Build and manage your Firebase backend directly from your development workflow.",
+      "description": "Google Firebase MCP 集成。管理 Firestore 数据库、身份验证、云功能、托管和存储。直接从您的开发工作流程构建和管理您的 Firebase 后端。",
       "category": "database",
       "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/firebase",
       "source": "./plugins/anthropic/firebase"
     },
     {
       "name": "firecrawl",
-      "description": "Web scraping and crawling powered by Firecrawl. Turn any website into clean, LLM-ready markdown or structured data. Scrape single pages, crawl entire sites, search the web, and extract structured information. Includes an AI agent for autonomous multi-source data gathering - just describe what you need and it finds, navigates, and extracts automatically.",
+      "description": "由 Firecrawl 提供支持的网络抓取和爬行。将任何网站转变为干净的、可供法学硕士使用的降价或结构化数据。抓取单个页面、爬行整个网站、搜索网络并提取结构化信息。包括用于自主多源数据收集的人工智能代理 - 只需描述您需要的内容，它就会自动查找、导航和提取。",
       "category": "development",
       "homepage": "https://github.com/firecrawl/firecrawl-claude-plugin.git",
       "source": "./plugins/anthropic/firecrawl"
     },
     {
       "name": "firestore-native",
-      "description": "Connect and interact with Firestore databases, collections, and documents.",
+      "description": "连接 Firestore 数据库、集合和文档并与之交互。",
       "author": {
         "name": "Google LLC"
       },
@@ -1109,7 +1735,7 @@
     },
     {
       "name": "forge-skills",
-      "description": "Forge-focused skills and MCP configuration for Atlassian Forge: scaffold and deploy apps (forge create, templates, dev spaces), build Teamwork Graph connectors for Rovo Search/Rovo Chat, pre-deploy review, systematic debugging, plus Forge docs and Atlassian Design System lookups via MCP.",
+      "description": "Atlassian Forge 的专注于 Forge 的技能和 MCP 配置：支架和部署应用程序（forge 创建、模板、开发空间）、为 Rovo Search/Rovo Chat 构建 Teamwork Graph 连接器、预部署审查、系统调试，以及通过 MCP 进行 Forge 文档和 Atlassian Design System 查找。",
       "author": {
         "name": "Atlassian"
       },
@@ -1119,7 +1745,7 @@
     },
     {
       "name": "frontend-design",
-      "description": "Create distinctive, production-grade frontend interfaces with high design quality. Generates creative, polished code that avoids generic AI aesthetics.",
+      "description": "创建具有高设计质量的独特的生产级前端界面。生成富有创意、精美的代码，避免通用人工智能美学。",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -1130,7 +1756,7 @@
     },
     {
       "name": "fullstory",
-      "description": "Connect Claude to Fullstory to query behavioral analytics, session replays, and customer experience insights.",
+      "description": "将 Claude 连接到 Fullstory 以查询行为分析、会话重播和客户体验见解。",
       "author": {
         "name": "Fullstory"
       },
@@ -1140,14 +1766,14 @@
     },
     {
       "name": "github",
-      "description": "Official GitHub MCP server for repository management. Create issues, manage pull requests, review code, search repositories, and interact with GitHub's full API directly from Claude Code.",
+      "description": "用于存储库管理的官方 GitHub MCP 服务器。创建问题、管理拉取请求、审查代码、搜索存储库，并直接从 Claude Code 与 GitHub 的完整 API 进行交互。",
       "category": "productivity",
       "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/github",
       "source": "./plugins/anthropic/github"
     },
     {
       "name": "gitkraken",
-      "description": "Gives Claude access to your real Git and project context: commits, branches, pull requests, and issues across every repo you work in. Works with GitHub, GitLab, Azure DevOps, Bitbucket, and Jira.",
+      "description": "使 Claude 能够访问您的真实 Git 和项目上下文：提交、分支、拉取请求以及您工作的每个存储库中的问题。可与 GitHub、GitLab、Azure DevOps、Bitbucket 和 Jira 配合使用。",
       "author": {
         "name": "GitKraken"
       },
@@ -1157,14 +1783,14 @@
     },
     {
       "name": "gitlab",
-      "description": "GitLab DevOps platform integration. Manage repositories, merge requests, CI/CD pipelines, issues, and wikis. Full access to GitLab's comprehensive DevOps lifecycle tools.",
+      "description": "GitLab DevOps 平台集成。管理存储库、合并请求、CI/CD 管道、问题和 wiki。完全访问 GitLab 的综合 DevOps 生命周期工具。",
       "category": "productivity",
       "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/gitlab",
       "source": "./plugins/anthropic/gitlab"
     },
     {
       "name": "google-cloud-storage",
-      "description": "Official Google Cloud Storage (GCS) plugin. Manage buckets and objects, transfer data, and configure MCP, FUSE, IAM, security, lifecycle rules, signed URLs, Terraform, and the CLI.",
+      "description": "官方 Google 云存储 (GCS) 插件。管理存储桶和对象、传输数据以及配置 MCP、FUSE、IAM、安全性、生命周期规则、签名 URL、Terraform 和 CLI。",
       "author": {
         "name": "Google LLC"
       },
@@ -1174,7 +1800,7 @@
     },
     {
       "name": "gopls-lsp",
-      "description": "Go language server for code intelligence and refactoring",
+      "description": "用于代码智能和重构的 Go 语言服务器",
       "version": "1.0.0",
       "author": {
         "name": "Anthropic",
@@ -1194,7 +1820,7 @@
     },
     {
       "name": "grafana-assistant",
-      "description": "Skills and rules for developing and using the Grafana Assistant app and CLI.",
+      "description": "开发和使用 Grafana Assistant 应用程序和 CLI 的技能和规则。",
       "author": {
         "name": "Grafana"
       },
@@ -1204,7 +1830,7 @@
     },
     {
       "name": "grafana-cloud-mcp",
-      "description": "Hosted MCP server for AI-assisted Grafana Cloud observability — no local installation required.",
+      "description": "用于 AI 辅助 Grafana Cloud 可观测性的托管 MCP 服务器 - 无需本地安装。",
       "author": {
         "name": "Grafana"
       },
@@ -1214,7 +1840,7 @@
     },
     {
       "name": "grafana-mcp",
-      "description": "MCP server for AI-assisted Grafana dashboard, datasource, alerting, and incident management.",
+      "description": "用于 AI 辅助 Grafana 仪表板、数据源、警报和事件管理的 MCP 服务器。",
       "author": {
         "name": "Grafana"
       },
@@ -1224,14 +1850,14 @@
     },
     {
       "name": "greptile",
-      "description": "AI-powered codebase search and understanding. Query your repositories using natural language to find relevant code, understand dependencies, and get contextual answers about your codebase architecture.",
+      "description": "人工智能驱动的代码库搜索和理解。使用自然语言查询您的存储库，以查找相关代码、了解依赖关系并获取有关代码库架构的上下文答案。",
       "category": "development",
       "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/greptile",
       "source": "./plugins/anthropic/greptile"
     },
     {
       "name": "growthbook",
-      "description": "A suite of agent skills for the full GrowthBook feature flag and experimentation lifecycle.",
+      "description": "一套用于完整 GrowthBook 功能标记和实验生命周期的代理技能。",
       "author": {
         "name": "GrowthBook"
       },
@@ -1241,7 +1867,7 @@
     },
     {
       "name": "honeycomb",
-      "description": "Skills, agents, and workflows for Honeycomb observability — query patterns, production investigations, SLOs, OpenTelemetry instrumentation, and Beeline migration. Designed to complement the Honeycomb MCP server.",
+      "description": "Honeycomb 可观测性的技能、代理和工作流程 — 查询模式、生产调查、SLO、OpenTelemetry 仪器和 Beeline 迁移。旨在补充 Honeycomb MCP 服务器。",
       "author": {
         "name": "Honeycomb"
       },
@@ -1251,7 +1877,7 @@
     },
     {
       "name": "hookify",
-      "description": "Easily create custom hooks to prevent unwanted behaviors by analyzing conversation patterns or from explicit instructions. Define rules via simple markdown files.",
+      "description": "通过分析对话模式或明确的指令，轻松创建自定义挂钩以防止不良行为。通过简单的 Markdown 文件定义规则。",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -1262,7 +1888,7 @@
     },
     {
       "name": "hostinger",
-      "description": "Deploy, manage and monitor Hostinger services — Websites, Domains, Ecommerce, Email Marketing, Subscriptions & Payments, and VPS. Authenticate via browser (OAuth) or API token.",
+      "description": "部署、管理和监控 Hostinger 服务 — 网站、域名、电子商务、电子邮件营销、订阅和付款以及 VPS。通过浏览器 (OAuth) 或 API 令牌进行身份验证。",
       "author": {
         "name": "Hostinger"
       },
@@ -1272,14 +1898,14 @@
     },
     {
       "name": "huggingface-skills",
-      "description": "Build, train, evaluate, and use open source AI models, datasets, and spaces.",
+      "description": "构建、训练、评估和使用开源 AI 模型、数据集和空间。",
       "category": "development",
       "homepage": "https://github.com/huggingface/skills.git",
       "source": "./plugins/anthropic/huggingface-skills"
     },
     {
       "name": "hunter",
-      "description": "Find and verify professional email addresses, search contacts by domain, and enrich company data -- directly in Claude.",
+      "description": "直接在 Claude 中查找并验证专业电子邮件地址、按域搜索联系人并丰富公司数据。",
       "author": {
         "name": "Hunter.io"
       },
@@ -1289,7 +1915,7 @@
     },
     {
       "name": "hyperframes",
-      "description": "HyperFrames by HeyGen. Write HTML, render video. Compositions, GSAP and runtime adapter animations, captions, voiceovers, audio-reactive visuals, and website-to-video capture for HyperFrames.",
+      "description": "HeyGen 的 HyperFrames。编写 HTML，渲染视频。合成、GSAP 和运行时适配器动画、字幕、画外音、音频反应视觉效果以及 HyperFrames 的网站到视频捕获。",
       "author": {
         "name": "HeyGen"
       },
@@ -1299,7 +1925,7 @@
     },
     {
       "name": "idmp-plugin",
-      "description": "TDengine IDMP plugin with packaged skills for discovery, schema inspection, and safe operational workflows.",
+      "description": "TDengine IDMP 插件具有用于发现、模式检查和安全操作工作流程的打包技能。",
       "author": {
         "name": "TaosData",
         "email": "it@taosdata.com"
@@ -1310,20 +1936,20 @@
     },
     {
       "name": "imessage",
-      "description": "iMessage messaging bridge with built-in access control. Reads chat.db directly, sends via AppleScript. Manage pairing, allowlists, and policy via /imessage:access.",
+      "description": "具有内置访问控制的 iMessage 消息传递桥。直接读取chat.db，通过AppleScript发送。通过 /imessage:access 管理配对、白名单和策略。",
       "category": "productivity",
       "source": "./plugins/anthropic/imessage"
     },
     {
       "name": "intercom",
-      "description": "Intercom integration for Claude Code. Search conversations, analyze customer support patterns, look up contacts and companies, and install the Intercom Messenger. Connect your Intercom workspace to get real-time insights from customer data.",
+      "description": "Claude Code 的对讲集成。搜索对话、分析客户支持模式、查找联系人和公司以及安装 Intercom Messenger。连接您的 Intercom 工作区，从客户数据中获取实时见解。",
       "category": "productivity",
       "homepage": "https://github.com/intercom/claude-plugin-external",
       "source": "./plugins/anthropic/intercom"
     },
     {
       "name": "jdtls-lsp",
-      "description": "Java language server (Eclipse JDT.LS) for code intelligence",
+      "description": "用于代码智能的 Java 语言服务器 (Eclipse JDT.LS)",
       "version": "1.0.0",
       "author": {
         "name": "Anthropic",
@@ -1344,7 +1970,7 @@
     },
     {
       "name": "jfrog",
-      "description": "Use the JFrog Platform from Claude Code: Artifactory repos and artifacts, security findings and exposures, Catalog package safety and downloads, workflows across the SDLC, and platform administration.",
+      "description": "使用 Claude Code 的 JFrog 平台：Artifactory 存储库和工件、安全发现和暴露、目录包安全和下载、跨 SDLC 的工作流程以及平台管理。",
       "author": {
         "name": "JFrog Ltd.",
         "url": "https://jfrog.com"
@@ -1355,7 +1981,7 @@
     },
     {
       "name": "knowledge-catalog",
-      "description": "Connect to Knowledge Catalog to discover, manage, monitor, and govern data and AI artifacts across your data platform",
+      "description": "连接到知识目录以发现、管理、监控和治理整个数据平台上的数据和 AI 工件",
       "author": {
         "name": "Google LLC"
       },
@@ -1365,7 +1991,7 @@
     },
     {
       "name": "kotlin-lsp",
-      "description": "Kotlin language server for code intelligence",
+      "description": "用于代码智能的 Kotlin 语言服务器",
       "version": "1.0.0",
       "author": {
         "name": "Anthropic",
@@ -1390,7 +2016,7 @@
     },
     {
       "name": "langfuse-observability",
-      "description": "Langfuse observability plugin for Claude Code — captures and exports traces, spans, and session telemetry from Claude Code to Langfuse for LLM monitoring, debugging, and evaluation",
+      "description": "用于 Claude Code 的 Langfuse 可观测性插件 — 捕获并将跟踪、跨度和会话遥测数据从 Claude Code 导出到 Langfuse，以进行 LLM 监控、调试和评估",
       "author": {
         "name": "Langfuse"
       },
@@ -1400,14 +2026,14 @@
     },
     {
       "name": "laravel-boost",
-      "description": "Laravel development toolkit MCP server. Provides intelligent assistance for Laravel applications including Artisan commands, Eloquent queries, routing, migrations, and framework-specific code generation.",
+      "description": "Laravel 开发工具包 MCP 服务器。为 Laravel 应用程序提供智能帮助，包括 Artisan 命令、Eloquent 查询、路由、迁移和特定于框架的代码生成。",
       "category": "development",
       "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/laravel-boost",
       "source": "./plugins/anthropic/laravel-boost"
     },
     {
       "name": "learn-with-coursera",
-      "description": "Turn any learning intent into a personalized Coursera experience. Asks three quick questions (topic, familiarity, preferred format), searches Coursera's catalog, and delivers the right next step — a course, hands-on project, short video, or live roleplay — then maps a path forward. Requires the Coursera connector for catalog tools.",
+      "description": "将任何学习意图转化为个性化的 Coursera 体验。提出三个简单问题（主题、熟悉程度、首选格式），搜索 Coursera 的目录，并提供正确的下一步——课程、实践项目、短视频或现场角色扮演——然后规划前进的道路。目录工具需要 Coursera 连接器。",
       "author": {
         "name": "Coursera"
       },
@@ -1421,7 +2047,7 @@
     },
     {
       "name": "learning-output-style",
-      "description": "Interactive learning mode that requests meaningful code contributions at decision points (mimics the unshipped Learning output style)",
+      "description": "交互式学习模式，在决策点请求有意义的代码贡献（模仿未交付的学习输出风格）",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -1432,21 +2058,21 @@
     },
     {
       "name": "legalzoom",
-      "description": "Attorney guidance and legal tools for business and personal needs. AI-powered document review identifies critical risks and important clauses, advises when to engage an attorney, and routes to LegalZoom's network when professional expertise is needed.",
+      "description": "满足商业和个人需求的律师指导和法律工具。人工智能驱动的文件审查可以识别关键风险和重要条款，建议何时聘请律师，并在需要专业知识时转至 LegalZoom 网络。",
       "category": "productivity",
       "homepage": "https://www.legalzoom.com/",
       "source": "./plugins/anthropic/legalzoom"
     },
     {
       "name": "linear",
-      "description": "Linear issue tracking integration. Create issues, manage projects, update statuses, search across workspaces, and streamline your software development workflow with Linear's modern issue tracker.",
+      "description": "线性问题跟踪集成。使用 Linear 的现代问题跟踪器创建问题、管理项目、更新状态、跨工作区搜索以及简化您的软件开发工作流程。",
       "category": "productivity",
       "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/linear",
       "source": "./plugins/anthropic/linear"
     },
     {
       "name": "liquid-lsp",
-      "description": "LSP integration for Shopify Liquid templates via the Shopify CLI theme language server.",
+      "description": "通过 Shopify CLI 主题语言服务器进行 Shopify Liquid 模板的 LSP 集成。",
       "author": {
         "name": "Shopify"
       },
@@ -1456,7 +2082,7 @@
     },
     {
       "name": "liquid-skills",
-      "description": "Liquid language fundamentals, CSS/JS/HTML coding standards, and WCAG accessibility patterns for Shopify themes",
+      "description": "Shopify 主题的 Liquid 语言基础知识、CSS/JS/HTML 编码标准和 WCAG 可访问性模式",
       "author": {
         "name": "Shopify"
       },
@@ -1466,7 +2092,7 @@
     },
     {
       "name": "logfire",
-      "description": "Add Logfire observability to Python applications with auto-instrumentation for FastAPI, httpx, asyncpg, SQLAlchemy, and more",
+      "description": "通过针对 FastAPI、httpx、asyncpg、SQLAlchemy 等的自动检测，将 Logfire 可观察性添加到 Python 应用程序",
       "author": {
         "name": "Pydantic"
       },
@@ -1476,7 +2102,7 @@
     },
     {
       "name": "logrocket",
-      "description": "Connect Claude Code to LogRocket to query session replays, metrics, issues, and user behavior using natural language.",
+      "description": "将 Claude Code 连接到 LogRocket，以使用自然语言查询会话重播、指标、问题和用户行为。",
       "author": {
         "name": "LogRocket"
       },
@@ -1486,7 +2112,7 @@
     },
     {
       "name": "looker",
-      "description": "Connect to Looker and interact with your data using LookML.",
+      "description": "连接到 Looker 并使用 LookML 与您的数据交互。",
       "author": {
         "name": "Google LLC"
       },
@@ -1496,7 +2122,7 @@
     },
     {
       "name": "lovable",
-      "description": "Build, iterate on, deploy, and manage Lovable apps from Claude Code. Bundles the official Lovable MCP server (remote, OAuth 2.1) and adds focused commands for the common build/iterate/database workflows, with credit- and publish-safety prompts.",
+      "description": "通过 Claude Code 构建、迭代、部署和管理 Lovable 应用程序。捆绑官方 Lovable MCP 服务器（远程，OAuth 2.1），并为常见构建/迭代/数据库工作流程添加集中命令，并带有信用和发布安全提示。",
       "author": {
         "name": "Lovable"
       },
@@ -1506,7 +2132,7 @@
     },
     {
       "name": "lua-lsp",
-      "description": "Lua language server for code intelligence",
+      "description": "用于代码智能的 Lua 语言服务器",
       "version": "1.0.0",
       "author": {
         "name": "Anthropic",
@@ -1526,7 +2152,7 @@
     },
     {
       "name": "lumen",
-      "description": "Precise local semantic code search via MCP. Indexes your codebase with Go AST parsing, embeds with Ollama or LM Studio, and exposes vector search to Claude through an MCP server — no cloud, no npm.",
+      "description": "通过 MCP 进行精确的本地语义代码搜索。使用 Go AST 解析为您的代码库建立索引，嵌入 Ollama 或 LM Studio，并通过 MCP 服务器向 Claude 公开矢量搜索 — 无需云，无需 npm。",
       "author": {
         "name": "Ory Corp"
       },
@@ -1536,7 +2162,7 @@
     },
     {
       "name": "lusha",
-      "description": "Prospect, enrich, and build call-ready lead lists using Lusha's B2B intelligence platform — verified phone numbers, company signals, and lookalike targeting.",
+      "description": "使用 Lusha 的 B2B 情报平台（经过验证的电话号码、公司信号和相似定位）来寻找、丰富和构建可通话的潜在客户列表。",
       "author": {
         "name": "Lusha"
       },
@@ -1546,7 +2172,7 @@
     },
     {
       "name": "mapbox",
-      "description": "Mapbox skills and MCP servers for building location-aware applications with AI. Includes geospatial tools, style management, and patterns for web, iOS, Android, and AI agent frameworks.",
+      "description": "Mapbox 技能和 MCP 服务器，用于使用 AI 构建位置感知应用程序。包括地理空间工具、样式管理以及 Web、iOS、Android 和 AI 代理框架的模式。",
       "author": {
         "name": "Mapbox"
       },
@@ -1556,7 +2182,7 @@
     },
     {
       "name": "math-olympiad",
-      "description": "Solve competition math (IMO, Putnam, USAMO) with adversarial verification that catches what self-verification misses. Fresh-context verifiers attack proofs with specific failure patterns. Calibrated abstention over bluffing.",
+      "description": "通过对抗性验证来解决竞赛数学（IMO、Putnam、USAMO），该验证可以捕获自我验证遗漏的内容。新上下文验证者使用特定的失败模式来攻击证明。对虚张声势的校准弃权。",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -1567,7 +2193,7 @@
     },
     {
       "name": "mattpocock-skills",
-      "description": "Matt Pocock's agent skills for real engineering — grilling, spec/ticket flows, TDD, code review, domain modelling and more. Plug-and-play, not vibe coding.",
+      "description": "马特·波科克 (Matt Pocock) 的真实工程代理技能 — 烧烤、规格/票据流程、TDD、代码审查、领域建模等等。即插即用，而不是振动编码。",
       "author": {
         "name": "Matt Pocock"
       },
@@ -1577,7 +2203,7 @@
     },
     {
       "name": "mcp-apps",
-      "description": "Skills for creating MCP Apps with the MCP Apps SDK",
+      "description": "使用 MCP Apps SDK 创建 MCP 应用程序的技能",
       "author": {
         "name": "Anthropic / Model Context Protocol"
       },
@@ -1587,7 +2213,7 @@
     },
     {
       "name": "mcp-server-dev",
-      "description": "Skills for designing and building MCP servers that work seamlessly with Claude. Guides you through deployment models (remote HTTP, MCPB, local), tool design patterns, auth, and interactive MCP apps.",
+      "description": "设计和构建与 Claude 无缝协作的 MCP 服务器的技能。指导您完成部署模型（远程 HTTP、MCPB、本地）、工具设计模式、身份验证和交互式 MCP 应用程序。",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -1598,7 +2224,7 @@
     },
     {
       "name": "mcp-tunnels",
-      "description": "Connect Claude to a private MCP server through an Anthropic MCP tunnel. The /create-docker-mcp-tunnel command drives the Docker Compose quickstart end to end: certificates, proxy config, cloudflared, and a verifiable sample server.",
+      "description": "通过 Anthropic MCP 隧道将 Claude 连接到专用 MCP 服务器。 /create-docker-mcp-tunnel 命令端到端驱动 Docker Compose 快速入门：证书、代理配置、cloudflared 和可验证的示例服务器。",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -1609,7 +2235,7 @@
     },
     {
       "name": "mercadopago",
-      "description": "Mercado Pago full-product integration toolkit. One agent routes to four orchestration skills (mp-integrate wizard, mp-webhooks, mp-test-setup, mp-review) that pull every endpoint, payload, and snippet live from the official Mercado Pago MCP server. The MCP must always be connected — there is no offline mode.",
+      "description": "Mercado Pago 全产品集成工具包。一个代理路由到四种编排技能（mp-集成向导、mp-webhooks、mp-test-setup、mp-review），这些技能从官方 Mercado Pago MCP 服务器实时提取每个端点、负载和代码片段。 MCP 必须始终保持连接 — 没有离线模式。",
       "author": {
         "name": "Mercado Pago Developer Experience"
       },
@@ -1619,7 +2245,7 @@
     },
     {
       "name": "mergify",
-      "description": "Skills for the Mergify CLI: manage merge queues, stacked pull requests, Test Insights (flaky tests, quarantine), merge protections, and Mergify configuration directly from the terminal.",
+      "description": "Mergify CLI 的技能：管理合并队列、堆叠拉取请求、测试见解（片状测试、隔离）、合并保护以及直接从终端进行 Mergify 配置。",
       "author": {
         "name": "Mergify"
       },
@@ -1629,14 +2255,14 @@
     },
     {
       "name": "microsoft-docs",
-      "description": "Access official Microsoft documentation, API references, and code samples for Azure, .NET, Windows, and more.",
+      "description": "访问 Azure、.NET、Windows 等的官方 Microsoft 文档、API 参考和代码示例。",
       "category": "development",
       "homepage": "https://github.com/microsoftdocs/mcp",
       "source": "./plugins/anthropic/microsoft-docs"
     },
     {
       "name": "migration-to-aws",
-      "description": "Plan a migration from Google Cloud Platform (and OpenAI/Gemini AI workloads) to AWS. Analyzes your Infrastructure-as-Code files, app code, and GCP billing data to discover resources, design an AWS architecture, estimate costs, and generate migration artifacts — including AI-provider mapping to Amazon Bedrock. Processing is local; your data stays in your environment.",
+      "description": "计划从 Google Cloud Platform（和 OpenAI/Gemini AI 工作负载）迁移到 AWS。分析您的基础设施即代码文件、应用程序代码和 GCP 计费数据，以发现资源、设计 AWS 架构、估算成本并生成迁移工件 — 包括 AI 提供商映射到 Amazon Bedrock。处理是本地的；您的数据保留在您的环境中。",
       "author": {
         "name": "Amazon Web Services"
       },
@@ -1646,14 +2272,14 @@
     },
     {
       "name": "mintlify",
-      "description": "Build beautiful documentation sites with Mintlify. Convert non-markdown files into properly formatted MDX pages, add and modify content with correct component use, and automate documentation updates.",
+      "description": "使用 Mintlify 构建漂亮的文档站点。将非 Markdown 文件转换为格式正确的 MDX 页面，使用正确的组件使用添加和修改内容，并自动更新文档。",
       "category": "development",
       "homepage": "https://www.mintlify.com/",
       "source": "./plugins/anthropic/mintlify"
     },
     {
       "name": "miro",
-      "description": "Secure access to Miro boards. Enables AI to read board context, create diagrams, and generate code with enterprise-grade security.",
+      "description": "安全访问 Miro 板。使 AI 能够读取电路板上下文、创建图表并生成具有企业级安全性的代码。",
       "author": {
         "name": "Miro"
       },
@@ -1663,7 +2289,7 @@
     },
     {
       "name": "modern-web-guidance",
-      "description": "Keep your coding agent up to date with the latest web best practices",
+      "description": "让您的编码代理了解最新的网络最佳实践",
       "author": {
         "name": "Google Chrome"
       },
@@ -1673,7 +2299,7 @@
     },
     {
       "name": "mlflow",
-      "description": "Skills for tracing, evaluating, and improving AI agents with MLflow. Supports the full agent improvement loop: instrument → trace → evaluate → iterate → validate.",
+      "description": "使用 MLflow 跟踪、评估和改进 AI 代理的技能。支持完整的代理改进循环：仪器→跟踪→评估→迭代→验证。",
       "author": {
         "name": "MLflow Team"
       },
@@ -1683,7 +2309,7 @@
     },
     {
       "name": "monday-crm",
-      "description": "Run your monday CRM in plain language. Build a pipeline from scratch, start the day with a ranked deal briefing, spin up a forecast dashboard, audit board health, clean up messy data in bulk, and turn meeting notes into deal updates. Every skill writes back into monday as a real update, doc, or dashboard. Built on the official monday MCP connector.",
+      "description": "用简单的语言运行周一的 CRM。从头开始构建管道，以排序的交易简报开始新的一天，启动预测仪表板，审计委员会的健康状况，批量清理混乱的数据，并将会议记录转化为交易更新。每项技能都会在周一作为真正的更新、文档或仪表板写回。基于官方星期一 MCP 连接器构建。",
       "author": {
         "name": "monday.com"
       },
@@ -1693,14 +2319,14 @@
     },
     {
       "name": "mongodb",
-      "description": "Official Claude plugin for MongoDB (MCP Server + Skills). Connect to databases, explore data, manage collections, optimize queries, generate reliable code, implement best practices, develop advanced features, and more.",
+      "description": "MongoDB 的官方 Claude 插件（MCP 服务器 + 技能）。连接到数据库、探索数据、管理集合、优化查询、生成可靠的代码、实施最佳实践、开发高级功能等等。",
       "category": "database",
       "homepage": "https://www.mongodb.com/docs/mcp-server/overview/",
       "source": "./plugins/anthropic/mongodb"
     },
     {
       "name": "mongodb-atlas",
-      "description": "Connect to MongoDB Atlas clusters only through the Atlas Managed MCP Server. Sign in with your Atlas account to explore data, manage collections, optimize queries, generate reliable code with MongoDB best practices, and manage Atlas resources such as clusters, projects, database users, and network access. If you are running a different MongoDB deployment or want to run a local MongoDB MCP Server, install the MongoDB (Self-Managed MCP) plugin instead.",
+      "description": "仅通过 Atlas Managed MCP Server 连接到 MongoDB Atlas 集群。使用您的 Atlas 帐户登录，探索数据、管理集合、优化查询、利用 MongoDB 最佳实践生成可靠的代码，以及管理 Atlas 资源，例如集群、项目、数据库用户和网络访问。如果您正在运行不同的 MongoDB 部署或想要运行本地 MongoDB MCP 服务器，请安装 MongoDB（自管理 MCP）插件。",
       "author": {
         "name": "MongoDB"
       },
@@ -1710,21 +2336,21 @@
     },
     {
       "name": "neon",
-      "description": "Manage your Neon projects and databases with the neon-postgres agent skill and the Neon MCP Server.",
+      "description": "使用 neon-postgres 代理技能和 Neon MCP 服务器管理您的 Neon 项目和数据库。",
       "category": "database",
       "homepage": "https://github.com/neondatabase/agent-skills/tree/main/plugins/neon-postgres",
       "source": "./plugins/anthropic/neon"
     },
     {
       "name": "netlify-skills",
-      "description": "Netlify platform skills for Claude Code — functions, edge functions, blobs, database, image CDN, forms, config, CLI, frameworks, caching, AI gateway, and deployment.",
+      "description": "Claude Code 的 Netlify 平台技能 — 函数、边缘函数、blob、数据库、图像 CDN、表单、配置、CLI、框架、缓存、AI 网关和部署。",
       "category": "development",
       "homepage": "https://github.com/netlify/context-and-tools",
       "source": "./plugins/anthropic/netlify-skills"
     },
     {
       "name": "netsuite-suitecloud",
-      "description": "NetSuite agent skills from Oracle — authoring guidance for SuiteCloud Development Framework (SDF) objects and UIF single-page-app components, plus runtime guidance for the NetSuite AI Service Connector.",
+      "description": "Oracle 的 NetSuite 代理技能 - SuiteCloud 开发框架 (SDF) 对象和 UIF 单页应用程序组件的创作指南，以及 NetSuite AI 服务连接器的运行时指南。",
       "author": {
         "name": "Oracle NetSuite"
       },
@@ -1744,7 +2370,7 @@
     },
     {
       "name": "newrelic",
-      "description": "New Relic observability intelligence for Claude Code. Investigate APM performance, analyze cloud costs, debug Kubernetes, write NRQL queries, and respond to alerts — all from your terminal using New Relic telemetry data.",
+      "description": "克劳德代码的新遗物可观察性智能。研究 APM 性能、分析云成本、调试 Kubernetes、编写 NRQL 查询以及响应警报 - 所有这些都可以使用 New Relic 遥测数据从您的终端进行。",
       "author": {
         "name": "New Relic"
       },
@@ -1754,19 +2380,19 @@
     },
     {
       "name": "nightvision",
-      "description": "Skills for working with NightVision, a DAST and API Discovery platform that finds exploitable vulnerabilities in web applications and REST APIs",
+      "description": "使用 NightVision 的技能，NightVision 是一个 DAST 和 API 发现平台，可查找 Web 应用程序和 REST API 中的可利用漏洞",
       "homepage": "https://github.com/nvsecurity/nightvision-skills",
       "source": "./plugins/anthropic/nightvision"
     },
     {
       "name": "nimble",
-      "description": "Nimble web data toolkit — search, extract, map, crawl the web and work with structured data agents",
+      "description": "Nimble Web 数据工具包 — 搜索、提取、映射、抓取 Web 并使用结构化数据代理",
       "homepage": "https://docs.nimbleway.com/integrations/agent-skills/plugin-installation",
       "source": "./plugins/anthropic/nimble"
     },
     {
       "name": "noibu",
-      "description": "Built for ecommerce, the Noibu plugin bridges the gap between customer experience and revenue by connecting Claude directly to your store's session, error, and conversion data through Noibu — and to the marketing, support, and commerce platforms that put insight into motion. Go beyond analysis: surface what's costing you revenue, take action across your stack, build workflows to automate work end-to-end.",
+      "description": "Noibu 插件专为电子商务而构建，通过 Noibu 将 Claude 直接连接到商店的会话、错误和转化数据，以及将洞察力付诸实践的营销、支持和商务平台，从而弥合了客户体验和收入之间的差距。超越分析：揭示造成收入损失的因素，在整个堆栈中采取行动，构建工作流程以实现端到端工作自动化。",
       "author": {
         "name": "Noibu"
       },
@@ -1776,14 +2402,14 @@
     },
     {
       "name": "notion",
-      "description": "Notion workspace integration. Search pages, create and update documents, manage databases, and access your team's knowledge base directly from Claude Code for seamless documentation workflows.",
+      "description": "概念工作区集成。搜索页面、创建和更新文档、管理数据库以及直接从 Claude Code 访问团队的知识库，以实现无缝的文档工作流程。",
       "category": "productivity",
       "homepage": "https://github.com/makenotion/claude-code-notion-plugin",
       "source": "./plugins/anthropic/notion"
     },
     {
       "name": "nvidia-skills",
-      "description": "NVIDIA agent skills for accelerated-computing workflows — starting with cuOpt vehicle-routing optimization (VRP, TSP, PDP) via the cuOpt Python API.",
+      "description": "用于加速计算工作流程的 NVIDIA 代理技能 - 从通过 cuOpt Python API 进行 cuOpt 车辆路由优化（VRP、TSP、PDP）开始。",
       "author": {
         "name": "NVIDIA"
       },
@@ -1793,7 +2419,7 @@
     },
     {
       "name": "oracle-ai-data-platform-workbench-databricks-migrator",
-      "description": "Drive the Oracle AI Data Platform (AIDP) Databricks Migration Toolkit in natural language. Plans and executes automated Databricks → AIDP migrations of notebooks, jobs, schedules, and catalog DDL — Pass-1 dependency rewrite + Pass-2 cell-by-cell execute/verify/fix on a live AIDP cluster with Claude.",
+      "description": "以自然语言驱动 Oracle AI Data Platform (AIDP) Databricks 迁移工具包。计划和执行笔记本、作业、计划和目录 DDL 的自动化 Databricks → AIDP 迁移 — 使用 Claude 在实时 AIDP 集群上进行第 1 阶段依赖项重写 + 第 2 阶段逐单元执行/验证/修复。",
       "author": {
         "name": "Oracle"
       },
@@ -1803,7 +2429,7 @@
     },
     {
       "name": "oracle-ai-data-platform-workbench-engineer-agent",
-      "description": "Oracle AI Data Platform (AIDP) Workbench engineer agent for Claude Code — a 37-skill agent that operates the full Spark/Delta lakehouse in natural language. Discovers your catalog into a grounding cache, turns plain English into accurate Spark SQL, and runs the lifecycle (CREATE/INSERT/UPDATE/DELETE/MERGE, OPTIMIZE/VACUUM, time-travel). Ingests files, profiles data and sets quality rules, authors and repairs pipelines, provisions clusters, and debugs via the Spark UI. Governs the platform (roles, credential store, Delta Sharing, audit logs), plus native Git, bundles, and MLOps/MLflow. Runs via the official Oracle aidp CLI.",
+      "description": "Claude Code 的 Oracle AI Data Platform (AIDP) Workbench 工程师代理 — 一个拥有 37 项技能的代理，可以用自然语言操作完整的 Spark/Delta Lakehouse。将您的目录发现为基础缓存，将简单的英语转换为准确的 Spark SQL，并运行生命周期（CREATE/INSERT/UPDATE/DELETE/MERGE、OPTIMIZE/VACUUM、时间旅行）。摄取文件、分析数据并设置质量规则、编写和修复管道、配置集群并通过 Spark UI 进行调试。管理平台（角色、凭证存储、增量共享、审核日志）以及本机 Git、捆绑包和 MLOps/MLflow。通过官方 Oracle aidp CLI 运行。",
       "author": {
         "name": "Oracle"
       },
@@ -1813,7 +2439,7 @@
     },
     {
       "name": "oracle-ai-data-platform-workbench-spark-connectors",
-      "description": "Oracle AI Data Platform Workbench Spark connectors for Claude Code. 18 connector skills covering every data source workbench customers commonly need: Oracle Autonomous DB family (ALH/ADW/ATP) via wallet/IAM-DB-Token/API-key, ExaCS, Fusion ERP REST, Fusion BICC, EPM Cloud Planning, Essbase 21c, OCI Streaming (Kafka), OCI Object Storage, Apache Iceberg, plus external systems (PostgreSQL, MySQL/HeatWave, SQL Server, Snowflake, Azure ADLS Gen2, AWS S3, generic REST, custom JDBC, Excel). Live-validated on the workbench `tpcds` cluster (Spark 3.5.0): 17 PASS / 4 ship-as-is out of 21 test rows.",
+      "description": "适用于 Claude Code 的 Oracle AI Data Platform Workbench Spark 连接器。涵盖客户通常需要的每个数据源工作台的 18 种连接器技能：通过钱包/IAM-DB-Token/API-key 实现的 Oracle 自治数据库系列 (ALH/ADW/ATP)、ExaCS、Fusion ERP REST、Fusion BICC、EPM 云规划、Essbase 21c、OCI Streaming (Kafka)、OCI 对象存储、Apache Iceberg 以及外部系统（PostgreSQL、MySQL/HeatWave、SQL Server、Snowflake、Azure ADLS Gen2、AWS） S3、通用 REST、自定义 JDBC、Excel）。在工作台 `tpcds` 集群 (Spark 3.5.0) 上进行实时验证：21 个测试行中有 17 个通过/4 个按原样交付。",
       "author": {
         "name": "Oracle"
       },
@@ -1823,7 +2449,7 @@
     },
     {
       "name": "oracledb",
-      "description": "Connect, query, and interact with Oracle Databases and their data.",
+      "description": "连接、查询 Oracle 数据库及其数据并与之交互。",
       "author": {
         "name": "Google LLC"
       },
@@ -1833,7 +2459,7 @@
     },
     {
       "name": "outputai",
-      "description": "Output.ai workflow development toolkit for Claude Code. Adds 5 specialist agents (planner, builder, debugger, prompt writer, quality reviewer), 40+ slash-command skills covering scaffolding, debugging, evaluation, and credential management, plus a SessionStart hook that auto-loads Output SDK conventions so Claude understands the framework before the first prompt.",
+      "description": "适用于 Claude Code 的 Output.ai 工作流程开发工具包。添加 5 名专业代理（规划者、构建者、调试者、提示编写者、质量审核者）、40 多种斜线命令技能（涵盖脚手架、调试、评估和凭证管理），以及自动加载输出 SDK 约定的 SessionStart 挂钩，以便 Claude 在第一次提示之前了解框架。",
       "author": {
         "name": "Output.ai"
       },
@@ -1843,14 +2469,14 @@
     },
     {
       "name": "pagerduty",
-      "description": "Enhance code quality and security through PagerDuty risk scoring and incident correlation. Score pre-commit diffs against historical incident data and surface deployment risk before you ship.",
+      "description": "通过 PagerDuty 风险评分和事件关联来增强代码质量和安全性。在发货前根据历史事件数据和地面部署风险对提交前差异进行评分。",
       "category": "monitoring",
       "homepage": "https://github.com/PagerDuty/claude-code-plugins",
       "source": "./plugins/anthropic/pagerduty"
     },
     {
       "name": "paypal",
-      "description": "PayPal development plugin for Claude — integrate payments, subscriptions, invoices, disputes, and more using PayPal's APIs and MCP server",
+      "description": "Claude 的 PayPal 开发插件 — 使用 PayPal 的 API 和 MCP 服务器集成支付、订阅、发票、争议等",
       "author": {
         "name": "PayPal"
       },
@@ -1860,7 +2486,7 @@
     },
     {
       "name": "php-lsp",
-      "description": "PHP language server (Intelephense) for code intelligence",
+      "description": "用于代码智能的 PHP 语言服务器 (Intelephense)",
       "version": "1.0.0",
       "author": {
         "name": "Anthropic",
@@ -1883,7 +2509,7 @@
     },
     {
       "name": "pigment",
-      "description": "Analyze business data and build custom Pigment models, metrics, and boards through natural language.",
+      "description": "通过自然语言分析业务数据并构建自定义 Pigment 模型、指标和看板。",
       "author": {
         "name": "Pigment"
       },
@@ -1893,14 +2519,14 @@
     },
     {
       "name": "pinecone",
-      "description": "Pinecone vector database integration. Streamline your Pinecone development with powerful tools for managing vector indexes, querying data, and rapid prototyping. Use slash commands like /quickstart to generate AGENTS.md files and initialize Python projects and /query to quickly explore indexes. Access the Pinecone MCP server for creating, describing, upserting and querying indexes with Claude. Perfect for developers building semantic search, RAG applications, recommendation systems, and other vector-based applications with Pinecone.",
+      "description": "松果矢量数据库集成。使用用于管理矢量索引、查询数据和快速原型设计的强大工具简化您的 Pinecone 开发。使用 /quickstart 等斜杠命令生成 AGENTS.md 文件并初始化 Python 项目和 /query 来快速探索索引。访问 Pinecone MCP 服务器，与 Claude 一起创建、描述、更新插入和查询索引。非常适合使用 Pinecone 构建语义搜索、RAG 应用程序、推荐系统和其他基于矢量的应用程序的开发人员。",
       "category": "database",
       "homepage": "https://github.com/pinecone-io/pinecone-claude-code-plugin",
       "source": "./plugins/anthropic/pinecone"
     },
     {
       "name": "pixeltable",
-      "description": "Build multimodal AI applications with Pixeltable -- tables, computed columns, embedding search, UDFs, tool-calling agents, and 25+ AI provider integrations.",
+      "description": "使用 Pixeltable 构建多模式 AI 应用程序 - 表、计算列、嵌入搜索、UDF、工具调用代理和超过 25 个 AI 提供商集成。",
       "author": {
         "name": "Pixeltable"
       },
@@ -1910,14 +2536,14 @@
     },
     {
       "name": "planetscale",
-      "description": "An authenticated hosted MCP server that accesses your PlanetScale organizations, databases, branches, schema, and Insights data. Query against your data, surface slow queries, and get organizational and account information.",
+      "description": "经过身份验证的托管 MCP 服务器，用于访问您的 PlanetScale 组织、数据库、分支、架构和 Insights 数据。查询您的数据、显示慢速查询并获取组织和帐户信息。",
       "category": "database",
       "homepage": "https://planetscale.com/",
       "source": "./plugins/anthropic/planetscale"
     },
     {
       "name": "playground",
-      "description": "Creates interactive HTML playgrounds — self-contained single-file explorers with visual controls, live preview, and prompt output with copy button. Includes templates for design playgrounds, data explorers, concept maps, and document critique.",
+      "description": "创建交互式 HTML 游乐场 — 具有视觉控件、实时预览和带有复制按钮的提示输出的独立单文件资源管理器。包括设计游乐场、数据浏览器、概念图和文档评论的模板。",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -1928,14 +2554,14 @@
     },
     {
       "name": "playwright",
-      "description": "Browser automation and end-to-end testing MCP server by Microsoft. Enables Claude to interact with web pages, take screenshots, fill forms, click elements, and perform automated browser testing workflows.",
+      "description": "Microsoft 的浏览器自动化和端到端测试 MCP 服务器。使 Claude 能够与网页交互、截取屏幕截图、填写表单、单击元素以及执行自动化浏览器测试工作流程。",
       "category": "testing",
       "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/playwright",
       "source": "./plugins/anthropic/playwright"
     },
     {
       "name": "plugin-dev",
-      "description": "Comprehensive toolkit for developing Claude Code plugins. Includes 7 expert skills covering hooks, MCP integration, commands, agents, and best practices. AI-assisted plugin creation and validation.",
+      "description": "用于开发 Claude Code 插件的综合工具包。包括 7 项专业技能，涵盖挂钩、MCP 集成、命令、代理和最佳实践。人工智能辅助插件创建和验证。",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -1946,27 +2572,27 @@
     },
     {
       "name": "posthog",
-      "description": "Access PostHog analytics, feature flags, experiments, error tracking, and insights directly from Claude Code.",
+      "description": "直接从 Claude Code 访问 PostHog 分析、功能标记、实验、错误跟踪和见解。",
       "category": "monitoring",
       "homepage": "https://posthog.com/docs/model-context-protocol",
       "source": "./plugins/anthropic/posthog"
     },
     {
       "name": "postiz",
-      "description": "Social media automation CLI for scheduling posts, managing integrations, uploading media, and tracking analytics across 28+ platforms including X, LinkedIn, Reddit, YouTube, TikTok, Instagram, and more",
+      "description": "社交媒体自动化 CLI，用于跨 28 个以上平台（包括 X、LinkedIn、Reddit、YouTube、TikTok、Instagram 等）安排帖子、管理集成、上传媒体和跟踪分析",
       "homepage": "https://postiz.com/agent",
       "source": "./plugins/anthropic/postiz"
     },
     {
       "name": "postman",
-      "description": "Full API lifecycle management for Claude Code. Sync collections, generate client code, discover APIs, run tests, create mocks, publish docs, and audit security. Powered by the Postman MCP Server.",
+      "description": "Claude Code 的完整 API 生命周期管理。同步集合、生成客户端代码、发现 API、运行测试、创建模拟、发布文档和审核安全性。由 Postman MCP 服务器提供支持。",
       "category": "development",
       "homepage": "https://learning.postman.com/docs/developer/postman-mcp-server/",
       "source": "./plugins/anthropic/postman"
     },
     {
       "name": "pr-review-toolkit",
-      "description": "Comprehensive PR review agents specializing in comments, tests, error handling, type design, code quality, and code simplification",
+      "description": "全面的 PR 审查代理，专门从事评论、测试、错误处理、类型设计、代码质量和代码简化",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -1977,7 +2603,7 @@
     },
     {
       "name": "preset-cli-skills",
-      "description": "Preset CLI skills for explicit shell, scripting, and CI/CD workflows driven by the `sup` CLI (PyPI package `superset-sup`). Use only for CLI workflows; do not use for MCP-only work or as a substitute for direct API calls when the user wants HTTP/SDK code.",
+      "description": "预设 CLI 技能，用于由“sup” CLI（PyPI 包“superset-sup”）驱动的显式 shell、脚本和 CI/CD 工作流程。仅用于 CLI 工作流程；当用户需要 HTTP/SDK 代码时，请勿用于仅 MCP 的工作或作为直接 API 调用的替代品。",
       "author": {
         "name": "Preset"
       },
@@ -1987,13 +2613,13 @@
     },
     {
       "name": "prisma",
-      "description": "Prisma MCP integration for Postgres database management, schema migrations, SQL queries, and connection string management. Provision Prisma Postgres databases, run migrations, and interact with your data directly.",
+      "description": "Prisma MCP 集成用于 Postgres 数据库管理、架构迁移、SQL 查询和连接字符串管理。配置 Prisma Postgres 数据库、运行迁移并直接与数据交互。",
       "homepage": "https://prisma.io",
       "source": "./plugins/anthropic/prisma"
     },
     {
       "name": "project-artifact",
-      "description": "Generate and publish a living project status page — overview & success criteria, the workstream sequence, and next steps — as a shareable claude.ai artifact backed by a per-project config, so refreshes re-gather live state, redeploy the same URL, and report only the delta.",
+      "description": "生成并发布一个实时项目状态页面——概述和成功标准、工作流顺序和后续步骤——作为由每个项目配置支持的可共享 claude.ai 工件，因此刷新重新收集实时状态，重新部署相同的 URL，并仅报告增量。",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -2004,14 +2630,14 @@
     },
     {
       "name": "pydantic-ai",
-      "description": "Write accurate Pydantic AI code from the start. Up-to-date patterns, decision trees, and common gotchas for agents, tools, structured output, streaming, and multi-agent apps.",
+      "description": "从一开始就编写准确的 Pydantic AI 代码。代理、工具、结构化输出、流媒体和多代理应用程序的最新模式、决策树和常见问题。",
       "category": "development",
       "homepage": "https://github.com/pydantic/skills/tree/main/plugins/ai",
       "source": "./plugins/anthropic/pydantic-ai"
     },
     {
       "name": "pyright-lsp",
-      "description": "Python language server (Pyright) for type checking and code intelligence",
+      "description": "用于类型检查和代码智能的 Python 语言服务器 (Pyright)",
       "version": "1.0.0",
       "author": {
         "name": "Anthropic",
@@ -2035,7 +2661,7 @@
     },
     {
       "name": "qdrant-skills",
-      "description": "Agent skills for Qdrant vector search covering scaling, performance optimization, search quality, monitoring, deployment, model migration, version upgrades, and SDK usage across Python, TypeScript, Rust, Go, .NET, and Java.",
+      "description": "Qdrant 矢量搜索的代理技能，涵盖 Python、TypeScript、Rust、Go、.NET 和 Java 的扩展、性能优化、搜索质量、监控、部署、模型迁移、版本升级和 SDK 使用。",
       "author": {
         "name": "Qdrant"
       },
@@ -2045,14 +2671,14 @@
     },
     {
       "name": "qodo",
-      "description": "Qodo Skills provides a curated library of reusable AI agent capabilities that extend Claude's functionality for software development workflows. Each skill is designed to integrate seamlessly into your development process, enabling tasks like code quality checks, automated testing, security scanning, and compliance validation. Skills operate across your entire SDLC—from IDE to CI/CD—ensuring consistent standards and catching issues early.",
+      "description": "Qodo Skills 提供了一个精选的可重用 AI 代理功能库，可扩展 Claude 的软件开发工作流程功能。每项技能都旨在无缝集成到您的开发流程中，从而支持代码质量检查、自动化测试、安全扫描和合规性验证等任务。技能适用于整个 SDLC（从 IDE 到 CI/CD），确保标准一致并尽早发现问题。",
       "category": "development",
       "homepage": "https://github.com/qodo-ai/qodo-skills.git",
       "source": "./plugins/anthropic/qodo"
     },
     {
       "name": "qt-development-skills",
-      "description": "Agentic engineering skills for Qt software development — Qt C++/QML code review, QML coding, and Qt C++/QML code documentation.",
+      "description": "Qt 软件开发的代理工程技能 - Qt C++/QML 代码审查、QML 编码和 Qt C++/QML 代码文档。",
       "author": {
         "name": "Qt Group"
       },
@@ -2062,7 +2688,7 @@
     },
     {
       "name": "quarkus-agent",
-      "description": "MCP server for AI coding agents to create, manage, and interact with Quarkus applications. Provides tools for project scaffolding, dev mode lifecycle, extension skills, Dev MCP proxy, and documentation search.",
+      "description": "MCP 服务器，用于 AI 编码代理创建、管理 Quarkus 应用程序并与 Quarkus 应用程序交互。提供用于项目脚手架、开发模式生命周期、扩展技能、Dev MCP 代理和文档搜索的工具。",
       "author": {
         "name": "Quarkus"
       },
@@ -2072,14 +2698,14 @@
     },
     {
       "name": "railway",
-      "description": "Deploy and manage apps, databases, and infrastructure on Railway. Covers project setup, deploys, environment configuration, networking, troubleshooting, and monitoring.",
+      "description": "在铁路上部署和管理应用程序、数据库和基础设施。涵盖项目设置、部署、环境配置、网络、故障排除和监控。",
       "category": "deployment",
       "homepage": "https://docs.railway.com/ai/claude-code-plugin",
       "source": "./plugins/anthropic/railway"
     },
     {
       "name": "ralph-loop",
-      "description": "Interactive self-referential AI loops for iterative development, implementing the Ralph Wiggum technique. Claude works on the same task repeatedly, seeing its previous work, until completion.",
+      "description": "用于迭代开发的交互式自参考 AI 循环，实施 Ralph Wiggum 技术。克劳德反复执行同一任务，查看其先前的工作，直到完成。",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -2090,14 +2716,14 @@
     },
     {
       "name": "rc",
-      "description": "Configure RevenueCat projects, apps, products, entitlements, and offerings directly from Claude Code. Manage your in-app purchase backend without leaving your development workflow.",
+      "description": "直接从 Claude Code 配置 RevenueCat 项目、应用程序、产品、权利和产品。无需离开开发工作流程即可管理您的应用内购买后端。",
       "category": "development",
       "homepage": "https://www.revenuecat.com",
       "source": "./plugins/anthropic/rc"
     },
     {
       "name": "receipts",
-      "description": "A personal Claude Code impact report for justifying your usage to a manager or a self-review: what you shipped, which projects it went to, and each project's share of your usage. Reads your ~/.claude/projects transcripts and runs read-only git locally; only counts and project names are sent to write it up, and the report stays on your machine.",
+      "description": "个人 Claude Code 影响报告，用于向经理证明您的使用合理性或进行自我审查：您运送了什么，它去了哪些项目，以及每个项目在您的使用中所占的份额。读取你的 ~/.claude/projects 成绩单并在本地运行只读 git；仅发送计数和项目名称来进行记录，并且报告保留在您的计算机上。",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -2108,7 +2734,7 @@
     },
     {
       "name": "redis-development",
-      "description": "Redis development best practices — data structures, query engine, vector search, caching, and performance optimization",
+      "description": "Redis 开发最佳实践——数据结构、查询引擎、向量搜索、缓存和性能优化",
       "author": {
         "name": "Redis"
       },
@@ -2118,13 +2744,13 @@
     },
     {
       "name": "remember",
-      "description": "Continuous memory for Claude Code. Extracts, summarizes, and compresses conversations into tiered daily logs. Claude remembers what you did yesterday.",
+      "description": "克劳德代码的连续记忆。提取、总结对话并将其压缩为分层的每日日志。克劳德记得你昨天做了什么。",
       "homepage": "https://github.com/Digital-Process-Tools/claude-remember",
       "source": "./plugins/anthropic/remember"
     },
     {
       "name": "render",
-      "description": "Deploy, debug, and monitor applications on Render. Includes skills, an agent, slash commands, and a render.yaml validation hook.",
+      "description": "在 Render 上部署、调试和监控应用程序。包括技能、代理、斜线命令和 render.yaml 验证挂钩。",
       "author": {
         "name": "Render"
       },
@@ -2134,7 +2760,7 @@
     },
     {
       "name": "resend",
-      "description": "Agent skills for working with Resend to send and receive emails — email API integration, agent inbox, CLI, React Email components, and deliverability best practices. Includes the Resend MCP server.",
+      "description": "使用 Resend 发送和接收电子邮件的代理技能 - 电子邮件 API 集成、代理收件箱、CLI、React Email 组件和交付最佳实践。包括重新发送 MCP 服务器。",
       "author": {
         "name": "Resend"
       },
@@ -2144,14 +2770,14 @@
     },
     {
       "name": "revenuecat",
-      "description": "Configure RevenueCat projects, apps, products, entitlements, and offerings directly from Claude Code. Manage your in-app purchase backend without leaving your development workflow.",
+      "description": "直接从 Claude Code 配置 RevenueCat 项目、应用程序、产品、权利和产品。无需离开开发工作流程即可管理您的应用内购买后端。",
       "category": "development",
       "homepage": "https://www.revenuecat.com",
       "source": "./plugins/anthropic/revenuecat"
     },
     {
       "name": "rill",
-      "description": "Skills for developing and querying projects in the Rill business intelligence platform",
+      "description": "在Rill商业智能平台中开发和查询项目的技能",
       "author": {
         "name": "Rill Data"
       },
@@ -2161,7 +2787,7 @@
     },
     {
       "name": "rootly",
-      "description": "Full-lifecycle incident management: deploy safety, incident response, on-call management, and retrospectives.",
+      "description": "全生命周期事件管理：部署安全、事件响应、待命管理和回顾。",
       "author": {
         "name": "Rootly"
       },
@@ -2171,7 +2797,7 @@
     },
     {
       "name": "ruby-lsp",
-      "description": "Ruby language server for code intelligence and analysis",
+      "description": "用于代码智能和分析的 Ruby 语言服务器",
       "version": "1.0.0",
       "author": {
         "name": "Anthropic",
@@ -2195,7 +2821,7 @@
     },
     {
       "name": "runway-api",
-      "description": "Video generation at scale. Generate videos, images, and audio with Runway's API — batch ad campaigns, product videos, multishot stories, and creative iteration. Supports seedance2, gen4.5, veo3, Nano, Banana Pro, and more.",
+      "description": "大规模视频生成。使用 Runway 的 API 生成视频、图像和音频 — 批量广告活动、产品视频、多镜头故事和创意迭代。支持seedance2、gen4.5、veo3、Nano、Banana Pro 等。",
       "author": {
         "name": "Runway"
       },
@@ -2205,7 +2831,7 @@
     },
     {
       "name": "rust-analyzer-lsp",
-      "description": "Rust language server for code intelligence and analysis",
+      "description": "用于代码智能和分析的 Rust 语言服务器",
       "version": "1.0.0",
       "author": {
         "name": "Anthropic",
@@ -2225,14 +2851,14 @@
     },
     {
       "name": "sagemaker-ai",
-      "description": "Build, train, and deploy AI models with deep AWS AI/ML expertise brought directly into your coding assistants, covering the surface area of Amazon SageMaker AI.",
+      "description": "将深厚的 AWS AI/ML 专业知识直接引入您的编码助手中，构建、训练和部署 AI 模型，涵盖 Amazon SageMaker AI 的表面区域。",
       "category": "development",
       "homepage": "https://github.com/awslabs/agent-plugins",
       "source": "./plugins/anthropic/sagemaker-ai"
     },
     {
       "name": "salesforce-development",
-      "description": "Build Salesforce apps and agents using these core building blocks: metadata, Apex, deploy/retrieve, security, reporting, and generated installed-versus-available capability discovery.",
+      "description": "使用以下核心构建块构建 Salesforce 应用程序和代理：元数据、Apex、部署/检索、安全性、报告以及生成的已安装与可用功能发现。",
       "author": {
         "name": "Salesforce"
       },
@@ -2242,7 +2868,7 @@
     },
     {
       "name": "sanity",
-      "description": "Sanity content platform integration with MCP server, agent skills, and slash commands. Query and author content, build and optimize GROQ queries, design schemas, and set up Visual Editing.",
+      "description": "Sanity 内容平台与 MCP 服务器、代理技能和斜杠命令集成。查询和创作内容、构建和优化 GROQ 查询、设计架构以及设置可视化编辑。",
       "category": "development",
       "author": {
         "name": "Sanity"
@@ -2252,7 +2878,7 @@
     },
     {
       "name": "sap-cds-mcp",
-      "description": "AI-assisted development of SAP Cloud Application Programming Model (CAP) projects. Search CDS models and CAP documentation.",
+      "description": "AI 辅助开发 SAP Cloud 应用程序编程模型 (CAP) 项目。搜索 CDS 模型和 CAP 文档。",
       "author": {
         "name": "SAP SE",
         "email": "ospo@sap.com",
@@ -2264,7 +2890,7 @@
     },
     {
       "name": "sap-fiori-mcp-server",
-      "description": "MCP server for SAP Fiori development tools for Claude Code. Build and modify SAP Fiori applications with AI assistance.",
+      "description": "用于 Claude Code 的 SAP Fiori 开发工具的 MCP 服务器。在 AI 协助下构建和修改 SAP Fiori 应用程序。",
       "author": {
         "name": "SAP SE",
         "email": "ospo@sap.com",
@@ -2276,7 +2902,7 @@
     },
     {
       "name": "sap-hana-cli",
-      "description": "150+ SAP HANA database tools for AI assistants. Query tables, import/export data, profile data quality, compare schemas, manage backups, monitor performance, and more. Connects to SAP HANA Cloud and on-premise databases.",
+      "description": "150 多个适用于 AI 助手的 SAP HANA 数据库工具。查询表、导入/导出数据、分析数据质量、比较模式、管理备份、监控性能等等。连接到 SAP HANA Cloud 和本地数据库。",
       "author": {
         "name": "SAP SE",
         "email": "ospo@sap.com",
@@ -2288,7 +2914,7 @@
     },
     {
       "name": "sap-mdk-server",
-      "description": "MCP server for SAP Mobile Development Kit (MDK). Build and modify MDK applications with AI assistance — schema lookups, action validation, rule editing, and project scaffolding.",
+      "description": "SAP 移动开发套件 (MDK) 的 MCP 服务器。利用 AI 辅助构建和修改 MDK 应用程序 — 模式查找、操作验证、规则编辑和项目脚手架。",
       "author": {
         "name": "SAP SE",
         "email": "ospo@sap.com",
@@ -2300,7 +2926,7 @@
     },
     {
       "name": "save-to-spotify",
-      "description": "Create polished audio episodes with TTS narration, rich timelines, cover images, and save them to Spotify via the save-to-spotify CLI.",
+      "description": "使用 TTS 旁白、丰富的时间线、封面图像创建精美的音频剧集，并通过“保存到 spotify”CLI 将其保存到 Spotify。",
       "author": {
         "name": "Spotify"
       },
@@ -2310,7 +2936,7 @@
     },
     {
       "name": "security-guidance",
-      "description": "Security review for Claude-generated code. Pattern-based warnings on edits, LLM-powered diff review on Stop, and an agentic commit reviewer that catches injection, XSS, SSRF, hardcoded secrets, and 25+ other vulnerability classes.",
+      "description": "对 Claude 生成的代码进行安全审查。基于模式的编辑警告、LLM 支持的 Stop 差异审查，以及捕获注入、XSS、SSRF、硬编码机密和 25 多个其他漏洞类别的代理提交审查器。",
       "version": "2.0.6",
       "author": {
         "name": "Anthropic",
@@ -2322,21 +2948,21 @@
     },
     {
       "name": "semgrep",
-      "description": "Semgrep catches security vulnerabilities in real-time and guides Claude to write secure code from the start.",
+      "description": "Semgrep 实时捕获安全漏洞，并指导 Claude 从头开始编写安全代码。",
       "category": "security",
       "homepage": "https://github.com/semgrep/mcp-marketplace.git",
       "source": "./plugins/anthropic/semgrep"
     },
     {
       "name": "sentry",
-      "description": "Sentry error monitoring integration. Access error reports, analyze stack traces, search issues by fingerprint, and debug production errors directly from your development environment.",
+      "description": "Sentry 错误监控集成。直接从开发环境访问错误报告、分析堆栈跟踪、按指纹搜索问题以及调试生产错误。",
       "category": "monitoring",
       "homepage": "https://github.com/getsentry/plugin-claude",
       "source": "./plugins/anthropic/sentry"
     },
     {
       "name": "sentry-cli",
-      "description": "Skills for using the Sentry CLI to interact with Sentry from the command line",
+      "description": "使用Sentry CLI从命令行与Sentry交互的技巧",
       "author": {
         "name": "Sentry"
       },
@@ -2346,7 +2972,7 @@
     },
     {
       "name": "serena",
-      "description": "Semantic code analysis MCP server providing intelligent code understanding, refactoring suggestions, and codebase navigation through language server protocol integration.",
+      "description": "语义代码分析 MCP 服务器通过语言服务器协议集成提供智能代码理解、重构建议和代码库导航。",
       "category": "development",
       "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/serena",
       "tags": [
@@ -2356,7 +2982,7 @@
     },
     {
       "name": "servicenow-sdk",
-      "description": "Create, edit, and deploy ServiceNow applications with the Fluent SDK effortlessly through Claude AI.",
+      "description": "通过 Claude AI 使用 Fluent SDK 轻松创建、编辑和部署 ServiceNow 应用程序。",
       "author": {
         "name": "ServiceNow"
       },
@@ -2366,7 +2992,7 @@
     },
     {
       "name": "session-report",
-      "description": "Generate an explorable HTML report of Claude Code session usage — tokens, cache efficiency, subagents, skills, and the most expensive prompts — from local ~/.claude/projects transcripts.",
+      "description": "从本地 ~/.claude/projects 记录生成 Claude Code 会话使用情况的可探索 HTML 报告 - 令牌、缓存效率、子代理、技能和最昂贵的提示。",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -2377,7 +3003,7 @@
     },
     {
       "name": "shippo",
-      "description": "Shippo connects you to USPS, UPS, FedEx, DHL, and 40+ carriers, so you can handle a shipment end to end right inside Claude. Compare live rates and pick the cheapest or best option, buy and print labels (domestic and international, with customs declarations), validate and standardize addresses, and track packages across carriers. Just ask in plain language: rate-shop a parcel, buy the right label, check a delivery status, or confirm an address before you ship. Whether you run a store or just need to send a package, Shippo turns a pile of carrier accounts into one simple conversation.",
+      "description": "Shippo 将您与 USPS、UPS、FedEx、DHL 和 40 多家承运商连接起来，因此您可以在 Claude 内部处理端到端的货件。比较实时费率并选择最便宜或最好的选项，购买和打印标签（国内和国际，带有海关申报单），验证和标准化地址，以及跟踪承运商之间的包裹。只需用简单的语言询问即可：对包裹进行评分、购买正确的标签、检查递送状态或在发货前确认地址。无论您经营一家商店还是只需要寄送包裹，Shippo 都能将一堆承运人帐户变成一次简单的对话。",
       "author": {
         "name": "Shippo"
       },
@@ -2387,7 +3013,7 @@
     },
     {
       "name": "shopify-ai-toolkit",
-      "description": "Shopify's AI Toolkit provides 18 development skills for building on the Shopify platform, covering documentation search, API schema access, GraphQL and Liquid code validation, Hydrogen storefronts, Polaris UI extensions, store management via CLI, and onboarding guidance for both developers and merchants.",
+      "description": "Shopify 的 AI 工具包提供了 18 种用于在 Shopify 平台上构建的开发技能，涵盖文档搜索、API 模式访问、GraphQL 和 Liquid 代码验证、Hydrogen 店面、Polaris UI 扩展、通过 CLI 进行商店管理以及针对开发人员和商家的入职指导。",
       "author": {
         "name": "Shopify"
       },
@@ -2397,7 +3023,7 @@
     },
     {
       "name": "skill-creator",
-      "description": "Create new skills, improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, or benchmark skill performance with variance analysis.",
+      "description": "创造新技能、提高现有技能并衡量技能绩效。当用户想要从头开始创建技能、更新或优化现有技能、运行评估来测试技能或通过方差分析对技能性能进行基准测试时使用。",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -2408,14 +3034,14 @@
     },
     {
       "name": "slack",
-      "description": "Slack workspace integration. Search messages, access channels, read threads, and stay connected with your team's communications while coding. Find relevant discussions and context quickly.",
+      "description": "Slack 工作区集成。在编码时搜索消息、访问频道、阅读主题并与团队的通信保持联系。快速查找相关讨论和背景。",
       "category": "productivity",
       "homepage": "https://github.com/slackapi/slack-mcp-plugin/tree/main",
       "source": "./plugins/anthropic/slack"
     },
     {
       "name": "snowflake-cortex-code",
-      "description": "Automatically route Snowflake prompts from Claude Code to Cortex Code for execution. Provides slash commands for code review and task delegation, plus skills for routing, run, and setup.",
+      "description": "自动将 Snowflake 提示从 Claude Code 路由到 Cortex Code 来执行。提供用于代码审查和任务委派的斜线命令，以及路由、运行和设置的技能。",
       "author": {
         "name": "Snowflake"
       },
@@ -2425,7 +3051,7 @@
     },
     {
       "name": "sonarqube",
-      "description": "Automatically enforce SonarQube code quality and security in the agent coding loop — 7,000+ rules, secrets scanning, agentic analysis, and quality gates across 40+ languages. PostToolUse hooks run analysis after every file edit. Pre-tool secrets scanning prevents 450+ patterns from reaching the LLM. Slash commands give on-demand access to quality gate status, coverage, duplication, and dependency risks. Includes SonarQube CLI, MCP Server, skills, hooks, and slash commands.",
+      "description": "在代理编码循环中自动实施 SonarQube 代码质量和安全性 — 超过 40 种语言的 7,000 多个规则、秘密扫描、代理分析和质量门。 PostToolUse 挂钩在每次文件编辑后运行分析。工具前秘密扫描可防止 450 多种模式达到法学硕士。斜线命令可以按需访问质量门状态、覆盖范围、重复和依赖性风险。包括 SonarQube CLI、MCP 服务器、技能、挂钩和斜线命令。",
       "author": {
         "name": "SonarSource"
       },
@@ -2435,21 +3061,21 @@
     },
     {
       "name": "sonatype-guide",
-      "description": "Sonatype Guide MCP server for software supply chain intelligence and dependency security. Analyze dependencies for vulnerabilities, get secure version recommendations, and check component quality metrics.",
+      "description": "Sonatype Guide MCP 服务器，用于软件供应链智能和依赖性安全。分析漏洞的依赖关系，获取安全版本建议，并检查组件质量指标。",
       "category": "security",
       "homepage": "https://github.com/sonatype/sonatype-guide-claude-plugin.git",
       "source": "./plugins/anthropic/sonatype-guide"
     },
     {
       "name": "sourcegraph",
-      "description": "Code search and understanding across codebases. Search, read, and trace references across repositories; analyze refactor impact; investigate incidents via commit and diff search; run targeted security sweeps.",
+      "description": "跨代码库的代码搜索和理解。跨存储库搜索、读取和跟踪引用；分析重构影响；通过提交和差异搜索调查事件；运行有针对性的安全扫描。",
       "category": "development",
       "homepage": "https://sourcegraph.com",
       "source": "./plugins/anthropic/sourcegraph"
     },
     {
       "name": "spanner",
-      "description": "Connect and interact with Spanner data using natural language.",
+      "description": "使用自然语言连接 Spanner 数据并进行交互。",
       "author": {
         "name": "Google LLC"
       },
@@ -2459,14 +3085,14 @@
     },
     {
       "name": "spotify-ads-api",
-      "description": "Manage Spotify ad campaigns with natural language. Create campaigns, ad sets, ads, pull reports, and handle OAuth — all through conversation.",
+      "description": "使用自然语言管理 Spotify 广告活动。创建营销活动、广告组、广告、提取报告并处理 OAuth — 全部通过对话进行。",
       "category": "productivity",
       "homepage": "https://github.com/spotify/ads-claude-plugin",
       "source": "./plugins/anthropic/spotify-ads-api"
     },
     {
       "name": "stackhawk-hawkscan",
-      "description": "Configure, run, and interpret HawkScan DAST results inside Claude Code. Generates stackhawk.yml configs, runs scans via CLI or Docker, and transforms security findings into prioritized fix tasks for your coding agent.",
+      "description": "在 Claude Code 中配置、运行和解释 HawkScan DAST 结果。生成 stackhawk.yml 配置，通过 CLI 或 Docker 运行扫描，并将安全发现转换为编码代理的优先修复任务。",
       "author": {
         "name": "StackHawk"
       },
@@ -2476,7 +3102,7 @@
     },
     {
       "name": "stackhawk-api",
-      "description": "Query the StackHawk platform API for security posture reporting, findings analysis, and app management. Guides agents through authentication, data retrieval, and result presentation.",
+      "description": "查询 StackHawk 平台 API 以进行安全态势报告、结果分析和应用程序管理。指导代理完成身份验证、数据检索和结果呈现。",
       "author": {
         "name": "StackHawk"
       },
@@ -2486,7 +3112,7 @@
     },
     {
       "name": "streaming-skills-plugin",
-      "description": "Skills for streaming application developers, covering Kafka and Flink client libraries and Schema Registry",
+      "description": "流应用程序开发人员的技能，涵盖 Kafka 和 Flink 客户端库和架构注册表",
       "author": {
         "name": "Confluent"
       },
@@ -2496,28 +3122,28 @@
     },
     {
       "name": "stripe",
-      "description": "Stripe development plugin for Claude",
+      "description": "Claude 的 Stripe 开发插件",
       "category": "development",
       "homepage": "https://github.com/stripe/ai/tree/main/providers/claude/plugin",
       "source": "./plugins/anthropic/stripe"
     },
     {
       "name": "sumup",
-      "description": "SumUp payment integrations across terminal and online checkout flows. Build Android and iOS POS apps with SumUp card readers, online checkout with server SDKs and the checkout widget, and control card readers remotely via Cloud API.",
+      "description": "SumUp 跨终端和在线结帐流程的支付集成。使用 SumUp 读卡器构建 Android 和 iOS POS 应用程序，使用服务器 SDK 和结帐小部件进行在线结帐，并通过云 API 远程控制读卡器。",
       "category": "development",
       "homepage": "https://www.sumup.com/",
       "source": "./plugins/anthropic/sumup"
     },
     {
       "name": "supabase",
-      "description": "Supabase MCP integration for database operations, authentication, storage, and real-time subscriptions. Manage your Supabase projects, run SQL queries, and interact with your backend directly.",
+      "description": "Supabase MCP 集成用于数据库操作、身份验证、存储和实时订阅。管理您的 Supabase 项目、运行 SQL 查询并直接与后端交互。",
       "category": "database",
       "homepage": "https://github.com/supabase-community/supabase-plugin",
       "source": "./plugins/anthropic/supabase"
     },
     {
       "name": "superdesign",
-      "description": "Design or redesign frontend UI and marketing graphics on the Superdesign infinite canvas. Reads your codebase for context, sets up a design system, and generates branchable design drafts you refine.",
+      "description": "在 Superdesign 无限画布上设计或重新设计前端 UI 和营销图形。读取您的代码库以了解上下文，建立设计系统，并生成您改进的可分支设计草案。",
       "author": {
         "name": "Superdesign dev, Inc."
       },
@@ -2527,14 +3153,14 @@
     },
     {
       "name": "superpowers",
-      "description": "Superpowers teaches Claude brainstorming, subagent driven development with built in code review, systematic debugging, and red/green TDD. Additionally, it teaches Claude how to author and test new skills.",
+      "description": "Superpowers 教授 Claude 头脑风暴、子代理驱动开发以及内置代码审查、系统调试和红/绿 TDD。此外，它还教克劳德如何创作和测试新技能。",
       "category": "development",
       "homepage": "https://github.com/obra/superpowers.git",
       "source": "./plugins/anthropic/superpowers"
     },
     {
       "name": "swift-lsp",
-      "description": "Swift language server (SourceKit-LSP) for code intelligence",
+      "description": "用于代码智能的 Swift 语言服务器 (SourceKit-LSP)",
       "version": "1.0.0",
       "author": {
         "name": "Anthropic",
@@ -2554,7 +3180,7 @@
     },
     {
       "name": "synthflow",
-      "description": "Connects Claude Code to the Synthflow AI voice-agent platform through its hosted MCP server, with skills for reviewing calls and auditing agent prompts, plus a docs-search connector.",
+      "description": "通过其托管的 MCP 服务器将 Claude Code 连接到 Synthflow AI 语音代理平台，具有审查呼叫和审核代理提示的技能以及文档搜索连接器。",
       "author": {
         "name": "Synthflow"
       },
@@ -2564,7 +3190,7 @@
     },
     {
       "name": "tavily",
-      "description": "Build AI applications with real-time web data using Tavily's search, extract, crawl, and research APIs.",
+      "description": "使用 Tavily 的搜索、提取、爬网和研究 API，利用实时 Web 数据构建 AI 应用程序。",
       "author": {
         "name": "Tavily Team"
       },
@@ -2574,7 +3200,7 @@
     },
     {
       "name": "teamcity-cli",
-      "description": "Agent skill for interacting with TeamCity CI/CD using the teamcity CLI. Enables Claude to explore builds, view logs, start jobs, manage queues, agents, and more.",
+      "description": "使用 teamcity CLI 与 TeamCity CI/CD 交互的代理技能。使 Claude 能够探索构建、查看日志、启动作业、管理队列、代理等。",
       "author": {
         "name": "JetBrains"
       },
@@ -2584,13 +3210,13 @@
     },
     {
       "name": "telegram",
-      "description": "Telegram messaging bridge with built-in access control. Manage pairing, allowlists, and policy via /telegram:access.",
+      "description": "具有内置访问控制的 Telegram 消息传递桥。通过 /telegram:access 管理配对、白名单和策略。",
       "category": "productivity",
       "source": "./plugins/anthropic/telegram"
     },
     {
       "name": "terraform",
-      "description": "The Terraform MCP Server provides seamless integration with Terraform ecosystem, enabling advanced automation and interaction capabilities for Infrastructure as Code (IaC) development.",
+      "description": "Terraform MCP 服务器提供与 Terraform 生态系统的无缝集成，为基础设施即代码 (IaC) 开发提供高级自动化和交互功能。",
       "author": {
         "name": "HashiCorp",
         "email": "support@hashicorp.com"
@@ -2601,7 +3227,7 @@
     },
     {
       "name": "togetherai-skills",
-      "description": "Agent Skills for Together AI platform — inference, training, embeddings, audio, video, images, function calling, and infrastructure. Covers serverless chat completions, image/video generation, fine-tuning, batch inference, evaluations, sandboxes, dedicated endpoints, and GPU clusters.",
+      "description": "Together AI 平台的代理技能 — 推理、训练、嵌入、音频、视频、图像、函数调用和基础设施。涵盖无服务器聊天完成、图像/视频生成、微调、批量推理、评估、沙箱、专用端点和 GPU 集群。",
       "author": {
         "name": "Together AI"
       },
@@ -2611,7 +3237,7 @@
     },
     {
       "name": "twilio-developer-kit",
-      "description": "Twilio Skills provide procedural knowledge for AI coding agents — which APIs to use, in what order, and what to avoid. Covers SMS, Voice, WhatsApp, Verify, SendGrid, Compliance, and 30+ products.",
+      "description": "Twilio Skills 为 AI 编码代理提供程序知识 - 使用哪些 API、按什么顺序以及要避免什么。涵盖短信、语音、WhatsApp、Verify、SendGrid、Compliance 等 30 多种产品。",
       "author": {
         "name": "Twilio"
       },
@@ -2621,7 +3247,7 @@
     },
     {
       "name": "typescript-lsp",
-      "description": "TypeScript/JavaScript language server for enhanced code intelligence",
+      "description": "用于增强代码智能的 TypeScript/JavaScript 语言服务器",
       "version": "1.0.0",
       "author": {
         "name": "Anthropic",
@@ -2651,7 +3277,7 @@
     },
     {
       "name": "ui-theme-designer",
-      "description": "Plugin for coding agents working with UI theme designer. Bundles two skills: how-to and conceptual answers about UI theme designer on BTP, and questions about the SAP Design System and SAP Fiori design tokens — theme parameters and component-level parameter usage in UI5, UI5 Web Components, and Fundamental Styles.",
+      "description": "用于与 UI 主题设计器一起使用的编码代理的插件。捆绑两项技能：有关 BTP 上 UI 主题设计器的操作方法和概念性答案，以及有关 SAP 设计系统和 SAP Fiori 设计令牌的问题 - UI5、UI5 Web 组件和基本样式中的主题参数和组件级参数使用。",
       "author": {
         "name": "SAP SE"
       },
@@ -2661,7 +3287,7 @@
     },
     {
       "name": "ui5",
-      "description": "SAPUI5 / OpenUI5 plugin for coding agents. Create and validate UI5 projects, access API documentation, run UI5 linter, get development guidelines and best practices for UI5 development.",
+      "description": "用于编码代理的 SAPUI5 / OpenUI5 插件。创建和验证 UI5 项目、访问 API 文档、运行 UI5 linter、获取 UI5 开发的开发指南和最佳实践。",
       "author": {
         "name": "SAP SE",
         "email": "openui5@sap.com",
@@ -2673,7 +3299,7 @@
     },
     {
       "name": "ui5-modernization",
-      "description": "Complete UI5 modernization toolkit with workflow and specialized fix patterns for modernizing SAPUI5/OpenUI5 applications.",
+      "description": "完整的 UI5 现代化工具包，包含用于现代化 SAPUI5/OpenUI5 应用程序的工作流程和专门的修复模式。",
       "author": {
         "name": "SAP SE",
         "email": "openui5@sap.com",
@@ -2685,7 +3311,7 @@
     },
     {
       "name": "ui5-typescript-conversion",
-      "description": "SAPUI5 / OpenUI5 plugin for coding agents. Convert JavaScript based UI5 projects to TypeScript.",
+      "description": "用于编码代理的 SAPUI5 / OpenUI5 插件。将基于 JavaScript 的 UI5 项目转换为 TypeScript。",
       "author": {
         "name": "SAP SE",
         "email": "openui5@sap.com",
@@ -2697,7 +3323,7 @@
     },
     {
       "name": "unreal-engine-skills-for-claude-code",
-      "description": "Control Unreal Editor directly from Claude Code via MCP. Hundreds of tools exposed via Unreal's ToolsetRegistry across 30+ toolsets: actors, blueprints, materials, Niagara, Control Rigs, Sequencer, State Trees, widgets, Gameplay Ability System, automation testing, and more.",
+      "description": "通过 MCP 从 Claude Code 直接控制虚幻编辑器。通过 Unreal 的 ToolsetRegistry 公开了 30 多个工具集中的数百个工具：演员、蓝图、材质、Niagara、控制装置、序列器、状态树、小部件、游戏能力系统、自动化测试等等。",
       "author": {
         "name": "Epic Games"
       },
@@ -2707,7 +3333,7 @@
     },
     {
       "name": "valtown",
-      "description": "Build and deploy on Val Town. Bundles the Val Town MCP server and platform skills (HTTP vals, cron/intervals, SQLite, email, OAuth, React UI, third-party integrations, templates).",
+      "description": "在瓦尔镇上构建并部署。捆绑 Val Town MCP 服务器和平台技能（HTTP vals、cron/intervals、SQLite、电子邮件、OAuth、React UI、第三方集成、模板）。",
       "author": {
         "name": "Val Town"
       },
@@ -2717,7 +3343,7 @@
     },
     {
       "name": "vanta",
-      "description": "The Vanta plugin connects Claude Code to Vanta's security and compliance platform through the Vanta MCP server. It combines Vanta's test-specific remediation intelligence with your local repository context to help you fix compliance failures faster.",
+      "description": "Vanta 插件通过 Vanta MCP 服务器将 Claude Code 连接到 Vanta 的安全和合规平台。它将 Vanta 的测试特定修复智能与您的本地存储库上下文相结合，帮助您更快地修复合规性故障。",
       "author": {
         "name": "Vanta"
       },
@@ -2727,7 +3353,7 @@
     },
     {
       "name": "vanta-mcp-plugin",
-      "description": "The Vanta plugin connects Claude Code to Vanta's security and compliance platform through the Vanta MCP server. It combines Vanta's test-specific remediation intelligence with your local repository context to help you fix compliance failures faster.",
+      "description": "Vanta 插件通过 Vanta MCP 服务器将 Claude Code 连接到 Vanta 的安全和合规平台。它将 Vanta 的测试特定修复智能与您的本地存储库上下文相结合，帮助您更快地修复合规性故障。",
       "author": {
         "name": "Vanta"
       },
@@ -2737,14 +3363,14 @@
     },
     {
       "name": "vercel",
-      "description": "Vercel deployment platform integration. Manage deployments, check build status, access logs, configure domains, and control your frontend infrastructure directly from Claude Code.",
+      "description": "Vercel 部署平台集成。管理部署、检查构建状态、访问日志、配置域并直接从 Claude Code 控制您的前端基础设施。",
       "category": "deployment",
       "homepage": "https://github.com/vercel/vercel-plugin",
       "source": "./plugins/anthropic/vercel"
     },
     {
       "name": "vibe-prospecting",
-      "description": "Vibe Prospecting connects Claude to live B2B company and contact data so users can search, match, enrich, filter, and export prospects at scale. It turns natural-language requests into structured GTM workflows for lead generation, CRM enrichment, company research, executive discovery, and multi-step prospecting automation inside Claude Cowork and Claude Code.",
+      "description": "Vibe Prospecting 将 Claude 连接到实时 B2B 公司和联系人数据，以便用户可以大规模搜索、匹配、丰富、过滤和导出潜在客户。它将自然语言请求转化为结构化的 GTM 工作流程，用于 Claude Cowork 和 Claude Code 内的潜在客户开发、CRM 丰富、公司研究、高管发现和多步骤勘探自动化。",
       "author": {
         "name": "vibeprospecting.ai"
       },
@@ -2754,7 +3380,7 @@
     },
     {
       "name": "vsql-extension-builder",
-      "description": "Builds a VillageSQL extension for MySQL end-to-end through a 7-phase persona-driven workflow. Commonly used to port PostgreSQL extensions to MySQL.",
+      "description": "通过 7 阶段角色驱动的工作流程为 MySQL 端到端构建 VillageSQL 扩展。通常用于将 PostgreSQL 扩展移植到 MySQL。",
       "author": {
         "name": "VillageSQL"
       },
@@ -2764,7 +3390,7 @@
     },
     {
       "name": "windsor-ai",
-      "description": "Connect Claude Code to 325+ business data sources via Windsor.ai. Query marketing, sales, CRM, ecommerce, finance, and analytics data from Google Ads, Meta, HubSpot, Salesforce, Shopify, Stripe, and hundreds more — directly from your terminal.",
+      "description": "通过 Windsor.ai 将 Claude Code 连接到 325 多个业务数据源。直接从您的终端查询来自 Google Ads、Meta、HubSpot、Salesforce、Shopify、Stripe 等数百个数据的营销、销售、CRM、电子商务、财务和分析数据。",
       "author": {
         "name": "Windsor.ai"
       },
@@ -2774,20 +3400,20 @@
     },
     {
       "name": "wix",
-      "description": "Build, manage, and deploy Wix sites and apps. CLI development skills for dashboard extensions, backend APIs, site widgets, and service plugins with the Wix Design System, plus MCP server for site management.",
+      "description": "构建、管理和部署 Wix 站点和应用程序。使用 Wix 设计系统的仪表板扩展、后端 API、站点小部件和服务插件的 CLI 开发技能，以及用于站点管理的 MCP 服务器。",
       "category": "development",
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills",
       "source": "./plugins/anthropic/wix"
     },
     {
       "name": "build-with-wordpress",
-      "description": "Craft production-grade WordPress sites and applications. Everything from themes and plugins to commerce and deployment.",
+      "description": "制作生产级 WordPress 网站和应用程序。从主题和插件到商业和部署的一切。",
       "homepage": "https://developer.wordpress.com/wordpress-com-claude-code-plugin/",
       "source": "./plugins/anthropic/build-with-wordpress"
     },
     {
       "name": "workos",
-      "description": "WorkOS integration skills for AuthKit, SSO, Directory Sync, RBAC, Vault, Audit Logs, migrations, and API references.",
+      "description": "AuthKit、SSO、目录同步、RBAC、Vault、审核日志、迁移和 API 参考的 WorkOS 集成技能。",
       "author": {
         "name": "WorkOS"
       },
@@ -2797,7 +3423,7 @@
     },
     {
       "name": "youdotcom-agent-skills",
-      "description": "You.com agent skills for web search, research with citations, and content extraction. Guided integrations for Vercel AI SDK, Claude Agent SDK, OpenAI Agents SDK, crewAI, LangChain, Microsoft Teams.ai, direct REST API, and bash CLI.",
+      "description": "You.com 代理的网络搜索、引用研究和内容提取技能。 Vercel AI SDK、Claude Agent SDK、OpenAI Agents SDK、crewAI、LangChain、Microsoft Teams.ai、直接 REST API 和 bash CLI 的引导集成。",
       "author": {
         "name": "You.com"
       },
@@ -2807,14 +3433,14 @@
     },
     {
       "name": "zapier",
-      "description": "Connect 8,000+ apps to your AI workflow. Discover, enable, and execute Zapier actions directly from your client.",
+      "description": "将 8,000 多个应用程序连接到您的 AI 工作流程。直接从您的客户端发现、启用和执行 Zapier 操作。",
       "category": "productivity",
       "homepage": "https://github.com/zapier/zapier-mcp/tree/main/plugins/zapier",
       "source": "./plugins/anthropic/zapier"
     },
     {
       "name": "zilliz",
-      "description": "Zilliz Cloud management plugin with 14 skills covering cluster lifecycle, collection schema, vector search, index tuning, bulk import, RBAC, backups, and monitoring.",
+      "description": "Zilliz Cloud 管理插件，具有 14 项技能，涵盖集群生命周期、集合模式、向量搜索、索引调整、批量导入、RBAC、备份和监控。",
       "author": {
         "name": "Zilliz"
       },
@@ -2824,14 +3450,14 @@
     },
     {
       "name": "zoom-plugin",
-      "description": "Claude plugin for planning, building, and debugging Zoom integrations across REST APIs, SDKs, webhooks, bots, and MCP workflows.",
+      "description": "Claude 插件，用于规划、构建和调试跨 REST API、SDK、Webhook、机器人和 MCP 工作流程的 Zoom 集成。",
       "category": "development",
       "homepage": "https://developers.zoom.us/",
       "source": "./plugins/anthropic/zoom-plugin"
     },
     {
       "name": "zoominfo",
-      "description": "Search companies and contacts, enrich leads, find lookalikes, and get AI-ranked contact recommendations. Pre-built skills chain multiple ZoomInfo tools into complete B2B sales workflows.",
+      "description": "搜索公司和联系人、丰富潜在客户、查找相似者并获得人工智能排名的联系人推荐。预构建的技能将多个 ZoomInfo 工具链接到完整的 B2B 销售工作流程中。",
       "author": {
         "name": "ZoomInfo"
       },
@@ -2841,7 +3467,7 @@
     },
     {
       "name": "zscaler",
-      "description": "Manage Zscaler cloud security platform including ZPA (private access), ZIA (internet access), ZDX (digital experience), ZCC (client connector), EASM (attack surface), and Z-Insights (analytics). Create and manage policies, troubleshoot connectivity, audit security configurations, and investigate incidents across the full Zscaler ecosystem.",
+      "description": "管理 Zscaler 云安全平台，包括 ZPA（私有访问）、ZIA（互联网访问）、ZDX（数字体验）、ZCC（客户端连接器）、EASM（攻击面）和 Z-Insights（分析）。创建和管理策略、排除连接故障、审核安全配置以及调查整个 Zscaler 生态系统中的事件。",
       "author": {
         "name": "Zscaler"
       },
@@ -2851,7 +3477,7 @@
     },
     {
       "name": "langfuse",
-      "description": "Skills for working with Langfuse, the open-source LLM engineering platform for tracing, prompt management, and evaluation.",
+      "description": "使用 Langfuse 的技能，Langfuse 是一个用于跟踪、即时管理和评估的开源 LLM 工程平台。",
       "author": {
         "name": "Langfuse"
       },
@@ -2861,611 +3487,13 @@
     },
     {
       "name": "zyte-web-data",
-      "description": "Web scraping skills for Claude Code powered by the Zyte API — scrape sites, generate and run Scrapy spiders, define extraction schemas, and ship to Scrapy Cloud.",
+      "description": "由 Zyte API 提供支持的 Claude Code 的网页抓取技能 — 抓取网站、生成并运行 Scrapy 蜘蛛、定义提取模式并发送到 Scrapy Cloud。",
       "author": {
         "name": "Zyte"
       },
       "category": "automation",
       "homepage": "https://www.zyte.com",
       "source": "./plugins/anthropic/zyte-web-data"
-    },
-    {
-      "name": "skillsh-addyosmani-web-quality-skills",
-      "description": "Popular skills mirrored from https://github.com/addyosmani/web-quality-skills.",
-      "source": "./plugins/skills-sh/skillsh-addyosmani-web-quality-skills",
-      "category": "development",
-      "homepage": "https://github.com/addyosmani/web-quality-skills"
-    },
-    {
-      "name": "skillsh-agent-qq-com",
-      "description": "Popular skills mirrored from agent.qq.com.",
-      "source": "./plugins/skills-sh/skillsh-agent-qq-com",
-      "category": "development"
-    },
-    {
-      "name": "skillsh-agentix-cloud-skills",
-      "description": "Popular skills mirrored from https://github.com/agentix-cloud/skills.",
-      "source": "./plugins/skills-sh/skillsh-agentix-cloud-skills",
-      "category": "development",
-      "homepage": "https://github.com/agentix-cloud/skills"
-    },
-    {
-      "name": "skillsh-alchaincyf-huashu-design",
-      "description": "Popular skills mirrored from https://github.com/alchaincyf/huashu-design.",
-      "source": "./plugins/skills-sh/skillsh-alchaincyf-huashu-design",
-      "category": "development",
-      "homepage": "https://github.com/alchaincyf/huashu-design"
-    },
-    {
-      "name": "skillsh-anthropics-claude-code",
-      "description": "Popular skills mirrored from https://github.com/anthropics/claude-code.",
-      "source": "./plugins/skills-sh/skillsh-anthropics-claude-code",
-      "category": "development",
-      "homepage": "https://github.com/anthropics/claude-code"
-    },
-    {
-      "name": "skillsh-anthropics-skills",
-      "description": "Popular skills mirrored from https://github.com/anthropics/skills.",
-      "source": "./plugins/skills-sh/skillsh-anthropics-skills",
-      "category": "development",
-      "homepage": "https://github.com/anthropics/skills"
-    },
-    {
-      "name": "skillsh-antibrow-anti-detect-browser-skills",
-      "description": "Popular skills mirrored from https://github.com/antibrow/anti-detect-browser-skills.",
-      "source": "./plugins/skills-sh/skillsh-antibrow-anti-detect-browser-skills",
-      "category": "development",
-      "homepage": "https://github.com/antibrow/anti-detect-browser-skills"
-    },
-    {
-      "name": "skillsh-anysearch-ai-anysearch-skill",
-      "description": "Popular skills mirrored from https://github.com/anysearch-ai/anysearch-skill.",
-      "source": "./plugins/skills-sh/skillsh-anysearch-ai-anysearch-skill",
-      "category": "development",
-      "homepage": "https://github.com/anysearch-ai/anysearch-skill"
-    },
-    {
-      "name": "skillsh-arvindrk-extract-design-system",
-      "description": "Popular skills mirrored from https://github.com/arvindrk/extract-design-system.",
-      "source": "./plugins/skills-sh/skillsh-arvindrk-extract-design-system",
-      "category": "development",
-      "homepage": "https://github.com/arvindrk/extract-design-system"
-    },
-    {
-      "name": "skillsh-better-auth-skills",
-      "description": "Popular skills mirrored from https://github.com/better-auth/skills.",
-      "source": "./plugins/skills-sh/skillsh-better-auth-skills",
-      "category": "development",
-      "homepage": "https://github.com/better-auth/skills"
-    },
-    {
-      "name": "skillsh-browser-act-skills",
-      "description": "Popular skills mirrored from https://github.com/browser-act/skills.",
-      "source": "./plugins/skills-sh/skillsh-browser-act-skills",
-      "category": "development",
-      "homepage": "https://github.com/browser-act/skills"
-    },
-    {
-      "name": "skillsh-browser-use-browser-use",
-      "description": "Popular skills mirrored from https://github.com/browser-use/browser-use.",
-      "source": "./plugins/skills-sh/skillsh-browser-use-browser-use",
-      "category": "development",
-      "homepage": "https://github.com/browser-use/browser-use"
-    },
-    {
-      "name": "skillsh-cloudflare-skills",
-      "description": "Popular skills mirrored from https://github.com/cloudflare/skills.",
-      "source": "./plugins/skills-sh/skillsh-cloudflare-skills",
-      "category": "development",
-      "homepage": "https://github.com/cloudflare/skills"
-    },
-    {
-      "name": "skillsh-coreyhaines31-marketingskills",
-      "description": "Popular skills mirrored from https://github.com/coreyhaines31/marketingskills.",
-      "source": "./plugins/skills-sh/skillsh-coreyhaines31-marketingskills",
-      "category": "development",
-      "homepage": "https://github.com/coreyhaines31/marketingskills"
-    },
-    {
-      "name": "skillsh-currents-dev-playwright-best-practices-skill",
-      "description": "Popular skills mirrored from https://github.com/currents-dev/playwright-best-practices-skill.",
-      "source": "./plugins/skills-sh/skillsh-currents-dev-playwright-best-practices-skill",
-      "category": "development",
-      "homepage": "https://github.com/currents-dev/playwright-best-practices-skill"
-    },
-    {
-      "name": "skillsh-degausai-wonda",
-      "description": "Popular skills mirrored from https://github.com/degausai/wonda.",
-      "source": "./plugins/skills-sh/skillsh-degausai-wonda",
-      "category": "development",
-      "homepage": "https://github.com/degausai/wonda"
-    },
-    {
-      "name": "skillsh-dietrichgebert-ponytail",
-      "description": "Popular skills mirrored from https://github.com/dietrichgebert/ponytail.",
-      "source": "./plugins/skills-sh/skillsh-dietrichgebert-ponytail",
-      "category": "development",
-      "homepage": "https://github.com/dietrichgebert/ponytail"
-    },
-    {
-      "name": "skillsh-emilkowalski-skills",
-      "description": "Popular skills mirrored from https://github.com/emilkowalski/skills.",
-      "source": "./plugins/skills-sh/skillsh-emilkowalski-skills",
-      "category": "development",
-      "homepage": "https://github.com/emilkowalski/skills"
-    },
-    {
-      "name": "skillsh-expo-skills",
-      "description": "Popular skills mirrored from https://github.com/expo/skills.",
-      "source": "./plugins/skills-sh/skillsh-expo-skills",
-      "category": "development",
-      "homepage": "https://github.com/expo/skills"
-    },
-    {
-      "name": "skillsh-firebase-agent-skills",
-      "description": "Popular skills mirrored from https://github.com/firebase/agent-skills.",
-      "source": "./plugins/skills-sh/skillsh-firebase-agent-skills",
-      "category": "development",
-      "homepage": "https://github.com/firebase/agent-skills"
-    },
-    {
-      "name": "skillsh-firecrawl-cli",
-      "description": "Popular skills mirrored from https://github.com/firecrawl/cli.",
-      "source": "./plugins/skills-sh/skillsh-firecrawl-cli",
-      "category": "development",
-      "homepage": "https://github.com/firecrawl/cli"
-    },
-    {
-      "name": "skillsh-firecrawl-skills",
-      "description": "Popular skills mirrored from https://github.com/firecrawl/skills.",
-      "source": "./plugins/skills-sh/skillsh-firecrawl-skills",
-      "category": "development",
-      "homepage": "https://github.com/firecrawl/skills"
-    },
-    {
-      "name": "skillsh-genkit-ai-skills",
-      "description": "Popular skills mirrored from https://github.com/genkit-ai/skills.",
-      "source": "./plugins/skills-sh/skillsh-genkit-ai-skills",
-      "category": "development",
-      "homepage": "https://github.com/genkit-ai/skills"
-    },
-    {
-      "name": "skillsh-get-convex-agent-skills",
-      "description": "Popular skills mirrored from https://github.com/get-convex/agent-skills.",
-      "source": "./plugins/skills-sh/skillsh-get-convex-agent-skills",
-      "category": "development",
-      "homepage": "https://github.com/get-convex/agent-skills"
-    },
-    {
-      "name": "skillsh-github-awesome-copilot",
-      "description": "Popular skills mirrored from https://github.com/github/awesome-copilot.",
-      "source": "./plugins/skills-sh/skillsh-github-awesome-copilot",
-      "category": "development",
-      "homepage": "https://github.com/github/awesome-copilot"
-    },
-    {
-      "name": "skillsh-google-agents-cli",
-      "description": "Popular skills mirrored from https://github.com/google/agents-cli.",
-      "source": "./plugins/skills-sh/skillsh-google-agents-cli",
-      "category": "development",
-      "homepage": "https://github.com/google/agents-cli"
-    },
-    {
-      "name": "skillsh-google-labs-code-stitch-skills",
-      "description": "Popular skills mirrored from https://github.com/google-labs-code/stitch-skills.",
-      "source": "./plugins/skills-sh/skillsh-google-labs-code-stitch-skills",
-      "category": "development",
-      "homepage": "https://github.com/google-labs-code/stitch-skills"
-    },
-    {
-      "name": "skillsh-googleworkspace-cli",
-      "description": "Popular skills mirrored from https://github.com/googleworkspace/cli.",
-      "source": "./plugins/skills-sh/skillsh-googleworkspace-cli",
-      "category": "development",
-      "homepage": "https://github.com/googleworkspace/cli"
-    },
-    {
-      "name": "skillsh-greensock-gsap-skills",
-      "description": "Popular skills mirrored from https://github.com/greensock/gsap-skills.",
-      "source": "./plugins/skills-sh/skillsh-greensock-gsap-skills",
-      "category": "development",
-      "homepage": "https://github.com/greensock/gsap-skills"
-    },
-    {
-      "name": "skillsh-heygen-com-hyperframes",
-      "description": "Popular skills mirrored from https://github.com/heygen-com/hyperframes.",
-      "source": "./plugins/skills-sh/skillsh-heygen-com-hyperframes",
-      "category": "development",
-      "homepage": "https://github.com/heygen-com/hyperframes"
-    },
-    {
-      "name": "skillsh-higgsfield-ai-skills",
-      "description": "Popular skills mirrored from https://github.com/higgsfield-ai/skills.",
-      "source": "./plugins/skills-sh/skillsh-higgsfield-ai-skills",
-      "category": "development",
-      "homepage": "https://github.com/higgsfield-ai/skills"
-    },
-    {
-      "name": "skillsh-hugmouse-skills",
-      "description": "Popular skills mirrored from https://github.com/hugmouse/skills.",
-      "source": "./plugins/skills-sh/skillsh-hugmouse-skills",
-      "category": "development",
-      "homepage": "https://github.com/hugmouse/skills"
-    },
-    {
-      "name": "skillsh-intellectronica-agent-skills",
-      "description": "Popular skills mirrored from https://github.com/intellectronica/agent-skills.",
-      "source": "./plugins/skills-sh/skillsh-intellectronica-agent-skills",
-      "category": "development",
-      "homepage": "https://github.com/intellectronica/agent-skills"
-    },
-    {
-      "name": "skillsh-jakubkrehel-make-interfaces-feel-better",
-      "description": "Popular skills mirrored from https://github.com/jakubkrehel/make-interfaces-feel-better.",
-      "source": "./plugins/skills-sh/skillsh-jakubkrehel-make-interfaces-feel-better",
-      "category": "development",
-      "homepage": "https://github.com/jakubkrehel/make-interfaces-feel-better"
-    },
-    {
-      "name": "skillsh-juliusbrussee-caveman",
-      "description": "Popular skills mirrored from https://github.com/juliusbrussee/caveman.",
-      "source": "./plugins/skills-sh/skillsh-juliusbrussee-caveman",
-      "category": "development",
-      "homepage": "https://github.com/juliusbrussee/caveman"
-    },
-    {
-      "name": "skillsh-kepano-obsidian-skills",
-      "description": "Popular skills mirrored from https://github.com/kepano/obsidian-skills.",
-      "source": "./plugins/skills-sh/skillsh-kepano-obsidian-skills",
-      "category": "development",
-      "homepage": "https://github.com/kepano/obsidian-skills"
-    },
-    {
-      "name": "skillsh-larksuite-cli",
-      "description": "Popular skills mirrored from https://github.com/larksuite/cli.",
-      "source": "./plugins/skills-sh/skillsh-larksuite-cli",
-      "category": "development",
-      "homepage": "https://github.com/larksuite/cli"
-    },
-    {
-      "name": "skillsh-leonxlnx-taste-skill",
-      "description": "Popular skills mirrored from https://github.com/leonxlnx/taste-skill.",
-      "source": "./plugins/skills-sh/skillsh-leonxlnx-taste-skill",
-      "category": "development",
-      "homepage": "https://github.com/leonxlnx/taste-skill"
-    },
-    {
-      "name": "skillsh-lllllllama-rigorpilot-skills",
-      "description": "Popular skills mirrored from https://github.com/lllllllama/rigorpilot-skills.",
-      "source": "./plugins/skills-sh/skillsh-lllllllama-rigorpilot-skills",
-      "category": "development",
-      "homepage": "https://github.com/lllllllama/rigorpilot-skills"
-    },
-    {
-      "name": "skillsh-mattpocock-skills",
-      "description": "Popular skills mirrored from https://github.com/mattpocock/skills.",
-      "source": "./plugins/skills-sh/skillsh-mattpocock-skills",
-      "category": "development",
-      "homepage": "https://github.com/mattpocock/skills"
-    },
-    {
-      "name": "skillsh-mcollina-skills",
-      "description": "Popular skills mirrored from https://github.com/mcollina/skills.",
-      "source": "./plugins/skills-sh/skillsh-mcollina-skills",
-      "category": "development",
-      "homepage": "https://github.com/mcollina/skills"
-    },
-    {
-      "name": "skillsh-microsoft-azure-skills",
-      "description": "Popular skills mirrored from https://github.com/microsoft/azure-skills.",
-      "source": "./plugins/skills-sh/skillsh-microsoft-azure-skills",
-      "category": "development",
-      "homepage": "https://github.com/microsoft/azure-skills"
-    },
-    {
-      "name": "skillsh-microsoft-playwright-cli",
-      "description": "Popular skills mirrored from https://github.com/microsoft/playwright-cli.",
-      "source": "./plugins/skills-sh/skillsh-microsoft-playwright-cli",
-      "category": "development",
-      "homepage": "https://github.com/microsoft/playwright-cli"
-    },
-    {
-      "name": "skillsh-momentic-ai-skills",
-      "description": "Popular skills mirrored from https://github.com/momentic-ai/skills.",
-      "source": "./plugins/skills-sh/skillsh-momentic-ai-skills",
-      "category": "development",
-      "homepage": "https://github.com/momentic-ai/skills"
-    },
-    {
-      "name": "skillsh-msmps-opentui-skill",
-      "description": "Popular skills mirrored from https://github.com/msmps/opentui-skill.",
-      "source": "./plugins/skills-sh/skillsh-msmps-opentui-skill",
-      "category": "development",
-      "homepage": "https://github.com/msmps/opentui-skill"
-    },
-    {
-      "name": "skillsh-neondatabase-agent-skills",
-      "description": "Popular skills mirrored from https://github.com/neondatabase/agent-skills.",
-      "source": "./plugins/skills-sh/skillsh-neondatabase-agent-skills",
-      "category": "development",
-      "homepage": "https://github.com/neondatabase/agent-skills"
-    },
-    {
-      "name": "skillsh-nexscope-ai-amazon-skills",
-      "description": "Popular skills mirrored from https://github.com/nexscope-ai/amazon-skills.",
-      "source": "./plugins/skills-sh/skillsh-nexscope-ai-amazon-skills",
-      "category": "development",
-      "homepage": "https://github.com/nexscope-ai/amazon-skills"
-    },
-    {
-      "name": "skillsh-nexscope-ai-ecommerce-skills",
-      "description": "Popular skills mirrored from https://github.com/nexscope-ai/ecommerce-skills.",
-      "source": "./plugins/skills-sh/skillsh-nexscope-ai-ecommerce-skills",
-      "category": "development",
-      "homepage": "https://github.com/nexscope-ai/ecommerce-skills"
-    },
-    {
-      "name": "skillsh-nextlevelbuilder-ui-ux-pro-max-skill",
-      "description": "Popular skills mirrored from https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.",
-      "source": "./plugins/skills-sh/skillsh-nextlevelbuilder-ui-ux-pro-max-skill",
-      "category": "development",
-      "homepage": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill"
-    },
-    {
-      "name": "skillsh-nozomio-labs-nia-skill",
-      "description": "Popular skills mirrored from https://github.com/nozomio-labs/nia-skill.",
-      "source": "./plugins/skills-sh/skillsh-nozomio-labs-nia-skill",
-      "category": "development",
-      "homepage": "https://github.com/nozomio-labs/nia-skill"
-    },
-    {
-      "name": "skillsh-nutlope-hallmark",
-      "description": "Popular skills mirrored from https://github.com/nutlope/hallmark.",
-      "source": "./plugins/skills-sh/skillsh-nutlope-hallmark",
-      "category": "development",
-      "homepage": "https://github.com/nutlope/hallmark"
-    },
-    {
-      "name": "skillsh-obra-superpowers",
-      "description": "Popular skills mirrored from https://github.com/obra/superpowers.",
-      "source": "./plugins/skills-sh/skillsh-obra-superpowers",
-      "category": "development",
-      "homepage": "https://github.com/obra/superpowers"
-    },
-    {
-      "name": "skillsh-op7418-humanizer-zh",
-      "description": "Popular skills mirrored from https://github.com/op7418/humanizer-zh.",
-      "source": "./plugins/skills-sh/skillsh-op7418-humanizer-zh",
-      "category": "development",
-      "homepage": "https://github.com/op7418/humanizer-zh"
-    },
-    {
-      "name": "skillsh-open-feishu-cn",
-      "description": "Popular skills mirrored from open.feishu.cn.",
-      "source": "./plugins/skills-sh/skillsh-open-feishu-cn",
-      "category": "development"
-    },
-    {
-      "name": "skillsh-othmanadi-planning-with-files",
-      "description": "Popular skills mirrored from https://github.com/othmanadi/planning-with-files.",
-      "source": "./plugins/skills-sh/skillsh-othmanadi-planning-with-files",
-      "category": "development",
-      "homepage": "https://github.com/othmanadi/planning-with-files"
-    },
-    {
-      "name": "skillsh-pbakaus-impeccable",
-      "description": "Popular skills mirrored from https://github.com/pbakaus/impeccable.",
-      "source": "./plugins/skills-sh/skillsh-pbakaus-impeccable",
-      "category": "development",
-      "homepage": "https://github.com/pbakaus/impeccable"
-    },
-    {
-      "name": "skillsh-pexoai-pexo-skills",
-      "description": "Popular skills mirrored from https://github.com/pexoai/pexo-skills.",
-      "source": "./plugins/skills-sh/skillsh-pexoai-pexo-skills",
-      "category": "development",
-      "homepage": "https://github.com/pexoai/pexo-skills"
-    },
-    {
-      "name": "skillsh-prime-skills-runcomfy-agent-skills",
-      "description": "Popular skills mirrored from https://github.com/prime-skills/runcomfy-agent-skills.",
-      "source": "./plugins/skills-sh/skillsh-prime-skills-runcomfy-agent-skills",
-      "category": "development",
-      "homepage": "https://github.com/prime-skills/runcomfy-agent-skills"
-    },
-    {
-      "name": "skillsh-prisma-skills",
-      "description": "Popular skills mirrored from https://github.com/prisma/skills.",
-      "source": "./plugins/skills-sh/skillsh-prisma-skills",
-      "category": "development",
-      "homepage": "https://github.com/prisma/skills"
-    },
-    {
-      "name": "skillsh-remotion-dev-skills",
-      "description": "Popular skills mirrored from https://github.com/remotion-dev/skills.",
-      "source": "./plugins/skills-sh/skillsh-remotion-dev-skills",
-      "category": "development",
-      "homepage": "https://github.com/remotion-dev/skills"
-    },
-    {
-      "name": "skillsh-replicas-group-skill",
-      "description": "Popular skills mirrored from https://github.com/replicas-group/skill.",
-      "source": "./plugins/skills-sh/skillsh-replicas-group-skill",
-      "category": "development",
-      "homepage": "https://github.com/replicas-group/skill"
-    },
-    {
-      "name": "skillsh-resciencelab-opc-skills",
-      "description": "Popular skills mirrored from https://github.com/resciencelab/opc-skills.",
-      "source": "./plugins/skills-sh/skillsh-resciencelab-opc-skills",
-      "category": "development",
-      "homepage": "https://github.com/resciencelab/opc-skills"
-    },
-    {
-      "name": "skillsh-samber-cc-skills-golang",
-      "description": "Popular skills mirrored from https://github.com/samber/cc-skills-golang.",
-      "source": "./plugins/skills-sh/skillsh-samber-cc-skills-golang",
-      "category": "development",
-      "homepage": "https://github.com/samber/cc-skills-golang"
-    },
-    {
-      "name": "skillsh-scrapegraphai-just-scrape",
-      "description": "Popular skills mirrored from https://github.com/scrapegraphai/just-scrape.",
-      "source": "./plugins/skills-sh/skillsh-scrapegraphai-just-scrape",
-      "category": "development",
-      "homepage": "https://github.com/scrapegraphai/just-scrape"
-    },
-    {
-      "name": "skillsh-sentry-dev",
-      "description": "Popular skills mirrored from sentry/dev.",
-      "source": "./plugins/skills-sh/skillsh-sentry-dev",
-      "category": "development"
-    },
-    {
-      "name": "skillsh-shadcn-ui",
-      "description": "Popular skills mirrored from https://github.com/shadcn/ui.",
-      "source": "./plugins/skills-sh/skillsh-shadcn-ui",
-      "category": "development",
-      "homepage": "https://github.com/shadcn/ui"
-    },
-    {
-      "name": "skillsh-skills-101-superpowers",
-      "description": "Popular skills mirrored from https://github.com/skills-101/superpowers.",
-      "source": "./plugins/skills-sh/skillsh-skills-101-superpowers",
-      "category": "development",
-      "homepage": "https://github.com/skills-101/superpowers"
-    },
-    {
-      "name": "skillsh-skills-volces-com",
-      "description": "Popular skills mirrored from https://github.com/bytedance/agentkit-samples.",
-      "source": "./plugins/skills-sh/skillsh-skills-volces-com",
-      "category": "development",
-      "homepage": "https://github.com/bytedance/agentkit-samples"
-    },
-    {
-      "name": "skillsh-solana-foundation-solana-dev-skill",
-      "description": "Popular skills mirrored from https://github.com/solana-foundation/solana-dev-skill.",
-      "source": "./plugins/skills-sh/skillsh-solana-foundation-solana-dev-skill",
-      "category": "development",
-      "homepage": "https://github.com/solana-foundation/solana-dev-skill"
-    },
-    {
-      "name": "skillsh-spillwavesolutions-design-doc-mermaid",
-      "description": "Popular skills mirrored from https://github.com/spillwavesolutions/design-doc-mermaid.",
-      "source": "./plugins/skills-sh/skillsh-spillwavesolutions-design-doc-mermaid",
-      "category": "development",
-      "homepage": "https://github.com/spillwavesolutions/design-doc-mermaid"
-    },
-    {
-      "name": "skillsh-squirrelscan-skills",
-      "description": "Popular skills mirrored from https://github.com/squirrelscan/skills.",
-      "source": "./plugins/skills-sh/skillsh-squirrelscan-skills",
-      "category": "development",
-      "homepage": "https://github.com/squirrelscan/skills"
-    },
-    {
-      "name": "skillsh-stablyai-orca",
-      "description": "Popular skills mirrored from https://github.com/stablyai/orca.",
-      "source": "./plugins/skills-sh/skillsh-stablyai-orca",
-      "category": "development",
-      "homepage": "https://github.com/stablyai/orca"
-    },
-    {
-      "name": "skillsh-stripe-ai",
-      "description": "Popular skills mirrored from https://github.com/stripe/ai.",
-      "source": "./plugins/skills-sh/skillsh-stripe-ai",
-      "category": "development",
-      "homepage": "https://github.com/stripe/ai"
-    },
-    {
-      "name": "skillsh-supabase-agent-skills",
-      "description": "Popular skills mirrored from https://github.com/supabase/agent-skills.",
-      "source": "./plugins/skills-sh/skillsh-supabase-agent-skills",
-      "category": "development",
-      "homepage": "https://github.com/supabase/agent-skills"
-    },
-    {
-      "name": "skillsh-tencent-wechatreading",
-      "description": "Popular skills mirrored from https://github.com/tencent/wechatreading.",
-      "source": "./plugins/skills-sh/skillsh-tencent-wechatreading",
-      "category": "development",
-      "homepage": "https://github.com/tencent/wechatreading"
-    },
-    {
-      "name": "skillsh-uizze-com",
-      "description": "Popular skills mirrored from uizze.com.",
-      "source": "./plugins/skills-sh/skillsh-uizze-com",
-      "category": "development"
-    },
-    {
-      "name": "skillsh-useosint-osint-skills",
-      "description": "Popular skills mirrored from https://github.com/useosint/osint-skills.",
-      "source": "./plugins/skills-sh/skillsh-useosint-osint-skills",
-      "category": "development",
-      "homepage": "https://github.com/useosint/osint-skills"
-    },
-    {
-      "name": "skillsh-vercel-ai",
-      "description": "Popular skills mirrored from https://github.com/vercel/ai.",
-      "source": "./plugins/skills-sh/skillsh-vercel-ai",
-      "category": "development",
-      "homepage": "https://github.com/vercel/ai"
-    },
-    {
-      "name": "skillsh-vercel-labs-agent-browser",
-      "description": "Popular skills mirrored from https://github.com/vercel-labs/agent-browser.",
-      "source": "./plugins/skills-sh/skillsh-vercel-labs-agent-browser",
-      "category": "development",
-      "homepage": "https://github.com/vercel-labs/agent-browser"
-    },
-    {
-      "name": "skillsh-vercel-labs-agent-skills",
-      "description": "Popular skills mirrored from https://github.com/vercel-labs/agent-skills.",
-      "source": "./plugins/skills-sh/skillsh-vercel-labs-agent-skills",
-      "category": "development",
-      "homepage": "https://github.com/vercel-labs/agent-skills"
-    },
-    {
-      "name": "skillsh-vercel-labs-skills",
-      "description": "Popular skills mirrored from https://github.com/vercel-labs/skills.",
-      "source": "./plugins/skills-sh/skillsh-vercel-labs-skills",
-      "category": "development",
-      "homepage": "https://github.com/vercel-labs/skills"
-    },
-    {
-      "name": "skillsh-vercel-turborepo",
-      "description": "Popular skills mirrored from https://github.com/vercel/turborepo.",
-      "source": "./plugins/skills-sh/skillsh-vercel-turborepo",
-      "category": "development",
-      "homepage": "https://github.com/vercel/turborepo"
-    },
-    {
-      "name": "skillsh-vuejs-ai-skills",
-      "description": "Popular skills mirrored from https://github.com/vuejs-ai/skills.",
-      "source": "./plugins/skills-sh/skillsh-vuejs-ai-skills",
-      "category": "development",
-      "homepage": "https://github.com/vuejs-ai/skills"
-    },
-    {
-      "name": "skillsh-wind-information-co-ltd-wind-skills",
-      "description": "Popular skills mirrored from https://github.com/wind-information-co-ltd/wind-skills.",
-      "source": "./plugins/skills-sh/skillsh-wind-information-co-ltd-wind-skills",
-      "category": "development",
-      "homepage": "https://github.com/wind-information-co-ltd/wind-skills"
-    },
-    {
-      "name": "skillsh-wshobson-agents",
-      "description": "Popular skills mirrored from https://github.com/wshobson/agents.",
-      "source": "./plugins/skills-sh/skillsh-wshobson-agents",
-      "category": "development",
-      "homepage": "https://github.com/wshobson/agents"
-    },
-    {
-      "name": "skillsh-zhaono1-agent-playbook",
-      "description": "Popular skills mirrored from https://github.com/zhaono1/agent-playbook.",
-      "source": "./plugins/skills-sh/skillsh-zhaono1-agent-playbook",
-      "category": "development",
-      "homepage": "https://github.com/zhaono1/agent-playbook"
     }
   ]
 }

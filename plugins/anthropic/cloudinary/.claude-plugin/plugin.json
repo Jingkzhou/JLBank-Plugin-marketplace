@@ -1,7 +1,7 @@
 {
   "name": "cloudinary",
   "version": "1.1.2",
-  "description": "Use Cloudinary directly in Claude. Upload, manage, optimize, and transform images and videos at scale using natural language.",
+  "description": "直接在Claude中使用Cloudinary。通过自然对话来管理资产、应用转换、优化媒体等。",
   "author": {
     "name": "Cloudinary",
     "email": "support@cloudinary.com"

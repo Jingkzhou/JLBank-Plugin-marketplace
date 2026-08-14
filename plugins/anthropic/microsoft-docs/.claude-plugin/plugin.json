@@ -1,6 +1,6 @@
 {
   "name": "microsoft-docs",
-  "description": "Access official Microsoft documentation, API references, and code samples for Azure, .NET, Windows, and more.",
+  "description": "访问 Azure、.NET、Windows 等的官方 Microsoft 文档、API 参考和代码示例。",
   "version": "0.3.1",
   "author": {
     "name": "Microsoft"

@@ -1,7 +1,7 @@
 {
     "name": "vpai",
     "version": "0.1.107",
-    "description": "Power your chat with B2B data to create lead lists, research companies, personalize your outreach, and more. Search any company or professional to access emails, phone numbers, roles, growth signals, tech stack details, business events, website changes, and more.",
+    "description": "Vibe Prospecting 将 Claude 连接到实时 B2B 公司和联系人数据，以便用户可以大规模搜索、匹配、丰富、过滤和导出潜在客户。它将自然语言请求转化为结构化的 GTM 工作流程，用于 Claude Cowork 和 Claude Code 内的潜在客户开发、CRM 丰富、公司研究、高管发现和多步骤勘探自动化。",
     "author": {
       "name": "vibeprospecting.ai",
       "email": "support@vibeprospecting.ai",

@@ -1,6 +1,6 @@
 {
   "name": "gitlab",
-  "description": "GitLab DevOps platform integration. Manage repositories, merge requests, CI/CD pipelines, issues, and wikis. Full access to GitLab's comprehensive DevOps lifecycle tools.",
+  "description": "GitLab DevOps 平台集成。管理存储库、合并请求、CI/CD 管道、问题和 wiki。完全访问 GitLab 的综合 DevOps 生命周期工具。",
   "author": {
     "name": "GitLab"
   }

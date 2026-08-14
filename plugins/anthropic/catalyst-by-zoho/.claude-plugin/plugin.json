@@ -1,6 +1,6 @@
 {
   "name": "catalyst-by-zoho",
-  "description": "Official Claude Code plugin for Catalyst by Zoho — full-stack serverless cloud platform. With Skills that covers all services, SDKs, CLI, architecture patterns, pricing, migration guides, and Zoho MCP tool-based resource management.",
+  "description": "Zoho Catalyst 的官方 Claude 代码插件 — 全栈无服务器云平台。拥有涵盖所有服务、SDK、CLI、架构模式、定价、迁移指南和基于 Zoho MCP 工具的资源管理的技能。",
   "version": "0.0.2",
   "author": {
     "name": "Catalyst by Zoho",

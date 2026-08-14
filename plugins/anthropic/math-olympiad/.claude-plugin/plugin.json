@@ -1,6 +1,6 @@
 {
   "name": "math-olympiad",
-  "description": "Solve competition math (IMO, Putnam, USAMO) with adversarial verification that catches what self-verification misses. Fresh-context verifiers attack proofs with specific failure patterns. Calibrated abstention over bluffing.",
+  "description": "通过对抗性验证来解决竞赛数学（IMO、Putnam、USAMO），该验证可以捕获自我验证遗漏的内容。新上下文验证者使用特定的失败模式来攻击证明。对虚张声势的校准弃权。",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"

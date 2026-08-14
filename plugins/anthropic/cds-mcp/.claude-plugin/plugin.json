@@ -1,7 +1,7 @@
 {
   "name": "cds-mcp",
   "version": "0.0.5",
-  "description": "Model Context Protocol (MCP) server for AI-assisted development of CAP applications.",
+  "description": "AI 辅助开发 SAP Cloud 应用程序编程模型 (CAP) 项目。搜索 CDS 模型和 CAP 文档。",
   "author": {
     "name": "SAP SE"
   },

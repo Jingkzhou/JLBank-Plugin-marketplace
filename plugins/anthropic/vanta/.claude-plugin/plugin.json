@@ -1,7 +1,7 @@
 {
   "name": "vanta",
   "version": "1.0.0",
-  "description": "Vanta MCP server integration for Claude Code",
+  "description": "Vanta 插件通过 Vanta MCP 服务器将 Claude Code 连接到 Vanta 的安全和合规平台。它将 Vanta 的测试特定修复智能与您的本地存储库上下文相结合，帮助您更快地修复合规性故障。",
   "author": {
     "name": "Vanta",
     "url": "https://www.vanta.com"

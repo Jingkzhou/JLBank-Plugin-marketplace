@@ -1,6 +1,6 @@
 {
   "name": "laravel-boost",
-  "description": "Laravel development toolkit MCP server. Provides intelligent assistance for Laravel applications including Artisan commands, Eloquent queries, routing, migrations, and framework-specific code generation.",
+  "description": "Laravel 开发工具包 MCP 服务器。为 Laravel 应用程序提供智能帮助，包括 Artisan 命令、Eloquent 查询、路由、迁移和特定于框架的代码生成。",
   "author": {
     "name": "Laravel"
   }

@@ -2,7 +2,7 @@
   "author": {
     "name": "Amazon Web Services"
   },
-  "description": "Deploy applications to AWS with architecture recommendations, cost estimates, and IaC deployment. Generate validated AWS architecture diagrams as draw.io XML.",
+  "description": "通过架构建议、成本估算和 IaC 部署将应用程序部署到 AWS。",
   "homepage": "https://github.com/awslabs/agent-plugins",
   "keywords": [
     "aws",

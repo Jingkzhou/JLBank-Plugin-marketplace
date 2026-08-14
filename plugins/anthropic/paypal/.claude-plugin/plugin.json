@@ -1,7 +1,7 @@
 {
   "name": "paypal",
   "version": "1.0.0",
-  "description": "PayPal development plugin for Claude — integrate payments, subscriptions, invoices, disputes, and more using PayPal's APIs and MCP server",
+  "description": "Claude 的 PayPal 开发插件 — 使用 PayPal 的 API 和 MCP 服务器集成支付、订阅、发票、争议等",
   "author": {
     "name": "PayPal",
     "url": "https://developer.paypal.com"

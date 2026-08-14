@@ -5,7 +5,7 @@ JLBank 内网 Claude Code 插件市场。仓库将公开插件和 Agent Skills �
 当前收录口径：
 
 - Anthropic 官方 `claude-plugins-official` marketplace：全部插件。
-- skills.sh：公开 all-time 排行榜 Top 600；不按安全、质量、重复或许可证筛除，风险仅做标记。
+- skills.sh：公开 all-time 排行榜 Top 50；不按安全、质量、重复或许可证筛除，风险仅做标记。
 
 ## 目录结构
 
@@ -15,7 +15,10 @@ JLBank-Plugin-marketplace/
 │   └── marketplace.json
 ├── catalog/
 │   ├── anthropic-upstream.json
-│   ├── skills-sh-top-600.json
+│   ├── skills-sh-top-50.json
+│   ├── skills-sh-metadata.json
+│   ├── anthropic-description-zh.json
+│   ├── plugin-description-localization.json
 │   ├── provenance.json
 │   ├── sync-report.json
 │   ├── license-report.json
@@ -46,14 +49,14 @@ JLBank-Plugin-marketplace/
 /plugin install <plugin-name>@jlbank-plugin-marketplace
 ```
 
-添加 marketplace 只注册目录；具体插件仍由用户选择安装。安装后的插件来自本仓库 `plugins/`，不会再根据上游 source 从公网拉取源码。
+添加 marketplace 只注册目录；具体插件仍由用户选择安装。市场卡片统一展示中文描述；Top 50 skills.sh 技能按排行榜逐项展示中文能力类型、介绍、排名和下载次数。安装后的插件来自本仓库 `plugins/`，不会再根据上游 source 从公网拉取源码。`plugins/` 下的上游文件保持原样，中文化只作用于市场索引展示字段。
 
 ## 公网同步
 
 同步机需要能够访问 GitHub、Anthropic 官方插件仓库和 skills.sh。同步只下载、解包和静态分析内容，不运行任何上游脚本：
 
 ```bash
-python3 scripts/sync_marketplace.py --all --skills-limit 600
+python3 scripts/sync_marketplace.py --all --skills-limit 50
 ./scripts/validate.sh
 ```
 
@@ -63,7 +66,7 @@ python3 scripts/sync_marketplace.py --all --skills-limit 600
 
 ```bash
 python3 scripts/sync_marketplace.py --anthropic
-python3 scripts/sync_marketplace.py --skills-sh --skills-limit 600
+python3 scripts/sync_marketplace.py --skills-sh --skills-limit 50
 ```
 
 ## 信任边界

@@ -3,7 +3,7 @@
   "name": "atlassian-twg-cli",
   "displayName": "Atlassian Teamwork Graph CLI",
   "version": "1.0.3",
-  "description": "Teamwork Graph CLI is Atlassian's agent-first interface to your entire work context: Jira issues, Confluence pages, Bitbucket PRs, along with your connected third-party data sources. Purpose-built for coding agents like Claude Code (terminal or desktop), and powered by Atlassian's context graph. Try: \"draft a Jira issue from this PR and link it to the epic.\" Using Claude Code in the browser? Install the Atlassian Rovo MCP plugin instead. Run /twg-setup after install to connect Atlassian Teamwork Graph CLI to Claude Code.",
+  "description": "Teamwork Graph CLI 是 Atlassian 面向整个工作环境的代理优先界面：Jira 问题、Confluence 页面、Bitbucket PR 以及连接的第三方数据源。专为 Claude Code（终端或桌面）等编码代理而构建，并由 Atlassian 的上下文图提供支持。尝试：“从此 PR 中起草一个 Jira 问题并将其链接到史诗。”在浏览器中使用克劳德代码？请安装 Atlassian Rovo MCP 插件。安装后运行 /twg-setup 将 Atlassian Teamwork Graph CLI 连接到 Claude Code。",
   "author": {
     "name": "Atlassian",
     "url": "https://www.atlassian.com"

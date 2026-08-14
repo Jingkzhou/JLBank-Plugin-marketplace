@@ -1,7 +1,7 @@
 {
   "name": "fullstory",
   "version": "0.1.0",
-  "description": "Connect VSCode to Fullstory to query behavioral analytics, session replays, and customer experience insights.",
+  "description": "将 Claude 连接到 Fullstory 以查询行为分析、会话重播和客户体验见解。",
   "author": {
     "name": "Fullstory"
   },

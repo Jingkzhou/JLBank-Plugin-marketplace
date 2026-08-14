@@ -24,5 +24,19 @@
       "skillsh-uizze-com"
     ],
     "mirror_content_changed": false
+  },
+  {
+    "scope": "skills.sh Top 50 marketplace entries",
+    "change": "Exposed each retained skill as a separately ranked marketplace entry with Chinese capability metadata, Chinese description, and skills.sh download count.",
+    "mirror_content_changed": false
+  },
+  {
+    "scope": "local plugin manifest display metadata",
+    "change": "Localized the description field in each Grok-readable plugin.json manifest so Grok's marketplace scanner cannot replace the Chinese marketplace description with the upstream English manifest description.",
+    "affected_manifest_files": 315,
+    "affected_plugin_directories": 276,
+    "details_file": "catalog/plugin-description-localization.json",
+    "reason": "Grok prioritizes the plugin manifest description when browsing available marketplace plugins; each record in the details file preserves the original value, localized value, path, and reason.",
+    "mirror_content_changed": true
   }
 ]

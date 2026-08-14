@@ -1,7 +1,7 @@
 {
   "name": "agentforce-adlc",
   "version": "0.11.0",
-  "description": "Agentforce Agent Development Life Cycle — author, discover, scaffold, deploy, test, secure, and optimize .agent files",
+  "description": "Agentforce 代理开发生命周期 — 创作、发现、构建、部署、测试和优化 .agent 文件",
   "author": {
     "name": "SalesforceAIResearch"
   },

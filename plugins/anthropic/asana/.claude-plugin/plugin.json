@@ -1,6 +1,6 @@
 {
   "name": "asana",
-  "description": "Asana project management integration. Connects Claude Code to Asana's V2 MCP server (https://mcp.asana.com/v2/mcp) to create and manage tasks, search projects, update assignments, and track progress. Requires a one-time setup of your own Asana OAuth app — run /asana-setup after installing.",
+  "description": "Asana 项目管理集成。将 Claude Code 连接到 Asana 的 V2 MCP 服务器以创建和管理任务、搜索项目、更新作业并跟踪进度。需要一次性 Asana OAuth 应用程序设置 - 安装后运行 /asana-setup。",
   "author": {
     "name": "Asana"
   }

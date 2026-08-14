@@ -1,7 +1,7 @@
 {
     "name": "outputai",
     "version": "0.3.0",
-    "description": "Workflow development tools",
+    "description": "适用于 Claude Code 的 Output.ai 工作流程开发工具包。添加 5 名专业代理（规划者、构建者、调试者、提示编写者、质量审核者）、40 多种斜线命令技能（涵盖脚手架、调试、评估和凭证管理），以及自动加载输出 SDK 约定的 SessionStart 挂钩，以便 Claude 在第一次提示之前了解框架。",
     "author": {
       "name": "Output.ai",
       "email": "oss@growthx.ai"

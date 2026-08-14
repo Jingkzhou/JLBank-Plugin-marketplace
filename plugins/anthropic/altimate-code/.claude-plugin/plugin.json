@@ -2,7 +2,7 @@
   "name": "altimate-code",
   "displayName": "Altimate Code",
   "version": "1.0.0",
-  "description": "Delegates dbt and warehouse work to altimate-code, a specialized CLI agent with 100+ purpose-built data tools (SQL analysis, column-level lineage, dbt build/test/run, warehouse profiling, FinOps, connectivity to Snowflake, BigQuery, Redshift, Databricks, Postgres, MySQL, DuckDB).",
+  "description": "将 dbt 和仓库工作委托给 alttimate-code，这是一个专门的 CLI 代理，具有 100 多个专用数据工具（SQL 分析、列级沿袭、dbt 构建/测试/运行、仓库分析、FinOps、与 Snowflake、BigQuery、Redshift、Databricks、Postgres、MySQL、DuckDB 的连接）。",
   "author": {
     "name": "AltimateAI",
     "url": "https://altimate.ai"

@@ -1,6 +1,6 @@
 {
   "name": "quarkus-agent",
-  "description": "MCP server for AI coding agents to create, manage, and interact with Quarkus applications. Provides tools for project scaffolding, dev mode lifecycle, extension skills, Dev MCP proxy, and documentation search.",
+  "description": "MCP 服务器，用于 AI 编码代理创建、管理 Quarkus 应用程序并与 Quarkus 应用程序交互。提供用于项目脚手架、开发模式生命周期、扩展技能、Dev MCP 代理和文档搜索的工具。",
   "version": "1.2.5",
   "author": {
     "name": "Quarkus",

@@ -1,7 +1,7 @@
 {
   "name": "boltz",
   "version": "0.1.1",
-  "description": "Predict structures, screen molecules and proteins, and design binders with Boltz from Claude Code.",
+  "description": "使用 Claude Code 的 Boltz 预测结构、筛选分子和蛋白质并设计结合物。",
   "author": {
     "name": "Boltz",
     "email": "support@boltz.bio",

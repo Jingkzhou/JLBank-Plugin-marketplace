@@ -1,6 +1,6 @@
 {
   "name": "streaming-skills-plugin",
-  "description": "Skills for streaming application developers, covering Kafka and Flink client libraries and Schema Registry",
+  "description": "流应用程序开发人员的技能，涵盖 Kafka 和 Flink 客户端库和架构注册表",
   "version": "1.2.1",
   "author": {
     "name": "Confluent"

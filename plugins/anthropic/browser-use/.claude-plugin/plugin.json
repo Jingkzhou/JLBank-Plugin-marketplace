@@ -1,6 +1,6 @@
 {
   "name": "browser-use",
-  "description": "Give Claude a real browser — your Chrome or a Browser Use Cloud browser. Use it whenever a task involves a website or web app: browsing, scraping and data extraction, filling forms, testing sites, taking screenshots, automating web workflows.",
+  "description": "给 Claude 一个真正的浏览器 - 您的 Chrome 或浏览器使用云浏览器。当任务涉及网站或网络应用程序时，请使用它：浏览、抓取和数据提取、填写表单、测试网站、截取屏幕截图、自动化网络工作流程。",
   "author": {
     "name": "Browser Use",
     "url": "https://browser-use.com"

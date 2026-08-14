@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "google-cloud-storage",
   "version": "1.0.0",
-  "description": "Official Google Cloud Storage (GCS) plugin. Manage buckets and objects, transfer data, and configure MCP, FUSE, IAM, security, lifecycle rules, signed URLs, Terraform, and the CLI.",
+  "description": "官方 Google 云存储 (GCS) 插件。管理存储桶和对象、传输数据以及配置 MCP、FUSE、IAM、安全性、生命周期规则、签名 URL、Terraform 和 CLI。",
   "author": {
     "name": "Google LLC",
     "email": "gcs-agentic-ai-customer-support@google.com"

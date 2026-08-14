@@ -2,7 +2,7 @@
   "author": {
     "name": "Amazon Web Services"
   },
-  "description": "Design, build, deploy, test, and debug serverless applications with AWS Serverless services.",
+  "description": "使用 AWS Serverless 服务设计、构建、部署、测试和调试无服务器应用程序。",
   "homepage": "https://github.com/awslabs/agent-plugins",
   "keywords": [
     "aws",

@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "exa",
   "version": "3.4.0",
-  "description": "A Model Context Protocol server with Exa for web search, code search, and web crawling. Provides real-time web searches with configurable tool selection, allowing users to enable or disable specific search capabilities.",
+  "description": "Exa AI 网络搜索、深度研究和内容提取。提供用于综合网络搜索、人员发现、公司研究、学术论文等的 MCP 工具和研究技能。",
   "author": {
     "name": "Exa",
     "email": "hello@exa.ai"

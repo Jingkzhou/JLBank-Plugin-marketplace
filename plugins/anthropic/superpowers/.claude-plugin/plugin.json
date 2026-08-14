@@ -1,6 +1,6 @@
 {
   "name": "superpowers",
-  "description": "Core skills library for Claude Code: TDD, debugging, collaboration patterns, and proven techniques",
+  "description": "Superpowers 教授 Claude 头脑风暴、子代理驱动开发以及内置代码审查、系统调试和红/绿 TDD。此外，它还教克劳德如何创作和测试新技能。",
   "version": "6.3.0",
   "author": {
     "name": "Jesse Vincent",

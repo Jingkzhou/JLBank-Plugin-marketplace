@@ -1,6 +1,6 @@
 {
   "name": "pinecone",
-  "description": "Pinecone vector database integration. Streamline your Pinecone development with powerful tools for managing vector indexes, querying data, and rapid prototyping. Use slash commands like /quickstart to generate AGENTS.md files and initialize Python projects and /query to quickly explore indexes. Access the Pinecone MCP server for creating, describing, upserting and querying indexes with Claude. Perfect for developers building semantic search, RAG applications, recommendation systems, and other vector-based applications with Pinecone.",
+  "description": "松果矢量数据库集成。使用用于管理矢量索引、查询数据和快速原型设计的强大工具简化您的 Pinecone 开发。使用 /quickstart 等斜杠命令生成 AGENTS.md 文件并初始化 Python 项目和 /query 来快速探索索引。访问 Pinecone MCP 服务器，与 Claude 一起创建、描述、更新插入和查询索引。非常适合使用 Pinecone 构建语义搜索、RAG 应用程序、推荐系统和其他基于矢量的应用程序的开发人员。",
   "version": "1.6.0",
   "author": {
     "name": "Pinecone"

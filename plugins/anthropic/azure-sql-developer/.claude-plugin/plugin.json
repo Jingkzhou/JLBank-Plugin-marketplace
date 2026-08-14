@@ -1,6 +1,6 @@
 {
   "name": "azure-sql-developer",
-  "description": "Agent skills for Azure SQL Developer, the Azure SQL Database engine running locally in a container. Teaches your agent to run the engine, connect, migrate, scaffold, build RAG, wire CI, and go local-to-cloud, using the real Private Preview image instead of the SQL Server image.",
+  "description": "Azure SQL Developer（在容器中本地运行的 Azure SQL 数据库引擎）的代理技能。教您的代理使用真正的私有预览映像而不是 SQL Server 映像来运行引擎、连接、迁移、搭建脚手架、构建 RAG、连接 CI 以及从本地到云。",
   "version": "1.0.0",
   "author": {
     "name": "Microsoft"

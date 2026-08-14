@@ -1,6 +1,6 @@
 {
   "name": "shopify-plugin",
-  "description": "Shopify developer tools for Claude Code — search Shopify docs, generate and validate GraphQL, Liquid, and UI extension code. Skill scripts send usage telemetry (queries, code, model/client identifiers) to shopify.dev by default; set OPT_OUT_INSTRUMENTATION=true to disable.",
+  "description": "Shopify 的 AI 工具包提供了 18 种用于在 Shopify 平台上构建的开发技能，涵盖文档搜索、API 模式访问、GraphQL 和 Liquid 代码验证、Hydrogen 店面、Polaris UI 扩展、通过 CLI 进行商店管理以及针对开发人员和商家的入职指导。",
   "version": "1.6.1",
   "author": { "name": "Shopify" },
   "license": "MIT",

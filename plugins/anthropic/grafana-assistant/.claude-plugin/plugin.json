@@ -1,7 +1,7 @@
 {
   "name": "grafana-assistant",
   "version": "0.2.0",
-  "description": "Skills and rules for developing and using the Grafana Assistant app and CLI.",
+  "description": "开发和使用 Grafana Assistant 应用程序和 CLI 的技能和规则。",
   "author": {
     "name": "Grafana Labs",
     "email": "grafana-assistant@grafana.com"

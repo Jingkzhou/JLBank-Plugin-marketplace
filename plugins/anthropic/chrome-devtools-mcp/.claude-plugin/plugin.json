@@ -1,7 +1,7 @@
 {
   "name": "chrome-devtools-mcp",
   "version": "1.7.0",
-  "description": "Reliable automation, in-depth debugging, and performance analysis in Chrome using Chrome DevTools and Puppeteer",
+  "description": "从您的编码代理控制和检查实时 Chrome 浏览器。记录性能跟踪、分析网络请求、使用源映射堆栈跟踪检查控制台消息，并使用 Puppeteer 自动执行浏览器操作。",
   "mcpServers": {
     "chrome-devtools": {
       "command": "npx",

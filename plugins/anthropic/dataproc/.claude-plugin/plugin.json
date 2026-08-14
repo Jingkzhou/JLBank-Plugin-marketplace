@@ -1,7 +1,7 @@
 {
   "name": "dataproc",
   "version": "0.1.0",
-  "description": "Manage Dataproc clusters and jobs.",
+  "description": "管理 Dataproc 集群和作业。",
   "author": {
     "name": "Google LLC",
     "email": "data-cloud-ai-integrations@google.com"

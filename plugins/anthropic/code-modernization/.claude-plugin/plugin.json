@@ -1,6 +1,6 @@
 {
   "name": "code-modernization",
-  "description": "Modernize legacy codebases (COBOL, legacy Java/C++/.NET, monolith web apps) with a structured preflight / assess / map / extract-rules / brief / (reimagine | transform | uplift) / harden / status workflow. Cross-stack rewrites, greenfield reimagining, and same-stack version uplifts (e.g. .NET Framework → .NET 8); an interactive topology viewer; specialist agents; and optional dynamic-workflow orchestration with adversarial verification.",
+  "description": "通过结构化预检/评估/映射/提取规则/简要/重新构想/转换/强化工作流程、交互式拓扑查看器和专家审核代理，对遗留代码库（COBOL、遗留Java/C++、整体式Web应用程序）进行现代化改造",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"

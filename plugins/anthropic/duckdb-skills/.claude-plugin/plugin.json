@@ -1,6 +1,6 @@
 {
   "name": "duckdb-skills",
-  "description": "DuckDB-powered skills for Claude Code: read any data file, attach and query DuckDB databases, search DuckDB/DuckLake docs, search past session logs, and install/update DuckDB extensions.",
+  "description": "Claude Code 的 DuckDB 支持技能：读取任何数据文件、附加和查询 DuckDB 数据库、搜索 DuckDB/DuckLake 文档、搜索过去的会话日志以及安装/更新 DuckDB 扩展。",
   "version": "0.2.4",
   "author": {
     "name": "duckdb",

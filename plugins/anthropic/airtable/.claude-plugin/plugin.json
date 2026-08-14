@@ -1,7 +1,7 @@
 {
     "name": "airtable",
     "version": "0.1.0",
-    "description": "Airtable is the database and operations layer for your agents — whether running product, marketing, sales, ops, HR, or a custom business app. It combines structured data with multiplayer visual surfaces (grid, kanban, calendar, gallery, timeline) humans and agents share — plus sync integrations to Jira, Salesforce, Zendesk, Google Drive, and Databricks. Makes Claude fluent in Airtable: bases and schema, records, and collaboration UI. Bundles the official Airtable MCP server.",
+    "description": "Airtable 是您的代理的数据库和运营层 - 无论是运行产品、营销、销售、运营、人力资源还是自定义业务应用程序。它将结构化数据与人类和代理共享的多人视觉界面（网格、看板、日历、图库、时间线）相结合，再加上与 Jira、Salesforce、Zendesk、Google Drive、Databricks 和其他堆栈的同步集成，所有这些都由企业治理提供支持。该插件使 Claude 能够流利地使用 Airtable：创建基础和架构、处理记录以及共享 UI 以进行协作。捆绑官方 Airtable MCP 服务器。",
     "author": {
         "name": "Airtable",
         "url": "https://www.airtable.com"

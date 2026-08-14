@@ -1,7 +1,7 @@
 {
     "name": "appwrite",
     "version": "0.1.0",
-    "description": "Appwrite tools for Claude Code, including SDK skills, Appwrite MCP servers, and deployment commands.",
+    "description": "Claude Code 的 Appwrite 工具，包括 SDK 技能、Appwrite MCP 服务器和部署命令。",
     "author": {
         "name": "Appwrite",
         "email": "team@appwrite.io"

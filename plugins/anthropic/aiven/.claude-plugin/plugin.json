@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "aiven",
   "version": "1.0.6",
-  "description": "Easily deploy managed PostgreSQL (pg), Kafka, OpenSearch, Clickhouse and other databases, streaming and apps. Free tier available, up and running in minutes.",
+  "description": "轻松部署托管 PostgreSQL (pg)、Kafka、OpenSearch、Clickhouse 和其他数据库、流媒体和应用程序。提供免费套餐，几分钟内即可启动并运行。",
   "author": {
     "name": "Aiven",
     "url": "https://aiven.io"

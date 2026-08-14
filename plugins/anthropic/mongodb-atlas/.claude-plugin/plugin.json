@@ -3,7 +3,7 @@
   "name": "mongodb-atlas",
   "displayName": "MongoDB Atlas (Managed MCP)",
   "version": "1.2.0",
-  "description": "Connect to MongoDB Atlas clusters only through the Atlas Managed MCP Server. Sign in with your Atlas account to explore data, manage collections, optimize queries, generate reliable code with MongoDB best practices, and manage Atlas resources such as clusters, projects, database users, and network access.\n\nIf you are running a different MongoDB deployment or want to run a local MongoDB MCP Server, install the MongoDB (Self-Managed MCP) plugin instead.",
+  "description": "仅通过 Atlas Managed MCP Server 连接到 MongoDB Atlas 集群。使用您的 Atlas 帐户登录，探索数据、管理集合、优化查询、利用 MongoDB 最佳实践生成可靠的代码，以及管理 Atlas 资源，例如集群、项目、数据库用户和网络访问。如果您正在运行不同的 MongoDB 部署或想要运行本地 MongoDB MCP 服务器，请安装 MongoDB（自管理 MCP）插件。",
   "author": {
     "name": "MongoDB",
     "email": "agent-plugins@mongodb.com",

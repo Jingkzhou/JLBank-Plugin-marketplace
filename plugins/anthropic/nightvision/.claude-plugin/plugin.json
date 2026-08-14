@@ -1,7 +1,7 @@
 {
   "name": "nightvision",
   "version": "1.1.0",
-  "description": "Skills for working with NightVision, a DAST and API Discovery platform that finds exploitable vulnerabilities in web applications and REST APIs",
+  "description": "使用 NightVision 的技能，NightVision 是一个 DAST 和 API 发现平台，可查找 Web 应用程序和 REST API 中的可利用漏洞",
   "author": {
     "name": "NightVision Engineering",
     "email": "support@nightviz.ai",

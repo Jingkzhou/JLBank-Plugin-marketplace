@@ -1,6 +1,6 @@
 {
   "name": "mergify",
-  "description": "Skills for the Mergify CLI: manage merge queues, stacked pull requests, Test Insights (flaky tests, quarantine), merge protections, and Mergify configuration directly from the terminal.",
+  "description": "Mergify CLI 的技能：管理合并队列、堆叠拉取请求、测试见解（片状测试、隔离）、合并保护以及直接从终端进行 Mergify 配置。",
   "author": {
     "name": "Mergify"
   },

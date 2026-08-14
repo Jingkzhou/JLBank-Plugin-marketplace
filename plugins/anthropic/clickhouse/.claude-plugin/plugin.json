@@ -1,6 +1,6 @@
 {
   "name": "clickhouse",
-  "description": "ClickHouse Claude Code plugin: skills (ClickHouse best practices), rules and MCP.",
+  "description": "将 Claude 连接到您的 ClickHouse Cloud 数据库。浏览组织、服务、数据库和表架构。针对您的数据运行只读 SQL 查询并获得即时分析答案。监控服务备份、审查计费成本并检查 ClickPipe 配置 - 所有这些都通过自然对话进行。",
   "version": "1.0.0",
   "author": {
     "name": "ClickHouse",

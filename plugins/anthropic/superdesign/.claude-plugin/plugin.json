@@ -3,7 +3,7 @@
   "name": "superdesign",
   "displayName": "Superdesign",
   "version": "0.4.3",
-  "description": "Design or redesign frontend UI and marketing graphics on the Superdesign infinite canvas. Reads your codebase for context, sets up a design system, and generates branchable design drafts you refine.",
+  "description": "在 Superdesign 无限画布上设计或重新设计前端 UI 和营销图形。读取您的代码库以了解上下文，建立设计系统，并生成您改进的可分支设计草案。",
   "author": {
     "name": "Superdesign dev, Inc.",
     "email": "support@superdesign.dev",

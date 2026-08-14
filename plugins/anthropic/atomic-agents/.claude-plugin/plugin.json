@@ -1,7 +1,7 @@
 {
   "name": "atomic-agents",
   "version": "2.2.0",
-  "description": "Skills plus explorer and reviewer subagents for building, scaffolding, debugging, understanding, and auditing applications with the Atomic Agents Python framework. Includes the umbrella `framework` skill, action-oriented `create-atomic-schema` / `create-atomic-agent` / `create-atomic-tool` / `create-atomic-context-provider` skills, the `troubleshoot` diagnostic skill, the `new-app` scaffolder (emits AGENTS.md + CLAUDE.md), progressive-disclosure reference material for prompts, orchestration, memory, hooks, providers, project structure, and testing, and isolated-context subagents for codebase mapping and code review.",
+  "description": "使用原子代理框架构建人工智能代理的综合开发工作流程。包括用于模式设计、架构规划、代码审查和工具开发的专门代理。具有指导工作流程、渐进式披露技能和最佳实践验证。",
   "author": {
     "name": "Kenny Vaneetvelde",
     "email": "kenny@eigenwise.io"

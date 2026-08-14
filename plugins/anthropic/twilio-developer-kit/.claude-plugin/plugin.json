@@ -1,7 +1,7 @@
 {
   "name": "twilio-developer-kit",
   "version": "0.3.1",
-  "description": "Complete set of Twilio skills. Covers Setup, Planner, Product, and Guardrail skills across SMS, Voice, WhatsApp, AI agents, Conversation Orchestrator, and 30+ products.",
+  "description": "Twilio Skills 为 AI 编码代理提供程序知识 - 使用哪些 API、按什么顺序以及要避免什么。涵盖短信、语音、WhatsApp、Verify、SendGrid、Compliance 等 30 多种产品。",
   "author": {
     "name": "Twilio"
   },

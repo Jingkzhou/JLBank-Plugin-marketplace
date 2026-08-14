@@ -1,6 +1,6 @@
 {
   "name": "servicenow-sdk",
-  "description": "Create, edit, and deploy ServiceNow applications with the Fluent SDK effortlessly through Claude AI",
+  "description": "通过 Claude AI 使用 Fluent SDK 轻松创建、编辑和部署 ServiceNow 应用程序。",
   "version": "1.2.0",
   "author": {
     "name": "ServiceNow",
