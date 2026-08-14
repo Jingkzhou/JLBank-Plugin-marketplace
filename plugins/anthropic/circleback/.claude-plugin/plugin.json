@@ -1,6 +1,6 @@
 {
   "name": "circleback",
-  "description": "Circleback 对话上下文集成。搜索和访问会议、电子邮件、日历活动等。",
+  "description": "Circleback conversational context integration. Search and access meetings, emails, calendar events, and more.",
   "version": "1.0.0",
   "author": {
     "name": "Circleback"

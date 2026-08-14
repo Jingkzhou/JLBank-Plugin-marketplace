@@ -1,6 +1,6 @@
 {
   "name": "hostinger",
-  "description": "部署、管理和监控 Hostinger 服务 — 网站、域名、电子商务、电子邮件营销、订阅和付款以及 VPS。通过浏览器 (OAuth) 或 API 令牌进行身份验证。",
+  "description": "Deploy, manage and monitor Hostinger services — Websites, Domains & DNS, Ecommerce, Email, Email Marketing, WordPress, Subscriptions & Payments, and VPS. Authenticate via browser (OAuth)",
   "version": "1.1.0",
   "author": {
     "name": "Hostinger",

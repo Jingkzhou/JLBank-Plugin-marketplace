@@ -1,7 +1,7 @@
 {
   "name": "grafana-mcp",
   "version": "0.2.0",
-  "description": "用于 AI 辅助 Grafana 仪表板、数据源、警报和事件管理的 MCP 服务器。",
+  "description": "MCP server for AI-assisted Grafana dashboard, datasource, alerting, and incident management.",
   "author": {
     "name": "Grafana Labs",
     "email": "grafana-assistant@grafana.com"

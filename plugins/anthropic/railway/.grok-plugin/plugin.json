@@ -1,7 +1,7 @@
 {
   "name": "railway",
   "version": "1.3.7",
-  "description": "在铁路上部署和管理应用程序、数据库和基础设施。涵盖项目设置、部署、环境配置、网络、故障排除和监控。",
+  "description": "Railway agent skills and hosted MCP server for deploying, configuring, monitoring, and troubleshooting apps and infrastructure on Railway from Grok. Manage services, environments, deployments, databases, object storage, networking, and observability.",
   "author": {
     "name": "Railway",
     "email": "contact@railway.com"

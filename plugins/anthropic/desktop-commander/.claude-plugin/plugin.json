@@ -2,7 +2,7 @@
   "name": "desktop-commander",
   "displayName": "Desktop Commander",
   "version": "0.2.0",
-  "description": "MCP 服务器用于跨文本、代码、PDF、DOCX、Excel、图像和结构化数据的终端命令、流程管理和文件操作。",
+  "description": "MCP server for terminal commands, process management, and file operations across text files, code, PDF, DOCX, Excel, images, and structured data",
   "author": {
     "name": "Desktop Commander",
     "email": "es@desktopcommander.app"

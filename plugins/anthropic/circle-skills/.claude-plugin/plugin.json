@@ -1,7 +1,7 @@
 {
 	"name": "circle",
 	"version": "1.1.0",
-	"description": "更快地发布稳定币应用程序。 USDC 支付、跨链转账、钱包和智能合约的最佳实践技能，以及用于实时 SDK 和文档指导的 Circle 的 MCP 服务器。",
+	"description": "Ship stablecoin apps faster. Best-practice skills for USDC payments, cross-chain transfers, wallets, and smart contracts — plus Circle's MCP server for real-time SDK and documentation guidance.",
 	"author": {
 		"name": "Circle Technology Services"
 	},

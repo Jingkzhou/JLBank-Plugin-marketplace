@@ -1,7 +1,7 @@
 {
   "name": "jfrog",
   "displayName": "JFrog",
-  "description": "使用 Claude Code 的 JFrog 平台：Artifactory 存储库和工件、安全发现和暴露、目录包安全和下载、跨 SDLC 的工作流程以及平台管理。",
+  "description": "Official JFrog plugin. Connect Claude Code to JFrog to manage, secure, and govern your software supply chain. Give agents the context to build secure, compliant software.",
   "version": "0.2.19",
   "author": {
     "name": "JFrog Ltd.",

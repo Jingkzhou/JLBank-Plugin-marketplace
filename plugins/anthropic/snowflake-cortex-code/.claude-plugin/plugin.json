@@ -1,7 +1,7 @@
 {
   "name": "snowflake-cortex-code",
   "version": "3.3.1",
-  "description": "自动将 Snowflake 提示从 Claude Code 路由到 Cortex Code 来执行。提供用于代码审查和任务委派的斜线命令，以及路由、运行和设置的技能。",
+  "description": "Automatically route Snowflake prompts from Claude Code to Cortex Code for execution.",
   "author": {
     "name": "Snowflake"
   },

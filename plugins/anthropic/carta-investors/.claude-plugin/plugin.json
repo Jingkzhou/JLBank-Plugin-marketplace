@@ -1,7 +1,7 @@
 {
   "name": "carta-investors",
   "version": "3.26.3",
-  "description": "Carta Investors 插件 — 通过 Carta MCP 服务器查询投资者数据、绩效基准、监管报告、年度股东大会甲板生成、品牌提取等的技能。",
+  "description": "Carta Investors plugin — write-capable skills for querying and updating investors data, performance benchmarks, regulatory reporting, AGM deck generation, brand extraction, and more via the Carta MCP server",
   "problem": "Fund CFOs and investor teams answering questions about NAV, benchmarks, budgets, Form ADV, or AGM decks pull data screen-by-screen from the Carta app and rebuild reports, models, and decks by hand every cycle.",
   "author": {
     "name": "Carta",

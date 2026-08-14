@@ -1,6 +1,6 @@
 {
   "name": "aws-agents-for-devsecops",
-  "description": "调查事件、审查代码并执行 UAT 来做好发布准备、扫描代码中的漏洞以及使用 AWS DevOps Agent 和 AWS Security Agent 运行渗透测试。",
+  "description": "Investigate incidents, review code and execute UAT for release readiness, scan code for vulnerabilities, and run penetration tests with AWS DevOps Agent and AWS Security Agent.",
   "version": "1.0.0",
   "author": {
     "name": "Amazon Web Services"

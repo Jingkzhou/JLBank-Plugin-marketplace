@@ -1,7 +1,7 @@
 {
   "name": "atlassian",
   "displayName": "Atlassian MCP",
-  "description": "连接到 Atlassian 产品，包括 Jira 和 Confluence。搜索和创建问题、访问文档、管理冲刺并将您的开发工作流程与 Atlassian 的协作工具集成。",
+  "description": "Connect to Atlassian products including Jira and Confluence. Search and create issues, access documentation, manage sprints, and integrate your development workflow with Atlassian's collaboration tools.",
   "author": {
     "name": "Atlassian"
   },

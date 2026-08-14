@@ -1,7 +1,7 @@
 {
   "name": "neon",
   "version": "1.1.2",
-  "description": "使用 neon-postgres 代理技能和 Neon MCP 服务器管理您的 Neon 项目和数据库。",
+  "description": "Manage your Neon backend with the Neon agent skills and the Neon MCP Server: Lakebase Postgres, branching, Object Storage, Functions, and the AI Gateway",
   "author": {
     "name": "Neon",
     "url": "https://neon.com"

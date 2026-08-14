@@ -1,6 +1,6 @@
 {
   "name": "noibu",
-  "description": "Noibu 插件专为电子商务而构建，通过 Noibu 将 Claude 直接连接到商店的会话、错误和转化数据，以及将洞察力付诸实践的营销、支持和商务平台，从而弥合了客户体验和收入之间的差距。超越分析：揭示造成收入损失的因素，在整个堆栈中采取行动，构建工作流程以实现端到端工作自动化。",
+  "description": "Connects Claude to the Noibu MCP server",
   "author": {
     "name": "Noibu",
     "url": "https://noibu.com"

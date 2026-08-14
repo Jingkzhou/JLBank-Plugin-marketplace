@@ -1,7 +1,7 @@
 {
   "name": "valtown",
   "displayName": "Val Town",
-  "description": "在瓦尔镇上构建并部署。捆绑 Val Town MCP 服务器和平台技能（HTTP vals、cron/intervals、SQLite、电子邮件、OAuth、React UI、第三方集成、模板）。",
+  "description": "Build and deploy on Val Town. Bundles the Val Town MCP server and platform skills (HTTP vals, cron/intervals, SQLite, email, OAuth, React UI, third-party integrations).",
   "version": "0.3.0",
   "author": {
     "name": "Val Town"

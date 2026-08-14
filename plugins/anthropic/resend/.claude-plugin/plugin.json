@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "resend",
-  "description": "使用 Resend 发送和接收电子邮件的代理技能 - 电子邮件 API 集成、代理收件箱、CLI、React Email 组件和交付最佳实践。包括重新发送 MCP 服务器。",
+  "description": "Send and receive emails, build with React Email, follow deliverability best practices",
   "version": "1.0.5",
   "logo": "assets/app-icon.svg",
   "mcpServers": {

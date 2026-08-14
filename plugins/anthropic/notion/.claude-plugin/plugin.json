@@ -1,7 +1,7 @@
 {
     "name": "Notion",
     "version": "0.1.0",
-    "description": "概念工作区集成。搜索页面、创建和更新文档、管理数据库以及直接从 Claude Code 访问团队的知识库，以实现无缝的文档工作流程。",
+    "description": "Notion Skills + Notion MCP server packaged as a Claude Code plugin.",
     "author": {
       "name": "Notion Labs",
       "url": "https://www.notion.so"

@@ -1,7 +1,7 @@
 {
   "name": "astronomer-data",
   "version": "0.1.0",
-  "description": "Apache Airflow 和 Astronomer 的数据工程。使用最佳实践编写 DAG、调试管道故障、跟踪数据沿袭、配置文件表、将 Airflow 2 迁移到 3 以及管理本地和云部署。",
+  "description": "Data engineering plugin - warehouse exploration, pipeline authoring, Airflow integration",
   "hooks": {
     "SessionStart": [
       {

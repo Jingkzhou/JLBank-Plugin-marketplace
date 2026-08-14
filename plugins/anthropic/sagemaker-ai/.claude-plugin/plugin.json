@@ -2,7 +2,7 @@
   "author": {
     "name": "Amazon Web Services"
   },
-  "description": "将深厚的 AWS AI/ML 专业知识直接引入您的编码助手中，构建、训练和部署 AI 模型，涵盖 Amazon SageMaker AI 的表面区域。",
+  "description": "Build, train, and deploy AI models with deep AWS AI/ML expertise brought directly into your coding assistants, covering the surface area of Amazon SageMaker AI.",
   "homepage": "https://github.com/awslabs/agent-plugins",
   "keywords": [
     "sagemaker",

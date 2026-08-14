@@ -1,6 +1,6 @@
 {
   "name": "firecrawl",
-  "description": "由 Firecrawl 提供支持的网络抓取和爬行。将任何网站转变为干净的、可供法学硕士使用的降价或结构化数据。抓取单个页面、爬行整个网站、搜索网络并提取结构化信息。包括用于自主多源数据收集的人工智能代理 - 只需描述您需要的内容，它就会自动查找、导航和提取。",
+  "description": "Scrape, search, crawl, and map the web with a single command.",
   "version": "1.0.9",
   "author": {
     "name": "Firecrawl"

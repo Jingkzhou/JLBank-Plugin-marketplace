@@ -1,6 +1,6 @@
 {
   "name": "agent-sdk-dev",
-  "description": "用于与 Claude Agent SDK 配合使用的开发套件",
+  "description": "Claude Agent SDK Development Plugin",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"

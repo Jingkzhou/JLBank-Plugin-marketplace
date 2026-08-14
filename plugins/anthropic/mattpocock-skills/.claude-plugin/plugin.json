@@ -1,7 +1,7 @@
 {
   "name": "mattpocock-skills",
   "version": "1.2.3",
-  "description": "马特·波科克 (Matt Pocock) 的真实工程代理技能 — 烧烤、规格/票据流程、TDD、代码审查、领域建模等等。即插即用，而不是振动编码。",
+  "description": "Matt Pocock's agent skills for real engineering — grilling, spec/ticket flows, TDD, code review, domain modelling and more. Plug-and-play, not vibe coding.",
   "author": {
     "name": "Matt Pocock",
     "url": "https://www.aihero.dev"

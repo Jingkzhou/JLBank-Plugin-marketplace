@@ -1,7 +1,7 @@
 {
   "name": "sonarqube",
   "version": "2.4.0",
-  "description": "在代理编码循环中自动实施 SonarQube 代码质量和安全性 — 超过 40 种语言的 7,000 多个规则、秘密扫描、代理分析和质量门。 PostToolUse 挂钩在每次文件编辑后运行分析。工具前秘密扫描可防止 450 多种模式达到法学硕士。斜线命令可以按需访问质量门状态、覆盖范围、重复和依赖性风险。包括 SonarQube CLI、MCP 服务器、技能、挂钩和斜线命令。",
+  "description": "SonarQube is the AI code quality and security verification platform used by millions of developers to catch bugs, vulnerabilities, and leaked secrets. This plugin enforces those standards in the agent coding loop: 7,500+ distinct issue types, secrets scanning, agentic analysis, and quality gates across 40+ languages.",
   "author": {
     "name": "Sonar",
     "url": "https://www.sonarsource.com/"

@@ -1,6 +1,6 @@
 {
 	"name": "RevenueCat",
-	"description": "直接从 Claude Code 配置 RevenueCat 项目、应用程序、产品、权利和产品。无需离开开发工作流程即可管理您的应用内购买后端。",
+	"description": "Set up RevenueCat, integrate it, and access data.",
 	"version": "2.0.0",
 	"license": "MIT",
 	"keywords": ["revenuecat", "in-app-purchases", "subscriptions", "monetization", "iap", "mcp"],	

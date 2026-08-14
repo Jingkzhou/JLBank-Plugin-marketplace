@@ -1,7 +1,7 @@
 {
   "name": "code-simplifier",
   "version": "1.0.0",
-  "description": "代理可以简化和细化代码，以实现清晰度、一致性和可维护性，同时保留功能。重点关注最近修改的代码。",
+  "description": "Agent that simplifies and refines code for clarity, consistency, and maintainability while preserving functionality",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"

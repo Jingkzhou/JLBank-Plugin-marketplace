@@ -1,7 +1,7 @@
 {
   "name": "datadog",
   "version": "0.7.14",
-  "description": "通过预配置的 Datadog MCP 服务器直接在 Claude Code 中使用 Datadog。通过自然对话查询日志、指标、跟踪、仪表板等。该插件处于预览状态。",
+  "description": "Use Datadog directly in Claude Code through a preconfigured Datadog MCP server. Query logs, metrics, traces, dashboards, and more through natural conversation. This plugin is in preview.",
   "author": {
     "name": "Datadog"
   },

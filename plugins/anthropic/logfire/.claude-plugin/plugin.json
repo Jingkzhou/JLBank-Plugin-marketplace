@@ -1,6 +1,6 @@
 {
   "name": "logfire",
-  "description": "通过针对 FastAPI、httpx、asyncpg、SQLAlchemy 等的自动检测，将 Logfire 可观察性添加到 Python 应用程序",
+  "description": "Add Logfire observability to Python applications with auto-instrumentation for FastAPI, httpx, asyncpg, SQLAlchemy, and more",
   "version": "0.1.4",
   "author": {
     "name": "Pydantic",

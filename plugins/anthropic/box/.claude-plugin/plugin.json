@@ -1,6 +1,6 @@
 {
   "name": "box",
-  "description": "直接从 Claude Code 处理您的 Box 内容 — 搜索文件、组织文件夹、与您的团队协作，并使用 Box AI 来回答问题、总结文档和提取数据，而无需离开您的工作流程。",
+  "description": "Box Plugin for Claude Code to help with Box Platform integrations including content workflows, shared links, webhooks, metadata, and Box AI retrieval.",
   "version": "1.0.0",
   "author": {
     "name": "Box"

@@ -1,6 +1,6 @@
 {
   "name": "figma",
-  "description": "Figma 设计平台集成。访问设计文件、提取组件信息、读取设计标记并将设计转换为代码。弥合设计和开发工作流程之间的差距。",
+  "description": "Plugin that includes the Figma MCP server and Skills for common workflows",
   "version": "2.2.91",
   "author": {
     "name": "Figma"

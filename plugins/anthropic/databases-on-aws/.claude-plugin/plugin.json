@@ -2,7 +2,7 @@
   "author": {
     "name": "Amazon Web Services"
   },
-  "description": "AWS 数据库产品组合的专家数据库指南。设计架构、执行查询、处理迁移并为您的工作负载选择正确的数据库。",
+  "description": "Expert database guidance for the AWS database portfolio. Design schemas, execute queries, handle migrations, and choose the right database for your workload.",
   "homepage": "https://github.com/awslabs/agent-plugins",
   "keywords": [
     "aws",

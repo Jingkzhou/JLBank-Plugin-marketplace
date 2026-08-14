@@ -1,6 +1,6 @@
 {
   "name": "buildkite",
-  "description": "适用于 Claude Code、Cursor 和其他 AI 编码代理的官方 Buildkite 技能 — 管道、迁移、预检、代理运行时、CLI 和 API",
+  "description": "Official Buildkite skills for Claude Code, Cursor, and other AI coding agents — pipelines, migration, preflight, agent runtime, CLI, and API",
   "version": "1.0.0",
   "skills": "./skills/"
 }

@@ -1,7 +1,7 @@
 {
   "name": "aikido",
   "version": "1.2.5",
-  "description": "Aikido 安全扫描 Claude Code — 由 Aikido MCP 服务器提供支持的 SAST、秘密和 IaC 漏洞检测。",
+  "description": "Aikido Security for Claude Code: scan code (SAST, secrets, IaC) and list all issues from your Aikido feed powered by the Aikido MCP server.",
   "author": {
     "name": "Aikido Security",
     "url": "https://aikido.dev"

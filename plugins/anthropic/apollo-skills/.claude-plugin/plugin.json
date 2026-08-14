@@ -1,6 +1,6 @@
 {
   "name": "apollo-skills",
-  "description": "适用于 Claude Code 的 Apollo GraphQL 代理技能 — Apollo 客户端、服务器、联合、连接器、路由器、Rover CLI、iOS、Kotlin 和 Apollo MCP 服务器。涵盖架构设计、查询优化和 GraphQL 最佳实践。",
+  "description": "Agent skills for AI coding agents working with Apollo GraphQL tools and technologies",
   "version": "1.2.9",
   "author": {
     "name": "Apollo GraphQL",

@@ -1,6 +1,6 @@
 {
   "name": "mcp-server-dev",
-  "description": "设计和构建与 Claude 无缝协作的 MCP 服务器的技能。指导您完成部署模型（远程 HTTP、MCPB、本地）、工具设计模式、身份验证和交互式 MCP 应用程序。",
+  "description": "Skills for designing and building MCP servers that work seamlessly with Claude — guides you through deployment models (remote HTTP, MCPB, local), tool design patterns, auth, and interactive MCP apps.",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"

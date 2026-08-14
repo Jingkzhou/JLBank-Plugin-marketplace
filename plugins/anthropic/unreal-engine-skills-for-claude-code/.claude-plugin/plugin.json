@@ -1,7 +1,7 @@
 {
   "name": "unreal-engine-skills-for-claude-code",
   "version": "3.0.4",
-  "description": "通过 MCP 从 Claude Code 直接控制虚幻编辑器。通过 Unreal 的 ToolsetRegistry 公开了 30 多个工具集中的数百个工具：演员、蓝图、材质、Niagara、控制装置、序列器、状态树、小部件、游戏能力系统、自动化测试等等。",
+  "description": "Control Unreal Editor directly from Claude Code via MCP. Hundreds of tools exposed via Unreal's ToolsetRegistry across 30+ toolsets: actors, blueprints, materials, Niagara, Control Rigs, Sequencer, State Trees, widgets, Gameplay Ability System, automation testing, and more.",
   "author": {
     "name": "Thomas Mansencal",
     "email": "thomas.mansencal@epicgames.com"

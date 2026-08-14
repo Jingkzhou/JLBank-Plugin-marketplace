@@ -1,6 +1,6 @@
 {
   "name": "cloudflare",
-  "description": "Cloudflare 开发者平台的技能：Workers、Durable Objects、Agents SDK、MCP 服务器、Wrangler CLI 和 Web 性能。",
+  "description": "Skills for the Cloudflare developer platform: Workers, Durable Objects, Agents SDK, MCP servers, Wrangler CLI, and web performance",
   "version": "1.0.0",
   "author": {
     "name": "Cloudflare"

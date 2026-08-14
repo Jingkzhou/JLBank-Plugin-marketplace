@@ -1,7 +1,7 @@
 {
   "name": "mcp-apps",
   "version": "0.1.0",
-  "description": "使用 MCP Apps SDK 创建 MCP 应用程序的技能",
+  "description": "Claude Code skill for building MCP Apps with interactive UIs",
   "author": {
     "name": "MCP Apps"
   },

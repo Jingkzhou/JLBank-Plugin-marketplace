@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "alloydb-omni",
   "version": "0.2.1",
-  "description": "创建、连接 AlloyDB Omni 数据库和数据并与之交互。",
+  "description": "Create, connect, and interact with an AlloyDB Omni database and data.",
   "author": {
     "name": "Google LLC",
     "email": "data-cloud-ai-integrations@google.com"

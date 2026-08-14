@@ -1,6 +1,6 @@
 {
   "name": "fiftyone",
-  "description": "构建高质量的数据集和计算机视觉模型。可视化数据集、分析模型、查找重复项、运行推理、评估预测以及开发自定义插件。",
+  "description": "Build high-quality datasets and computer vision models. Visualize datasets, analyze models, find duplicates, run inference, evaluate predictions, and develop custom plugins.",
   "version": "1.0.3",
   "author": {
     "name": "Voxel51"

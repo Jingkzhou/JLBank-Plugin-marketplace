@@ -1,6 +1,6 @@
 {
   "name": "lovable",
-  "description": "通过 Claude Code 构建、迭代、部署和管理 Lovable 应用程序。捆绑官方 Lovable MCP 服务器（远程，OAuth 2.1），并为常见构建/迭代/数据库工作流程添加集中命令，并带有信用和发布安全提示。",
+  "description": "Build, iterate on, deploy, and manage Lovable apps from Claude Code. Bundles the official Lovable MCP server (remote, OAuth 2.1) and adds focused commands for the common build/iterate/database workflows, with credit- and publish-safety prompts.",
   "version": "0.1.0",
   "author": {
     "name": "Lovable",

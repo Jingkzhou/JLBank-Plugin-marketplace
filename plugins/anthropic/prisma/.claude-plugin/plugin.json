@@ -1,6 +1,6 @@
 {
   "name": "prisma",
-  "description": "Prisma MCP 集成用于 Postgres 数据库管理、架构迁移、SQL 查询和连接字符串管理。配置 Prisma Postgres 数据库、运行迁移并直接与数据交互。",
+  "description": "Prisma MCP integration for Postgres database management, schema migrations, SQL queries, and connection string management. Provision Prisma Postgres databases, run migrations, and interact with your data directly.",
   "author": {
     "name": "Prisma"
   }

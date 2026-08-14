@@ -1,6 +1,6 @@
 {
   "name": "mcp-tunnels",
-  "description": "通过 Anthropic MCP 隧道将 Claude 连接到专用 MCP 服务器。 /create-docker-mcp-tunnel 命令端到端驱动 Docker Compose 快速入门：证书、代理配置、cloudflared 和可验证的示例服务器。",
+  "description": "Connect Claude to a private MCP server through an Anthropic MCP tunnel. Drives the Docker Compose quickstart end to end: certificates, proxy config, cloudflared, and a verifiable sample server.",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"

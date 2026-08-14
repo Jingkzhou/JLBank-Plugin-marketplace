@@ -1,6 +1,6 @@
 {
   "name": "zilliz",
-  "description": "Zilliz Cloud 管理插件，具有 14 项技能，涵盖集群生命周期、集合模式、向量搜索、索引调整、批量导入、RBAC、备份和监控。",
+  "description": "Manage Zilliz Cloud clusters and Milvus vector databases from Claude Code using the zilliz-cli.",
   "version": "1.4.2",
   "author": {
     "name": "Zilliz",

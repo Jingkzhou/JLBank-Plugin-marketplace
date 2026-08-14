@@ -1,7 +1,7 @@
 {
   "name": "fastly-agent-toolkit",
   "version": "0.1.0",
-  "description": "快速开发工具和平台技能",
+  "description": "Fastly development tools and platform skills",
   "author": {"name": "Fastly"},
   "keywords": ["fastly", "edge", "compute", "vcl", "cdn"]
 }

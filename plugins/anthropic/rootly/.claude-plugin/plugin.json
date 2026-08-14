@@ -1,7 +1,7 @@
 {
   "name": "rootly",
   "version": "2.2.0",
-  "description": "全生命周期事件管理：部署安全、事件响应、待命管理和回顾。",
+  "description": "Full-lifecycle incident management from your IDE. Prevent incidents before deploy, respond in real-time, and learn from post-mortems -- powered by Rootly.",
   "author": {
     "name": "Rootly AI Labs",
     "email": "support@rootly.com",

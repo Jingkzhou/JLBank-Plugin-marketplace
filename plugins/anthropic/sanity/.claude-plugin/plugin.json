@@ -1,6 +1,6 @@
 {
   "name": "sanity",
-  "description": "Sanity 内容平台与 MCP 服务器、代理技能和斜杠命令集成。查询和创作内容、构建和优化 GROQ 查询、设计架构以及设置可视化编辑。",
+  "description": "Sanity plugin for Claude Code with MCP server, agent skills, agent rules, and slash commands.",
   "version": "1.0.0",
   "author": {
     "name": "Sanity",

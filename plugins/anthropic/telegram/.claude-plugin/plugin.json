@@ -1,6 +1,6 @@
 {
   "name": "telegram",
-  "description": "具有内置访问控制的 Telegram 消息传递桥。通过 /telegram:access 管理配对、白名单和策略。",
+  "description": "Telegram channel for Claude Code \u2014 messaging bridge with built-in access control. Manage pairing, allowlists, and policy via /telegram:access.",
   "version": "0.0.6",
   "keywords": [
     "telegram",

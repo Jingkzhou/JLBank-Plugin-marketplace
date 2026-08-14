@@ -1,7 +1,7 @@
 {
   "name": "postiz",
   "version": "2.0.12",
-  "description": "社交媒体自动化 CLI，用于跨 28 个以上平台（包括 X、LinkedIn、Reddit、YouTube、TikTok、Instagram 等）安排帖子、管理集成、上传媒体和跟踪分析",
+  "description": "Social media automation CLI for scheduling posts, managing integrations, uploading media, and tracking analytics across 28+ platforms including X, LinkedIn, Reddit, YouTube, TikTok, Instagram, and more",
   "author": {
     "name": "Nevo David",
     "email": "nevo@postiz.com",

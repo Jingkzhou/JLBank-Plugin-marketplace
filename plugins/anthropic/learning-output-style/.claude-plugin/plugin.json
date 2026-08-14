@@ -1,7 +1,7 @@
 {
   "name": "learning-output-style",
   "version": "1.0.0",
-  "description": "交互式学习模式，在决策点请求有意义的代码贡献（模仿未交付的学习输出风格）",
+  "description": "Interactive learning mode that requests meaningful code contributions at decision points (mimics the unshipped Learning output style)",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"

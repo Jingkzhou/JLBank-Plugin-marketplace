@@ -2,7 +2,7 @@
   "name": "aws-startup-advisor",
   "displayName": "AWS Startup Advisor",
   "version": "1.5.4",
-  "description": "面向初创公司的个性化架构、成本、安全性和迁移指南。从第一天的帐户设置和安全基线到生产就绪的基础设施、成本优化等。包括 AWS Activate 积分资格、60 多项独家启动优惠以及多账户多区域支持。基于 AWS 初创公司解决方案架构师的专业知识和超过 350,000 家初创公司的模式。",
+  "description": "Personalized AWS guidance built on patterns from 350,000+ startups—architecture, cost, security, and migration, from day-one account setup to production-ready infrastructure. Includes AWS Activate credits eligibility and 60+ exclusive startup offers. Built by AWS Startup Solutions Architects, with multi-account, multi-region support.",
   "author": {
     "name": "Amazon Web Services"
   },

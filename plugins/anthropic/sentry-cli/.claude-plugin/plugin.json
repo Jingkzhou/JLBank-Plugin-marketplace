@@ -1,5 +1,5 @@
 {
   "name": "sentry-cli",
   "version": "0.43.0",
-  "description": "使用Sentry CLI从命令行与Sentry交互的技巧"
+  "description": "Skills for using the Sentry CLI to interact with Sentry from the command line"
 }

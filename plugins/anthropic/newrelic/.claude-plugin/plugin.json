@@ -1,6 +1,6 @@
 {
   "name": "newrelic",
-  "description": "克劳德代码的新遗物可观察性智能。研究 APM 性能、分析云成本、调试 Kubernetes、编写 NRQL 查询以及响应警报 - 所有这些都可以使用 New Relic 遥测数据从您的终端进行。",
+  "description": "New Relic observability intelligence for Claude Code. Investigate APM performance, analyze cloud costs, debug Kubernetes, write NRQL queries, and respond to alerts — all from your terminal using New Relic telemetry data.",
   "version": "1.0.0",
   "author": {
     "name": "New Relic",

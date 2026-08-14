@@ -1,6 +1,6 @@
 {
   "name": "wix",
-  "description": "构建、管理和部署 Wix 站点和应用程序。使用 Wix 设计系统的仪表板扩展、后端 API、站点小部件和服务插件的 CLI 开发技能，以及用于站点管理的 MCP 服务器。",
+  "description": "Build, manage, and deploy Wix sites and apps. Includes CLI development skills and Wix MCP server for site management, eCommerce, CMS, dashboard extensions, and more.",
   "version": "1.16.0",
   "author": {
     "name": "Wix",

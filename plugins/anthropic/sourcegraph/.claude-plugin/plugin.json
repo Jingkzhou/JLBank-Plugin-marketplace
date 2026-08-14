@@ -1,6 +1,6 @@
 {
   "name": "sourcegraph",
-  "description": "跨代码库的代码搜索和理解。跨存储库搜索、读取和跟踪引用；分析重构影响；通过提交和差异搜索调查事件；运行有针对性的安全扫描。",
+  "description": "Use Sourcegraph MCP from Claude Code for code search, navigation, history, and Deep Search.",
   "version": "0.1.0",
   "author": {
     "name": "Sourcegraph Community"

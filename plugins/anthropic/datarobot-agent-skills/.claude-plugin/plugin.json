@@ -1,5 +1,5 @@
 {
   "name": "datarobot-agent-skills",
-  "description": "AI/ML 工作流程的 DataRobot 技能 — 模型训练、部署、预测、特征工程、监控、可解释性、数据准备、应用程序框架 CI/CD 和外部代理监控。",
+  "description": "DataRobot skills for AI/ML workflows — model training, deployment, predictions, feature engineering, monitoring, explainability, data preparation, App Framework CI/CD, and external agent monitoring.",
   "version": "1.5.0"
 }

@@ -1,7 +1,7 @@
 {
   "name": "canva",
   "version": "1.0.0",
-  "description": "使用 Canva MCP 服务器创建、编辑、审查、调整大小和品牌检查 Canva 设计。",
+  "description": "Create, edit, review, resize, and brand-check Canva designs with the Canva MCP server.",
   "author": {
     "name": "Canva"
   },

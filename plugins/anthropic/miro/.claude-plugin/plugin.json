@@ -1,7 +1,7 @@
 {
   "name": "miro",
   "version": "1.3.0",
-  "description": "安全访问 Miro 板。使 AI 能够读取电路板上下文、创建图表并生成具有企业级安全性的代码。",
+  "description": "Secure access to Miro boards. Enables AI to read board context, create diagrams, and generate code with enterprise-grade security.",
   "author": {
     "name": "Miro",
     "email": "support@miro.com"

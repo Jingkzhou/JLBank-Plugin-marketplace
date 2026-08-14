@@ -2,7 +2,7 @@
   "name": "azure-cosmos-db-assistant",
   "displayName": "Azure Cosmos DB",
   "version": "1.0.0",
-  "description": "Azure Cosmos DB 专家助理 — 数据建模、查询优化、性能调整和最佳实践。",
+  "description": "Azure Cosmos DB plugin for Claude Code. Includes 73 best-practice rules across 10 categories covering data modeling, partition key design, query optimization, SDK usage, indexing, throughput management, global distribution, monitoring, design patterns, and vector search. No external services or configuration required. Optional MCP Toolkit integration available for live database operations.",
   "author": {
     "name": "Azure Cosmos DB",
     "url": "https://azure.microsoft.com/products/cosmos-db"

@@ -1,6 +1,6 @@
 {
   "name": "ckeditor",
-  "description": "在任何 JavaScript 项目中安装、配置和集成 CKEditor 5（免费和高级）。",
+  "description": "Install, configure, and integrate CKEditor 5 (free and premium) in any JavaScript project.",
   "version": "0.1.1",
   "author": {
     "name": "CKEditor (CKSource)",

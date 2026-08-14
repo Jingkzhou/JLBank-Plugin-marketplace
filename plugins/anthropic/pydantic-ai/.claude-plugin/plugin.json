@@ -1,6 +1,6 @@
 {
   "name": "ai",
-  "description": "从一开始就编写准确的 Pydantic AI 代码。代理、工具、结构化输出、流媒体和多代理应用程序的最新模式、决策树和常见问题。",
+  "description": "Build production-grade AI agents with Pydantic AI — tools, capabilities, structured output, streaming, and testing patterns",
   "version": "0.1.0",
   "author": {
     "name": "Pydantic",

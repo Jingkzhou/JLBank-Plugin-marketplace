@@ -1,7 +1,7 @@
 {
   "name": "netlify-skills",
   "version": "1.2.1",
-  "description": "Claude Code 的 Netlify 平台技能 — 函数、边缘函数、blob、数据库、图像 CDN、表单、配置、CLI、框架、缓存、AI 网关和部署。",
+  "description": "Netlify platform skills — functions, edge functions, blobs, database, identity, image CDN, forms, config, CLI, frameworks, caching, AI gateway, and deployment",
   "author": {
     "name": "Netlify"
   },

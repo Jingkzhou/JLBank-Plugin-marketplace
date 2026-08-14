@@ -1,7 +1,7 @@
 {
   "name": "forge-skills",
   "version": "0.1.0",
-  "description": "Atlassian Forge 的专注于 Forge 的技能和 MCP 配置：支架和部署应用程序（forge 创建、模板、开发空间）、为 Rovo Search/Rovo Chat 构建 Teamwork Graph 连接器、预部署审查、系统调试，以及通过 MCP 进行 Forge 文档和 Atlassian Design System 查找。",
+  "description": "Forge app builder skill bundle with Forge MCP configuration for Atlassian Forge workflows.",
   "author": {
     "name": "Atlassian Labs"
   },

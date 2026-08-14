@@ -1,6 +1,6 @@
 {
   "name": "crowdstrike-falcon-fusion",
-  "description": "CrowdStrike Falcon Fusion 创作、部署和执行 Fusion 工作流程的技能。包括实时操作发现、带有架构验证的 YAML 创作、工作流程导入和发布、执行监控以及 Falcon Next-Gen SIEM 查找文件。",
+  "description": "CrowdStrike Falcon Fusion skills for authoring, deploying, and executing Fusion workflows. Includes live action discovery, YAML authoring with schema validation, workflow import and release, execution monitoring, and Falcon Next-Gen SIEM lookup files.",
   "version": "1.0.1",
   "author": {
     "name": "CrowdStrike"

@@ -1,6 +1,6 @@
 {
   "name": "qdrant",
-  "description": "Qdrant 矢量搜索的代理技能，涵盖 Python、TypeScript、Rust、Go、.NET 和 Java 的扩展、性能优化、搜索质量、监控、部署、模型迁移、版本升级和 SDK 使用。",
+  "description": "Agent skills for Qdrant vector search: scaling, performance optimization, search quality, monitoring, deployment, edge, model migration, multitenancy, version upgrades, and SDK usage",
   "version": "1.0.0",
   "author": {
     "name": "Qdrant"

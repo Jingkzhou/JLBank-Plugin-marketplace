@@ -1,7 +1,7 @@
 {
   "name": "cloud-sql-mysql",
   "version": "0.2.0",
-  "description": "连接 Cloud SQL for MySQL 数据库和数据并与之交互。",
+  "description": "Connect and interact with a Cloud SQL for MySQL database and data.",
   "author": {
     "name": "Google LLC",
     "email": "data-cloud-ai-integrations@google.com"

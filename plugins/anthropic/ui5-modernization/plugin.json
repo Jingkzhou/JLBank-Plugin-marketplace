@@ -1,7 +1,7 @@
 {
     "name": "ui5-modernization",
     "version": "0.1.8",
-    "description": "完整的 UI5 现代化工具包，包含用于现代化 SAPUI5/OpenUI5 应用程序的工作流程和专门的修复模式。",
+    "description": "Complete UI5 modernization toolkit with workflow and specialized fix patterns for modernizing SAPUI5/OpenUI5 applications",
     "author": {
         "name": "SAP SE"
     },

@@ -1,6 +1,6 @@
 {
   "name": "greptile",
-  "description": "人工智能驱动的代码库搜索和理解。使用自然语言查询您的存储库，以查找相关代码、了解依赖关系并获取有关代码库架构的上下文答案。",
+  "description": "AI code review agent for GitHub and GitLab. View and resolve Greptile's PR review comments directly from Claude Code.",
   "author": {
     "name": "Greptile",
     "url": "https://greptile.com"

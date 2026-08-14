@@ -1,6 +1,6 @@
 {
   "name": "workos",
-  "description": "AuthKit、SSO、目录同步、RBAC、Vault、审核日志、迁移和 API 参考的 WorkOS 集成技能。",
+  "description": "WorkOS integration skills for AuthKit, SSO, Directory Sync, RBAC, Vault, Audit Logs, migrations, and API references.",
   "version": "0.7.1",
   "author": {
     "name": "WorkOS",

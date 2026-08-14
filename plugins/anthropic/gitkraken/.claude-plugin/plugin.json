@@ -1,6 +1,6 @@
 {
   "name": "gitkraken",
-  "description": "使 Claude 能够访问您的真实 Git 和项目上下文：提交、分支、拉取请求以及您工作的每个存储库中的问题。可与 GitHub、GitLab、Azure DevOps、Bitbucket 和 Jira 配合使用。",
+  "description": "This plugin gives Claude access to your real Git and project context: commits, branches, pull requests, and issues across every repo you work in. Ask the agent a question about your work, and it answers from what's actually in your history and your trackers, not what it can guess from the open file.\n\nWorks with GitHub, GitLab, Azure DevOps, Bitbucket, and Jira.",
   "version": "1.0.0",
   "author": {
     "name": "GitKraken"

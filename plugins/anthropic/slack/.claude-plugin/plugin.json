@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "slack",
-  "description": "Slack 工作区集成。在编码时搜索消息、访问频道、阅读主题并与团队的通信保持联系。快速查找相关讨论和背景。",
+  "description": "Bring Slack into your AI tools with a Slack MCP server and Slack skills",
   "version": "1.2.0",
   "author": {
     "name": "Slack",

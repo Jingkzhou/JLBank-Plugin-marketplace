@@ -1,7 +1,7 @@
 {
     "name": "ui5",
     "version": "0.1.8",
-    "description": "用于编码代理的 SAPUI5 / OpenUI5 插件。创建和验证 UI5 项目、访问 API 文档、运行 UI5 linter、获取 UI5 开发的开发指南和最佳实践。",
+    "description": "SAPUI5 / OpenUI5 plugin for coding agents. Creates and validates UI5 projects, accesses API documentation, runs UI5 linter, retrieves development guidelines and best practices for UI5 development.",
     "author": {
         "name": "SAP SE"
     },

@@ -1,6 +1,6 @@
 {
   "name": "huggingface-skills",
-  "description": "构建、训练、评估和使用开源 AI 模型、数据集和空间。",
+  "description": "Core Hugging Face Hub operations through the hf CLI, including skill installation, repo management, jobs, datasets, models, Spaces, and discovery.",
   "version": "1.0.23",
   "author": {
     "name": "Hugging Face"

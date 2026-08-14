@@ -1,7 +1,7 @@
 {
   "name": "planetscale",
   "version": "1.0.0",
-  "description": "经过身份验证的托管 MCP 服务器，用于访问您的 PlanetScale 组织、数据库、分支、架构和 Insights 数据。查询您的数据、显示慢速查询并获取组织和帐户信息。",
+  "description": "An authenticated hosted MCP server that accesses your PlanetScale organizations, databases, branches, schema, and Insights data.",
   "mcpServers": "./.mcp.json",
   "skills": "./database-skills/skills",
   "author": {

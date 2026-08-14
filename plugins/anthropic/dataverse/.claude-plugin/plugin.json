@@ -1,6 +1,6 @@
 {
   "name": "dataverse",
-  "description": "使用 Dataverse MCP、PAC CLI 和 Python SDK 构建、分析和管理 Microsoft Dataverse 的代理技能。",
+  "description": "Microsoft Dataverse plugin for coding agents — powering CRUD, bulk data operations, advanced queries, schema lifecycle, and environment management through intelligent skills that unify MCP, CLI, and SDK workflows.",
   "version": "1.11.1",
   "author": {
     "name": "Microsoft",

@@ -1,7 +1,7 @@
 {
   "name": "skillsh-microsoft-azure-skills",
   "version": "0.0.0-mirror",
-  "description": "JLBank 镜像的 skills.sh 技能集合，共收录 13 项技能。",
+  "description": "JLBank mirror of popular skills from microsoft/azure-skills.",
   "author": {
     "name": "microsoft/azure-skills"
   }

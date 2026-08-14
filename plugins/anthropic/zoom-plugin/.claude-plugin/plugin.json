@@ -1,6 +1,6 @@
 {
   "name": "zoom-plugin",
-  "description": "Claude 插件，用于规划、构建和调试跨 REST API、SDK、Webhook、机器人和 MCP 工作流程的 Zoom 集成。",
+  "description": "Claude plugin for planning, registering, building, and debugging Zoom integrations across Marketplace apps, REST APIs, SDKs, webhooks, bots, and MCP workflows",
   "version": "1.2.0",
   "homepage": "https://developers.zoom.us/",
   "repository": "https://github.com/zoom/zoom-plugin",

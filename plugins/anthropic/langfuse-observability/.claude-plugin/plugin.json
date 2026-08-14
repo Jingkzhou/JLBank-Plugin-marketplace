@@ -1,6 +1,6 @@
 {
   "name": "langfuse-observability",
-  "description": "用于 Claude Code 的 Langfuse 可观测性插件 — 捕获并将跟踪、跨度和会话遥测数据从 Claude Code 导出到 Langfuse，以进行 LLM 监控、调试和评估",
+  "description": "The Langfuse x Claude Code Observability Plugin",
   "version": "1.0.0",
   "author": {
     "name": "Langfuse"

@@ -1,7 +1,7 @@
 {
   "name": "spotify-ads-api",
   "version": "1.7.0",
-  "description": "使用自然语言管理 Spotify 广告活动。创建营销活动、广告组、广告、提取报告并处理 OAuth — 全部通过对话进行。",
+  "description": "Manage Spotify ad campaigns with natural language. Create campaigns, ad sets, ads, pull reports, and handle OAuth — all through conversation.",
   "author": {
     "name": "Alex Murphy"
   },

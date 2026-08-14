@@ -4,7 +4,7 @@
   "skills": [
     "./skills/crowdsec"
   ],
-  "description": "跨裸机、Docker 和 Kubernetes 安装、配置、操作和调试 CrowdSec（cscli、LAPI/CAPI、集线器、保镖、WAF/AppSec）的操作技能。",
+  "description": "Operational skill for installing, configuring, operating, and debugging CrowdSec (cscli, LAPI/CAPI, hub, bouncers, WAF/AppSec) across bare-metal, Docker, and Kubernetes.",
   "author": {
     "name": "CrowdSec",
     "url": "https://github.com/crowdsecurity"

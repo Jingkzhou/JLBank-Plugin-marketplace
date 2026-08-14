@@ -1,6 +1,6 @@
 {
   "name": "legalzoom",
-  "description": "满足商业和个人需求的律师指导和法律工具。人工智能驱动的文件审查可以识别关键风险和重要条款，建议何时聘请律师，并在需要专业知识时转至 LegalZoom 网络。",
+  "description": "LegalZoom Plugin - AI-powered business legal assistance with contract review and attorney consultation",
   "version": "1.0.0",
   "author": {
     "name": "LegalZoom",

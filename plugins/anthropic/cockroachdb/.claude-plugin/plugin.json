@@ -1,7 +1,7 @@
 {
   "name": "cockroachdb",
   "version": "0.1.10",
-  "description": "将 Claude Code 直接连接到您的 CockroachDB 集群以进行数据库实践工作 - 探索模式、编写优化的 SQL、调试查询以及管理分布式数据库集群。该插件提供跨两个活动 MCP 后端（自托管 MCP Toolbox 和托管 CockroachDB Cloud MCP 服务器）的 14 个工具、三个专业代理（DBA、开发人员、操作员）、跨 6 个操作域的 32 种技能以及内置安全挂钩。",
+  "description": "Connect Claude Code directly to your CockroachDB clusters for hands-on database work — explore schemas, write optimized SQL, debug queries, and manage distributed database clusters. This plugin provides tools across MCP backends (self-hosted MCP Toolbox and managed CockroachDB Cloud MCP Server), specialized agents (DBA, Developer, Operator), skills across operational domains, and built-in safety hooks.",
   "author": {
     "name": "Cockroach Labs",
     "url": "https://github.com/cockroachdb"

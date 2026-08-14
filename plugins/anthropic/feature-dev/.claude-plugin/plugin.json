@@ -1,6 +1,6 @@
 {
   "name": "feature-dev",
-  "description": "全面的功能开发工作流程，具有用于代码库探索、架构设计和质量审查的专门代理",
+  "description": "Comprehensive feature development workflow with specialized agents for codebase exploration, architecture design, and quality review",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"

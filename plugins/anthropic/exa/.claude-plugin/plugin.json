@@ -1,6 +1,6 @@
 {
   "name": "exa",
-  "description": "Exa AI 网络搜索、深度研究和内容提取。提供用于综合网络搜索、人员发现、公司研究、学术论文等的 MCP 工具和研究技能。",
+  "description": "Exa web search, content fetching, and multi-step research via MCP tools and skills.",
   "version": "3.4.0",
   "author": {
     "name": "Exa",

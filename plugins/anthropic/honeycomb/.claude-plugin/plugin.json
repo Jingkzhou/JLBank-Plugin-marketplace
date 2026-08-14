@@ -1,7 +1,7 @@
 {
   "name": "honeycomb",
   "version": "1.1.0",
-  "description": "Honeycomb 可观测性的技能、代理和工作流程 — 查询模式、生产调查、SLO、OpenTelemetry 仪器和 Beeline 迁移。旨在补充 Honeycomb MCP 服务器。",
+  "description": "Skills, agents, and workflows for Honeycomb observability — query patterns, production investigations, SLOs, OpenTelemetry instrumentation, and Beeline migration. Designed to complement the Honeycomb MCP server.",
   "author": {
     "name": "Honeycomb",
     "url": "https://honeycomb.io"

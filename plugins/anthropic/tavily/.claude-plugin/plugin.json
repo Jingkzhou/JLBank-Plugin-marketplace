@@ -1,7 +1,7 @@
 {
   "name": "tavily",
   "version": "1.0.0",
-  "description": "使用 Tavily 的搜索、提取、爬网和研究 API，利用实时 Web 数据构建 AI 应用程序。",
+  "description": "Build AI applications with real-time web data using Tavily's search, extract, crawl, and research APIs.",
   "author": {
     "name": "Tavily Team",
     "email": "dean.sacoransky@tavily.com",

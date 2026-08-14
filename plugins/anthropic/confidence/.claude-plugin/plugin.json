@@ -1,6 +1,6 @@
 {
   "name": "confidence",
-  "description": "直接从 Claude Code 访问 Confidence 功能标志、实验和迁移工具。",
+  "description": "Access Confidence feature flags, experiments, and migration tools directly from Claude Code.",
   "version": "0.7.0",
   "author": {
     "name": "Spotify Confidence",

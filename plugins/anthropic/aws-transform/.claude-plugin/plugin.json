@@ -2,7 +2,7 @@
   "author": {
     "name": "Amazon Web Services"
   },
-  "description": "将代码库迁移、现代化和升级到 AWS。将 .NET Framework 转换为 .NET 8/10、大型机 COBOL 转换为 Java、VMware VM 转换为 EC2、SQL Server 转换为 Aurora，并升级 Java/Python/Node.js 版本和 AWS SDK。 AWS Transform - 持续现代化分析代码库的技术债务、安全问题和升级机会，然后进行修复。",
+  "description": "Migrate, modernize, and upgrade codebases to AWS. Transforms .NET Framework to .NET 8/10, mainframe COBOL to Java, VMware VMs to EC2, SQL Server to Aurora, and upgrades Java/Python/Node.js versions and AWS SDKs. AWS Transform - continuous modernization analyzes codebases for tech debt, security issues, and upgrade opportunities, then remediates them.",
   "homepage": "https://github.com/awslabs/agent-plugins",
   "keywords": [
     "aws",

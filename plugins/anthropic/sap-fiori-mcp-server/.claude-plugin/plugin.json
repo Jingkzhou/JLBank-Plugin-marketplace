@@ -1,7 +1,7 @@
 {
     "name": "sap-fiori-mcp-server",
     "version": "1.11.9",
-    "description": "用于 Claude Code 的 SAP Fiori 开发工具的 MCP 服务器。在 AI 协助下构建和修改 SAP Fiori 应用程序。",
+    "description": "MCP server for SAP Fiori development tools for Claude Code. Build and modify SAP Fiori applications with AI assistance.",
     "author": {
         "name": "SAP SE",
         "email": "ospo@sap.com",

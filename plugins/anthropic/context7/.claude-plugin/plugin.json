@@ -1,6 +1,6 @@
 {
   "name": "context7",
-  "description": "Upstash Context7 MCP 服务器用于最新文档查找。连接到 Context7 的托管远程 MCP 服务器 (https://mcp.context7.com/mcp) — 无需本地 Node.js 或 npx — 将特定于版本的文档和代码示例直接从源存储库提取到您的 LLM 上下文中。开箱即用，匿名工作；设置 CONTEXT7_API_KEY 以获得更高的速率限制。",
+  "description": "Upstash Context7 MCP server for up-to-date documentation lookup. Connects to Context7's hosted remote MCP server (https://mcp.context7.com/mcp) — no local Node.js or npx required — to pull version-specific documentation and code examples directly from source repositories into your LLM context. Works anonymously out of the box; set CONTEXT7_API_KEY for higher rate limits.",
   "author": {
     "name": "Upstash"
   }

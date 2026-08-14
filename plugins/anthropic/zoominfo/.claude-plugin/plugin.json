@@ -1,7 +1,7 @@
 {
   "name": "zoominfo",
   "version": "1.0.1",
-  "description": "搜索公司和联系人、丰富潜在客户、查找相似者并获得人工智能排名的联系人推荐。预构建的技能将多个 ZoomInfo 工具链接到完整的 B2B 销售工作流程中。",
+  "description": "Connect AI agents to ZoomInfo's verified GTM context graph: 100M companies, 300M professional contacts, buyer intent signals, and real-time scoops. Build prospect lists, enrich records, deep research key organizations, find decision-makers, and prioritize accounts by intent. The B2B sales intelligence layer for Claude and any MCP-compatible agent.",
   "author": {
     "name": "ZoomInfo",
     "email": "integrationsupport@zoominfo.com",

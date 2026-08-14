@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "you",
   "version": "0.5.0",
-  "description": "You.com 代理的网络搜索、引用研究和内容提取技能。 Vercel AI SDK、Claude Agent SDK、OpenAI Agents SDK、crewAI、LangChain、Microsoft Teams.ai、直接 REST API 和 bash CLI 的引导集成。",
+  "description": "You.com skills for search, contents, research, finance, and integration discovery with MCP, ARD, API-key, OAuth, and MPP/x402 payment guidance.",
   "author": {
     "name": "You.com",
     "email": "support@you.com",

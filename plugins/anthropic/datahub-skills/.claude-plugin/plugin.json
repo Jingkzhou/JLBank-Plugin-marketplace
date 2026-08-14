@@ -1,7 +1,7 @@
 {
   "name": "datahub-skills",
   "version": "1.4.1",
-  "description": "DataHub 开发和交互工具包，包含连接器规划、PR 审查、目录搜索、元数据丰富、沿袭跟踪、数据质量管理和连接设置技能",
+  "description": "DataHub development and interaction toolkit with connector planning, PR review, catalog search, metadata enrichment, lineage tracing, data quality management, and connection setup skills",
   "author": {
     "name": "DataHub Project"
   }

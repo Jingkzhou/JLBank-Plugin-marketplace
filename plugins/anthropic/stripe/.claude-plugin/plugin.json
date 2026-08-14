@@ -1,6 +1,6 @@
 {
   "name": "stripe",
-  "description": "Claude 的 Stripe 开发插件",
+  "description": "Stripe development plugin for Claude",
   "version": "0.5.1",
   "author": {
     "name": "Stripe",

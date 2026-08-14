@@ -1,6 +1,6 @@
 {
   "name": "databricks",
-  "description": "针对 CLI、应用程序、Lakebase、模型服务、Lakeflow 作业、Spark 声明式管道、声明式自动化捆绑包 (DAB) 以及经典到无服务器迁移的 Databricks 技能。",
+  "description": "Databricks skills for the CLI, Apps, Lakebase, Model Serving, Lakeflow Jobs, Spark Declarative Pipelines, Declarative Automation Bundles (DABs), and classic-to-serverless migration.",
   "version": "0.2.10",
   "author": {
     "name": "Databricks",

@@ -1,6 +1,6 @@
 {
     "name": "pagerduty",
-    "description": "通过 PagerDuty 风险评分和事件关联来增强代码质量和安全性。在发货前根据历史事件数据和地面部署风险对提交前差异进行评分。",
+    "description": "A collection of Claude Code plugins developed by PagerDuty for pre-commit risk assessment and PagerDuty skill creation for AI agents (Early Access).",
     "version": "1.1.0",
     "author": {
         "name": "PagerDuty"

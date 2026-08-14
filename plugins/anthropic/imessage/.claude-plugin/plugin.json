@@ -1,6 +1,6 @@
 {
   "name": "imessage",
-  "description": "具有内置访问控制的 iMessage 消息传递桥。直接读取chat.db，通过AppleScript发送。通过 /imessage:access 管理配对、白名单和策略。",
+  "description": "iMessage channel for Claude Code \u2014 reads chat.db directly, sends via AppleScript. Built-in access control; manage pairing, allowlists, and policy via /imessage:access.",
   "version": "0.1.0",
   "keywords": [
     "imessage",

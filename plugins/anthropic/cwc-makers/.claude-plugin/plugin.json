@@ -1,7 +1,7 @@
 {
   "name": "cwc-makers",
   "version": "1.0.0",
-  "description": "使用一个 /maker-setup 命令装载 Code-with-Claude Makers Cardputer — 克隆 build-with-claude 存储库、刷新 UIFlow 固件并安装 Claude Buddy 应用程序包。",
+  "description": "Seamless onboarding for the Code-with-Claude Makers Cardputer: one /maker-setup command clones the build-with-claude repo, flashes UIFlow firmware, and installs the Claude Buddy app bundle onto a freshly-plugged-in M5Stack Cardputer-Adv.",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"

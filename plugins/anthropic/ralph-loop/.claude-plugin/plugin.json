@@ -1,7 +1,7 @@
 {
   "name": "ralph-loop",
   "version": "1.0.0",
-  "description": "用于迭代开发的交互式自参考 AI 循环，实施 Ralph Wiggum 技术。克劳德反复执行同一任务，查看其先前的工作，直到完成。",
+  "description": "Continuous self-referential AI loops for interactive iterative development, implementing the Ralph Wiggum technique. Run Claude in a while-true loop with the same prompt until task completion.",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"

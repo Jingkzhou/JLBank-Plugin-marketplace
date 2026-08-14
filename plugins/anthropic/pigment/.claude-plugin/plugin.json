@@ -1,6 +1,6 @@
 {
   "name": "pigment",
-  "description": "通过自然语言分析业务数据并构建自定义 Pigment 模型、指标和看板。",
+  "description": "Analyze business data and build planning models in your Pigment workspace",
   "version": "1.0.11",
   "author": {
     "name": "Pigment"

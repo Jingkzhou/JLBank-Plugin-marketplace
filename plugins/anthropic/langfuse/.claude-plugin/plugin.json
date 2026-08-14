@@ -1,6 +1,6 @@
 {
   "name": "langfuse",
-  "description": "使用 Langfuse 的技能，Langfuse 是一个用于跟踪、即时管理和评估的开源 LLM 工程平台。",
+  "description": "Skills for working with Langfuse, the open-source LLM engineering platform for tracing, prompt management, and evaluation.",
   "version": "1.5.2",
   "author": {
     "name": "Langfuse",

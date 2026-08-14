@@ -1,6 +1,6 @@
 {
   "name": "liquid-skills",
-  "description": "Shopify 主题的 Liquid 语言基础知识、CSS/JS/HTML 编码标准和 WCAG 可访问性模式",
+  "description": "Liquid language fundamentals, CSS/JS/HTML coding standards, and WCAG accessibility patterns for Shopify themes",
   "version": "1.0.0",
   "author": {
     "name": "Shopify"

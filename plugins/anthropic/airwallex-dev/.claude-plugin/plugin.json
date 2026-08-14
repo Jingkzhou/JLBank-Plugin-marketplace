@@ -1,6 +1,6 @@
 {
   "name": "airwallex-dev",
-  "description": "在您自己的代码库中构建 Airwallex 支付集成。为 Airwallex 集成生成结帐、卡元素、登录和订阅计费代码，并将其连接到您的项目中：托管支付页面、插入和拆分卡元素、连接帐户 KYC 登录以及用于订阅和卡保存的计费托管结帐。还为人工智能提供商规划卡备案商家发起的流程，例如充值和自动充值。",
+  "description": "Airwallex integration skills for Claude. Code-generation workflows that scaffold, configure, and wire Airwallex APIs into your project.",
   "version": "0.1.0",
   "author": {
     "name": "Airwallex",

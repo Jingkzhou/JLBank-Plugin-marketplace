@@ -1,7 +1,7 @@
 {
   "name": "vercel",
   "version": "0.45.1",
-  "description": "Vercel 部署平台集成。管理部署、检查构建状态、访问日志、配置域并直接从 Claude Code 控制您的前端基础设施。",
+  "description": "Build and deploy web apps and agents",
   "author": {
     "name": "Vercel",
     "url": "https://github.com/vercel"

@@ -1,6 +1,6 @@
 {
   "name": "pixeltable",
-  "description": "使用 Pixeltable 构建多模式 AI 应用程序 - 表、计算列、嵌入搜索、UDF、工具调用代理和超过 25 个 AI 提供商集成。",
+  "description": "Build multimodal AI applications with Pixeltable -- tables, computed columns, embedding search, UDFs, tool-calling agents, and 25+ AI provider integrations.",
   "version": "2.5.5",
   "author": {
     "name": "Pixeltable",
